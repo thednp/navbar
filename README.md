@@ -27,5 +27,11 @@ var myMenu = new Navbar('selector');
 </script>
 ```
 
+# To do
+* Responsive design CSS
+* Responsive design JS
+* LESS/SASS sources
+* npm/Bower and Require/CommonJS
+
 # License
 MIT License
