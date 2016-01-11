@@ -5,6 +5,7 @@ This is a script that most web developers need for a quick site navigation, buil
 Download the package and check the demo folder, an online demo will be available later.
 
 # Features
+* super light code, 1.4k in size when minified
 * opens submenus on `mouseenter`
 * hides submenus on `mouseleave`
 * cross-browser supported
