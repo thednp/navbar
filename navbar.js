@@ -1,3 +1,7 @@
+/* navbar.js - Minimal navigation script
+ * by dnp_theme
+ * Licensed under MIT-License
+ 
 var Navbar = function(el) {
 	var menu = (typeof el === 'object') ? el : queryElement(el), self = this,
 		items = menu.getElementsByTagName('LI'), il = items.length;
