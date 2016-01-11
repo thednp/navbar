@@ -13,13 +13,6 @@ body,html, .content-wrapper { height: 100% } body { display: flex }
 .content-wrapper { display: table; flex: 1; width: 100% }
 
 .container {width: 800px; max-width: 80%; margin: 0 auto}
-.content {
-    clear: both;
-    background: #fff;
-    height: auto;
-    min-height: 400px;
-    padding: 20px 20px 0 20px;
-}
 
 p {margin: 0 0 15px 0}
 
