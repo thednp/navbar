@@ -6,8 +6,9 @@ Download the package and check the demo folder, an online demo will be available
 
 # Features
 * super light code, 1.4k in size when minified
-* opens submenus on `mouseenter`
-* hides submenus on `mouseleave`
+* super simple and easy to customize CSS
+* opens submenus on `mouseenter`, by adding `open` and `open-position` classes to the menu item
+* hides submenus on `mouseleave`, by removing the above classes in a delayed succesion
 * cross-browser supported
 
 # Usage
@@ -29,6 +30,7 @@ var myMenu = new Navbar('selector');
 ```
 
 # To do
+* online demo
 * Responsive design CSS
 * Responsive design JS
 * LESS/SASS sources
