@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Navbar.js is a minimal navigation script built with native Javascript.">
+    <meta name="author" content="thednp">
+    <style>
+        .navigation { float: left; width: 100%; clear: both }
+    </style>
+
+    <title>Navbar.js</title>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="../dist/navbar.css" rel="stylesheet">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/minifill/0.0.1/minifill.min.js"></script>	
+  </head>
+  <body>
+  
+  <div class="content-wrapper">
+    <div class="container"> 
+        <div class="navigation">
+        
+            <ul class="nav main-menu">
+                <li><a href="#">Introduction</a>
+                    <ul>
+                        <li><a href="#">Rentals</a>
+                            <ul>
+                                <li><a href="#">Locations</a>
+                                    <ul>
+                                        <li><a href="#">Rentals</a></li>
+                                        <li><a href="#">Integrate</a></li>
+                                        <li><a href="#">Options</a></li>
+                                        <li><a href="#">Account</a></li>
+                                    </ul>	
+                                </li>
+                                <li><a href="#">Services</a>
+                                    <ul>
+                                        <li><a href="#">Rentals</a></li>
+                                        <li><a href="#">Integrate</a></li>
+                                        <li><a href="#">Options</a></li>
+                                        <li><a href="#">Account</a></li>
+                                    </ul>	
+                                </li>							
+                            </ul>
+                        </li>
+                        <li><a href="#">Personal Info</a>
+                            <ul>
+                                <li><a href="#">Rentals</a></li>
+                                <li><a href="#">Integrate</a></li>
+                                <li><a href="#">Options</a></li>
+                                <li><a href="#">Account</a></li>
+                            </ul>
+                        </li>
+                    </ul>	
+                </li>
+        
+
+                <li><a href="#">Staff</a>
+                    <ul>
+                        <li><a href="#">Rentals</a>
+                            <ul>
+                                <li><a href="#">Integrate</a>
+                                    <ul>	
+                                        <li><a href="#">Options</a></li>
+                                        <li><a href="#">Account</a></li>
+                                        <li><a href="#">Events</a></li>
+                                        <li><a href="#">Classes</a></li>
+                                    </ul>
+                                </li>	
+                                <li><a href="#">Integrate</a>
+                                    <ul>	
+                                        <li><a href="#">Integrate</a></li>
+                                        <li><a href="#">Options</a></li>
+                                        <li><a href="#">Account</a></li>
+                                    </ul>
+                                </li>			
+                            
+                            </ul>
+                        </li>
+
+                    </ul>	
+                </li>
+            </ul>
+        </div>
+    
+   
+        <div class="content"></div>
+    </div>
+   </div>
+   <script src="../dist/navbar.js"></script>   
+   <script type="text/javascript">
+		new Navbar('.nav');
+   </script>
+
+  </body>
+</html>
