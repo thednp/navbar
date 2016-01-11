@@ -10,17 +10,17 @@ Download the package and check the demo folder, an online demo will be available
 * cross-browser supported
 
 # Usage
-Link the required CSS in your document `&lt;head&gt;` tag
+Link the required CSS in your document `<head>` tag
 ```html
 <link href="../dist/navbar.css" rel="stylesheet">
 ```
 
-Link the required JS in your document  `&lt;body&gt;` tag
+Link the required JS in your document  `<body>` tag
 ```html
 <script src="../dist/navbar.js"></script>
 ```
 
-Initiate the function for your elements at the end of your `&lt;body&gt;` tag
+Initiate the function for your elements at the end of your `<body>` tag
 ```javascript
 <script>
 var myMenu = new Navbar('selector');
