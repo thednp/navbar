@@ -5,8 +5,8 @@ This is a script that most web developers need for a quick site navigation, buil
 Download the package and check the demo folder, an online demo will be available later.
 
 # Features
-* super light code, 1.4k in size when minified
-* super simple and easy to customize CSS
+* super light script, 1.4k in size when minified
+* super light and easy to customize CSS
 * opens submenus on `mouseenter`, by adding `open` and `open-position` classes to the menu item
 * hides submenus on `mouseleave`, by removing the above classes in a delayed succesion
 * cross-browser supported
