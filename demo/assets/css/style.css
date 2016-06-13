@@ -14,9 +14,49 @@ body,html, .content-wrapper { height: 100% } body { display: flex }
 
 .container {width: 800px; max-width: 80%; margin: 0 auto}
 
-p {margin: 0 0 15px 0}
+.content-inner {
+    padding: 0 20px
+}
+.content-inner.main {clear: both; float: left; background: #e6e6e6 }
+
+.pull-right {float: right}
+.pull-left {float: left}
+
+/* typo */
+a {color: #333; text-decoration: none}
+a:hover {color: #069}
+
+h1 { font-size: 48px; color: #222; font-weight: bold; letter-spacing: -2px; margin: 48px 0 0 0; line-height: 48px }
+h1 small { font-size: 32px; color: #444; letter-spacing: -2px; font-weight: normal }
+
+p {margin: 0 0 24px 0; line-height: 24px}
+ul { list-style: inherit; list-style-position: inside; }
+
+/* btn */
+.btn {padding: 5px 10px; color: #333; background: #fff; text-decoration: none; font-size: 12px; font-weight: bold; text-transform: uppercase}
+.btn:hover {color: #fff; background: #333}
+.btn-brand { color: #fff; background: #069}
+.btn-brand:hover {color: #fff; background: #f00}
 
 /* navigation */
-.navigation { background-color: #e6e6e6 }
+.navigation { background-color: #444 }
 .navigation.side-nav { width: 15%; display: table-cell; }
 .nav { font-size: 18px; color: #777 }
+
+/* brand */
+a.brand {
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    color: #888;
+    font-weight: bold
+}
+a.brand:hover {
+    color: #fff;
+    background: #ccc;
+}
+
+/* copy */
+.copy {margin: 12px 20px; font-size: 12px;}
+.copy.main {margin: 12px 0}
+.navigation .copy a {color: #eee}

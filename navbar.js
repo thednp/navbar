@@ -6,7 +6,7 @@
 var Navbar = function(el) {
 	var menu = (typeof el === 'object') ? el : document.querySelector(el), self = this,
 		items = menu.getElementsByTagName('LI'), il = items.length,
-        isIE = (new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null) ? parseFloat( RegExp.$1 ) : false;
+    isIE = (new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null) ? parseFloat( RegExp.$1 ) : false;
 
 	function addClass(l,c) { // where modern browsers fail, use classList	
 		if (l.classList) { l.classList.add(c); } else { l.className += ' '+c; l.offsetWidth; }
@@ -21,12 +21,12 @@ var Navbar = function(el) {
 		l.addEventListener("mouseleave", this.leave, false);	
 	},
 	this.enter = function() {
-        var that = this; // this is now the event target, the LI
+		var that = this; // this is now the event target, the LI
 		clearTimeout(this.getAttribute('data-timer'));
-		if ( !/open/.test(this.className) ) {
+		if ( !/\bopen/.test(this.className) ) {
 			self.timer = setTimeout( function() {
-                  addClass(that,'open'); 
-                  addClass(that,'open-position');                        
+				addClass(that,'open'); 
+				addClass(that,'open-position');                        
 				var s = that.parentNode.childNodes; //all parentNode children
 				for ( var h=0; h<s.length; h++ ) {
 					if ( s[h] && s[h].className && /open/.test(s[h].className) && s[h] !== that ) {//siblings only
@@ -43,7 +43,7 @@ var Navbar = function(el) {
 		}
 	},
 	this.leave = function() {
-        var that = this;
+		var that = this;
 		clearTimeout(this.getAttribute('data-timer'));
 		self.timer = setTimeout( function() {
 			if (that && that.className && /open/.test(that.className) && that.querySelector('.form-control') !== document.activeElement ) {
@@ -55,8 +55,8 @@ var Navbar = function(el) {
 	},
 	this.timer = null;
 	for ( var i=0; i<il; i++ ) {
-        if ( items[i].getElementsByTagName('UL').length !== 0 ) {
-            this.init(items[i]);
-        }
+		if ( items[i].getElementsByTagName('UL').length !== 0 ) {
+			this.init(items[i]);
+		}
 	}	
 };
