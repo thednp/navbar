@@ -2,7 +2,7 @@
 This is a script that most web developers need for a quick site navigation, built with Native Javascript and supported on all major browsers as well as legacy browsers starting with IE8.
 
 # Demo
-Download the package and check the demo folder, an online demo will be available later.
+[Click here](http://thednp.github.io/navbar.js/) to check the demo.
 
 # Features
 * opens submenus on mouseenter, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
