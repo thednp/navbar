@@ -12,14 +12,15 @@ Download the package and check the demo folder, an online demo will be available
 * cross-browser supported
 
 # Usage
+Download the [latest package](https://github.com/thednp/navbar.js/archive/master.zip). unpack and inspect the contents. You need to copy the `navbar.js` and `navbar.css` or their minified variations to your app `assets` folders as follows.
 Link the required CSS in your document `<head>` tag
 ```html
-<link href="../dist/navbar.css" rel="stylesheet">
+<link href="../assets/css/navbar.css" rel="stylesheet">
 ```
 
 Link the required JS in your document  `<body>` tag
 ```html
-<script src="../dist/navbar.js"></script>
+<script src="../assets/js/navbar.js"></script>
 ```
 
 Initiate the function for your elements at the end of your `<body>` tag
@@ -30,7 +31,6 @@ var myMenu = new Navbar('selector');
 ```
 
 # To do
-* online demo
 * Responsive design CSS
 * Responsive design JS
 * LESS/SASS sources
