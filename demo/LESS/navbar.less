@@ -1,0 +1,191 @@
+// navbar.js | LESS 
+
+// VARIABLES
+
+// BRAND COLOR
+@brand_color: #069;
+
+// THE MAIN LAYOUT
+@nav_layout: 'main-menu'; // left-side | right-side
+
+// root items
+@root_item_padding: 10px 20px;
+
+@root_item_color: #888;
+@root_item_background: #f6f6f6;
+
+@root_item_hover_color: @brand_color;
+@root_item_hover_background: #fff;
+
+@root_item_active_color: #fff;
+@root_item_active_background: @brand_color;
+
+// submenu items
+@submenu_background: #e6e6e6;
+@submenu_width: 200px;
+
+@submenu_item_padding: 10px 20px;
+@submenu_item_background: #fff;
+@submenu_item_color: #888;
+
+@submenu_item_hover_background: #333;
+@submenu_item_hover_color: #eee;
+
+@submenu_item_active_background: @brand_color;
+@submenu_item_active_color: #fff;
+
+// MIXINS
+.mixin (@nav_layout) when (@nav_layout = 'main-menu'){
+  .main-menu();
+}
+.mixin (@nav_layout) when (@nav_layout = 'left-side'){
+  .left-side();
+}
+.mixin (@nav_layout) when (@nav_layout = 'right-side'){
+  .right-side();
+}
+
+// STYLE
+.nav {
+	list-style: none;
+	li {
+		position: relative;
+		> ul {
+			background: @submenu_background;
+			width: @submenu_width;
+			opacity: 0;
+			position: absolute;
+		}
+		a { // general item styling
+			text-decoration: none;
+			display: block;
+		}
+		> a { // root item
+			padding: @root_item_padding;
+			color: @root_item_color;
+			background: @root_item_background;
+		}
+		li {
+			a { // submenu item
+			  padding: @submenu_item_padding;
+				color: @submenu_item_color;
+				background: @submenu_item_background;
+			}
+			&.open, &:hover { // hover
+				> a {
+					color: @submenu_item_hover_color;
+					background: @submenu_item_hover_background;
+				}
+			}
+			&.active { // active
+				> a {
+					color: @submenu_item_active_color;
+					background: @submenu_item_active_background;
+				}
+			}
+		}
+    &.open {
+      > ul {
+        opacity: 1;
+      }
+    }
+	}
+	> li.open { // root hover
+		> a {
+			background: @root_item_hover_background;
+			color: @root_item_hover_color;
+		}
+	}
+	> li.active { // root active
+		> a {
+			color: @root_item_active_color;
+			background: @root_item_active_background;
+		}
+	}
+  .mixin(@nav_layout);
+}
+
+// LAYOUT & ANIMATION
+.main-menu() { // horizontal
+	> li {
+		float: left;
+	}
+	li {
+		>ul {
+			left: -999em;
+			top: 85%;
+			transition: top .5s, opacity .3s;
+			-webkit-transition: top .5s ease 0s, opacity .3s linear 0s;
+		}
+		li {
+			>ul {
+				top: -999em;
+				left: 85%;
+				transition: left .5s, opacity .3s;
+				-webkit-transition: left .5s ease 0s, opacity .3s linear 0s;
+			}
+		}
+		li.open {
+			>ul {
+				left: 100%;
+			}
+		}
+		li.open-position {
+			>ul {
+				top: 0;
+			}
+		}
+	}
+	li.open {
+		>ul {
+			top: 100%;
+		}
+	}
+	li.open-position {
+		>ul {
+			left: 0;
+		}
+	}
+}
+
+.left-side() { // vertical left-side
+	li {
+		>ul {
+			top: -999em;
+			left: 85%;
+			transition: left .5s, opacity .3s;
+			-webkit-transition: left .5s ease 0s, opacity .3s linear 0s;
+		}
+	}
+	li.open {
+		>ul {
+			left: 100%;
+		}
+	}
+	li.open-position {
+		>ul {
+			top: 0;
+		}
+	}
+}
+
+.right-side() { // vertical right-side
+	li {
+		>ul {
+			top: -999em;
+			right: 85%;
+			transition: right .5s, opacity .3s;
+			-webkit-transition: right .5s ease 0s, opacity .3s linear 0s;
+		}
+	}
+	li.open {
+		>ul {
+			right: 100%;
+		}
+	}
+	li.open-position {
+		>ul {
+			top: 0;
+		}
+	}
+}

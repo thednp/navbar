@@ -1,0 +1,31 @@
+{
+  "name": "navbar.js",
+  "version": "1.0.0",
+  "description": "A quick site navigation with Native Javascript.",
+  "main": "navbar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    // "min": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thednp/navbar.js.git"
+  },
+  "keywords": [
+    "navbar.js",
+    "navigation",
+    "menu",
+    "javascript menu",
+    "javascript navigation",
+    "native javascript"
+  ],
+  "author": "thednp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thednp/navbar.js/issues"
+  },
+  "homepage": "http://thednp.github.io/navbar.js",
+  "dependencies": {
+    "uglify-js": "^2.7.3"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "navbar.js",
+  "version": "1.0.0",
+  "homepage": "http://thednp.github.io/navbar.js",
+  "authors": [
+    "thednp"
+  ],
+  "description": "A quick site navigation with Native Javascript.",
+  "main": "navbar.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "navbar.js",
+    "navigation",
+    "menu",
+    "javascript menu",
+    "javascript navigation",
+    "native javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "uglify-js": "^2.7.3"
+  }
+}

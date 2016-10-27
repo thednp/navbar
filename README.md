@@ -12,7 +12,7 @@ Download the package and check the demo folder, or check it online [here](http:/
 * super light and easy to customize CSS
 * 3 sets of positions top (main), left or right
 * animations are based on position
-* LESS sources `coming soon`
+* LESS/SCSS sources ready
 * cross-browser supported
 
 # Usage
@@ -37,8 +37,7 @@ var myMenu = new Navbar('selector');
 # To do
 * Responsive design CSS
 * Responsive design JS
-* LESS/SASS sources
-* npm/Bower and Require/CommonJS
+* DATA API ??
 
 # License
 [MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)
