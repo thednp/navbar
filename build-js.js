@@ -4,7 +4,6 @@
 // Run node build-js.js --help for usage instructions
 
 var fs = require('fs');
-var path = require('path');
 var uglify = require('uglify-js');
 var pack = require('./package.json');
 var version = 'v'+pack.version;
