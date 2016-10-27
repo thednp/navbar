@@ -58,7 +58,7 @@ You have 3 build tools for building custom builds
 
 * `$ npm run min-js` - to minify the **navbar.js**
 * `$ npm run build-less` - to compile and minify the **navbar.less**
-* `$ npm build-scss` - to compile and minify the **navbar.scss**
+* `$ npm run build-scss` - to compile and minify the **navbar.scss**
 
 
 # To do
