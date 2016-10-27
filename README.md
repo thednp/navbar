@@ -15,6 +15,15 @@ Download the package and check the demo folder, or check it online [here](http:/
 * LESS/SCSS sources ready
 * cross-browser supported
 
+# NPM/Bower
+You can install this through NPM or bower respectively:
+
+```
+$ npm install navbar.js
+# or
+$ bower install navbar.js
+```
+
 # Usage
 Download the [latest package](https://github.com/thednp/navbar.js/archive/master.zip). unpack and inspect the contents. You need to copy the `navbar.js` and `navbar.css` or their minified variations to your app `assets` folders as follows.
 Link the required CSS in your document `<head>` tag
@@ -34,10 +43,19 @@ var myMenu = new Navbar('selector');
 </script>
 ```
 
+On node.js environments
+```javascript
+// get and store it
+var Navbar = require("navbar.js");
+
+// initialize it
+var myMenu = new Navbar('selector');
+```
+
 # To do
 * Responsive design CSS
 * Responsive design JS
-* DATA API ??
+* DATA API
 
 # License
 [MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)
