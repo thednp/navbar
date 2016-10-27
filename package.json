@@ -5,7 +5,6 @@
   "main": "navbar.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-    // "min": "node build.js"
   },
   "repository": {
     "type": "git",
