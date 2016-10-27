@@ -41,4 +41,4 @@ var myMenu = new Navbar('selector');
 * npm/Bower and Require/CommonJS
 
 # License
-[MIT License](https://github.com/thednp/navbar.js/LICENSE)
+[MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)
