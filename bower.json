@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "http://thednp.github.io/navbar.js",
   "authors": [
     "thednp"
@@ -29,6 +29,8 @@
     "tests"
   ],
   "dependencies": {
-    "uglify-js": "^2.7.3"
+    "uglify-js": "^2.7.3",
+    "less": "^2.7.1",
+    "node-sass": "^3.10.1"
   }
 }

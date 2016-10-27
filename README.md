@@ -24,7 +24,7 @@ $ npm install navbar.js
 $ bower install navbar.js
 ```
 
-# Usage
+# Browser Usage
 Download the [latest package](https://github.com/thednp/navbar.js/archive/master.zip). unpack and inspect the contents. You need to copy the `navbar.js` and `navbar.css` or their minified variations to your app `assets` folders as follows.
 Link the required CSS in your document `<head>` tag
 ```html
@@ -43,6 +43,7 @@ var myMenu = new Navbar('selector');
 </script>
 ```
 
+# Node
 On node.js environments
 ```javascript
 // get and store it
@@ -51,6 +52,14 @@ var Navbar = require("navbar.js");
 // initialize it
 var myMenu = new Navbar('selector');
 ```
+
+# Build Tools
+You have 3 build tools for building custom builds
+
+* `$ npm run min-js` - to minify the **navbar.js**
+* `$ npm run build-less` - to compile and minify the **navbar.less**
+* `$ npm build-scss` - to compile and minify the **navbar.scss**
+
 
 # To do
 * Responsive design CSS
