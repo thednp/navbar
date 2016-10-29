@@ -9,7 +9,7 @@ var pack = require('./package.json');
 var version = 'v'+pack.version;
 var license = pack.license+'-License';
 
-console.log('Building navbar.js ' + version + '..');
+console.log('Minifying navbar.js ' + version + '..');
 
 function minifyJS(srcPath, writePath) {
   fs.writeFile(writePath, 

@@ -1,0 +1,39 @@
+// VARIABLES
+
+// BRAND COLOR
+$brand_color: #006699 !default;
+
+// THE MAIN LAYOUT
+$nav_layout: 'main-menu' !default; // left-side | right-side
+
+// some dimensions
+$item_font_size: 14px !default;
+$item_line_height: 32px !default;
+$item_vertical_spacing: 10px !default;
+$item_horizontal_spacing: 20px !default;
+
+// root items
+$root_item_padding: $item_vertical_spacing $item_horizontal_spacing !default;
+
+$root_item_color: #888 !default;
+$root_item_background: transparent !default;
+
+$root_item_hover_color: $brand_color !default;
+$root_item_hover_background: #fff !default;
+
+$root_item_active_color: #fff !default;
+$root_item_active_background: $brand_color !default;
+
+// submenu items
+$submenu_background: #e6e6e6 !default;
+$submenu_width: 200px !default;
+
+$submenu_item_padding: $item_vertical_spacing $item_horizontal_spacing !default;
+$submenu_item_background: #fff !default;
+$submenu_item_color: #888 !default;
+
+$submenu_item_hover_background: #333 !default;
+$submenu_item_hover_color: #eee !default;
+
+$submenu_item_active_background: $brand_color !default;
+$submenu_item_active_color: #fff !default;

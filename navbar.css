@@ -1,4 +1,4 @@
-/* navbar.js v1.0.1 | © dnp_theme | MIT-License*/
+/* navbar.js v1.0.3 | © dnp_theme | MIT-License*/
 .nav {
   list-style: none;
 }
@@ -14,25 +14,46 @@
 .nav li a {
   text-decoration: none;
   display: block;
+  font-size: 14px;
+  line-height: 32px;
+}
+.nav li a .parent-icon {
+  float: right;
+  width: 24px;
+  height: 24px;
+  margin-top: 4px;
 }
 .nav li > a {
   padding: 10px 20px;
   color: #888;
-  background: #f6f6f6;
+  background: transparent;
+}
+.nav li > a .parent-icon > * {
+  fill: #888;
 }
 .nav li li a {
   padding: 10px 20px;
   color: #888;
   background: #fff;
 }
+.nav li li a .parent-icon > * {
+  fill: #888;
+}
 .nav li li.open > a,
 .nav li li:hover > a {
   color: #eee;
   background: #333;
 }
+.nav li li.open > a .parent-icon > *,
+.nav li li:hover > a .parent-icon > * {
+  fill: #eee;
+}
 .nav li li.active > a {
   color: #fff;
   background: #069;
+}
+.nav li li.active > a .parent-icon > * {
+  fill: #fff;
 }
 .nav li.open > ul {
   opacity: 1;
@@ -41,9 +62,15 @@
   background: #fff;
   color: #069;
 }
+.nav > li.open > a .parent-icon > * {
+  fill: #069;
+}
 .nav > li.active > a {
   color: #fff;
   background: #069;
+}
+.nav > li.active > a .parent-icon > * {
+  fill: #fff;
 }
 .nav > li {
   float: left;

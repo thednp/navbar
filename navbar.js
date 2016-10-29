@@ -26,12 +26,6 @@
 			if (l.classList) { l.classList.remove(c); } else { l.className = l.className.replace(c,'').replace(/^\s+|\s+$/g,''); }
 		}
 
-		// init
-		this.init = function(l) {
-			l.addEventListener(events[0], this.enter, false);
-			l.addEventListener(events[1], this.leave, false);	
-		};
-
 		// handlers
 		this.enter = function() {
 			var that = this; // this is now the event target, the LI
@@ -58,11 +52,17 @@
 			var that = this;
 			clearTimeout(this.timer);
 			this.timer = setTimeout( function() {
-				if (that && that.className && /open/.test(that.className) && that.querySelector('.form-control') !== document.activeElement ) {
+				if (that && that.className && /open/.test(that.className) ) {
 					removeClass(that,'open');
 					setTimeout(function(){ removeClass(that,'open-position'); }, (isIE ? 0 : 200))
 				}
 			}, 500);
+		};
+
+		// init
+		this.init = function(l) {
+			l.addEventListener(events[0], this.enter, false);
+			l.addEventListener(events[1], this.leave, false);	
 		};
 
 		// initiate

@@ -1,41 +1,6 @@
 // navbar.js | SCSS 
 
-// VARIABLES
-
-// BRAND COLOR
-$brand_color: #069;
-
-// THE MAIN LAYOUT
-$nav_layout: 'main-menu'; // left-side | right-side
-
-// root items
-$root_item_padding: 10px 20px;
-
-$root_item_color: #888;
-$root_item_background: #f6f6f6;
-
-$root_item_hover_color: $brand_color;
-$root_item_hover_background: #fff;
-
-$root_item_active_color: #fff;
-$root_item_active_background: $brand_color;
-
-// submenu items
-$submenu_background: #e6e6e6;
-$submenu_width: 200px;
-
-$submenu_item_padding: 10px 20px;
-$submenu_item_background: #fff;
-$submenu_item_color: #888;
-
-$submenu_item_hover_background: #333;
-$submenu_item_hover_color: #eee;
-
-$submenu_item_active_background: $brand_color;
-$submenu_item_active_color: #fff;
-
-// MIXINS
-// LAYOUT & ANIMATION
+// MIXINS - LAYOUT & ANIMATION
 @mixin main-menu() { // horizontal
 	> li {
 		float: left;
@@ -101,6 +66,8 @@ $submenu_item_active_color: #fff;
 
 @mixin right-side() { // vertical right-side
 	li {
+		// text-align: right; // useful for RTL
+		a .parent-icon { float: left; }
 		>ul {
 			top: -999em;
 			right: 85%;
@@ -144,28 +111,39 @@ $submenu_item_active_color: #fff;
 		a { // general item styling
 			text-decoration: none;
 			display: block;
+			font-size: $item_font_size;
+			line-height: $item_line_height;
+			.parent-icon {
+				$icon_height: ceil($item_line_height * 75 / 100);
+				float: right; width: $icon_height; height: $icon_height; 
+				margin-top: ceil(($item_line_height - $icon_height)/2);  // to be decided by dev
+			}
 		}
 		> a { // root item
 			padding: $root_item_padding;
 			color: $root_item_color;
 			background: $root_item_background;
+			.parent-icon > * { fill: $root_item_color; }
 		}
 		li {
 			a { // submenu item
 			  padding: $submenu_item_padding;
 				color: $submenu_item_color;
 				background: $submenu_item_background;
+				.parent-icon > * { fill: $submenu_item_color; }
 			}
 			&.open, &:hover { // hover
 				> a {
 					color: $submenu_item_hover_color;
 					background: $submenu_item_hover_background;
+					.parent-icon > * { fill: $submenu_item_hover_color; }
 				}
 			}
 			&.active { // active
 				> a {
 					color: $submenu_item_active_color;
 					background: $submenu_item_active_background;
+					.parent-icon > * { fill: $submenu_item_active_color; }
 				}
 			}
 		}
@@ -179,12 +157,14 @@ $submenu_item_active_color: #fff;
 		> a {
 			background: $root_item_hover_background;
 			color: $root_item_hover_color;
+			.parent-icon > * { fill: $root_item_hover_color; }
 		}
 	}
 	> li.active { // root active
 		> a {
 			color: $root_item_active_color;
 			background: $root_item_active_background;
+			.parent-icon > * { fill: $root_item_active_color; }
 		}
 	}
 	@include setLayout();
