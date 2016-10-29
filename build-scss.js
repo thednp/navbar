@@ -16,7 +16,7 @@ console.log('Compiling navbar.scss ' + version + '..');
 // Helper Functions:
 function sassify(custom, srcPath, writePath, compressType) {
   sass.render({
-    data: ( variables + custom + fs.readFileSync(srcPath).toString() ),
+    data: ( custom + variables + fs.readFileSync(srcPath).toString() ),
     outputStyle: compressType
   }, function(error, result) {
     if (error) {
