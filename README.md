@@ -44,7 +44,7 @@ var myMenu = new Navbar('selector');
 </script>
 ```
 
-To use the DATA-API, you need to provide the `data-dunction="navbar"` attribute to your menu, like so:
+To use the DATA-API, you need to provide the `data-function="navbar"` attribute to your menu, like so:
 ```markup
 <ul class="nav" data-function="navbar">
   <li><a href="#">Link Title</a></li>
