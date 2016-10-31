@@ -13,6 +13,7 @@ Download the package and check the demo folder, or check it online [here](http:/
 * 3 sets of positions top (main), left or right
 * animations are based on position
 * LESS/SCSS sources ready
+* DATA API allows you to automatically initiate without JS invocation
 * cross-browser supported
 
 # NPM/Bower
@@ -43,6 +44,14 @@ var myMenu = new Navbar('selector');
 </script>
 ```
 
+To use the DATA-API, you need to provide the `data-dunction="navbar"` attribute to your menu, like so:
+```markup
+<ul class="nav" data-function="navbar">
+  <li><a href="#">Link Title</a></li>
+  <li><a href="#">Another Link Title</a></li>
+</ul>
+```
+
 # Node
 On node.js environments
 ```javascript
@@ -64,7 +73,6 @@ You have 3 build tools for building custom builds
 # To do
 * Responsive design CSS
 * Responsive design JS
-* DATA API
 
 # License
 [MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)

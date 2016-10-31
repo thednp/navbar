@@ -7,31 +7,44 @@
     <meta name="description" content="Navbar.js is a minimal navigation script built with native Javascript.">
     <meta name="author" content="thednp">
     <style>
-        .navigation { float: left; width: 100%; clear: both }
+        .navbar { margin-top: 20px; }
     </style>
 
     <title>Navbar.js</title>
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="./src/css/navbar.min.css" rel="stylesheet">
+    <!--<link href="assets/css/style.css" rel="stylesheet">-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link href="./src/css/navbar-bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/minifill/0.0.1/minifill.min.js"></script>	
   </head>
   <body>
   
-  <div class="content-wrapper">
-    <div class="container"> 
-        <div class="navigation">
-        
-            <ul class="nav" data-function="navbar">
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">navbar.js</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" data-function="navbar">
                 <li class="active"><a href="#">Demos
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                             <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
                     </a>
-                    <ul>
-                        <li class="active"><a href="index.html">Main</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Main</a></li>
                         <li><a href="left.html">Left Side</a></li>
                         <li><a href="right.html">Right Side</a></li>
-                        <li><a href="bootstrap.html">Bootstrap</a></li>
+                        <li class="active"><a href="bootstrap.html">Bootstrap</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Navigate
@@ -39,51 +52,50 @@
                             <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
                     </a>
-                    <ul>
+                    <ul class="dropdown-menu">
                         <li><a href="#">Rentals
                                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                                     <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                                 </svg>
                             </a>
-                            <ul>
-                                <li><a href="#">Locations
-                                        <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                            <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
-                                        </svg>
-                                    </a>
-                                    <ul>
-                                        <li><a href="#">Rentals</a></li>
-                                        <li><a href="#">Integrate</a></li>
-                                        <li><a href="#">Options</a></li>
-                                        <li><a href="#">Account</a></li>
-                                    </ul>	
-                                </li>
-                                <li><a href="#">Services
-                                        <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                            <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
-                                        </svg>
-                                    </a>
-                                    <ul>
-                                        <li><a href="#">Rentals</a></li>
-                                        <li><a href="#">Integrate</a></li>
-                                        <li><a href="#">Options</a></li>
-                                        <li><a href="#">Account</a></li>
-                                    </ul>	
-                                </li>							
-                            </ul>
-                        </li>
-                        <li><a href="#">Personal Info
-                                <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                    <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
-                                </svg>
-                            </a>
-                            <ul>
+                            <ul class="dropdown-menu">
                                 <li><a href="#">Rentals</a></li>
                                 <li><a href="#">Integrate</a></li>
                                 <li><a href="#">Options</a></li>
                                 <li><a href="#">Account</a></li>
-                            </ul>
+                            </ul>	
                         </li>
+                        <li><a href="#">Locations
+                                <svg class="parent-icon" viewBox="0 0 1024 1024">
+                                    <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+                                </svg>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Rentals</a></li>
+                                <li><a href="#">Integrate</a></li>
+                                <li><a href="#">Options</a></li>
+                                <li><a href="#">Account</a></li>
+                            </ul>	
+                        </li>
+                        <li><a href="#">Services
+                                <svg class="parent-icon" viewBox="0 0 1024 1024">
+                                    <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+                                </svg>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Rentals</a></li>
+                                <li><a href="#">Integrate</a></li>
+                                <li><a href="#">Options</a></li>
+                                <li><a href="#">Account</a></li>
+                            </ul>	
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Rentals</a></li>
+                        <li><a href="#">Integrate</a></li>
+                        <li><a href="#">Options</a></li>
+                        <li><a href="#">Account</a></li>
+
                     </ul>	
                 </li>
 
@@ -120,42 +132,48 @@
                     </ul>
                 </li>
             </ul>
-            <a class="brand pull-right" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Github</a>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="brand pull-right" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Github</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
 
-        </div>
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Navbar.js <small>Minimal Navigation Script</small></h1>
+        <p>A most needed script most web developers need for a quick site navigation, built with Native Javascript and supported on all major browsers as well as legacy browsers starting with IE8.</p>
+        <p><a class="btn btn-primary" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a> <a class="btn btn-default" href="https://github.com/thednp/navbar.js/">Fork</a></p>
+      </div>
     
-   
-        <div class="content">
-            <div class="content-inner main">
-                <h1>Navbar.js <small>Minimal Navigation Script</small></h1>
-                <p>A most needed script most web developers need for a quick site navigation, built with Native Javascript and supported on all major browsers as well as legacy browsers starting with IE8.</p>
-                <p><a class="btn btn-brand" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a> <a class="btn" href="https://github.com/thednp/navbar.js/">Fork</a></p>
-            
-                <h1>Navbar.js Features</h1>
-                <ul>
-                    <li>opens submenus on mouseenter, by adding open and open-position classes to the menu item</li>
-                    <li>hides submenus on mouseleave, by removing the above classes in a delayed succesion</li>
-                    <li>super light script, 1.4k in size when minified</li>
-                    <li>super light and easy to customize CSS</li>
-                    <li>3 sets of positions top (main), left or right</li>
-                    <li>animations are based on position</li>
-                    <li>LESS/SCSS sources ready</li>
-                    <li>DATA API allows you to automatically initiate without JS invocation</li>
-                    <li>MIT Licensed</li>
-                    <li>cross-browser supported</li>
-                </ul>
+        <h1>Navbar.js Features</h1>
+        <ul>
+            <li>opens submenus on mouseenter, by adding open and open-position classes to the menu item</li>
+            <li>hides submenus on mouseleave, by removing the above classes in a delayed succesion</li>
+            <li>super light script, 1.4k in size when minified</li>
+            <li>super light and easy to customize CSS</li>
+            <li>3 sets of positions top (main), left or right</li>
+            <li>animations are based on position</li>
+            <li>LESS/SCSS sources ready</li>
+            <li>DATA API allows you to automatically initiate without JS invocation</li>
+            <li>MIT Licensed</li>
+            <li>cross-browser supported</li>
+        </ul>
 
-                <h1>Usage and Guides</h1>
-                <p>Please visit the <a href="https://github.com/thednp/navbar.js/">Github page</a> for more detailed usage and guides.</p>
+        <h1>Using it with Bootstrap</h1>
+        <p>This is an example similar to the <a href="http://getbootstrap.com/examples/navbar/">Bootstrap navbar example</a>, with a couple of minor addaptations. If you enable the script and use it's CSS, it should work right away, but animations won't work, or the colors might be a little different.<p>
+        <p>For instance in order to enable animations for <kbd>navbar.js</kbd>, you only need <code>.nav li ul {display: block !important};</code> in your CSS, but for a deeper style customization, please make sure to check the <a href="https://github.com/thednp/navbar.js/blob/master/build-less.js">LESS</a> / <a href="https://github.com/thednp/navbar.js/blob/master/build-scss.js">SCSS</a> build scripts in order to make your navs look exactly like Bootstrap demos.</p>
 
-    
-                <div class="copy main">
-                    Copyright &copy; <a target="_blank" href="http://themeforest.net/user/dnp_theme">dnp_theme</a> | 2016
-                </div>
-            </div>
+        <h1>Usage and Guides</h1>
+        <p>Please visit the <a href="https://github.com/thednp/navbar.js/">Github page</a> for more detailed usage and guides.</p>
+
+        <div class="small">
+            Copyright &copy; <a target="_blank" href="http://themeforest.net/user/dnp_theme">dnp_theme</a> | 2016
         </div>
-   </div>
+
+    </div>
+
+   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap.native/1.1.0/bootstrap-native.min.js"></script>   -->
    <script src="./src/js/navbar.min.js"></script>
-
   </body>
 </html>

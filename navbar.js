@@ -13,7 +13,7 @@
   }
 }(this, function () {
 
-	return function(el) {
+	var Navbar = function(el) {
 		var menu = (typeof el === 'object') ? el : document.querySelector(el), self = this,
 			items = menu.getElementsByTagName('LI'), il = items.length,
 			isIE = (new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null) ? parseFloat( RegExp.$1 ) : false,
@@ -71,5 +71,10 @@
 				this.init(items[i]);
 			}
 		}	
-	};
+	},
+	Navbars = document.querySelectorAll('[data-function="navbar"]'), nl = Navbars.length;
+	for (var i=0; i<nl; i++){
+		new Navbar(Navbars[i])
+	}
+	return Navbar;
 }));	

@@ -1,15 +1,6 @@
 // navbar.js | LESS
 
 // MIXINS
-.setLayout (@nav_layout) when (@nav_layout = 'main-menu'){
-  .main-menu();
-}
-.setLayout (@nav_layout) when (@nav_layout = 'left-side'){
-  .left-side();
-}
-.setLayout (@nav_layout) when (@nav_layout = 'right-side'){
-  .right-side();
-}
 
 // LAYOUT & ANIMATION
 .main-menu() { // horizontal
@@ -20,15 +11,15 @@
 		>ul {
 			left: -999em;
 			top: 85%;
-			transition: top .5s, opacity .3s;
-			-webkit-transition: top .5s ease 0s, opacity .3s linear 0s;
+			transition: top .5s ease, opacity .3s linear;
+			-webkit-transition: top .5s ease, opacity .3s linear;
 		}
 		li {
 			>ul {
 				top: -999em;
 				left: 85%;
-				transition: left .5s, opacity .3s;
-				-webkit-transition: left .5s ease 0s, opacity .3s linear 0s;
+				transition: left .5s ease, opacity .3s linear;
+				-webkit-transition: left .5s ease, opacity .3s linear;
 			}
 		}
 		li.open {
@@ -98,6 +89,16 @@
 	}
 }
 
+.setLayout (@nav_layout) when (@nav_layout = 'main-menu'){
+  .main-menu();
+}
+.setLayout (@nav_layout) when (@nav_layout = 'left-side'){
+  .left-side();
+}
+.setLayout (@nav_layout) when (@nav_layout = 'right-side'){
+  .right-side();
+}
+
 
 // STYLE
 .nav {
@@ -134,6 +135,7 @@
 				background: @submenu_item_background;
 				.parent-icon > * { fill: @submenu_item_color; }
 			}
+			// &.open, &.open:hover, &:hover { // hover
 			&.open, &:hover { // hover
 				> a {
 					color: @submenu_item_hover_color;
@@ -141,7 +143,7 @@
 					.parent-icon > * { fill: @submenu_item_hover_color; }
 				}
 			}
-			&.active { // active
+			&.active, &.active:hover { // active
 				> a {
 					color: @submenu_item_active_color;
 					background: @submenu_item_active_background;
@@ -155,14 +157,14 @@
       }
     }
 	}
-	> li.open { // root hover
+	> li.open, > li:hover { // root hover
 		> a {
 			background: @root_item_hover_background;
 			color: @root_item_hover_color;
 			.parent-icon > * { fill: @root_item_hover_color; }
 		}
 	}
-	> li.active { // root active
+	> li.active, > li.active:hover { // root active
 		> a {
 			color: @root_item_active_color;
 			background: @root_item_active_background;
