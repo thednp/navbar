@@ -54,7 +54,7 @@ bootstrap += '$submenu_item_hover_color: #262626;';
 bootstrap += '$submenu_item_hover_background: #f5f5f5;';
 // adjustments for animation and colors
 bootstrap += '.nav > li.active > a { color: #fff !important; background-color: $brand_color !important;}'; // force active root items to use these colors
-bootstrap += '.nav { > li.open:not(.active), > li:hover:not(.active)	{ > a	.parent-icon > * { fill: #262626 !important; } } }'; // set svg icons color
+bootstrap += '.nav { > li.open:not(.active), > li:hover:not(.active) { > a .parent-icon > * { fill: #262626 !important; } } }'; // set svg icons color
 bootstrap += '.nav li ul {display: block !important};'; // this enables animation for submenus
 bootstrap += '.nav li li.open-position > ul { margin-left: 2px; margin-top: -6px;}'; // adjust the position of level 2 submenus
 

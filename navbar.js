@@ -13,68 +13,88 @@
   }
 }(this, function () {
 
-	var Navbar = function(el) {
-		var menu = (typeof el === 'object') ? el : document.querySelector(el), self = this,
-			items = menu.getElementsByTagName('LI'), il = items.length,
-			isIE = (new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null) ? parseFloat( RegExp.$1 ) : false,
-			events = ('onmouseleave' in document) ? ['mouseenter', 'mouseleave'] : ['mouseover', 'mouseout'];
+  // constants
+  var isIE = navigator && (new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null) ? parseFloat( RegExp.$1 ) : false,
+      supportTransitions = !(isIE && isIE<10),
+      mouseHover = ('onmouseleave' in document) ? ['mouseenter', 'mouseleave'] : ['mouseover', 'mouseout'],
+      
+      // strings 
+      getElementsByTagName = 'getElementsByTagName',
+      querySelectorAll = 'querySelectorAll',
+      length = 'length';
 
-		function addClass(l,c) { // where modern browsers fail, use classList	
-			if (l.classList) { l.classList.add(c); } else { l.className += ' '+c; l.offsetWidth; }
-		}
-		function removeClass(l,c) {
-			if (l.classList) { l.classList.remove(c); } else { l.className = l.className.replace(c,'').replace(/^\s+|\s+$/g,''); }
-		}
+  // utilities
+  function on(element, eventName, handler) {
+    element.addEventListener(eventName, handler, false);
+  }
+  function addClass(element,classNAME) {
+    element.classList.add(classNAME);
+  }
+  function removeClass(element,classNAME) {
+    element.classList.remove(classNAME);
+  }
+  function hasClass(element,classNAME) {
+    return element.classList.contains(classNAME);
+  }
 
-		// handlers
-		this.enter = function() {
-			var that = this; // this is now the event target, the LI
-			clearTimeout(this.timer);
-			if ( !/\bopen/.test(this.className) ) {
-				this.timer = setTimeout( function() {
-					addClass(that,'open'); 
-					addClass(that,'open-position');                        
-					var s = that.parentNode.childNodes; //all parentNode children
-					for ( var h=0; h<s.length; h++ ) {
-						if ( s[h] && s[h].className && /open/.test(s[h].className) && s[h] !== that ) {//siblings only
-							var _s = s[h];					
-							if (!isIE) {
-								removeClass(_s,'open'); setTimeout( function() { removeClass(_s,'open-position'); }, 150 ); 
-							} else {
-								removeClass(_s,'open-position'); removeClass(_s,'open'); 
-							}
-						}	
-					}
-				}, 100 );	
-			}
-		};
-		this.leave = function() {
-			var that = this;
-			clearTimeout(this.timer);
-			this.timer = setTimeout( function() {
-				if (that && that.className && /open/.test(that.className) ) {
-					removeClass(that,'open');
-					setTimeout(function(){ removeClass(that,'open-position'); }, (isIE ? 0 : 200))
-				}
-			}, 500);
-		};
+  // Navbar constructor
+  var Navbar = function(el) {
+    var menu = (typeof el === 'object') ? el : document.querySelector(el),
+      items = menu[getElementsByTagName]('LI'),
+      
+      // private strings
+      timer = 'timer',
+      openClass = 'open',
+      openPosition = 'open-position',
+      
+      // private method
+      close = function (element){
+        if ( hasClass(element,openClass) ) {
+          removeClass(element,openClass);
+          setTimeout(function(){ 
+            removeClass(element,openPosition); 
+          }, (supportTransitions ? 200 : 0));
+        }      
+      },
 
-		// init
-		this.init = function(l) {
-			l.addEventListener(events[0], this.enter, false);
-			l.addEventListener(events[1], this.leave, false);	
-		};
+      // handlers
+      enterHandler = function () {
+        var that = this; // this is now the event target, the LI
+        clearTimeout(that[timer]);
+        if ( !hasClass(that,openClass) ) {
+          that[timer] = setTimeout( function() {
+            addClass(that,openClass); 
+            addClass(that,openPosition);                        
+            var siblings = that.parentNode[getElementsByTagName]('LI'); //all parentNode children
+            for ( var h=0; h<siblings[length]; h++ ) {
+              if ( siblings[h] !== that ) {//siblings only
+                close(siblings[h])
+              }  
+            }
+          }, 100 );  
+        }
+      },
+      leaveHandler = function () {
+        var that = this;
+        clearTimeout(that[timer]);
+        that[timer] = setTimeout( function() {
+          close(that);
+        }, 500);
+      };
 
-		// initiate
-		for ( var i=0; i<il; i++ ) {
-			if ( items[i].getElementsByTagName('UL').length !== 0 ) {
-				this.init(items[i]);
-			}
-		}	
-	},
-	Navbars = document.querySelectorAll('[data-function="navbar"]'), nl = Navbars.length;
-	for (var i=0; i<nl; i++){
-		new Navbar(Navbars[i])
-	}
-	return Navbar;
-}));	
+    // initialize
+    for ( var i=0, itemsLength = items[length]; i<itemsLength; i++ ) {
+      if ( items[i][getElementsByTagName]('UL')[length] ) {
+        on(items[i], mouseHover[0], enterHandler);
+        on(items[i], mouseHover[1], leaveHandler);  
+      }
+    }
+  },
+
+  // DATA API
+  Navbars = document[querySelectorAll]('[data-function="navbar"]');
+  for (var i=0, nl = Navbars[length]; i<nl; i++){
+    new Navbar(Navbars[i])
+  }
+  return Navbar;
+}));  

@@ -8,7 +8,7 @@ Download the package and check the demo folder, or check it online [here](http:/
 # Features
 * opens submenus on mouseenter, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
 * hides submenus on mouseleave, by removing the above classes in a delayed succesion</li>
-* super light script, `1.4k` in size when minified
+* super light script, `1.2k` in size when minified
 * super light and easy to customize CSS
 * 3 sets of positions top (main), left or right
 * animations are based on position
@@ -51,6 +51,8 @@ To use the DATA-API, you need to provide the `data-function="navbar"` attribute 
   <li><a href="#">Another Link Title</a></li>
 </ul>
 ```
+
+Legacy browsers need `classList` polyfill, so give them <a href="https://github.com/thednp/minifill">minifill</a>
 
 # Node
 On node.js environments
