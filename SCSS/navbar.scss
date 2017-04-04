@@ -3,7 +3,11 @@
 // MIXINS - LAYOUT & ANIMATION
 @mixin main-menu() { // horizontal
   > li {
+    position: relative;
     float: left;
+    @media (max-width: $responsive_breakpoint) {
+      float: none;
+    }    
   }
   li {
     >ul {
@@ -100,11 +104,20 @@
 // STYLE
 .nav {
   list-style: none;
+  > li > a { // IE9+ bug
+    float: left;
+    @media (max-width: $responsive_breakpoint) {
+      float: none;
+    }
+  }
   li {
     position: relative;
     > ul {
       background: $submenu_background;
       width: $submenu_width;
+      @media (max-width: $responsive_breakpoint) {
+        width: auto;
+      }
       opacity: 0;
       position: absolute;
     }
@@ -152,6 +165,9 @@
         opacity: 1;
       }
     }
+    @media (max-width: $responsive_breakpoint) {
+      &.open-position > ul {position: static; }
+    }    
   }
   > li.open, > li:hover { // root hover
     > a {

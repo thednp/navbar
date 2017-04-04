@@ -9,6 +9,7 @@ Download the package and check the demo folder, or check it online [here](http:/
 * opens submenus on mouseenter, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
 * hides submenus on mouseleave, by removing the above classes in a delayed succesion</li>
 * super light script, `1.2k` in size when minified
+* responsive design ready
 * super light and easy to customize CSS
 * 3 sets of positions top (main), left or right
 * animations are based on position
@@ -52,7 +53,7 @@ To use the DATA-API, you need to provide the `data-function="navbar"` attribute 
 </ul>
 ```
 
-Legacy browsers need `classList` polyfill, so give them <a href="https://github.com/thednp/minifill">minifill</a>
+Legacy browsers need `classList` polyfill, so give them <a href="https://github.com/thednp/minifill">minifill</a>.
 
 # Node
 On node.js environments
@@ -70,11 +71,6 @@ You have 3 build tools for building custom builds
 * `$ npm run min-js` - to minify the **navbar.js**
 * `$ npm run build-less` - to compile and minify the **navbar.less**
 * `$ npm run build-scss` - to compile and minify the **navbar.scss**
-
-
-# To do
-* Responsive design CSS
-* Responsive design JS
 
 # License
 [MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)

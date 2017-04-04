@@ -14,6 +14,10 @@
     <!--<link href="assets/css/style.css" rel="stylesheet">-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
     <link href="./src/css/navbar-bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+        <link href="./assets/css/bootstrap-ie8.min.css" rel="stylesheet">
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->   
     <script type="text/javascript" src="https://cdn.jsdelivr.net/minifill/0.0.4/minifill.min.js"></script>	
   </head>
   <body>
@@ -105,7 +109,7 @@
                         </svg>
                     </a>
                     <ul id="share" class="dropdown-menu">
-                        <li class="hidden-xs">
+                        <li>
                             <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Facebook">
                                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                                     <path d="M713.143 73.143c90.857 0 164.571 73.714 164.571 164.571v548.571c0 90.857-73.714 164.571-164.571 164.571h-107.429v-340h113.714l17.143-132.571h-130.857v-84.571c0-38.286 10.286-64 65.714-64l69.714-0.571v-118.286c-12-1.714-53.714-5.143-101.714-5.143-101.143 0-170.857 61.714-170.857 174.857v97.714h-114.286v132.571h114.286v340h-304c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571z" />
@@ -113,7 +117,7 @@
                                 Facebook
                             </a>
                         </li>
-                        <li class="hidden-xs">
+                        <li>
                             <a target="_blank" href="https://twitter.com/home?status=Spread the word about #navbarjs by @dnp_theme and download here http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Twitter">
                                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                                     <path d="M731.429 348.571c-21.714 9.714-44.571 16-69.143 19.429 25.143-14.857 44-38.857 53.143-66.857-23.429 13.714-49.143 24-76.571 29.143-21.714-23.429-53.143-37.714-87.429-37.714-66.286 0-120 53.714-120 120 0 9.143 0.571 18.857 2.857 27.429-100-5.143-188.571-52.571-248-125.714-10.286 17.714-16.571 38.857-16.571 60.571 0 41.714 19.429 78.286 52 100-20-0.571-38.857-6.286-57.143-14.857v1.143c0 58.286 44 106.857 98.857 117.714-10.286 2.857-18.286 4.571-29.143 4.571-7.429 0-14.857-1.143-22.286-2.286 15.429 47.429 59.429 82.286 112 83.429-41.143 32-92.571 51.429-149.143 51.429-9.714 0-19.429-0.571-28.571-1.714 53.143 33.714 116 53.714 184 53.714 220.571 0 341.714-182.857 341.714-341.714 0-5.143 0-10.286-0.571-15.429 23.429-16.571 44-37.714 60-62.286zM877.714 237.714v548.571c0 90.857-73.714 164.571-164.571 164.571h-548.571c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571c90.857 0 164.571 73.714 164.571 164.571z" />
@@ -121,7 +125,7 @@
                                 Twitter
                             </a>
                         </li>
-                        <li class="hidden-xs">
+                        <li>
                             <a target="_blank" href="https://plus.google.com/share?url=http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Google+">
                                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                                     <path d="M524 517.143c0-14.286-1.714-25.714-3.429-36.571h-206.857v75.429h124c-4.571 32-37.143 94.286-124 94.286-75.429 0-136.571-61.714-136.571-138.286s61.143-138.286 136.571-138.286c42.286 0 70.857 17.714 87.429 33.714l59.429-57.714c-38.286-35.429-88-57.143-146.857-57.143-121.714 0-219.429 98.286-219.429 219.429s97.714 219.429 219.429 219.429c126.286 0 210.286-89.143 210.286-214.286zM721.143 543.429h62.286v-62.857h-62.286v-62.857h-62.857v62.857h-62.857v62.857h62.857v62.857h62.857v-62.857zM877.714 237.714v548.571c0 90.857-73.714 164.571-164.571 164.571h-548.571c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571c90.857 0 164.571 73.714 164.571 164.571z" />
@@ -133,7 +137,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a class="brand pull-right" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Github</a></li>
+              <li><a href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Github</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -152,6 +156,7 @@
             <li>hides submenus on mouseleave, by removing the above classes in a delayed succesion</li>
             <li>super light script, 1.2k in size when minified</li>
             <li>super light and easy to customize CSS</li>
+            <li>responsive design ready</li>
             <li>3 sets of positions top (main), left or right</li>
             <li>animations are based on position</li>
             <li>LESS/SCSS sources ready</li>
@@ -173,6 +178,7 @@
 
     </div>
 
+   <script src="https://cdn.jsdelivr.net/bootstrap.native/2.0.7/bootstrap-native.min.js"></script>
    <script src="./src/js/navbar.min.js"></script>
   </body>
 </html>
