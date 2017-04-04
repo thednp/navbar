@@ -2,6 +2,12 @@
 
 // MIXINS - LAYOUT & ANIMATION
 @mixin main-menu() { // horizontal
+  > li > a { // IE9+ bug
+    float: left;
+    @media (max-width: $responsive_breakpoint) {
+      float: none;
+    }
+  }
   > li {
     position: relative;
     float: left;
@@ -104,12 +110,6 @@
 // STYLE
 .nav {
   list-style: none;
-  > li > a { // IE9+ bug
-    float: left;
-    @media (max-width: $responsive_breakpoint) {
-      float: none;
-    }
-  }
   li {
     position: relative;
     > ul {

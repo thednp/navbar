@@ -1,9 +1,5 @@
-/* navbar.js v1.0.6 | © dnp_theme | MIT-License*/
+/* navbar.js v1.0.7 | © dnp_theme | MIT-License*/
 .nav { list-style: none; }
-
-.nav > li > a { float: left; }
-
-@media (max-width: 768px) { .nav > li > a { float: none; } }
 
 .nav li { position: relative; }
 
@@ -42,6 +38,10 @@
 .nav > li.active > a, .nav > li.active:hover > a { color: #fff; background: #006699; }
 
 .nav > li.active > a .parent-icon > *, .nav > li.active:hover > a .parent-icon > * { fill: #fff; }
+
+.nav > li > a { float: left; }
+
+@media (max-width: 768px) { .nav > li > a { float: none; } }
 
 .nav > li { position: relative; float: left; }
 
