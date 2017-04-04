@@ -13,6 +13,9 @@ body,html, .content-wrapper { height: 100% } body { display: flex }
 .content-wrapper { display: table; flex: 1; width: 100% }
 
 .container {width: 800px; max-width: 80%; margin: 0 auto}
+@media (max-width: 1200px) {
+    .container {width: auto; }
+}
 
 .content-inner {
     padding: 0 20px
@@ -40,8 +43,17 @@ ul { list-style: inherit; list-style-position: inside; }
 
 /* navigation */
 .navigation { background-color: #444 }
-.navigation.side-nav { width: 15%; display: table-cell; }
 .nav { font-size: 18px; color: #777 }
+
+.navigation.side-nav { width: 15%; display: table-cell; }
+
+@media (max-width: 980px) {
+  .navigation.side-nav {width: 20%; }
+}
+
+@media (max-width: 650px) {
+  .navigation.side-nav {width: 35%; }
+}
 
 /* brand */
 a.brand {
