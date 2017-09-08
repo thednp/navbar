@@ -33,7 +33,7 @@ a:hover {color: #069}
 h1 { font-size: 48px; color: #222; font-weight: bold; letter-spacing: -2px; margin: 48px 0 0 0; line-height: 48px }
 h1 small { font-size: 32px; color: #444; letter-spacing: -2px; font-weight: normal }
 
-p {margin: 0 0 24px 0; line-height: 24px}
+p { margin: 0 0 24px 0; line-height: 24px }
 ul { list-style: inherit; list-style-position: inside; }
 
 /* btn */
