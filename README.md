@@ -1,6 +1,11 @@
 # Navbar - minimal navigation script
 This is a script that most web developers need for a quick site navigation, built with Native Javascript and supported on all major browsers as well as legacy browsers starting with IE8.
 
+[![NPM Version](https://img.shields.io/npm/v/navbar.js.svg?style=flat-square)](https://www.npmjs.com/package/navbar.js)
+[![NPM Downloads](https://img.shields.io/npm/dm/navbar.js.svg?style=flat-square)](http://npm-stat.com/charts.html?package=navbar.js)
+[![jsDeliver](https://data.jsdelivr.com/v1/package/npm/navbar.js/badge)](https://www.jsdelivr.com/package/npm/navbar.js)
+[![CDNJS](https://img.shields.io/cdnjs/v/navbar.js.svg?style=flat-square)](https://cdnjs.com/libraries/navbar.js)
+
 # Demo
 Download the package and check the demo folder, or check it online [here](http://thednp.github.io/navbar.js/).
 
