@@ -1,33 +1,35 @@
-# Navbar - minimal navigation script
-This is a script that most web developers need for a quick site navigation, built with Native Javascript and supported on all major browsers as well as legacy browsers starting with IE8.
+# Navbar.js - Modern Navigation Component
+The mobile first menu navigation for today's modern web, developed with native JavaScript and packed with lots of features.
 
 [![NPM Version](https://img.shields.io/npm/v/navbar.js.svg?style=flat-square)](https://www.npmjs.com/package/navbar.js)
 [![NPM Downloads](https://img.shields.io/npm/dm/navbar.js.svg?style=flat-square)](http://npm-stat.com/charts.html?package=navbar.js)
 [![jsDeliver](https://data.jsdelivr.com/v1/package/npm/navbar.js/badge)](https://www.jsdelivr.com/package/npm/navbar.js)
 
+[![NAVBAR Preview](./demo/assets/img/navbar.png)](./demo/assets/img/navbar.png)
+
 # Demo
 Download the package and check the demo folder, or check it online [here](http://thednp.github.io/navbar.js/).
 
-
-# Features
-* opens submenus on mouseenter, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
-* hides submenus on mouseleave, by removing the above classes in a delayed succesion</li>
-* super light script, `1.2k` in size when minified
-* responsive design ready
-* super light and easy to customize CSS
+# Navbar.js Highlights
+* Mobile First Design
+* ES6/ES7 sources and powerful build tools
+* SCSS sources with powerful mixins and advanced inheritance and automation functionality
+* very light footprint, `3kb` in size when minified
 * 3 sets of positions top (main), left or right
-* animations are based on position
-* LESS/SCSS sources ready
+* provides a set of options for JavaScript initialization
 * DATA API allows you to automatically initiate without JS invocation
-* cross-browser supported
+* modern browser supported and semi-modern alike with a special polyfill for IE10+ provided
 
-# NPM/Bower
-You can install this through NPM or bower respectively:
+# How It Works
+* opens submenus on `mouseenter`, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
+* hides submenus on `mouseleave`, by removing the above classes in a delayed succesion</li>
+* on mobile devices it makes use of the `open-mobile` class to toggle submenus and a `click` handler associated</li>
+
+# NPM
+You can install this through NPM:
 
 ```
 $ npm install navbar.js
-# or
-$ bower install navbar.js
 ```
 
 # Browser Usage
@@ -37,7 +39,7 @@ Link the required CSS in your document `<head>` tag
 <link href="../assets/css/navbar.css" rel="stylesheet">
 ```
 
-Link the required JS in your document  `<body>` tag
+Link the required JS in your document  `<body>` tag, though it should work in the `<head>` as well
 ```html
 <script src="../assets/js/navbar.js"></script>
 ```
@@ -56,8 +58,8 @@ To use the DATA-API, you need to provide the `data-function="navbar"` attribute 
   <li><a href="#">Another Link Title</a></li>
 </ul>
 ```
+Other initialization options apply, explained in the demo.
 
-Legacy browsers need `classList` polyfill, so give them <a href="https://github.com/thednp/minifill">minifill</a>.
 
 # Node
 On node.js environments
@@ -72,9 +74,19 @@ var myMenu = new Navbar('selector');
 # Build Tools
 You have 3 build tools for building custom builds
 
-* `$ npm run min-js` - to minify the **navbar.js**
-* `$ npm run build-less` - to compile and minify the **navbar.less**
-* `$ npm run build-scss` - to compile and minify the **navbar.scss**
+* `$ npm run build` - to compile and minify the ES6/ES7 source **navbar.js** and **navbar.min.js**
+* `$ npm run compile` - to compile and minify the **navbar.less** and other demo related sources
+* `$ npm run bundle` - to execute both the above in paralel
+
+# Custom CSS Builds
+You can create your own custom styling, here's a quickie:
+* create a new file for instance `src/scss/my-navbar.scss`, 
+* include the mixins and variables' values you need (check out the demos for more)
+* run the below script
+
+```
+node compile.js INPUTFILE:src/scss/my-navbar.scss OUTPUTFILE:path-to/src/css/my-navbar.min.css MIN:true
+```
 
 # License
 [MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)

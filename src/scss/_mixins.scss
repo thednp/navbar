@@ -1,0 +1,687 @@
+// MIXINS - DEFAULT STYLING, LAYOUT & ANIMATION
+@import 'functions';
+
+@mixin navbar-mobile-layout($include:0) {
+  #{if($include !=0, '&.navbar', '.navbar')} {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    // flex-basis: 100%;
+
+    // global line-height, this stays here as authored
+    line-height: $navbar_line_height;
+    font-size: $navbar_font_size;
+
+    // set navbar padding
+    @if type-of($navbar_padding) == 'number' or type-of($navbar_padding) == 'list'  {
+      padding: $navbar_padding;
+    } @else {
+      padding: 0;
+    }
+
+    & > div {
+      display: none;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex-grow: 1;
+    }  
+    &.open-mobile > div {
+      display: flex
+    }
+    .nav {
+      flex-direction: column;
+    }
+    .brand {
+      display: flex;
+      text-decoration: none;
+      white-space: nowrap;
+      align-items: center;
+      @include set-metric('padding',$brand_padding);
+      @include set-metric('font-size',$brand_font_size);
+      @include set-metric('line-height',$brand_line_height);
+    }
+  }
+  .navbar-toggle {
+    @include set-metric('border-radius',$base_radius);
+    color: currentColor;
+    border: 1px solid transparent;
+    background: transparent;
+    margin: auto $item_horizontal_spacing;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    padding: $navbar_toggle_padding;
+    &:focus {
+      outline: none;
+    }
+  }
+  .open-mobile .navbar-toggle {
+    border-color: currentColor;
+  }
+}
+
+@mixin navbar-desktop-layout($include:0) {
+  @media (min-width: $responsive_breakpoint) {
+    #{if($include !=0, '&.navbar', '.navbar')} {
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      
+      & > div {
+        justify-content: space-between;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-basis: auto;
+      }
+      .nav {
+        flex-direction: row;
+      }
+    }
+    .navbar-toggle {
+      display: none
+    }
+  }
+}
+
+@mixin navbar-desktop-side-layout($include:0) {
+  @media (min-width: $responsive_breakpoint) {
+    #{if($include !=0, '&.navbar', '.navbar')} {
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      height: 100%;
+      & > div {
+        // width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .nav {
+        flex-direction: column;
+      }
+    }
+    .navbar-toggle { display: none }
+  }
+}
+
+@mixin navbar-style($include:0) {
+  // navbar content
+  .navbar-content,
+  .subnav-content {
+    a:not([class]), b {
+      @include set-color($navbar_link_color,$navbar_background,0.75);
+    }
+  }
+  @media (min-width: $responsive_breakpoint) {
+    .navbar-content {
+      a:not([class]):hover {
+        @include set-color($navbar_link_color_hover,$navbar_background,0.95);
+      }
+    }  
+  }  
+  #{if($include !=0, '&.navbar', '.navbar')} {
+    @include set-background($navbar_background);
+    @include set-color($navbar_text_color,$navbar_background,0.55);
+    .brand {
+      @include set-color($brand_link_color,$navbar_background,0.85);
+    }
+    @media (min-width: $responsive_breakpoint) {
+      .brand {
+        @include set-background($brand_link_background);
+        @if real-color($brand_link_background) {
+          @include set-color($brand_link_color,$brand_link_background,0.85);
+        } @else {
+          @include set-color($brand_link_color,$navbar_background,0.85);
+        }
+        &:hover {
+          @include set-background($brand_link_background_hover);
+          @if real-color($brand_link_background_hover) {
+            @include set-color($brand_link_color_hover,$brand_link_background_hover,0.95);
+          } @else if real-color($brand_link_background) {
+            @include set-color($brand_link_color_hover,$brand_link_background,0.95);
+          } @else {
+            @include set-color($brand_link_color,$navbar_background,0.95);
+          }
+        }
+      }
+    }
+  }
+}
+
+// menu layout
+@mixin nav-layout($noWrapper:0) {
+  .nav li > a,
+  .nav li > span,
+  .navbar-content,
+  .subnav-content {
+    @include set-metric('padding',$root_item_padding);
+  }
+
+  .nav {
+    // set flex
+    display: flex;
+
+    // set base typo
+    @if $noWrapper != 0 {
+      @include set-metric('line-height', $navbar_line_height);
+      @include set-metric('font-size', $navbar_font_size);
+    }
+
+    // reset any spacing or LI styling
+    &, ul { 
+      margin:0; padding:0; 
+      list-style: none; 
+    }
+
+    // general item layout
+    li { position: relative; transition: margin 0.3s ease 0s}
+    li > span, 
+    li > a {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+      @include set-metric('font-size',$root_item_font_size,$navbar_font_size);
+      @include set-metric('line-height',$root_item_line_height,$navbar_line_height);
+    }
+
+    li > a { text-decoration: none }
+
+    // the ellipsis span element
+    li > span > span,
+    li > a > span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }    
+  }
+  // .open-mobile 
+  div.subnav > ul > li.open-mobile > span + ul,
+  div.subnav > ul > li.open-mobile > span + div,
+  li.open-mobile > .subnav { 
+    display:block
+  }
+  .open-mobile {
+    > span > .parent-toggle,
+    > a > .parent-toggle,
+    .parent-toggle:focus {
+      border-color: currentColor;
+    }
+    & + .open-mobile {
+      margin-top: $item_vertical_spacing
+    }
+  }
+  // mobile view content closed state
+  .subnav,
+  div.subnav > ul > li > span + ul,
+  div.subnav > ul > li > span + div,
+  .parent-icon {display: none}
+
+  // content spacing
+  .subnav-content {
+    p, ul {
+      margin-bottom: $item_vertical_spacing
+    }
+  }
+
+  // mobile view tree highlight padding
+  ul.subnav, 
+  div.subnav ul {
+    padding: 0 0 0 $item_horizontal_spacing;
+  }
+
+  // menu icons
+  @include navbar-icon();
+  .parent-toggle {
+    @include set-metric('border-radius',$base_radius);
+    border: 1px solid transparent;
+  }
+  .menu-icon + span {
+    flex: auto;
+    margin-left: $item_vertical_spacing;
+  }
+  span > .parent-toggle { // li > span is column-title 
+    cursor: pointer 
+  }
+
+  @media (min-width: $responsive_breakpoint) {
+    // change desktop view visibility
+    .parent-toggle {
+      display: none
+    }
+    .parent-icon,
+    div.subnav > ul > li > span + div,
+    div.subnav > ul > li > span + ul {
+      display: block;
+    }
+    // set submenu desktop view
+    .subnav {
+      opacity: 0;
+      position: absolute;
+      display: block;
+      // set base typo
+      @include set-metric('line-height', $subnav_line_height, $navbar_line_height);
+      @include set-metric('font-size', $subnav_font_size, $navbar_font_size);
+      li > span,
+      li > a {
+        @include set-metric('font-size',$subnav_item_font_size,$subnav_font_size);
+        @include set-metric('line-height',$subnav_item_line_height,$subnav_line_height);        
+        // @include set-metric('padding',$subnav_item_padding,$root_item_padding);
+      }
+    }
+    // reset menu tree highlight padding
+    ul.subnav,
+    div.subnav ul {
+      padding: 0;
+    }
+    // reset open-mobile
+    li.open-mobile {
+      background: none;
+      transition: none;
+      + .open-mobile{margin:0}
+    }
+    // adjust column title
+    .column-title,
+    div.subnav > ul > li > span {
+      font-size: 120%
+    }
+    // override content padding
+    .subnav li > a,
+    .subnav li > span,
+    .subnav-content {
+      @include set-metric('padding',$subnav_item_padding,$root_item_padding);
+    }
+
+    // determine offset
+    $offset: 0;
+    @if type-of($navbar_padding) == 'number' and real-size($navbar_padding) > 0 {
+      $offset: $navbar_padding;
+    } @else if type-of($navbar_padding) == 'list' and length($navbar_padding) == 2 {
+      $offset: nth($navbar_padding,1);
+    } @else if type-of($navbar_padding) == 'list' and length($navbar_padding) > 2 {
+      $offset: nth($navbar_padding,3);
+    }
+    // determine margin
+    $consolidated_margin: 0;
+    @if type-of($subnav_margin) == 'number' {
+      $consolidated_margin: sum-size($subnav_margin, $offset) 0 0;
+    } @else if type-of($subnav_margin) == 'list' and length($subnav_margin) == 2 {
+      $mt: sum-size(nth($subnav_margin,1), $offset);
+      $mb: nth($subnav_margin,1);
+      $mh: nth($subnav_margin,2);
+      $consolidated_margin: $mt $mh $mb;
+    } @else if type-of($subnav_margin) == 'list' and length($subnav_margin) == 3 {
+      $mt: sum-size(nth($subnav_margin,1), $offset);
+      $mb: nth($subnav_margin,3);
+      $mh: nth($subnav_margin,2);
+      $consolidated_margin: $mt $mh $mb;
+    } @else if type-of($subnav_margin) == 'list' and length($subnav_margin) == 4 {
+      $mt: sum-size(nth($subnav_margin,1), $offset);
+      $mh: nth($subnav_margin,2);
+      $mb: nth($subnav_margin,3);
+      $ml: nth($subnav_margin,4);
+      $consolidated_margin: $mt $mh $mb $ml;
+    }
+
+    // set LVL1 subnav spacing
+    .nav > li > .subnav {
+      @include set-metric('margin',$consolidated_margin); // includes offset offset
+      @include set-metric('padding',$subnav_padding);
+    }
+
+    // set width
+    ul.subnav { // regular submenu
+      @include set-metric('width',$subnav_width) 
+    }
+    div.subnav { // mega submenu
+      > ul {margin:0}
+      // determine larger width with padding in mind
+      @if type-of($subnav_padding) == 'number' and $subnav_padding !=0 {
+        min-width: calc(#{$subnav_larger_width} + #{$subnav_padding*2});
+        &.m1 { min-width: calc(#{$subnav_width} + #{$subnav_padding*2}) }
+        &.m2 { min-width: calc(#{$subnav_width*2} + #{$subnav_padding*2}) }
+        &.m3 { min-width: calc(#{$subnav_width*3} + #{$subnav_padding*2}) }
+        &.m4 { min-width: calc(#{$subnav_width*4} + #{$subnav_padding*2}) }
+      } @else {
+        min-width: $subnav_larger_width;
+        &.m1 { min-width: $subnav_width }
+        &.m2 { min-width: #{$subnav_width*2} }
+        &.m3 { min-width: #{$subnav_width*3} }
+        &.m4 { min-width: #{$subnav_width*4} }
+      }
+    }
+  }
+}
+
+// NAV STYLE
+@mixin nav-style($include:0) {
+  // local variables
+  $root_item_bg: transparent;
+  $root_item_bg_hover: transparent;
+  
+  // determine root item background
+  @if real-color($root_item_background) {
+    $root_item_bg: $subnav_item_background;
+  } @else if real-color($navbar_background) {
+    $root_item_bg: $navbar_background;
+  }
+  @if real-color($root_item_hover_background)  {
+    $root_item_bg_hover: $root_item_hover_background;
+  } @else if real-color($navbar_background) {
+    $root_item_bg_hover: $navbar_background;
+  }
+
+  // begin nav
+  #{if($include !=0, '&.nav', '.nav')} {
+    // responsive view color
+    li > a,
+    li > span { 
+      @include set-color($root_item_color,$root_item_bg,0.55);
+    }
+    // background only apply to LI.open-mobile view
+    li.open-mobile {
+      @if $mobile_expanded_background == auto {
+        @if real-color($navbar_background) {
+          @if lightness($navbar_background) < 35 {
+            background: rgba(255,255,255,0.075);
+          } @else {
+            background: rgba(0,0,0,0.075);
+          }
+        }
+      } @else {
+        @include set-background($mobile_expanded_background);
+      }
+    }
+    
+    @media (min-width: $responsive_breakpoint) {
+      // root menu item background
+      > li {
+        > span,
+        > a {
+          @include set-background($root_item_background);
+        }
+      }      
+      // menu item colors
+      // root hover
+      > li.open, 
+      > li:hover { 
+        > span,
+        > a {
+          @include set-background($root_item_hover_background);
+          @include set-color($root_item_hover_color,$root_item_bg_hover,0.75);
+        }
+      }
+      // root active
+      > li.active, 
+      > li.active.open, 
+      > li.active:hover { 
+        > span,
+        > a {
+          @include set-background($root_item_active_background);
+          @include set-color($root_item_active_color,$root_item_active_background,0.95);          
+        }
+      }
+    }
+  }
+}
+
+// SUBNAV STYLE
+@mixin subnav-style() {
+  // local variables
+  $subnav_bg: $subnav_background;
+  $subnav_item_bg: transparent;
+  $subnav_item_bg_hover: transparent;
+
+  // determine $subnav_background
+  @if $subnav_background == inherit and real-color($navbar_background) {
+    @if lightness($navbar_background) > 35 {
+      $subnav_bg: darken($navbar_background,5%);
+    } @else {
+      $subnav_bg: lighten($navbar_background,5%);
+    }
+  }
+  // determine submenu item background
+  @if real-color($subnav_item_background) {
+    $subnav_item_bg: $subnav_item_background;
+  } @else if real-color($subnav_bg) {
+    $subnav_item_bg: $subnav_bg;
+  }
+  @if real-color($subnav_item_hover_background)  {
+    $subnav_item_bg_hover: $subnav_item_hover_background;
+  } @else if real-color($subnav_bg) {
+    $subnav_item_bg_hover: $subnav_bg;
+  }  
+  @media (min-width: $responsive_breakpoint) {
+    .subnav {
+      // background
+      @include set-background($subnav_bg);
+      // box-shadow
+      @include set-metric('box-shadow',$subnav_shadow);
+
+      @if real-color($subnav_bg) {
+        @if lightness($subnav_bg) > 85 {
+          .subnav {
+            background: darken($subnav_bg,5%);
+            .subnav {
+              background: darken($subnav_bg,7.5%);
+            }
+          }
+        } @else {
+          .subnav {
+            background: lighten($subnav_bg,5%);
+            .subnav {
+              background: lighten($subnav_bg,7.5%);
+            }
+          }            
+        }
+      }
+      // submenu item
+      li {
+        > span,
+        > a {
+          @include set-background($subnav_item_background);
+          @include set-color($subnav_item_color,$subnav_item_bg,0.55);
+        }
+        > div {
+          @include set-background($subnav_item_background);
+        }
+          
+        // hover
+        &.open, 
+        &:hover {
+          // > span, // handled separatelly below
+          > a {
+            @include set-background($subnav_item_hover_background);
+            @include set-color($subnav_item_hover_color,$subnav_item_bg_hover,0.75);              
+          }
+        }
+        // active
+        &.active, 
+        &.active:hover { 
+          > span,
+          > a {
+            @include set-background($subnav_item_active_background);
+            @include set-color($subnav_item_active_color,$subnav_item_active_background, 0.95);
+          }
+        }
+      }
+    }
+    // column title
+    .column-title,
+    div.subnav > ul > li > span {
+      @include set-color($subnav_item_color,$subnav_item_bg,0.95);
+    }
+    // a special case for span menu item text
+    div.subnav > ul > li > ul,
+    ul.subnav {
+      > li.open,
+      > li:hover {
+        > span {
+          @include set-background($subnav_item_hover_background);
+          @include set-color($subnav_item_hover_color,$subnav_item_bg_hover,0.8); 
+        }
+      }
+    }
+    // submenu text colors
+    div.subnav {
+      @include set-color($subnav_text_color,$subnav_item_bg,0.55);
+    }
+    .subnav-content {
+      a:not([class]), b {
+        @include set-color($subnav_link_color,$subnav_item_bg,0.75);
+      }
+      a:not([class]):hover {
+        @include set-color($subnav_link_color_hover,$subnav_item_bg,0.95);
+      }
+    }
+  }
+}
+
+// horizontal menu animation
+@mixin main-menu($include:0) {
+  #{if($include !=0, '&.nav', '.nav')} {
+    @media (min-width: $responsive_breakpoint) {
+      // animation
+      li {
+        > .subnav {
+          top: -99999em; left: -99999em;
+          transform: translate(0,-10px);
+          transition: transform .5s ease, opacity .4s linear;
+        }
+        
+        li > .subnav { transform: translate(-10px) }
+        li.open-position > .subnav { top: 0; left: 100% }
+      }
+    
+      li.open-position > .subnav { top: 100%; left: 0; z-index:1 }
+      li.open > .subnav { transform: translate(0); opacity: 1 }
+    }
+  }
+}
+
+// vertical left-side animation
+@mixin left-side($include:0) {
+  #{if($include !=0, '&.nav', '.nav')} {
+    flex-direction: column;
+    @media (min-width: $responsive_breakpoint) {
+      li {
+        > .subnav {
+          top: -99999em; left: -99999em;
+          opacity:0;
+          transform: translate(-10px);
+          transition: transform .5s ease, opacity .4s linear;
+        }
+      }
+      li.open-position > .subnav { top:0; left: 100%; z-index: 1; }
+      li.open > .subnav { transform: translate(0); opacity:1 }
+    }
+  } 
+}
+
+// vertical right-side animation
+@mixin right-side($include:0) { 
+  #{if($include !=0, '&.nav', '.nav')} {
+    flex-direction: column;
+    @media (min-width: $responsive_breakpoint) {
+      li {
+        > .subnav {
+          opacity: 0;
+          top: -99999em;
+          right: -99999em; left: auto; 
+          transform: translate(10px);
+          transition: transform .5s ease, opacity .4s linear;
+        }
+      }
+      li.open-position > .subnav { top: 0; right: 100%; z-index: 1;}
+      li.open > .subnav { transform: translate(0); opacity: 1 }
+    }
+  }
+}
+
+// NAVBAR ICON
+@mixin navbar-icon() {
+  $height: $icon_height;
+  @if $icon_height == auto or $icon_height == inherit or $icon_height == 0 or type-of($icon_height) != 'number' {
+
+    @if type-of($root_item_line_height) == 'number' and type-of($subnav_item_line_height) == 'number' {
+      @if real-size($root_item_line_height) > real-size($subnav_item_line_height) {
+        $height: $subnav_item_line_height
+      } @else {
+        $height: $root_item_line_height
+      }
+    } @else if type-of($subnav_line_height) == 'number' and type-of($navbar_line_height) == 'number' {
+      @if real-size($navbar_line_height) > real-size($subnav_line_height) {
+        $height: $subnav_line_height
+      } @else {
+        $height: $navbar_line_height
+      }
+    } @else if type-of($subnav_line_height) == 'number' {
+        $height: $subnav_line_height
+    } @else if type-of($navbar_line_height) == 'number' {
+        $height: $navbar_line_height
+    } @else {
+      $height: 16px // ICONS MUST HAVE A SIZE
+    }
+  }
+
+    // ideally
+    // svg.menu-icon, svg.parent-icon, svg.parent-toggle {
+    //   width: $height;
+    //   height: $height;
+    //   fill: currentColor;
+    // }
+    // i.menu-icon,i.parent-icon,i.parent-toggle {
+    //   font-size: round($height * 94/100*10)/10;
+    //   text-align: center;
+    // }
+    // i.parent-toggle {width: $height; height: $height}
+  .menu-icon,
+  .parent-icon,
+  .parent-toggle {
+    width: $height;
+    height: $height;
+    fill: currentColor;
+    // font-size: round($height * 94/100*10)/10;
+    text-align: center;
+    line-height: $height;
+  }
+  .menu-icon {
+    font-size: round($height * 94/100*10)/10;
+  }
+}
+
+// STYLING UTIL MIXINS
+@mixin set-color($color,$bg,$alpha){
+  @if real-color($color) {
+    color: $color;
+  } @else if $color == auto and real-color($bg) {
+    @if lightness($bg) > 60 {
+      color: rgba(#000,$alpha);
+    } @else {
+      color: rgba(#fff,$alpha);
+    }
+  } @else {
+    // @debug "set-color(#{$color},#{$bg},#{$alpha}); value-type '#{type-of($color)}:#{$color}' is ignored, style rule removed.";  // color-lightness: #{lightness($bg)}
+  }
+  // if transparent, cancel rule
+}
+
+@mixin set-background($bg){
+  @if type-of($bg) == 'list' or real-color($bg) {
+    background: $bg;
+  } @else {
+    // @debug "set-background(#{$bg}); value-type '#{type-of($bg)}:#{$bg}' is ignored, style rule removed.";
+  }
+}
+
+@mixin set-metric($prop,$value,$inherited:0){
+  @if $value == inherit and (type-of($inherited) == 'list' or type-of($inherited) == 'number' and $inherited != 0) {
+    #{$prop}: $inherited
+  } @else if type-of($value) == 'list' or type-of($value) == 'number' and $value != 0 {
+    #{$prop}: $value
+  } @else {
+  }
+  // @debug "set-metric(#{$prop},#{$value},#{$inherited});  value-type '#{type-of($value)}:#{$value}' is ignored, style rule removed.";
+}
