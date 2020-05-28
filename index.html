@@ -1,162 +1,1096 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Navbar.js is a minimal navigation script built with native JavaScript.">
-    <meta name="author" content="thednp">
-    <style>
-        .navigation { float: left; width: 100%; clear: both }
-    </style>
 
-    <title>Navbar.js</title>
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="./src/css/navbar.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/minifill/0.0.4/minifill.min.js"></script> 
-  </head>
-  <body>
-  
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Navbar.js is a modern, mobile first navigation component for the modern web.">
+  <meta name="author" content="thednp">
+
+  <title>Navbar.js Main Demo</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,800|Roboto+Condensed:400,800" rel="stylesheet">
+  <link href="./assets/css/style.css" rel="stylesheet">
+  <link href="./assets/css/prism.css" rel="stylesheet">
+  <link href="./src/css/navbar.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
   <div class="content-wrapper">
-    <div class="container"> 
-        <div class="navigation">
-        
-            <ul class="nav" data-function="navbar">
-                <li class="active"><a href="#">Demos
-                        <svg class="parent-icon" viewBox="0 0 1024 1024">
-                            <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
-                        </svg>
-                    </a>
-                    <ul>
-                        <li class="active"><a href="index.html">Main</a></li>
-                        <li><a href="left.html">Left Side</a></li>
-                        <li><a href="right.html">Right Side</a></li>
-                        <li><a href="bootstrap.html">Bootstrap</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Navigate
-                        <svg class="parent-icon" viewBox="0 0 1024 1024">
-                            <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
-                        </svg>
-                    </a>
-                    <ul>
-                        <li><a href="#">Rentals
-                                <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                    <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
-                                </svg>
-                            </a>
-                            <ul>
-                                <li><a href="#">Locations
-                                        <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                            <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
-                                        </svg>
-                                    </a>
-                                    <ul>
-                                        <li><a href="#">Rentals</a></li>
-                                        <li><a href="#">Integrate</a></li>
-                                        <li><a href="#">Options</a></li>
-                                        <li><a href="#">Account</a></li>
-                                    </ul>	
-                                </li>
-                                <li><a href="#">Services
-                                        <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                            <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
-                                        </svg>
-                                    </a>
-                                    <ul>
-                                        <li><a href="#">Rentals</a></li>
-                                        <li><a href="#">Integrate</a></li>
-                                        <li><a href="#">Options</a></li>
-                                        <li><a href="#">Account</a></li>
-                                    </ul>	
-                                </li>							
-                            </ul>
-                        </li>
-                        <li><a href="#">Personal Info
-                                <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                    <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
-                                </svg>
-                            </a>
-                            <ul>
-                                <li><a href="#">Rentals</a></li>
-                                <li><a href="#">Integrate</a></li>
-                                <li><a href="#">Options</a></li>
-                                <li><a href="#">Account</a></li>
-                            </ul>
-                        </li>
-                    </ul>	
-                </li>
+    <div class="container">
+      <nav class="navbar navigation" data-function="navbar">
+        <a class="brand" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Navbar.js</a>
+        <button class="navbar-toggle">
+          <svg class="menu-icon" viewBox="0 0 1024 1024">
+            <path d="M896.876 319.65h-768.751c-14.152 0-25.625-11.473-25.625-25.625s11.473-25.625 25.625-25.625h768.751c14.153 0 25.625 11.473 25.625 25.625s-11.472 25.625-25.625 25.625z m0 256.25h-768.751c-14.152 0-25.625-11.472-25.625-25.625s11.473-25.625 25.625-25.625h768.751c14.153 0 25.625 11.472 25.625 25.625s-11.472 25.625-25.625 25.625z m0 256.25h-768.751c-14.152 0-25.625-11.472-25.625-25.625s11.473-25.625 25.625-25.625h768.751c14.153 0 25.625 11.472 25.625 25.625s-11.472 25.625-25.625 25.625z" />
+          </svg>
+        </button>
 
-                <li><a href="#">Share
-                        <svg class="parent-icon" viewBox="0 0 1024 1024">
-                            <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
-                        </svg>
-                    </a>
-                    <ul id="share" class="dropdown-menu">
-                        <li class="hidden-xs">
-                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Facebook">
-                                <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                    <path d="M713.143 73.143c90.857 0 164.571 73.714 164.571 164.571v548.571c0 90.857-73.714 164.571-164.571 164.571h-107.429v-340h113.714l17.143-132.571h-130.857v-84.571c0-38.286 10.286-64 65.714-64l69.714-0.571v-118.286c-12-1.714-53.714-5.143-101.714-5.143-101.143 0-170.857 61.714-170.857 174.857v97.714h-114.286v132.571h114.286v340h-304c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571z" />
-                                </svg>
-                                Facebook
-                            </a>
-                        </li>
-                        <li class="hidden-xs">
-                            <a target="_blank" href="https://twitter.com/home?status=Spread the word about %23NAVBARjs by @dnp_theme and download here http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Twitter">
-                                <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                    <path d="M731.429 348.571c-21.714 9.714-44.571 16-69.143 19.429 25.143-14.857 44-38.857 53.143-66.857-23.429 13.714-49.143 24-76.571 29.143-21.714-23.429-53.143-37.714-87.429-37.714-66.286 0-120 53.714-120 120 0 9.143 0.571 18.857 2.857 27.429-100-5.143-188.571-52.571-248-125.714-10.286 17.714-16.571 38.857-16.571 60.571 0 41.714 19.429 78.286 52 100-20-0.571-38.857-6.286-57.143-14.857v1.143c0 58.286 44 106.857 98.857 117.714-10.286 2.857-18.286 4.571-29.143 4.571-7.429 0-14.857-1.143-22.286-2.286 15.429 47.429 59.429 82.286 112 83.429-41.143 32-92.571 51.429-149.143 51.429-9.714 0-19.429-0.571-28.571-1.714 53.143 33.714 116 53.714 184 53.714 220.571 0 341.714-182.857 341.714-341.714 0-5.143 0-10.286-0.571-15.429 23.429-16.571 44-37.714 60-62.286zM877.714 237.714v548.571c0 90.857-73.714 164.571-164.571 164.571h-548.571c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571c90.857 0 164.571 73.714 164.571 164.571z" />
-                                </svg>
-                                Twitter
-                            </a>
-                        </li>
-                        <li class="hidden-xs">
-                            <a target="_blank" href="https://plus.google.com/share?url=http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Google+">
-                                <svg class="parent-icon" viewBox="0 0 1024 1024">
-                                    <path d="M524 517.143c0-14.286-1.714-25.714-3.429-36.571h-206.857v75.429h124c-4.571 32-37.143 94.286-124 94.286-75.429 0-136.571-61.714-136.571-138.286s61.143-138.286 136.571-138.286c42.286 0 70.857 17.714 87.429 33.714l59.429-57.714c-38.286-35.429-88-57.143-146.857-57.143-121.714 0-219.429 98.286-219.429 219.429s97.714 219.429 219.429 219.429c126.286 0 210.286-89.143 210.286-214.286zM721.143 543.429h62.286v-62.857h-62.286v-62.857h-62.857v62.857h-62.857v62.857h62.857v62.857h62.857v-62.857zM877.714 237.714v548.571c0 90.857-73.714 164.571-164.571 164.571h-548.571c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571c90.857 0 164.571 73.714 164.571 164.571z" />
-                                </svg>
-                                Google+
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <a class="brand pull-right" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Github</a>
+        <div>
+          <ul class="nav">
+            <li class="active">
+              <a href="#">Demos
+                <svg class="parent-icon" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+                <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </a>
+              <ul class="subnav">
+                <li class="active"><a href="index.html">Main</a></li>
+                <li><a href="left.html">Left Side</a></li>
+                <li><a href="left-menu.html">Left Menu</a></li>
+                <li><a href="right.html">Right Side</a></li>
+                <li><a href="combo.html">Combo</a></li>
+                <li><a href="bootstrap.html">Bootstrap</a></li>
+                <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">
+                Navigate
+                <svg class="parent-icon" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+                <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </a>
 
-        </div>
-    
-   
-        <div class="content">
-            <div class="content-inner main">
-                <h1>Navbar.js <small>Minimal Navigation Script</small></h1>
-                <p>A most needed script most web developers need for a quick site navigation, built with Native JavaScript and supported on all major browsers as well as legacy browsers starting with IE8.</p>
-                <p><a class="btn btn-brand" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a> <a class="btn" href="https://github.com/thednp/navbar.js/">Fork</a></p>
-            
-                <h1>Navbar.js Features</h1>
-                <ul>
-                    <li>opens submenus on mouseenter, by adding open and open-position classes to the menu item</li>
-                    <li>hides submenus on mouseleave, by removing the above classes in a delayed succesion</li>
-                    <li>super light script, 1.2k in size when minified</li>
-                    <li>responsive design ready</li>
-                    <li>super light and easy to customize CSS</li>
-                    <li>3 sets of positions top (main), left or right</li>
-                    <li>animations are based on position</li>
-                    <li>LESS/SCSS sources ready</li>
-                    <li>DATA API allows you to automatically initiate without JS invocation</li>
-                    <li>MIT Licensed</li>
-                    <li>cross-browser supported</li>
+              <div class="subnav">
+                <ul class="row nomargin">
+                  <li class='col-4'>
+                    <span class="column-title">
+                      Locations
+                      <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                        <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                      </svg>
+                    </span>
+                    <ul class="">
+                      <li>
+                        <a href="#">
+                          Rentals
+                          <svg class="parent-icon" viewBox="0 0 1024 1024">
+                            <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+                          </svg>
+                          <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                            <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                          </svg>
+                        </a>
+                        <ul class="subnav">
+                          <li>
+                            <a href="#">
+                              Housing
+                              <svg class="parent-icon" viewBox="0 0 1024 1024">
+                                <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+                              </svg>
+                              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                                <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                              </svg>
+                            </a>
+                            <ul class="subnav">
+                              <li><a href="#">Entry</a></li>
+                              <li><a href="#">Popular</a></li>
+                              <li><a href="#">Premium</a></li>
+                              <li><a href="#">Seniors</a></li>
+                            </ul>
+                          </li>
+
+                          <li><a href="#">Corporate</a></li>
+                          <li><a href="#">Industrial</a></li>
+                          <li><a href="#">Government</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Integrate</a></li>
+                      <li><a href="#">Options</a></li>
+                      <li><a href="#">Account</a></li>
+                    </ul>
+                  </li>
+                  <li class='col-4'>
+                    <span class="column-title">
+                      Hidden Text Box
+                      <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                        <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                      </svg>
+                    </span>
+                    <div class="subnav-content">
+                      <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
+                      <p>Features a nice <a href="#">link anchor</a> affected by navbar styling.</p>
+                    </div>
+                  </li>
+                  <li class="col-4">
+                    <div class="subnav-content">
+                      <span class="column-title" style="display: flex; margin-bottom: 1rem">Visible Text Box</span>
+                      <p>This text box is fully visible on all views and is featuring a custom button unaffected by navbar styling.</p>
+                      <p><a class="btn btn-brand" href="#">Read More</a></p>
+                    </div>
+                  </li>
                 </ul>
+              </div>
+            </li>
 
-                <h1>Usage and Guides</h1>
-                <p>Please visit the <a href="https://github.com/thednp/navbar.js/">Github page</a> for more detailed usage and guides.</p>
-
-    
-                <div class="copy main">
-                   <a target="_blank" href="http://themeforest.net/user/dnp_theme">dnp_theme</a> &copy; 2017
-                </div>
-            </div>
+            <li>
+              <a href="#">Share
+                <svg class="parent-icon" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+                <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </a>
+              <ul class="subnav">
+                <li>
+                  <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html"
+                    title="Share navbar.js on Facebook">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
+                      <path
+                        d="M713.143 73.143c90.857 0 164.571 73.714 164.571 164.571v548.571c0 90.857-73.714 164.571-164.571 164.571h-107.429v-340h113.714l17.143-132.571h-130.857v-84.571c0-38.286 10.286-64 65.714-64l69.714-0.571v-118.286c-12-1.714-53.714-5.143-101.714-5.143-101.143 0-170.857 61.714-170.857 174.857v97.714h-114.286v132.571h114.286v340h-304c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571z" />
+                    </svg>
+                    <span>Facebook</span>
+                  </a>
+                </li>
+                <li>
+                  <a target="_blank"
+                    href="https://twitter.com/home?status=Spread the word about %23NAVBARjs by @dnp_theme and download here http://thednp.github.io/navbar.js/index.html"
+                    title="Share navbar.js on Twitter">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
+                      <path
+                        d="M731.429 348.571c-21.714 9.714-44.571 16-69.143 19.429 25.143-14.857 44-38.857 53.143-66.857-23.429 13.714-49.143 24-76.571 29.143-21.714-23.429-53.143-37.714-87.429-37.714-66.286 0-120 53.714-120 120 0 9.143 0.571 18.857 2.857 27.429-100-5.143-188.571-52.571-248-125.714-10.286 17.714-16.571 38.857-16.571 60.571 0 41.714 19.429 78.286 52 100-20-0.571-38.857-6.286-57.143-14.857v1.143c0 58.286 44 106.857 98.857 117.714-10.286 2.857-18.286 4.571-29.143 4.571-7.429 0-14.857-1.143-22.286-2.286 15.429 47.429 59.429 82.286 112 83.429-41.143 32-92.571 51.429-149.143 51.429-9.714 0-19.429-0.571-28.571-1.714 53.143 33.714 116 53.714 184 53.714 220.571 0 341.714-182.857 341.714-341.714 0-5.143 0-10.286-0.571-15.429 23.429-16.571 44-37.714 60-62.286zM877.714 237.714v548.571c0 90.857-73.714 164.571-164.571 164.571h-548.571c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571c90.857 0 164.571 73.714 164.571 164.571z" />
+                    </svg>
+                    <span>Twitter</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div class="copy navbar-content">
+            <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020</span>
+          </div>
         </div>
-   </div>
-   <script src="./src/js/navbar.min.js"></script>
+      </nav>
 
-  </body>
+      <div class="content">
+        <div class="hero">
+          <div class="row" style="align-items: center">
+            <div class="col-6">
+              <img class="hidden-md" src="assets/img/navbar.png" alt="Navbar.js">
+            </div>
+            <div class="col-6">
+              <h1>Navbar.js <small>Modern Navigation Component</small></h1>
+              <div class="install">npm install navbar.js</div>
+              <p class="lead">The mobile first menu navigation for today's modern web, developed
+                with native JavaScript and packed with lots of features.</p>
+              <p>
+                <a class="btn btn-brand" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a>
+                <a class="btn" href="https://github.com/thednp/navbar.js/">Fork</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="content-inner main">
+          <h1>Meet Navbar.js</h1>
+          <div class="row boxes">
+            <div class="col-6">
+              <div class="box">
+                <p><b>ES6/ES7 Native JavaScript</b><br>
+                  The component was redesigned for the latest tools and modern applications and comes
+                  packed fully featured. In addition, build tools and sources are provided so you can 
+                  get started working on your application right away.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box">
+                <p><b>Simple &amp; Light Scripting</b><br>
+                  Navbar.js is meant to be simple, fast, reliable and easy to implement, all in a very
+                  light footprint.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box">
+                <p><b>DATA API</b><br>
+                  Initialize automatically and set options for your target elements via DATA API.</p>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="box gray-0">
+                <p><b>SCSS Sources Ready</b><br>
+                  Unleash your creativity into those SCSS variables and make it your way, your style,
+                  any time you wanna play. The sources are modular and very easy to follow.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>Mobile First Design</b><br>
+                  The navbar.js component was redesigned to be a viable mobile first solution.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>Flexbox Galore</b><br>
+                  We've dumped old design and reworked everything from scratch with flexbox.</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="box gray-0">
+                <p><b>With Modern Browsers In Mind</b><br>
+                  In the redesign process we've put everything modern to the table for the best script
+                  execution performance and the optimal rendering load.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>Well Documented</b><br>
+                  As always well documented and filled with tips and cookies.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>MIT Licensed</b><br>
+                  The component is released under the 
+                  <a href="https://github.com/thednp/navbar.js/blob/master/LICENSE">MIT License</a>.</p>
+              </div>
+            </div>
+          </div>
+
+          <h1>Default Markup</h1>
+          <p>The following HTML code is the default markup to showcase all the features and options of the
+            navbar component, followed by a complete breakdown of the child elements and all their attributes. 
+            Now since the component is redesigned around flexbox, all its parts can be ordered any way you 
+            flex it really. Here comes the beauty of flexbox: notice how simplistic the markup is, there 
+            are only a couple major class names, other classes are optional for icons and other content items:</p>
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true" data-delay="500">
+  &lt;a class="brand" href="#" title="Brand Sample Title">Brand Text&lt;/a> &lt;!-- your branding comes here -->
+  &lt;button class="navbar-toggle"> &lt;!-- your responsive toggle button comes here -->
+    &lt;i class="menu-icon">&lt;/i>
+  &lt;/button>
+  &lt;div> &lt;!-- this wrapper contains the menu and other contents -->
+    &lt;ul class="nav"> &lt;!-- your menu comes here -->
+      &lt;li> &lt;!-- LVL 0 menu item -->
+        &lt;a href="#">Root Parent Item
+          &lt;i class="parent-icon">&lt;/i> &lt;!-- highlights a parent menu item -->
+          &lt;i class="parent-toggle">&lt;/i> &lt;!-- highlights a parent menu item and enables visibility toggle -->
+        &lt;/a>
+        &lt;ul class="subnav"> &lt;!-- your sub-menu comes here -->
+          &lt;li>&lt;a href="#">Sub-Menu Item 1&lt;/a>&lt;/li> &lt;!-- LVL 1 menu item -->
+          &lt;li>&lt;a href="#">Sub-Menu Item 2&lt;/a>&lt;/li>
+        &lt;/ul>
+      &lt;/li>
+      &lt;li class="active"> &lt;!-- active class highlights the current page -->
+        &lt;a href="#">
+          &lt;i class="menu-icon">&lt;/i> &lt;!-- menu icon example here -->
+          &lt;span>Item With Icon&lt;/span> &lt;!-- long menu item text can be wrapped in SPAN tags -->
+        &lt;/a>
+      &lt;/li>
+    &lt;/ul>
+    &lt;div class="navbar-content">Another content&lt;/div> &lt;!-- other content comes around here -->
+  &lt;/div>
+&lt;/nav>
+</code></pre>
+</div>
+
+          <h2 class="mt-1">Navbar Wrapper</h2>
+          <p class="lead">To render the navbar and enable its full functionality, your menu navigation 
+            needs to make use of a special wrapping container; note that not all attributes are 
+            required nor the container itself, but for each specific case, you need to use the 
+            proper markup and compile a specific set of CSS rules.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true" data-delay="500">
+  &lt;a class="brand" href="#" title="Brand Sample Title">Site Title&lt;/a>
+  &lt;button class="navbar-toggle">&lt;/button>
+  &lt;div>
+    &lt;ul class="nav">&lt;/ul> &lt;!-- your menu comes here -->
+  &lt;/div>
+&lt;/nav></code></pre>
+</div>
+
+          <p>Navbar Wrapper Attributes:</p>
+          <ul class="attr-list">
+            <li><code>data-function="navbar"</code> attribute enables the DATA API automatic
+              initialization of your navbar. If you wish to initialize via JavaScript,
+              you can ignore this attribute.</li>
+            <li><code>data-breakpoint="800"</code> attribute connects the layout set via CSS for the
+              navbar with its JavaScript functionality and is only required when
+              using a different breakpoint other than the default value of <code>768px</code>.</li>
+            <li><code>data-toggle-siblings="true"</code> attribute enables a special functionality on
+              mobile devices that toggles siblings on showing a submenu.
+              By default this setting is <code>false</code>.</li>
+            <li><code>data-delay="500"</code> attribute sets the duration in which the submenus close
+              after <code>mouseleave</code> event was fired. By default this setting is 
+              <code>500</code>.</li>
+            <li><code>class="navbar"</code> attribute is required to enable the visual styling and
+              functionality of the navbar.</li>
+          </ul>
+
+          <p>The <code>&lt;button></code> and the <code>&lt;div></code> elements are both required
+            for the navbar functionality in the sense that the button toggles the visibility of the
+            menu contained inside the <code>&lt;div></code> element on mobile devices, so keep in
+            mind that markup structure is key. In other cases you can skip the wrapper all together 
+            and only use the menu itself, as showcased in the <a href="left-module.html">left module</a> 
+            example page.</p>
+
+
+          <h2>Navbar Branding</h2>
+          <p class="lead">The Navbar component features branding similar 
+            to the Bootstrap navbar plugin. The element shown below shares the space with the menu container 
+            and has different visuals on desktop and mobile devices.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar">
+  &lt;a class="brand" href="#" title="Brand Sample Title">Site Title&lt;/a>
+  &lt;!-- other contents -->
+&lt;/nav>
+</code></pre></div>
+
+          <p>Brand Attributes:</p>
+          <ul class="attr-list">
+            <li><code>class="brand"</code> attribute sets the visuals for the element, you can customize
+              it via CSS and/or HTML markup.</li>
+            <li><code>title</code> and <code>href</code>attributes are your regular anchor attributes
+              with no effect on the functionality or visuals.</li>
+          </ul>
+          <p>In other cases you might consider using an <code>&lt;img></code> or <code>&lt;svg></code>
+            element, totally up to your need.</p>
+
+
+          <h2>Navbar Toggle</h2>
+          <p class="lead">When using the wrapper, your navbar needs a toggle button for the responsive view. This button is 
+            always required when the wrapper is used to toggle visibility of the menu itself and other content items.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;button class="navbar-toggle">
+  &lt;i class="menu-icon">&lt;/i>
+&lt;/button>
+</code></pre></div>
+
+          <p>In other cases you might want to work with <code>&lt;svg></code> elements, here's the markup you might be looking for:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;button class="navbar-toggle">
+  &lt;svg class="menu-icon" viewBox="0 0 1024 1024">
+    &lt;path d="M128 277.333h768v86h-768v-86z m0 298v-84h768v84h-768z m0 214v-86h768v86h-768z">
+  &lt;/svg>
+&lt;/button></code></pre></div>
+
+          <p>Navbar Toggle Attributes:</p>
+          <ul class="attr-list">
+            <li><code>class="navbar-toggle"</code> attribute is required for the navbar functionality and styling.</li>
+            <li><code>class="menu-icon"</code> attribute is required for <code>&lt;i></code> or <code>&lt;svg></code> elements 
+              to enable the styling and you can make use of any font-icon library.</li>
+          </ul>
+
+
+          <h2>Navbar Content</h2>
+          <p class="lead">The navbar wrapper uses flexbox, so you can easily include any other component or text elements as shown 
+            in the demos. You must follow the markup structure as shown below:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar">
+  &lt;div> &lt;!-- your menu and content wrapper -->
+    &lt;ul class="nav">&lt;/ul> &lt;!-- your menu -->
+    
+    &lt;div class="navbar-content">
+      &lt;form>
+        &lt;input type="text">
+      &lt;/form>
+      &lt;ul>
+        &lt;li>&lt;i class="social-icon">&lt;/i>&lt;/li>
+      &lt;/ul>
+      Any text, inline list or other component.
+    &lt;/div>
+  &lt;/div>
+&lt;/nav>
+</code></pre>
+</div>
+
+          <p>The order of the items inside the wrapper is not important so feel free to experiment. Only keep in mind you must contain 
+            them all inside the wrapper, so they align with the navbar functionality consistently. The <code>class="navbar-content"</code>
+            is very useful as we will see more about later.</p>
+
+
+          <h2>Root Menu</h2>
+          <p class="lead"> The default markup for the root menu usually looks like this:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar">
+  &lt;div>
+    &lt;ul class="nav">
+      &lt;li>&lt;a href="#">Root Menu Item 1&lt;/a>&lt;/li>
+      &lt;li>&lt;a href="#">Root Menu Item 2&lt;/a>&lt;/li>
+      &lt;li>&lt;a href="#">Root Menu Item 3&lt;/a>&lt;/li>
+    &lt;/ul>
+  &lt;/div>
+&lt;/nav>
+</code></pre></div>
+
+          <p>Menu Attributes:</p>
+          <ul class="attr-list">
+            <li><code>class="nav"</code> attribute is required to enable both styling and functionality of the component.</li>
+            <li><code>data-function="navbar"</code> attribute can be used for the <code>&lt;ul class="nav"></code> element
+              to initialize Navbar on the menu itself.</li>
+          </ul>
+          <p>The markup structure is simple and straightforward, additional styling, icons and sub-menus can be added to the 
+            structure, as we'll see in a later example.</p>
+
+
+          <h2>Sub Menu</h2>
+          <p class="lead">Our component sports an unlimited depth menu tree, for instance this markup would
+            render a very basic menu structure:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar">
+  &lt;div>
+    &lt;ul class="nav">
+      &lt;li>
+        &lt;a href="#">Root Parent Menu Item
+          &lt;i class="parent-icon">&lt;/i>
+          &lt;i class="parent-toggle">&lt;/i>
+        &lt;/a>
+        &lt;ul class="subnav"> &lt;!-- your submenu comes here -->
+          &lt;li>&lt;a href="#">Sub-Menu Item 1&lt;/a>&lt;/li>
+          &lt;li>&lt;a href="#">Sub-Menu Item 2&lt;/a>&lt;/li>
+        &lt;/ul>
+      &lt;/li>
+    &lt;/ul>
+  &lt;/div>
+&lt;/nav>
+</code></pre>
+</div>
+
+          <p>Sub Menu Attributes:</p>
+          <ul class="attr-list">
+            <li><code>class="subnav"</code> attribute is required for the sub-menu to enable both visual
+              and functionality of the navbar for both desktop and mobile devices.</li>
+            <li>The parent item needs to have both <code>&lt;TAG class="parent-icon"></code> and
+              <code>&lt;TAG class="parent-toggle"></code> elements, first is meant to highlight the fact 
+              that is a parent item, while the second is an active element that toggles the visibility 
+              of the sub-menu on mobile devices, which makes it required for the responsive view. 
+              By the way, a quick example on using font icons is with the 
+              <a href="left.html">left side</a> example.</li>
+          </ul>
+
+
+          <h2>Menu Icons</h2>
+          <p class="lead">The Navbar component provides support for various icon types, either to highlight 
+            a parent menu item and or enable the visibility toggle for child menus, or simply a menu icon
+            to highlight you menu item for a specific purpose.</p>
+          <p>Take note that some icons are intentionally not aligned vertically in the middle, so additional 
+            styling might be required for your specific case.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar">
+  &lt;ul class="nav">
+    &lt;li>
+      &lt;a href="#">Parent Menu Item
+        &lt;i class="parent-icon">&lt;/i> &lt;!-- highlights a parent menu item on desktop -->
+        &lt;i class="parent-toggle">&lt;/i> &lt;!-- highlights a parent and enables visibility toggle on mobile view -->
+      &lt;/a>
+      &lt;ul class="subnav">&lt;/ul>
+    &lt;/li>
+    &lt;li>
+      &lt;a href="#">
+        &lt;i class="menu-icon">&lt;/i> &lt;!-- your cool menu icons come here -->
+        &lt;span>Menu Item with Icon&lt;/span>
+      &lt;/a>
+    &lt;/li>
+  &lt;/ul>
+&lt;/nav>
+</code></pre>
+</div>
+
+          <p>Menu Icon Attributes:</p>
+          <ul class="attr-list">
+            <li><code>class="parent-icon"</code> attribute is required for element you choose to highlight as a parent menu item
+                on desktop devices, while the <code>&lt;i class="parent-icon"></code> itself is <b>not</b> required for any 
+                functionality.</li>
+            <li><code>class="parent-toggle"</code> attribute is required for element you choose to highlight as a parent menu item
+                on mobile devices, but the <code>&lt;i class="parent-toggle"></code> itself <b>is</b> required for the toggle
+                functionality.</li>
+            <li><code>class="menu-icon"</code> attribute is provided to you for menu items you choose to highlight them for your
+                specific purpose and this element is visible on all devices.</li>
+          </ul>
+
+          <p>When menu item text is longer than the menu width, you can apply <code>text-overflow: ellipsis</code> just by 
+            wrapping it in a <code>&lt;span></code> tag, just like shown in the above markup. Problem solved.</p>
+
+
+          <h2>Mega Menu</h2>
+          <p class="lead">The Navbar component can work with mega menu, and provides some styling for that, however it doesn't 
+            provide or include any grid column styling, which is a totally different thing.</p>
+          <p>The important part to remember is that this functionality is heavily restrictive on markup structure, 
+            especially for HTML validity reasons, but let's dive right in.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar">
+  &lt;a class="brand" href="#">Brand Text&lt;/a>
+  &lt;button class="navbar-toggle">MENU&lt;/button>
+  &lt;div> &lt;!-- menu &amp; contents container -->
+    &lt;ul class="nav"> &lt;!-- menu starts here -->
+      &lt;li> &lt;!-- mega menu item LVL 0 -->
+        &lt;a href="#">Mega Menu Item
+          &lt;i class="parent-icon">&lt;/i>
+          &lt;i class="parent-toggle">&lt;/i>
+        &lt;/a>
+        &lt;div class="subnav"> &lt;!-- notice the DIV tag here -->
+          &lt;ul class="row"> &lt;!-- columns wrapper, notice the UL tag -->
+            &lt;li class="column"> &lt;!-- mega sub-menu item is a column, menu item LVL 1 -->
+              &lt;span class="column-title">Mega Column Title LVL 1 &lt;!-- column title must always be SPAN -->
+                &lt;i class="parent-toggle">&lt;/i> &lt;!-- mega column title can also toggle sub-menu items -->
+              &lt;/span>
+              &lt;ul> &lt;!-- IMPORTANT: notice this UL has no class -->
+                &lt;li> &lt;!-- menu item LVL 2 -->
+                  &lt;a href="#">Mega Sub Menu Item
+                    &lt;i class="parent-icon">&lt;/i>
+                    &lt;i class="parent-toggle">&lt;/i>
+                  &lt;/a>
+                  &lt;ul class="subnav"> &lt;!-- IMPORTANT: this UL has the "subnav" class -->
+                    &lt;li> &lt;!-- menu item LVL 3 -->
+                      &lt;a href="#">Regular Sub-menu
+                        &lt;i class="parent-icon">&lt;/i>
+                        &lt;i class="parent-toggle">&lt;/i>
+                      &lt;/a>
+                      &lt;ul class="subnav">
+                        &lt;li>&lt;a href="#">Regular Sub-menu Item&lt;/a>&lt;/li> &lt;!-- menu item LVL 4 -->
+                        &lt;li>&lt;a href="#">Regular Sub-menu Item&lt;/a>&lt;/li>
+                      &lt;/ul>
+                    &lt;/li>
+                  &lt;/ul>
+                &lt;/li>
+              &lt;/ul>
+            &lt;/li>
+            &lt;li class="column"> &lt;!-- second column, menu item LVL 1 -->
+              &lt;!-- this column has no column title, the DIV below will be visible -->
+              &lt;div class="subnav-content">
+                &lt;!-- your markup content comes here -->
+              &lt;/div>
+            &lt;/li>
+          &lt;/ul>
+        &lt;/div>
+      &lt;/li>
+    &lt;/ul>
+  &lt;/div>
+&lt;/nav>
+</code></pre></div>
+
+          <p>Mega Menu Breakdown:</p>
+          <ul class="attr-list">
+            <li>The <code>&lt;div class="subnav"></code> element is your mega-menu wrapper and the reason for using the DIV tag
+              is the need to apply the style rules differently from other non-mega-menu items, simple and effective.</li>
+            <li>The <code>&lt;ul class="row"></code> element wraps your columns. Note that your columns styling should use the
+              same breakpoint as your navbar initialization.</li>
+            <li>The <code>&lt;li class="column"></code> element wraps your column content.</li>
+            <li>The immediate <code>&lt;span class="column-title"></code> child element is important, if not used, the next 
+              child content is visible on mobile view, but that is up to you to decide. The <code>class="column-title"</code>
+              is styled by the component and helpful to better explain the structure.</li>
+            <li>The next <code>&lt;ul></code> or <code>&lt;div></code> child element of the above 
+              <code>&lt;li class="column"></code> must not use the <code>subnav</code> class;</li>
+            <li>The <code>class="subnav-content"</code> is similar to <code>class="navbar-content"</code>, both are useful 
+              to adjust all contained anchor link colors to match the navbar or submenu background in both mobile and desktop 
+              views.</li>
+          </ul>
+
+
+          <h1>JavaScript API</h1>
+          <p class="lead">The navbar.js component can be initialized on a <code>&lt;nav></code> element as
+            well as a <code>&lt;ul></code> via JavaScript API, a method
+            that is useful for dynamic content, or you simply want to have complete control over the
+            initialization, public method and/or options.</p>
+
+          <nav id="navInitDemo" class="navbar mb-1" data-breakpoint="768" data-toggle-siblings="true" data-delay="500">
+            <div>
+              <ul class="nav">
+                <li class="active">
+                  <a href="javascript:void(0)">Root Parent Item
+                    <svg class="parent-icon" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                  </a>
+                  <ul class="subnav">
+                    <li><a href="javascript:void(0)">Sub-Menu Item 1</a></li>
+                    <li><a href="javascript:void(0)">Sub-Menu Item 2</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <a class="brand" href="javascript:void(0)" onclick="toggleButtons()">
+              <span id="spanText">Initialize</span>
+            </a>
+            <button class="navbar-toggle" style="padding: 3px; border-radius: 50%;">
+              <svg class="menu-icon" viewBox="0 0 1024 1024" style="display: block; width: 23px; height: 23px">
+                <path d="M512 16c274 0 496 222 496 496s-222 496-496 496-496-222-496-496 222-496 496-496z" />
+              </svg>
+            </button>
+          </nav>
+
+<div class="code-wrapper">
+<pre><code class="language-javascript">// import into your project
+import Navbar from 'navbar.js'
+
+// initialize your target
+let myNavbarInit = new Navbar('#myNavbar');
+
+// alternativelly initialize on a UL target
+// without the navbar wrapper
+let myMenu = document.querySelector('ul.nav');
+let myMenuInit = new Navbar(myMenu);
+
+// initialize with options
+let myMenuInit = new Navbar(
+  'selector',
+  {
+    breakpoint: 800,
+    toggleSiblings: true,
+    delay: 600
+  }
+);
+
+// access an initialization object
+let myNavbarInit = document.getElementById('myNavbar').Navbar;
+
+// remove navbar functionality from target
+// via accessing the public method
+myMenuInit.dispose();
+</code></pre></div>
+
+        <h1>SCSS Sources</h1>
+        <p class="lead">The navbar.js component comes packed with a set of SCSS mixins and functions you can use for various purposes. 
+          The idea behind is to allow for flexible customization and enable seamless integration with third party applications.</p>
+        <p>While the component can work out of the box with Bootstrap with minor markup adjustments, some special mixins have been 
+          developed to better complement the library without overloading the render and keeping the same design concept 
+          but we'll have a look at that later.</p>
+          
+        <h2>Main SCSS Mixins</h2>
+        <p>Next up, we're going to highlight the navbar component features out of the box, with the default style applied to the 
+          default markup. There are several mixins you can combine or extend, for instance the <code>navbar.scss</code>
+          file sets the default style and uses the default mixins:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">@import 'variables','mixins';
+
+@include navbar-mobile-layout;
+@include navbar-desktop-layout;
+@include navbar-style;
+@include nav-layout;
+@include nav-style;
+@include subnav-style;
+@include main-menu;
+</code></pre></div>
+
+          <ul class="attr-list">
+            <li><code>navbar-mobile-layout</code> provides the basic layout styling and base typography for the mobile view of the 
+              navbar as well as for its parts, specifically the brand link, navbar-toggle button and the menu wrapper;</li>
+            <li><code>navbar-desktop-layout</code> overrides the layout styling for larger screen sizes and desktop computers by 
+              changing the flexbox properties and elements visibility;</li>
+            <li><code>navbar-style</code> sets the navbar background but also sets text color for the brand link, regular links, 
+              text contents;</li>
+            <li><code>nav-layout</code> sets the layout style for the menu itself, then for root menu items and the submenu items, 
+              all in terms of spacing, typography, etc; in addition it sets the menu icons layout style;</li>
+            <li><code>nav-style</code> sets the text color and background color for root menu items, for normal, active and hover 
+              states;</li>
+            <li><code>subnav-style</code> sets the background color and the box-shadow for the submenu, the text color and 
+              background color for submenu items, for normal, active and hover states; if you don't use any submenus, you can 
+              skip this mixin all together;</li>
+            <li><code>main-menu</code> sets the position of the submenus as well as the animation for each level.</li>
+        </ul>
+        <p>In other cases shown in the demos, some of these mixins can be skiped, others can be configured for different
+          other unique purposes. For instance the <a href="left-menu.html">Left Menu</a> build only styles the menu itself, or
+          the <a href="bootstrap.html">Bootstrap</a> build uses its own specific set of mixins, to preserve the original 
+          design concept.</p>
+
+
+        <h2>SCSS Variables</h2>
+        <p>The SCSS mixins are fed a series of variables you can control, anything from typography and spacing to colors and 
+          animation. The input values can change how the mixins function by providing specific values:</p>
+        <ul class="attr-list">
+          <li>Typography variables are designed to set an overall consistent layout and some of them can be inherited in the menu 
+            tree structure.</li>
+          <li>Typography in general is designed to cover various other content types, within the navbar itself or submenu items, 
+            but you can remove parts or entire sets of style rules, just by using specific input values.</li>
+          <li>Color variables can also be inherited in the menu tree, but mixins will then apply a small contrast to avoid any
+            possible visual inconsistency.</li>
+          <li>While accepting valid color values, variables related to text color can also use <code>auto</code> value, so you can 
+            have less work to worry about.</li>
+          <li>Certain color related variable values can remove the style rules when using for instance values like <code>none</code> or
+            <code>transparent</code>.</li>
+          <li>Similarly typography related variable values can remove the style rules when using the <code>0</code> value and assumes the 
+            elements inherit a style rule from a parent element or is a part of other type of content.</li>
+          <li>In other cases the style rule is automatically reduntant, for instance brand link text color and background are not 
+            needed when you use an <code>&lt;img></code> element, a case where you only need to adjust some spacing.</li>
+          <li>Keep in mind that the mixins use variables designated for navbar and root menu items apply to mobile devices on 
+            all menu tree structure, while variables designated for submenu apply on non-mobile devices. This is why we call our
+            component a mobile first design concept.</li>
+          <li>Due to the nature of the automatic and/or inherit functionality, the mixins also provide a fail-safe mechanism
+            for invalid input values, but mixins will provide a log of the build process.</li>
+        </ul>
+
+        <h2>Navbar Padding and Global Typography</h2>
+        <p>First we have the Navbar padding setting, which is ZERO by default, but when used it will make easier integration 
+          with third party application, as we will see in the <a href="bootstrap.html">Bootstrap</a> demo.</p>
+        <p>Then the global navbar typography variables are important for the size of menu items of the root menu, the brand link, 
+          menu icons, as well as other content items. These values are inherited by submenu items and other contents as we'll 
+          see in a minute. Valid values are expected, but when you set to ZERO, the style rules are removed, so then the navbar 
+          will inherit these values from a parent element.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// NAVBAR METRIX
+$navbar_padding: 0 !default;
+$navbar_line_height: 1.5rem !default;
+$navbar_font_size: 14px !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$navbar_padding</code> sets a padding for the navbar;</li>
+          <li><code>$navbar_line_height</code> sets the globally applied line-height of the navbar;</li>
+          <li><code>$navbar_font_size</code> sets the globally applied font-size of the navbar.</li>
+        </ul>
+        <p>In other cases we might consider adding a font-family variable into the mix, but that is totally on you.</p>
+
+        <h2>Brand Color</h2>
+        <p>The brand color is one of the options you can use to highlight active menu items. The variable expects valid
+          <code>HEX</code>, <code>RGBA</code>, <code>RGB</code> or <code>transparent</code> values. When you set 
+          <code>transparent</code> for color variables in general, the mixins will remove the style rule.</p>
+          
+<div class="code-wrapper">
+<pre><code class="language-scss">// BRAND COLOR
+$primary_color: #006699 !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$primary_color</code> sets an accent color to be used by active menu items for text color or 
+            background color, in our case it's the second.</li>
+        </ul>
+
+        <h2>Navbar and Submenu Background</h2>
+        <p>The navbar global color variables are both totally up to your project, they expect valid values <code>HEX</code>,
+          <code>RGBA</code>, <code>RGB</code> or <code>transparent</code>. When you set <code>transparent</code> for these
+          color variables, the mixins will remove the style rule, however the <code>$navbar_background</code> is needed to
+          determine the value of other variables set to <code>auto</code> as we'll see in a minute.</p>
+        <p>The submenu can use its own background color or inherit the value of <code>$navbar_background</code> with a light
+          contrast applied when set to <code>inherit</code>. By default we're using a grayish background color, but you can 
+          addapt to your need or remove the style rule all together by using <code>transparent</code> input value, a case
+          we're going to check later.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// NAVBAR AND SUBNAV BACKGROUND COLOR
+$navbar_background: #687c86 !default;
+$subnav_background: #dadee0 !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$navbar_background</code> sets the navbar background color.</li>
+          <li><code>$subnav_background</code> sets the background color for submenus.</li>
+        </ul>
+
+
+        <h2>Navbar Text Colors</h2>
+        <p>The following variables set the global navbar text color and anchor link color. The expected values are <code>HEX</code>,
+          <code>RGBA</code>, <code>RGB</code>, <code>transparent</code> or <code>auto</code>. Similar to the above color related
+          variables, setting <code>transparent</code> the mixins will remove the style rule.</p> 
+        <p>When set to <code>auto</code> the mixins will set a color based on the lightness of the above <code>$navbar_background</code>,
+          with a light contrast for text content and a stronger contrast for links. Now if the background is also <code>transparent</code>
+          the style rule is again removed so you must provide a valid color value if that is required in order to keep consistency in check.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// NAVBAR TEXT COLORS
+$navbar_text_color: auto !default;
+$navbar_link_color: auto !default;
+$navbar_link_color_hover: auto !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$navbar_text_color</code> sets a global color for regular text content;</li>
+          <li><code>$navbar_link_color</code> sets a global color for anchor links and applies to non-menu item links;</li>
+          <li><code>$navbar_link_color_hover</code> sets a global color for anchor links in hover state.</li>
+        </ul>
+
+
+        <h2>Submenu Text Colors</h2>
+        <p>These variables override the above variables for submenu content items on non-mobile devices and work pretty much the same.
+          They expect the same <code>HEX</code>, <code>RGBA</code>, <code>RGB</code>, <code>transparent</code> or <code>auto</code> 
+          values. When set to <code>transparent</code>, the respective style rule is ignored and when set to <code>auto</code>
+          the color is determined based on the lightness of <code>$subnav_background</code> or <code>$subnav_item_background</code> 
+          if any of them is set a valid color value, if not, the style rule is removed.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// SUBNAV TEXT COLORS
+$subnav_text_color: auto !default;
+$subnav_link_color: auto !default;
+$subnav_link_color_hover: auto !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$subnav_text_color</code> sets a color for regular text content inside your submenu;</li>
+          <li><code>$subnav_link_color</code> sets a color for anchor links inside your submenu;</li>
+          <li><code>$subnav_link_color_hover</code> sets a color for anchor links inside your submenu in hover state.</li>
+        </ul>
+
+
+        <h2>Menu Item Metrics</h2>
+        <p>These variables set the global typography and spacing strictly for menu items. Accepted values are basically all
+          numerical <code>em</code>, <code>vw</code>, <code>vh</code>, <code>rem</code>, <code>px</code> based values or 
+          <code>inherit</code>. When <code>inherit</code> is set for the first two of the below, <code>$navbar_font_size</code>
+          and <code>$navbar_line_height</code> will be used respectivelly; when any of the two variables are set to ZERO, 
+          their respective style rules are removed.</p>
+        <p>Now the next two variables <code>$item_vertical_spacing</code> and <code>$item_horizontal_spacing</code> are used
+          for the menu item padding, both the root menu items and submenu items, but also for other spacing related 
+          variables used for other content items or submenu.</p>
+        <p>The last two variables <code>$root_item_padding</code> and <code>$subnav_item_padding</code> set the menu item 
+          padding; the first is <b>important</b> for the general layout of the menu and is inherited by the second when that 
+          is set to <code>inherit</code>.</p>
+        <p>For all of these variables you can set an input value of ZERO and the mixins will remove their respective style rule,
+          in which case the layout will be forced to inherit a parent value; the <code>$root_item_padding</code> is very 
+          important, it must have a valid value.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// MENU ITEM METRIX
+$root_item_font_size: inherit !default;
+$root_item_line_height: inherit !default;
+$subnav_item_font_size: inherit !default;
+$subnav_item_line_height: inherit !default;
+$item_vertical_spacing: 0.5rem !default;
+$item_horizontal_spacing: 1rem !default;
+$root_item_padding: $item_vertical_spacing $item_horizontal_spacing !default;
+$subnav_item_padding: inherit !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$root_item_font_size</code> sets a font size for root menu items and overrides the 
+            <code>$navbar_font_size</code> if a valid value is set;</li>
+          <li><code>$root_item_line_height</code> sets a line height for menu items, overrides the 
+            <code>$navbar_line_height</code> if a valid value is set;</li>
+          <li><code>$subnav_item_font_size</code> sets a font size for submenu items and overrides the 
+            <code>$subnav_font_size</code> if a valid value is set;</li>
+          <li><code>$subnav_item_line_height</code> sets a line height for submenu items, overrides the 
+            <code>$subnav_line_height</code> if a valid value is set;</li>
+          <li><code>$item_vertical_spacing</code> sets a global vertical spacing;</li>
+          <li><code>$item_horizontal_spacing</code> sets a global horizontal spacing;</li>
+          <li><code>$root_item_padding</code> sets the padding for root menu items, but also applies to submenu 
+            items on mobile devices;</li>
+          <li><code>$subnav_item_padding</code> sets the padding for submenu items and applies only to large screen 
+            devices, your desktop computers, tablets, etc; when set to <code>inherit</code>, the value of the above
+            variable will be used.</li>
+        </ul>
+
+
+        <h2>Brand Metrics</h2>
+        <p>These variables are mostly optional, especially if you have your own special branding design. As with 
+          the other menu item metrics, you can either set a valid value or ZERO if you choose to cancel the style 
+          rules associated with these variables. All these values apply to your <code>&lt;a class="brand"></code> 
+          element and affect all devices.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// BRAND METRIX
+$brand_font_size: 18px !default;
+$brand_line_height: inherit !default;
+$brand_padding: $item_vertical_spacing $item_horizontal_spacing !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$brand_font_size</code> sets a font size for your <code>.brand</code> element;</li>
+          <li><code>$brand_line_height</code> sets a line height for <code>.brand</code> element;</li>
+          <li><code>$brand_padding</code> sets the padding for you <code>.brand</code> element.</li>
+        </ul>
+
+
+        <h2>Submenu Metrics</h2>
+        <p>Next we can have a look at the variables responsible for the layout of the submenu itself. These variables
+          have some special designation because they apply only to a certain level submenu. While you can remove their
+          style rule by setting a ZERO input value, <code>$subnav_width</code> is important for layout consistency.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// SUBNAV METRIX
+$subnav_line_height: inherit !default;
+$subnav_font_size: inherit !default;
+$subnav_margin: 0 !default;
+$subnav_padding: 0 !default;
+$subnav_width: 200px !default;
+$subnav_larger_width: 600px !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$subnav_line_height</code> sets the line-height for your submenu on non-mobile devices; when set 
+            to <code>inherit</code> the value from <code>$navbar_line_height</code> is used;</li>
+          <li><code>$subnav_font_size</code> sets the font-size for your submenu on non-mobile devices; when set 
+            to <code>inherit</code> the value from <code>$navbar_font_size</code> is used; this and the above variable
+            are very important when using menus without the navbar wrapper;</li>
+          <li><code>$subnav_margin</code> sets a margin for the FIRST <code>.subnav</code> element, we'll talk more
+            about this in the <a href="bootstrap.html">Bootstrap</a> demo page;</li>
+          <li><code>$subnav_padding</code> sets a padding for the FIRST <code>.subnav</code> element; it's best
+            to use a valid single number value like <code>10px</code> to also adjust the below larger width;</li>
+          <li><code>$subnav_width</code> sets the width of all <code>&lt;ul class="subnav"></code> elements;</li>
+          <li><code>$subnav_larger_width</code> sets the width of the <code>&lt;div class="subnav"></code> 
+            element, the mega-menu wrapper.</li>
+        </ul>
+
+
+        <h2>Menu Item Colors</h2>
+        <p>Now we can talk about the menu item text color and background color. First we talk about the variables
+          that deal with the root menu items which apply globally on mobile view. As usual the <code>transparent</code>
+          value removes the style rule, while for text color variables the <code>auto</code> value can be quite handy.</p>
+        <p>When you set <code>$root_item_color</code> to <code>auto</code> and a valid color value for 
+          <code>root_item_background</code> then your color will be determined based on this background color, then will
+          check for <code>$navbar_background</code>, if both of these backgrounds are not valid, the style rule will 
+          be removed and your menu items will use an inherited style rule. The same applies to hover state of the menu
+          items, and the mixins will check the <code>$root_item_hover_background</code> value first.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// MENU ITEM COLOR STYLING
+$root_item_color: auto !default;
+$root_item_background: transparent !default;
+$root_item_hover_color: $navbar_background !default;
+$root_item_hover_background: rgba(255,255,255,0.85) !default;
+$root_item_active_color: #fff !default;
+$root_item_active_background: $primary_color !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$root_item_color</code> sets the text color for root menu items;</li>
+          <li><code>$root_item_background</code> sets the background color for root menu items;</li>
+          <li><code>$root_item_hover_color</code> sets the hover state text color for the root menu items;</li>
+          <li><code>$root_item_hover_background</code> sets the hover state background color for the root menu items;</li>
+          <li><code>$root_item_active_color</code> sets the active state text color for root menu items;</li>
+          <li><code>$root_item_active_background</code> sets the active state background color for root menu items; 
+            this is where we usually make use of the <code>$primary_color</code> value.</li>
+        </ul>
+
+
+        <h2>Submenu Item Colors</h2>
+        <p>Next we have the submenu item text color and background color. The exact same principle applies as for the 
+          above, however these variables override the above for submenu items and only affect the desktop and large
+          screen devices.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// SUBNAV MENU ITEM COLOR
+$subnav_item_color: auto !default;
+$subnav_item_background: transparent !default;
+$subnav_item_hover_color: auto !default;
+$subnav_item_hover_background: rgba(0,0,0,0.4) !default;
+$subnav_item_active_color: #fff !default;
+$subnav_item_active_background: $primary_color !default;
+</code></pre></div>
+
+        <ul class="attr-list">
+          <li><code>$subnav_item_color</code> sets the text color for submenu items;</li>
+          <li><code>$subnav_item_background</code> sets the background color for submenu items;</li>
+          <li><code>$subnav_item_hover_color</code> sets the hover state text color for submenu items;</li>
+          <li><code>$subnav_item_hover_background</code> sets the hover state background color for submenu items;</li>
+          <li><code>$subnav_item_active_color</code> sets the active state text color for submenu items;</li>
+          <li><code>$subnav_item_active_background</code> sets the active state background color for submenu items;
+            again we make use of the <code>$primary_color</code> value.</li>
+        </ul>
+
+        <h2>Brand Link Colors</h2>
+        <p>Another set of optional variables for the brand link, the text colors. If you like to use an 
+          <code>&lt;img></code> instead of a text, you can disable all these by setting a value of
+          <code>transparent</code>.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// BRAND LINK COLORS
+$brand_link_color: auto !default;
+$brand_link_color_hover: auto !default;
+$brand_link_background: #2c3c44 !default;
+$brand_link_background_hover: transparent !default;
+</code></pre></code></div>
+
+        <ul class="attr-list">
+          <li><code>$brand_link_color</code> sets the text color for the <code>&lt;a class="brand"></code> 
+            element;</li>
+          <li><code>$brand_link_color_hover</code> sets the background color for for the 
+            <code>&lt;a class="brand"></code> element;</li>
+          <li><code>$brand_link_background</code> sets the hover state text color for for the 
+            <code>&lt;a class="brand"></code> element;</li>
+          <li><code>$brand_link_background_hover</code> sets the hover state background color for for the 
+            <code>&lt;a class="brand"></code> element.</li>
+        </ul>
+
+
+        <h2>Miscellaneous</h2>
+        <p>A set of variables that control various things, but the most important is the <code>$responsive_breakpoint</code>
+          variable. The default value is <b>768px</b> which is also the default value of the <code>breakpoint</code> option
+          required by the Navbar JavaScript API for initialization. When you change the value of this variable, you must
+          make the necessary adjustments to your navbar markup or initialization options.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// MISC
+$responsive_breakpoint: 768px !default;
+$icon_height: auto !default;
+$navbar_toggle_padding: 0.125rem 0.5rem !default;
+$mobile_expanded_background: auto !default;
+$subnav_shadow: 2px 2px 4px 2px rgba(0,0,0,.25) !default;
+$base_radius: 0.25rem !default;
+</code></pre></div>
+
+          <ul class="attr-list">
+            <li><code>$responsive_breakpoint</code> sets the width of the viewport to which the Navbar component switches
+              its behaviour, above this value the menu is expected to work with non-mobile devices, and with mobile devices 
+              when the viewport width is below this value;</li>
+            <li><code>$icon_height</code> sets the height of all the menu icons, by default we're using one of the 
+              above line-height metrics, which is probably most accurate; if your menu has submenus and you are using
+              any menu icons, this value or the line-height variables must be a valid <code>em</code>, <code>px</code>, 
+              <code>rem</code> based value; the style rule associated to this variable is never removed, the default value 
+              is <code>16px</code>;</li>
+            <li><code>$navbar_toggle_padding</code> sets the padding for your toggle button visible on mobile devices;
+              here you can also remove the style rule with a ZERO value, but that won't look so good;)</li>
+            <li><code>$mobile_expanded_background</code> sets a background color for expanded menu items on mobile devices; 
+              you can set the <code>transparent</code> value if you want to disable this feature.</li>
+            <li><code>$subnav_shadow</code> sets a box shadow for all <code>.subnav</code> elements, all your submenus;
+              you can set a ZERO value here and the mixins will remove this style rule;</li>
+            <li><code>$base_radius</code> sets a global border-radius needed for various elements of the navbar, currently
+              used by the toggle button and icons specific to parent menu items.</li>
+          </ul>
+
+          <h2>More Demos</h2>
+          <p class="lead">For various other purposes we've set a couple of additional demos to showcase mixins flexibility:</p>
+          <ul class="attr-list">
+            <li><a href="left.html">Left Navbar</a> - showcases the SIDE column view of the Navbar layout;</li>
+            <li><a href="right.html">Right Navbar</a> - showcases the SIDE column view of the Navbar layout, but this time
+              configured for the RIGHT side of a page; also showcases a simple RTL implementation;</li>
+            <li><a href="left-menu.html">Left Menu</a> - showcases the SIDE column view of the menu layout, without the 
+              Navbar wrapper; the demo also showcases examples on how to inherit various content style rules;</li>
+            <li><a href="combo.html">Combined Layout</a> - showcases the combination of SCSS mixins to create styling to support 
+              both TOP default view and SIDE column view of the Navbar layout and menus;</li>
+            <li><a href="bootstrap.html">Bootstrap</a> - showcases the dedicated SCSS mixins to create a seamless integration
+              of the Navbar menu with the original Bootstrap Navbar wrapper and markup;</li>
+            <li><a href="bootstrap-extended.html">Bootstrap Extended</a> - showcases the full Navbar.js layout design and markup
+              in a Bootstrap styled page.</li>
+          </ul>
+        </div>
+        <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020</span> <a href="#">Go back to top</a></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./src/js/polyfill.min.js"></script>
+  <script src="./src/js/navbar.min.js"></script>
+  <script>
+    function toggleButtons() {
+      var navInitDemo = document.getElementById('navInitDemo'),
+        initCheck = document.getElementById('initCheck'),
+        spanText = document.getElementById('spanText');
+
+      if (navInitDemo.Navbar) {
+        navInitDemo.Navbar.dispose();
+        alert('NAV#' + navInitDemo.id + ' Destroyed');
+        spanText.innerHTML = 'Initialize';
+      } else {
+        new Navbar(navInitDemo);
+        alert('NAV#' + navInitDemo.id + ' Initialized');
+        spanText.innerHTML = 'Dispose';
+      }
+    }
+  </script>
+  <script src="./assets/js/prism.js"></script>
+
+</body>
+
 </html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Navbar.js is a modern, mobile first navigation component for the modern web.">
+    <meta name="author" content="thednp">
+
+		<title>Navbar.js | Left Menu Demo</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,800|Roboto+Condensed:400,800" rel="stylesheet">		
+    <link href="assets/css/style.css" rel="stylesheet">
+		<link href="./src/css/navbar-left-menu.min.css" rel="stylesheet">
+		<link href="./assets/css/prism.css" rel="stylesheet">
+
+		<style>		
+			.sidebar {background: #eee}
+			a.brand {
+				color: #222;
+				text-decoration: none;
+				padding: 0.5rem 1rem;
+				display: flex;
+			}
+			a.brand:hover {
+					background: #222;
+					color: #fff;
+			}
+
+			@media (min-width: 768px) {
+					.side-nav a.brand {
+							flex-basis: 100%;
+					}
+					.column-title,
+					.special-title {
+						font-size: 120%;
+						color: #e68a00;
+					}
+			}
+		
+			.sidebar .copy {
+				background: #e0dbd2;
+			}
+			.btn-brand { background: #e68a00}
+			a {color: #e68a00}
+		</style>
+	</head>
+  <body class="overflow-x-hidden">
+  
+  <div class="row nomargin" style="max-width: 1200px">
+		<div class="sidebar col-3">
+			<a class="brand" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Navbar.js</a>
+			<ul class="nav" data-function="navbar">
+				<li class="active">
+					<a href="#">Demos
+						<svg class="parent-icon" viewBox="0 0 1024 1024">
+							<path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+						</svg>
+						<svg class="parent-toggle" viewBox="0 0 1024 1024">
+							<path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+						</svg>
+					</a>
+					<ul class="subnav">
+						<li><a href="index.html">Main</a></li>
+						<li><a href="left.html">Left Side</a></li>
+						<li class="active"><a href="left-menu.html">Left Menu</a></li>
+						<li><a href="right.html">Right Side</a></li>
+						<li><a href="combo.html">Combo</a></li>
+						<li><a href="bootstrap.html">Bootstrap</a></li>
+						<li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">Navigate
+						<svg class="parent-icon" viewBox="0 0 1024 1024">
+							<path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+						</svg>
+						<svg class="parent-toggle" viewBox="0 0 1024 1024">
+							<path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+						</svg>
+					</a>
+					
+					<div class="subnav">
+						<ul class="row nomargin">
+							<li class='col-4'>
+								<span class="column-title">
+									Locations
+									<svg class="parent-toggle" viewBox="0 0 1024 1024">
+										<path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+									</svg>
+								</span>
+								<ul>
+									<li>
+										<a href="#">
+											Rentals
+											<svg class="parent-icon" viewBox="0 0 1024 1024">
+													<path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+											</svg>
+											<svg class="parent-toggle" viewBox="0 0 1024 1024">
+													<path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+											</svg>  
+										</a>
+										<ul class="subnav">
+											<li>
+												<a href="#">
+													Housing
+													<svg class="parent-icon" viewBox="0 0 1024 1024">
+														<path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+													</svg>
+													<svg class="parent-toggle" viewBox="0 0 1024 1024">
+														<path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+													</svg>
+												</a>
+												<ul class="subnav">
+													<li><a href="#">Entry</a></li>
+													<li><a href="#">Popular</a></li>
+													<li><a href="#">Premium</a></li>
+													<li><a href="#">Seniors</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Corporate</a></li>
+											<li><a href="#">Industrial</a></li>
+											<li><a href="#">Government</a></li>
+										</ul>                                            
+									</li>
+									<li><a href="#">Integrate</a></li>
+									<li><a href="#">Options</a></li>
+									<li><a href="#">Account</a></li>
+								</ul>	
+							</li>
+							<li class='col-4'>
+								<span class="column-title">
+									Hidden Text Box
+									<svg class="parent-toggle" viewBox="0 0 1024 1024">
+										<path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+									</svg>
+								</span>
+								<div class="subnav-content">
+									<p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
+									<p>Features a nice <a href="#">link anchor</a> unaffected by navbar styling.</p>
+								</div>
+							</li>
+							<li class="col-4">
+								<div class="subnav-content">
+									<span class="special-title">Visible Text Box</span>
+									<p>This text box is fully visible on all views and is featuring a custom button unaffected by navbar styling.</p>
+									<p><a class="btn btn-brand" href="#">Read More</a></p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</li>
+
+				<li>
+					<a href="#">Share
+							<svg class="parent-icon" viewBox="0 0 1024 1024">
+								<path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+							</svg>
+							<svg class="parent-toggle" viewBox="0 0 1024 1024">
+								<path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+							</svg>										
+					</a>
+					<ul class="subnav">
+						<li>
+							<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Facebook">
+								<svg class="menu-icon" viewBox="0 0 1024 1024">
+									<path d="M713.143 73.143c90.857 0 164.571 73.714 164.571 164.571v548.571c0 90.857-73.714 164.571-164.571 164.571h-107.429v-340h113.714l17.143-132.571h-130.857v-84.571c0-38.286 10.286-64 65.714-64l69.714-0.571v-118.286c-12-1.714-53.714-5.143-101.714-5.143-101.143 0-170.857 61.714-170.857 174.857v97.714h-114.286v132.571h114.286v340h-304c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571z" />
+								</svg>
+								<span>Facebook</span>
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="https://twitter.com/home?status=Spread the word about %23NAVBARjs by @dnp_theme and download here http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Twitter">
+								<svg class="menu-icon" viewBox="0 0 1024 1024">
+									<path d="M731.429 348.571c-21.714 9.714-44.571 16-69.143 19.429 25.143-14.857 44-38.857 53.143-66.857-23.429 13.714-49.143 24-76.571 29.143-21.714-23.429-53.143-37.714-87.429-37.714-66.286 0-120 53.714-120 120 0 9.143 0.571 18.857 2.857 27.429-100-5.143-188.571-52.571-248-125.714-10.286 17.714-16.571 38.857-16.571 60.571 0 41.714 19.429 78.286 52 100-20-0.571-38.857-6.286-57.143-14.857v1.143c0 58.286 44 106.857 98.857 117.714-10.286 2.857-18.286 4.571-29.143 4.571-7.429 0-14.857-1.143-22.286-2.286 15.429 47.429 59.429 82.286 112 83.429-41.143 32-92.571 51.429-149.143 51.429-9.714 0-19.429-0.571-28.571-1.714 53.143 33.714 116 53.714 184 53.714 220.571 0 341.714-182.857 341.714-341.714 0-5.143 0-10.286-0.571-15.429 23.429-16.571 44-37.714 60-62.286zM877.714 237.714v548.571c0 90.857-73.714 164.571-164.571 164.571h-548.571c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571c90.857 0 164.571 73.714 164.571 164.571z" />
+								</svg>
+								<span>Twitter</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="copy">
+				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020</span>
+			</div>
+		</div>
+		<div class="col-9" style="background: #fff">
+			<div class="content-inner">
+				<h1>Left Menu</h1>
+				<p class="lead">This is a very special usage of the Navbar, not only because the major difference in the markup,
+					but also in styling, JavaScript initializaton and generaly a very light footprint.</p>
+
+					<h2>Demo Highlights</h2>
+					<ul class="attr-list">
+						<li>This layout doesn't use the navbar wrapper, it's only the <code>&lt;ul class="nav"></code> element.</li>
+						<li>This demo showcases various tweaks and tricks to inherit colors and other typography related properties.</li>
+						<li>To render the menu without the navbar wrapper, you only need 4 mixins, see below.</li>
+					</ul>
+					
+					<h2>No Wrapper Markup</h2>
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;div class="sidebar">
+  &lt;ul class="nav" data-function="navbar">&lt;/ul>
+&lt;/div>
+</code></pre></div>
+
+					<p>This markup highlights the fact that the menu itself can be initialized and wrapped in elements other
+						than its wrapper, just like that, give it the right attributes and it's ready to go. The same principle
+						applies to the <a href="bootstrap.html">Bootstrap demo</a>, where we're using the original plugin markup
+						and functionality with the collapsible element.</p>
+
+					<h2>Left Menu Mixins</h2>
+				
+<div class="code-wrapper">
+<pre><code class="language-scss">// left-menu.scss - mixins
+@include nav-layout(1);
+@include nav-style;
+@include subnav-style;
+@include left-side;
+</code></pre></div>
+				
+				<ul class="attr-list">
+					<li><code>nav-layout(1)</code> sets the menu layout for all menu tree; now since this menu is not using its
+						wrapper, the <code>1</code> input argument of this mixin will make sure to include the global typography
+						of the navbar, a simple way to keep consistency in check;</li>
+					<li><code>nav-style</code> applies the root menu item colors and background colors;</li>
+					<li><code>subnav-style</code> applies the submenu background, box-shadow and submenu item colors and background 
+						colors;</li>
+					<li><code>left-side</code> sets the position of submenu and animations accordingly for the LEFT column.</li>
+				</ul>
+				
+				<h2>Used Variables</h2>
+				
+<div class="code-wrapper">
+<pre><code class="language-scss">// left-menu.scss - custom variable input values
+$primary_color: #e68a00;
+$navbar_background: transparent;
+$subnav_background: rgba(0,0,0,0.8);
+$subnav_padding: 0.5rem;
+$root_item_hover_color: #eee;
+$root_item_hover_background: #222;
+$subnav_link_color: transparent;
+$subnav_link_color_hover: transparent;
+$subnav_item_color: transparent;
+$subnav_item_hover_color: #222;
+$subnav_item_hover_background: #fff;
+$mobile_expanded_background: rgba(0,0,0,0.075);
+</code></pre></div>
+
+				<ul class="attr-list">
+					<li><code>$primary_color</code> we set an accent color for the active menu items;</li>
+					<li><code>$navbar_background</code> we've removed the background color rule by using the <code>transparent</code>
+						input value;</li>
+					<li><code>$subnav_background</code> uses a nice transparent background color, one of my favorites;</li>
+					<li><code>$subnav_padding</code> sets a padding for the FIRST level submenu;</li>
+					<li>for the <code>$root_item_hover_color</code> and <code>$root_item_hover_background</code> variables we've set 
+						a strong contrast hover state highlight for root menu items;</li>
+					<li>by using the <code>transparent</code> input value for <code>$subnav_link_color</code> and 
+						<code>$subnav_link_color_hover</code> variables we removed their style rules for content anchor links forcing them
+						to inherit a parent style rule;</li>
+					<li>now for <code>$subnav_item_color</code> we've a <code>transparent</code> input value, forcing the submenu items
+						to inherit anchor link style rules from a parent; because of this, some span elements or column titles might need
+						some additional styling, as we've done in this demo;</li>
+					<li>and for the <code>$subnav_item_hover_color</code> and <code>$subnav_item_hover_background</code> variables we've 
+						also set a strong contrast hover state highlight but for submenu menu items and consistent with the chosen
+						<code>$subnav_background</code>;</li>
+					<li>the <code>$mobile_expanded_background</code> was set since the <code>$subnav_background</code> is 
+						<code>transparent</code> and we still want to highlight expanded menu items on mobile view.</li>
+				</ul>
+				
+				<h2>Similar Demo</h2>
+				<p>This setup is used on the <a href="combo.html">combined layouts</a> demo page, as well as the 
+					<a href="bootstrap.html">Bootstrap</a> demo, go ahead and check them out.</p>
+
+			</div>
+			<div class="copy">
+				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020</span>
+				<a href="#">Go back to top</a>
+			</div>
+		</div>
+   </div>
+	 <script src="./src/js/polyfill.min.js"></script>
+   <script src="./src/js/navbar.min.js"></script>
+	 <script src="./assets/js/prism.js"></script>
+
+  </body>
+</html>
