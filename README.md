@@ -5,7 +5,9 @@ The mobile first menu navigation for today's modern web, developed with native J
 [![NPM Downloads](https://img.shields.io/npm/dm/navbar.js.svg?style=flat-square)](http://npm-stat.com/charts.html?package=navbar.js)
 [![jsDeliver](https://data.jsdelivr.com/v1/package/npm/navbar.js/badge)](https://www.jsdelivr.com/package/npm/navbar.js)
 
+<div style="width:60%; margin:0 auto; max-width: 100%">
 [![NAVBAR Preview](./demo/assets/img/navbar.png)](./demo/assets/img/navbar.png)
+</div>
 
 # Demo
 Download the package and check the demo folder, or check it online [here](http://thednp.github.io/navbar.js/).
