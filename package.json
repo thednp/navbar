@@ -2,10 +2,15 @@
   "name": "navbar.js",
   "version": "2.0.3",
   "description": "Navbar.js Modern Navigation Component",
+  "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
   "sass": "src/css/navbar.scss",
-  "main": "dist/js/navbar.min.js",
+  "jsnext": "src/js/navbar.js",
   "style": "dist/css/navbar.min.css",
+  "files" :[
+    "dist/{css,js}/*.{css,js,map}",
+    "src/{js,scss}/*.{js,scss,map}"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "bundle": "npm-run-all --parallel build compile",
