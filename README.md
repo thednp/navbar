@@ -71,6 +71,18 @@ To use the DATA-API, you need to provide the `data-function="navbar"` attribute 
   </div>
 </nav>
 ```
+
+Alternatively you can use only the menu itself and use the specific attribute:
+
+```markup
+<div class="sidebar">
+  <ul class="nav" data-function="navbar">
+    <li><a href="#">Link Title</a></li>
+    <li><a href="#">Another Link Title</a></li>
+  </ul>
+</div>
+```
+
 Other initialization and markup options apply, explained in [the demo](http://thednp.github.io/navbar.js/).
 
 
