@@ -23,7 +23,7 @@ Download the package and check the demo folder, or check it online [here](http:/
   * uses the default events behavior, it requires some elements to click on
   * shows the `<button class="navbar-toggle">` element for element visibility toggle
   * menu items have a `<i class="parent-toggle">` element that enables visibility of the submenus
-  * it makes use of the `open-mobile` class to toggle submenus via the `click` handler</li>
+  * makes use of the `open-mobile` class to toggle submenus via the `click` handler</li>
 
 * On the desktop
   * hides mobile specific elements and changes event behavior to mouse hover
