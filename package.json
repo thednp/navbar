@@ -1,10 +1,11 @@
 {
   "name": "navbar.js",
-  "version": "2.0.0",
-  "description": "A quick site navigation with Native JavaScript.",
-  "module": "src/js/index.js",
-  "main": "dist/js/navbar.js",
-  "style": "dist/css/navbar.css",
+  "version": "2.0.1",
+  "description": "Modern Navigation Component.",
+  "module": "src/js/navbar.js",
+  "sass": "src/css/navbar.scss",
+  "main": "dist/js/navbar.min.js",
+  "style": "dist/css/navbar.min.css",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "bundle": "npm-run-all --parallel build compile",
