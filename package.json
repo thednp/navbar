@@ -1,7 +1,7 @@
 {
   "name": "navbar.js",
-  "version": "2.0.1",
-  "description": "Navbar.js - The mobile first menu navigation for today's modern web.",
+  "version": "2.0.2",
+  "description": "Navbar.js Modern Navigation Component - The mobile first menu navigation for today's modern web.",
   "module": "dist/js/navbar.esm.js",
   "sass": "src/css/navbar.scss",
   "main": "dist/js/navbar.min.js",
