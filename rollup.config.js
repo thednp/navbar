@@ -33,7 +33,7 @@ const OUTPUT = {
 const PLUGINS = [ 
   json(), 
   buble(),
-  node({mainFields: ['shorter-js', 'module']}) 
+  node({mainFields: ['jsnext', 'module']}) 
 ];
 
 if (MIN){
