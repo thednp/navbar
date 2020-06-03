@@ -6,21 +6,24 @@ import cleanup from 'rollup-plugin-cleanup';
 import json from '@rollup/plugin-json';
 import * as pkg from "./package.json";
 
+const POLYFILL = process.env.POLYFILL === 'true'
 const MIN = process.env.MIN === 'true' || false; // true/false|unset
 const FORMAT = process.env.FORMAT; // JS umd|iife|esm
 
 const year = (new Date).getFullYear();
 
-const banner = `/*!
-* navbar.js v${pkg.version} (${pkg.homepage})
+const banner = POLYFILL ? '"use strict";':
+`/*!
+* Navbar.js v${pkg.version} (${pkg.homepage})
 * Copyright 2016-${year} © ${pkg.author}
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */`;
 
-const miniBannerJS = `// navbar.js v${pkg.version} | ${pkg.author} © ${year} | ${pkg.license}-License`;
+const miniBannerJS = POLYFILL ? banner
+: `// Navbar.js v${pkg.version} | ${pkg.author} © ${year} | ${pkg.license}-License`;
 
-const INPUTFILE = 'src/js/index.js';
-const OUTPUTFILE = './dist/js/navbar'+(FORMAT==='esm'?'.esm':'')+(MIN?'.min':'')+'.js';
+const INPUTFILE = POLYFILL ? 'src/js/polyfill.js' : 'src/js/index.js';
+const OUTPUTFILE = POLYFILL ? 'dist/js/polyfill'+(MIN?'.min':'')+'.js'  : 'dist/js/navbar'+(FORMAT==='esm'?'.esm':'')+(MIN?'.min':'')+'.js';
 
 const OUTPUT = {
   file: OUTPUTFILE,

@@ -120,37 +120,35 @@ export default function Navbar(target, options) {
   }
 
   // initialize
-  tryWrapper(()=>{
+  // set internals
+  menu = queryElement(target);
 
-    // set internals
-    menu = queryElement(target);
+  // reset on re-init
+  menu.Navbar && menu.Navbar.dispose();
 
-    // reset on re-init
-    menu.Navbar && menu.Navbar.dispose();
+  // set targets
+  items = menu.getElementsByTagName('LI');
+  navbarToggle = menu.getElementsByClassName('navbar-toggle')[0];
+  firstToggle = menu.getElementsByClassName(parentToggle)[0];
+  firstSubnav = menu.getElementsByClassName('subnav')[0];
+  transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
+  // js options
+  breakpointOption = options.breakpoint;
+  toggleSiblingsOption = options.toggleSiblings;
+  delayOption = options.delay;
+  
+  // data-api
+  dataBreakpoint = menu.getAttribute('data-breakpoint');
+  dataToggleSiblings = menu.getAttribute('data-toggle-siblings');
+  dataDelay = menu.getAttribute('data-delay');
+  
+  // set options, JS options have a higher priority
+  breakpoint = !isNaN(breakpointOption) ? breakpointOption : dataBreakpoint && !isNaN(dataBreakpoint) ? parseInt(dataBreakpoint) : 768;
+  toggleSiblings = !!toggleSiblingsOption ? toggleSiblingsOption : dataToggleSiblings && dataToggleSiblings === 'true' ? 1 : 0;
+  delayDuration = !isNaN(delayOption) ? delayOption : dataDelay && !isNaN(dataDelay) ? parseInt(dataDelay) : 500;
+  
+  // attach events
+  toggleEvents(on)
+  menu.Navbar = self
 
-    // set targets
-    items = menu.getElementsByTagName('LI');
-    navbarToggle = menu.getElementsByClassName('navbar-toggle')[0];
-    firstToggle = menu.getElementsByClassName(parentToggle)[0];
-    firstSubnav = menu.getElementsByClassName('subnav')[0];
-    transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
-    // js options
-    breakpointOption = options.breakpoint;
-    toggleSiblingsOption = options.toggleSiblings;
-    delayOption = options.delay;
-    
-    // data-api
-    dataBreakpoint = menu.getAttribute('data-breakpoint');
-    dataToggleSiblings = menu.getAttribute('data-toggle-siblings');
-    dataDelay = menu.getAttribute('data-delay');
-    
-    // set options, JS options have a higher priority
-    breakpoint = !isNaN(breakpointOption) ? breakpointOption : dataBreakpoint && !isNaN(dataBreakpoint) ? parseInt(dataBreakpoint) : 768;
-    toggleSiblings = !!toggleSiblingsOption ? toggleSiblingsOption : dataToggleSiblings && dataToggleSiblings === 'true' ? 1 : 0;
-    delayDuration = !isNaN(delayOption) ? delayOption : dataDelay && !isNaN(dataDelay) ? parseInt(dataDelay) : 500;
-    
-    // attach events
-    toggleEvents(on)
-    menu.Navbar = self
-  },'Navbar')
 }

@@ -175,7 +175,12 @@
     }
 
     // general item layout
-    li { position: relative; transition: margin 0.3s ease 0s}
+    li { 
+      position: relative; 
+      @if real-color($mobile_expanded_background) or $mobile_expanded_background == auto {
+        transition: margin 0.3s ease 0s
+      }
+    }
     li > span, 
     li > a {
       display: flex;
@@ -210,7 +215,9 @@
       border-color: currentColor;
     }
     & + .open-mobile {
-      margin-top: $item_vertical_spacing
+      @if real-color($mobile_expanded_background) or $mobile_expanded_background == auto {
+        margin-top: $item_vertical_spacing
+      }
     }
   }
   // mobile view content closed state
@@ -277,10 +284,12 @@
       padding: 0;
     }
     // reset open-mobile
-    li.open-mobile {
-      background: none;
-      transition: none;
-      + .open-mobile{margin:0}
+    @if real-color($mobile_expanded_background) or $mobile_expanded_background == auto {
+      li.open-mobile {
+        background: none;
+        transition: none;
+        + .open-mobile{margin:0}
+      }
     }
     // adjust column title
     .column-title,
@@ -679,7 +688,20 @@
 @mixin set-metric($prop,$value,$inherited:0){
   @if $value == inherit and (type-of($inherited) == 'list' or type-of($inherited) == 'number' and $inherited != 0) {
     #{$prop}: $inherited
-  } @else if type-of($value) == 'list' or type-of($value) == 'number' and $value != 0 {
+  } @else if type-of($value) == 'list' {
+    $totalSize: 0;
+    @each $one in $value {
+      @if real-size($one) {
+        $totalSize: sum-size($one,$totalSize);
+      } @else if type-of($one) == 'color' {
+        $totalSize: sum-size(1,$totalSize);
+      }
+    }
+    @if $totalSize > 0 or $value {
+      #{$prop}: $value
+    }
+
+  } @else if type-of($value) == 'number' and $value != 0 {
     #{$prop}: $value
   } @else {
   }

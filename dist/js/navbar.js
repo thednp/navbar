@@ -1,5 +1,5 @@
 /*!
-* navbar.js v2.0.3 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.0.5 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2020 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -147,26 +147,24 @@
       toggleEvents(off);
       delete menu.Navbar;
     };
-    tryWrapper(function (){
-      menu = queryElement(target);
-      menu.Navbar && menu.Navbar.dispose();
-      items = menu.getElementsByTagName('LI');
-      navbarToggle = menu.getElementsByClassName('navbar-toggle')[0];
-      firstToggle = menu.getElementsByClassName(parentToggle)[0];
-      firstSubnav = menu.getElementsByClassName('subnav')[0];
-      transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
-      breakpointOption = options.breakpoint;
-      toggleSiblingsOption = options.toggleSiblings;
-      delayOption = options.delay;
-      dataBreakpoint = menu.getAttribute('data-breakpoint');
-      dataToggleSiblings = menu.getAttribute('data-toggle-siblings');
-      dataDelay = menu.getAttribute('data-delay');
-      breakpoint = !isNaN(breakpointOption) ? breakpointOption : dataBreakpoint && !isNaN(dataBreakpoint) ? parseInt(dataBreakpoint) : 768;
-      toggleSiblings = !!toggleSiblingsOption ? toggleSiblingsOption : dataToggleSiblings && dataToggleSiblings === 'true' ? 1 : 0;
-      delayDuration = !isNaN(delayOption) ? delayOption : dataDelay && !isNaN(dataDelay) ? parseInt(dataDelay) : 500;
-      toggleEvents(on);
-      menu.Navbar = self;
-    },'Navbar');
+    menu = queryElement(target);
+    menu.Navbar && menu.Navbar.dispose();
+    items = menu.getElementsByTagName('LI');
+    navbarToggle = menu.getElementsByClassName('navbar-toggle')[0];
+    firstToggle = menu.getElementsByClassName(parentToggle)[0];
+    firstSubnav = menu.getElementsByClassName('subnav')[0];
+    transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
+    breakpointOption = options.breakpoint;
+    toggleSiblingsOption = options.toggleSiblings;
+    delayOption = options.delay;
+    dataBreakpoint = menu.getAttribute('data-breakpoint');
+    dataToggleSiblings = menu.getAttribute('data-toggle-siblings');
+    dataDelay = menu.getAttribute('data-delay');
+    breakpoint = !isNaN(breakpointOption) ? breakpointOption : dataBreakpoint && !isNaN(dataBreakpoint) ? parseInt(dataBreakpoint) : 768;
+    toggleSiblings = !!toggleSiblingsOption ? toggleSiblingsOption : dataToggleSiblings && dataToggleSiblings === 'true' ? 1 : 0;
+    delayDuration = !isNaN(delayOption) ? delayOption : dataDelay && !isNaN(dataDelay) ? parseInt(dataDelay) : 500;
+    toggleEvents(on);
+    menu.Navbar = self;
   }
 
   function one (element, event, handler, options) {
@@ -179,8 +177,10 @@
   }
 
   function initComponent() {
-    var Navbars = Array.from(document.querySelectorAll('[data-function="navbar"]'));
-    Navbars.map(function (x){ return new Navbar(x); });
+    tryWrapper(function (){
+      var Navbars = Array.from(document.querySelectorAll('[data-function="navbar"]'));
+      Navbars.map(function (x){ return new Navbar(x); });
+    },'Navbar');
   }
   document.body ? initComponent() : one(document, 'DOMContentLoaded', initComponent);
 

@@ -1,13 +1,13 @@
 {
   "name": "navbar.js",
-  "version": "2.0.3",
+  "version": "2.0.5",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
+  "style": "dist/css/navbar.min.css",
   "sass": "src/css/navbar.scss",
   "jsnext": "src/js/navbar.js",
-  "style": "dist/css/navbar.min.css",
-  "files" :[
+  "files": [
     "dist/{css,js}/*.{css,js,map}",
     "src/{js,scss}/*.{js,scss,map}"
   ],
@@ -29,7 +29,10 @@
     "compile-left": "node compile.js INPUTFILE:src/scss/left.scss OUTPUTFILE:demo/src/css/navbar-left.min.css MIN:true",
     "compile-left-menu": "node compile.js INPUTFILE:src/scss/left-menu.scss OUTPUTFILE:demo/src/css/navbar-left-menu.min.css MIN:true",
     "compile-right": "node compile.js INPUTFILE:src/scss/right.scss OUTPUTFILE:demo/src/css/navbar-right.min.css MIN:true",
-    "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:demo/src/css/navbar.min.css COPY:true"
+    "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:demo/src/css/navbar.min.css COPY:true",
+    "polyfill": "npm-run-all --parallel pln plnm",
+    "pln": "rollup --environment FORMAT:esm,MIN:false,POLYFILL:true -c",
+    "plnm": "rollup --environment FORMAT:esm,MIN:true,POLYFILL:true -c"
   },
   "repository": {
     "type": "git",
@@ -52,7 +55,8 @@
   },
   "homepage": "http://thednp.github.io/navbar.js",
   "dependencies": {
-    "shorter-js": "^0.0.5"
+    "shorter-js": "^0.0.5",
+    "minifill": "^0.0.7"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
@@ -65,6 +69,6 @@
     "rollup-plugin-sass": "^1.2.2",
     "rollup-plugin-scss": "^2.5.0",
     "rollup-plugin-terser": "^5.3.0",
-    "sass": "^1.26.3"
+    "sass": "^1.26.7"
   }
 }
