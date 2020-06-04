@@ -109,6 +109,7 @@ You have 3 build tools for building custom builds
 * `$ npm run build` - to compile and minify the ES6/ES7 source **navbar.js** and **navbar.min.js**
 * `$ npm run compile` - to compile and minify the **navbar.less** and other demo related sources
 * `$ npm run bundle` - to execute both the above in paralel
+* `$ npm run polyfill` - to build the polyfill
 
 # Custom CSS Builds
 You can create your own custom styling, here's a quickie:
