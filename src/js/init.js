@@ -1,13 +1,14 @@
 import Navbar from './navbar.js'
-import {one} from 'shorter-js/src/event/one.js'
-import {tryWrapper} from 'shorter-js/src/misc/tryWrapper.js'
 
 // DATA API
-function initComponent() {
-  tryWrapper(()=>{
-    let Navbars = Array.from(document.querySelectorAll('[data-function="navbar"]'));
-    Navbars.map(x=>new Navbar(x))
-  },'Navbar')
+function initComponent(lookup) {
+  lookup = lookup ? lookup : document;
+  let Navbars = Array.from(lookup.querySelectorAll('[data-function="navbar"]'));
+  Navbars.map(x=>new Navbar(x))
 }
 // initialize when loaded
-document.body ? initComponent() : one(document, 'DOMContentLoaded', initComponent);
+document.body ? initComponent() : document.addEventListener( 'DOMContentLoaded', function iniWrapper(){
+  initComponent();
+  document.removeEventListener( 'DOMContentLoaded', iniWrapper )
+});
+

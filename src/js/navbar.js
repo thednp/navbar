@@ -1,12 +1,6 @@
-import {on} from 'shorter-js/src/event/on.js'
-import {off} from 'shorter-js/src/event/off.js'
-import {addClass} from 'shorter-js/src/class/addClass.js'
-import {removeClass} from 'shorter-js/src/class/removeClass.js'
-import {hasClass} from 'shorter-js/src/class/hasClass.js'
-import {mouseHoverEvents} from 'shorter-js/src/strings/mouseHoverEvents.js'
-import {getElementTransitionDuration} from 'shorter-js/src/misc/getElementTransitionDuration.js'
-import {queryElement} from 'shorter-js/src/misc/queryElement.js'
-import {tryWrapper} from 'shorter-js/src/misc/tryWrapper.js'
+import mouseHoverEvents from 'shorter-js/src/strings/mouseHoverEvents.js'
+import getElementTransitionDuration from 'shorter-js/src/misc/getElementTransitionDuration.js'
+import queryElement from 'shorter-js/src/misc/queryElement.js'
 
 // Navbar
 export default function Navbar(target, options) {
@@ -44,20 +38,20 @@ export default function Navbar(target, options) {
     
     // private methods
     close = function (element, leave) {
-      if (hasClass(element,openClass)) {
-        removeClass(element, openClass)
+      if (element.classList.contains(openClass)) {
+        element.classList.remove(openClass)
         if (leave) {
           setTimeout(function () {
-            removeClass(element, openPosition)
+            element.classList.remove(openPosition)
             element.isOpen = 0
           }, transitionDuration)
         } else {
-          removeClass(element, openPosition)
+          element.classList.remove(openPosition)
           element.isOpen = 0
         }
       } 
-      if (hasClass(element,openMobile)) {
-        removeClass(element,openMobile)
+      if (element.classList.contains(openMobile)) {
+        element.classList.remove(openMobile)
       }
     },
 
@@ -66,15 +60,16 @@ export default function Navbar(target, options) {
       return firstToggle && getComputedStyle(firstToggle).display !== 'none' || window.innerWidth < breakpoint; 
     },
     toggleEvents = function(action) {
+      action = action ? 'addEventListener' : 'removeEventListener';
       Array.from(items).map(listItem => {
-        if (hasClass(listItem.lastElementChild,'subnav') ) {
-          action(listItem, mouseHoverEvents[0], enterHandler);
-          action(listItem, mouseHoverEvents[1], leaveHandler);
+        if (listItem.lastElementChild.classList.contains('subnav') ) {
+          listItem[action](mouseHoverEvents[0], enterHandler);
+          listItem[action](mouseHoverEvents[1], leaveHandler);
         }
         let toggleElement = listItem.getElementsByClassName(parentToggle)[0]
-        toggleElement && action(toggleElement, 'click', clickHandler); 
+        toggleElement && toggleElement[action]( 'click', clickHandler); 
       })
-      navbarToggle && action(navbarToggle, 'click', clickHandler);
+      navbarToggle && navbarToggle[action]('click', clickHandler);
     },
 
     // handlers
@@ -83,12 +78,12 @@ export default function Navbar(target, options) {
       let that = this, lookup, element;
       if ( (e.target === that || that.contains(e.target)) ) {
         element = that.closest('li') || that.closest('.navbar');
-        if ( !hasClass(element,openMobile) ) {
-          addClass(element,openMobile);                        
+        if ( !element.classList.contains(openMobile) ) {
+          element.classList.add(openMobile);                        
           lookup = toggleSiblings ? element.parentNode.getElementsByTagName('LI') : element.getElementsByTagName('LI');
           Array.from(lookup).map(x=>x!==element && close(x));
         } else {
-          removeClass(element,openMobile);
+          element.classList.remove(openMobile);
         }
       }
     },
@@ -97,8 +92,8 @@ export default function Navbar(target, options) {
       clearTimeout(that.timer)
       if (!that.isOpen && !checkView() ) {
         that.timer = setTimeout(function(){
-          addClass(that,openPosition)
-          addClass(that,openClass)
+          that.classList.add(openPosition)
+          that.classList.add(openClass)
           that.isOpen = 1
           Array.from(that.parentNode.getElementsByTagName('LI'))
                 .map(x => x !== that && close(x))
@@ -115,7 +110,7 @@ export default function Navbar(target, options) {
 
   // public method
   this.dispose = function() {
-    toggleEvents(off)
+    toggleEvents()
     delete menu.Navbar
   }
 
@@ -148,7 +143,7 @@ export default function Navbar(target, options) {
   delayDuration = !isNaN(delayOption) ? delayOption : dataDelay && !isNaN(dataDelay) ? parseInt(dataDelay) : 500;
   
   // attach events
-  toggleEvents(on)
+  toggleEvents(1)
   menu.Navbar = self
 
 }
