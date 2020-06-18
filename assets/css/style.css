@@ -203,6 +203,11 @@ ul { list-style: inherit; list-style-position: inside; }
 	.hidden-xs {display: none;}
 }
 
+/* smooth scroll */
+html {
+	scroll-behavior: smooth;
+}
+
 /* HERO */
 .hero {
 	padding: 2rem 3rem;
