@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -30,9 +30,10 @@
     "compile-left-menu": "node compile.js INPUTFILE:src/scss/left-menu.scss OUTPUTFILE:demo/src/css/navbar-left-menu.min.css MIN:true",
     "compile-right": "node compile.js INPUTFILE:src/scss/right.scss OUTPUTFILE:demo/src/css/navbar-right.min.css MIN:true",
     "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:demo/src/css/navbar.min.css COPY:true",
-    "polyfill": "npm-run-all --parallel pln plnm",
-    "pln": "rollup --environment FORMAT:esm,MIN:false,POLYFILL:true -c",
-    "plnm": "rollup --environment FORMAT:esm,MIN:true,POLYFILL:true -c"
+    "polyfill": "npm-run-all --parallel polyfill-unminified polyfill-minified && npm run copy-polyfill",
+    "polyfill-unminified": "rollup --environment MIN:false -c rollup.polyfill.js",
+    "polyfill-minified": "rollup --environment MIN:true -c rollup.polyfill.js",
+    "copy-polyfill": "node compile.js INPUTFILE:dist/js/polyfill.min.js OUTPUTFILE:demo/src/js/polyfill.min.js COPY:true"
   },
   "repository": {
     "type": "git",

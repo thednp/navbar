@@ -1,3 +1,8 @@
+/*!
+* Navbar.js v2.0.7 (http://thednp.github.io/navbar.js)
+* Copyright 2016-2020 © thednp
+* Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
+*/
 "use strict";
 if (!Array.from) {
   Array.from = (function () {
