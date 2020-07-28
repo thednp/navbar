@@ -1,13 +1,13 @@
 /*!
-* Navbar.js v2.0.7 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.0.8 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2020 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
 var mouseHoverEvents = ('onmouseleave' in document) ? [ 'mouseenter', 'mouseleave'] : [ 'mouseover', 'mouseout' ];
 
-var supportTransition = 'webkitTransition' in document.body.style || 'transition' in document.body.style;
+var supportTransition = 'webkitTransition' in document.head.style || 'transition' in document.head.style;
 
-var transitionDuration = 'webkitTransition' in document.body.style ? 'webkitTransitionDuration' : 'transitionDuration';
+var transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
 
 function getElementTransitionDuration(element) {
   var duration = supportTransition ? parseFloat(getComputedStyle(element)[transitionDuration]) : 0;
