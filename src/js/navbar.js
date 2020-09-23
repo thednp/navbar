@@ -1,6 +1,7 @@
 import mouseHoverEvents from 'shorter-js/src/strings/mouseHoverEvents.js'
 import getElementTransitionDuration from 'shorter-js/src/misc/getElementTransitionDuration.js'
 import queryElement from 'shorter-js/src/misc/queryElement.js'
+// import setFocus from 'shorter-js/src/util/setFocus.js'
 
 // Navbar
 export default function Navbar(target, options) {
@@ -65,6 +66,8 @@ export default function Navbar(target, options) {
         if (listItem.lastElementChild.classList.contains('subnav') ) {
           listItem[action](mouseHoverEvents[0], enterHandler);
           listItem[action](mouseHoverEvents[1], leaveHandler);
+          listItem[action]('focusin', enterHandler);
+          listItem[action]('focusout', leaveHandler);
         }
         let toggleElement = listItem.getElementsByClassName(parentToggle)[0]
         toggleElement && toggleElement[action]( 'click', clickHandler); 

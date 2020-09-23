@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.0.8 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.0 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2020 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -15,10 +15,14 @@
 
   var transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
 
+  var transitionProperty = 'webkitTransition' in document.body.style ? 'webkitTransitionProperty' : 'transitionProperty';
+
   function getElementTransitionDuration(element) {
-    var duration = supportTransition ? parseFloat(getComputedStyle(element)[transitionDuration]) : 0;
-    duration = typeof duration === 'number' && !isNaN(duration) ? duration * 1000 : 0;
-    return duration;
+    var computedStyle = getComputedStyle(element),
+        property = computedStyle[transitionProperty],
+        duration = supportTransition && property && property !== 'none'
+                 ? parseFloat(computedStyle[transitionDuration]) : 0;
+    return !isNaN(duration) ? duration * 1000 : 0;
   }
 
   function queryElement(selector, parent) {
@@ -74,6 +78,8 @@
           if (listItem.lastElementChild.classList.contains('subnav') ) {
             listItem[action](mouseHoverEvents[0], enterHandler);
             listItem[action](mouseHoverEvents[1], leaveHandler);
+            listItem[action]('focusin', enterHandler);
+            listItem[action]('focusout', leaveHandler);
           }
           var toggleElement = listItem.getElementsByClassName(parentToggle)[0];
           toggleElement && toggleElement[action]( 'click', clickHandler);
