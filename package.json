@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -56,8 +56,8 @@
   },
   "homepage": "http://thednp.github.io/navbar.js",
   "dependencies": {
-    "shorter-js": "^0.1.5",
-    "minifill": "^0.0.8"
+    "shorter-js": "^0.1.10-a",
+    "minifill": "^0.0.9"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
@@ -68,8 +68,8 @@
     "rollup": "^1.32.1",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-sass": "^1.2.2",
-    "rollup-plugin-scss": "^2.6.0",
+    "rollup-plugin-scss": "^2.6.1",
     "rollup-plugin-terser": "^5.3.1",
-    "sass": "^1.26.11"
+    "sass": "^1.32.6"
   }
 }
