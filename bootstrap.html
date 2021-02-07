@@ -11,7 +11,8 @@
   <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
 
   <title>Navbar.js | Bootstrap Demo</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
   <link href="./src/css/navbar-bootstrap.min.css" rel="stylesheet">
   <link href="./assets/css/prism.css" rel="stylesheet">
 
@@ -28,7 +29,7 @@
       </button>
 
       <div id="navbar-wrapper" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active">
             <a class="nav-link" href="#">Demos
               <svg class="parent-icon" viewBox="0 0 1024 1024">
@@ -145,24 +146,24 @@
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
       <!--/.nav-collapse -->
     </nav>
 
 
-    <div class="jumbotron">
+    <div class="bg-secondary text-light px-3 py-5 mb-3 rounded">
       <h1>Bootstrap Menu</h1>
       <p class="lead">This is another usage of the Navbar.js initialized to the menu itself, just like in the 
-        <a href="left-menu.html">Left Menu</a> demo, but this time we're using the original Bootstrap Navbar
+        <a class="text-light" href="left-menu.html">Left Menu</a> demo, but this time we're using the original Bootstrap Navbar
         wrapper and markup. This is like a hybrid usage of the Navbar.js with the least possible CSS redundancy.</p>
       
     </div>
     <h2>Demo Highlights</h2>
     <ul class="attr-list">
       <li>This demo features a special Navbar.js CSS layout, it doesn't use its wrapper or markup, as we'll 
-        see in a minute, but the full Bootstrap original Navbar markup and the initialization target is 
+        see in a minute, but the full Bootstrap 4 / 5 original Navbar markup and the initialization target is 
         the <code>&lt;ul class="navbar-nav"></code> element.</li>
       <li>The idea of this demo is to showcase how to integrate Navbar.js with Bootstrap while keeping
         the original design concept of Bootstrap. Basically the CSS applies to the submenu and its
@@ -184,7 +185,7 @@
   &lt;/button>
       
   &lt;div id="navbar-wrapper" class="navbar-collapse collapse">
-    &lt;ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+    &lt;ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
       &lt;li class="nav-item">&lt;a class="nav-link" href="#">Root Menu Item&lt;/a>&lt;/li>
       &lt;li class="nav-item active">
         &lt;a class="nav-link" href="#">
@@ -267,7 +268,7 @@ $subnav_padding: 0.5rem;
       </button>
     
       <div id="navbar-wrapper-light" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" href="#">Navigate
@@ -353,7 +354,7 @@ $subnav_padding: 0.5rem;
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
     </nav>
@@ -366,7 +367,7 @@ $subnav_padding: 0.5rem;
       </button>
     
       <div id="navbar-wrapper-secondary" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" href="#">Navigate
@@ -452,7 +453,7 @@ $subnav_padding: 0.5rem;
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
     </nav>
@@ -465,7 +466,7 @@ $subnav_padding: 0.5rem;
       </button>
     
       <div id="navbar-wrapper-primary" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" href="#">Navigate
@@ -551,7 +552,7 @@ $subnav_padding: 0.5rem;
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
     </nav>
@@ -564,7 +565,7 @@ $subnav_padding: 0.5rem;
       </button>
     
       <div id="navbar-wrapper-info" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" href="#">Navigate
@@ -650,7 +651,7 @@ $subnav_padding: 0.5rem;
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
     </nav>
@@ -663,7 +664,7 @@ $subnav_padding: 0.5rem;
       </button>
     
       <div id="navbar-wrapper-success" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" href="#">Navigate
@@ -749,7 +750,7 @@ $subnav_padding: 0.5rem;
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
     </nav>
@@ -762,7 +763,7 @@ $subnav_padding: 0.5rem;
       </button>
     
       <div id="navbar-wrapper-warning" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" href="#">Navigate
@@ -848,7 +849,7 @@ $subnav_padding: 0.5rem;
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
     </nav>
@@ -861,7 +862,7 @@ $subnav_padding: 0.5rem;
       </button>
     
       <div id="navbar-wrapper-danger" class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
           <li class="nav-item active"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" href="#">Navigate
@@ -947,7 +948,7 @@ $subnav_padding: 0.5rem;
           </li>
         </ul>
         <span class="navbar-text">
-          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020
+          <a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021
         </span>
       </div>
     </nav>
@@ -962,7 +963,7 @@ $subnav_padding: 0.5rem;
       and your column <code>col-BREAKPOINT-3</code> class.</p>
 
     <div class="d-flex justify-content-between py-3 mt-5 border-top">
-      <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2020</span>
+      <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021</span>
       <a href="#">Go back to top</a>
     </div>
   </div>
