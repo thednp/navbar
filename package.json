@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -56,7 +56,7 @@
   },
   "homepage": "http://thednp.github.io/navbar.js",
   "dependencies": {
-    "shorter-js": "^0.1.10-a",
+    "shorter-js": "^0.1.10-b",
     "minifill": "^0.0.9"
   },
   "devDependencies": {

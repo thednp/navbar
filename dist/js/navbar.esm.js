@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.1 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.2 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -13,7 +13,7 @@ function getElementTransitionDuration(element) {
   var computedStyle = getComputedStyle(element),
       propertyValue = computedStyle[transitionProperty],
       durationValue = computedStyle[transitionDuration],
-      durationScale = durationValue.indexOf('ms') > -1 ? 1 : 1000,
+      durationScale = durationValue.includes('ms') ? 1 : 1000,
       duration = supportTransition && propertyValue && propertyValue !== 'none' 
                ? parseFloat( durationValue ) * durationScale : 0;
 
@@ -85,6 +85,10 @@ function hasClass(element,classNAME) {
 function removeClass(element,classNAME) {
   element.classList.remove(classNAME);
 }
+
+var addEventListener = 'addEventListener';
+
+var removeEventListener = 'removeEventListener';
 
 // NAVBAR GC
 // =========
@@ -193,7 +197,7 @@ function Navbar( navbarElement, navbarOptions ) {
   }
 
   function toggleEvents ( action ) {
-    action = action ? 'addEventListener' : 'removeEventListener';
+    action = action ? addEventListener : removeEventListener;
 
     Array.from(items).map(function (listItem) {
       if ( hasClass( listItem.lastElementChild, 'subnav' ) ) {

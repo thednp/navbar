@@ -4,6 +4,8 @@ import normalizeOptions from 'shorter-js/src/misc/normalizeOptions.js'
 import addClass from 'shorter-js/src/class/addClass.js'
 import hasClass from 'shorter-js/src/class/hasClass.js'
 import removeClass from 'shorter-js/src/class/removeClass.js'
+import addEventListener from 'shorter-js/src/strings/addEventListener.js'
+import removeEventListener from 'shorter-js/src/strings/removeEventListener.js'
 
 
 // NAVBAR GC
@@ -113,7 +115,7 @@ export default function Navbar( navbarElement, navbarOptions ) {
   }
 
   function toggleEvents ( action ) {
-    action = action ? 'addEventListener' : 'removeEventListener'
+    action = action ? addEventListener : removeEventListener
 
     Array.from(items).map(listItem => {
       if ( hasClass( listItem.lastElementChild, 'subnav' ) ) {
