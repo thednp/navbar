@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.2 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.3-alpha1 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -98,152 +98,148 @@
 
   // NAVBAR GC
   // =========
-  var navbarString = 'navbar',
-    navbarComponent = 'Navbar',
-    navbarSelector = "[data-function=\"" + navbarString + "\"]";
-
+  var navbarString = 'navbar';
+  var navbarComponent = 'Navbar';
+  var navbarSelector = "[data-function=\"" + navbarString + "\"]";
 
   // NAVBAR SCOPE
   // ============
-  function Navbar( navbarElement, navbarOptions ) {
-
+  function Navbar(navbarElement, navbarOptions) {
     // NAVBAR PRIVATE GC
     // =================
-    var openClass = 'open',
-      openPosition = 'open-position',
-      openMobile = 'open-mobile',
-      parentToggle = 'parent-toggle',
-      defaultOptions = {
-        breakpoint : 768,
-        toggleSiblings : true,
-        delay : 500
-      };
+    var openClass = 'open';
+    var openPosition = 'open-position';
+    var openMobile = 'open-mobile';
+    var parentToggle = 'parent-toggle';
+    var defaultOptions = {
+      breakpoint: 768,
+      toggleSiblings: true,
+      delay: 500,
+    };
 
-
-    var self,
-      ops = {},
-      menu,
-      items,
-      navbarToggle,
-      firstToggle,
-      firstSubnav,
-      transitionDuration;
+    var self;
+    var ops = {};
+    var menu;
+    var items;
+    var navbarToggle;
+    var firstToggle;
+    var firstSubnav;
+    var transitionDuration;
 
     // NAVBAR EVENT LISTENERS
     // ======================
     function clickHandler(e) {
       e.preventDefault();
 
-      var that = this, lookup, element;
+      var that = this; var lookup; var
+        element;
 
-      if ( e.target === that || that.contains( e.target ) ) {
-        element = that.closest( 'LI' ) || that.closest( ("." + navbarString) );
+      if (e.target === that || that.contains(e.target)) {
+        element = that.closest('LI') || that.closest(("." + navbarString));
 
-        if ( !hasClass( element, openMobile ) ) {
-          addClass( element, openMobile );
+        if (!hasClass(element, openMobile)) {
+          addClass(element, openMobile);
 
-          lookup = ops.toggleSiblings 
-            ? element.parentNode.getElementsByTagName( 'LI' ) 
-            : element.getElementsByTagName( 'LI' );
+          lookup = ops.toggleSiblings
+            ? element.parentNode.getElementsByTagName('LI')
+            : element.getElementsByTagName('LI');
 
-          Array.from( lookup ).map( function (x){ return x !== element && close(x); } );
-
+          Array.from(lookup).map(function (x) { return x !== element && close(x); });
         } else {
-          removeClass( element, openMobile );
+          removeClass(element, openMobile);
         }
       }
     }
 
     function enterHandler() {
       var that = this; // this is now the event target, the LI
-      clearTimeout( that.timer );
+      clearTimeout(that.timer);
 
-      if ( !that.isOpen && !checkView() ) {
-        that.timer = setTimeout( function () {
-          addClass( that, openPosition );
-          addClass( that, openClass );
+      if (!that.isOpen && !checkView()) {
+        that.timer = setTimeout(function () {
+          addClass(that, openPosition);
+          addClass(that, openClass);
           that.isOpen = 1;
 
-          Array.from( that.parentNode.getElementsByTagName( 'LI' ) )
-            .map( function (x) { return x !== that && close(x); } );
-        }, 17 );
+          Array.from(that.parentNode.getElementsByTagName('LI'))
+            .map(function (x) { return x !== that && close(x); });
+        }, 17);
       }
     }
 
     function leaveHandler() {
       var that = this;
 
-      if ( that.isOpen && !checkView() ) {
+      if (that.isOpen && !checkView()) {
         clearTimeout(that.timer);
-        that.timer = setTimeout( function () { return close(that,1); }, ops.delay );
+        that.timer = setTimeout(function () { return close(that, 1); }, ops.delay);
       }
     }
 
     // NAVBAR PRIVATE METHODS
     // ======================
-    function close( element, leave ) {
-      if ( hasClass( element,openClass ) ) {
-        removeClass( element, openClass );
-        if ( leave ) {
-          setTimeout( function () {
-            removeClass( element, openPosition );
+    function close(element, leave) {
+      if (hasClass(element, openClass)) {
+        removeClass(element, openClass);
+        if (leave) {
+          setTimeout(function () {
+            removeClass(element, openPosition);
             element.isOpen = 0;
           }, transitionDuration);
         } else {
-          removeClass( element, openPosition );
+          removeClass(element, openPosition);
           element.isOpen = 0;
         }
-      } 
-      hasClass( element, openMobile ) && removeClass( element, openMobile );
+      }
+      if (hasClass(element, openMobile)) { removeClass(element, openMobile); }
     }
 
     function checkView() {
-      return firstToggle && getComputedStyle(firstToggle).display !== 'none' 
-          || window.innerWidth < ops.breakpoint; 
+      return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
+          || window.innerWidth < ops.breakpoint;
     }
 
-    function toggleEvents ( action ) {
-      action = action ? addEventListener : removeEventListener;
+    function toggleEvents(add) {
+      var action = add ? addEventListener : removeEventListener;
 
-      Array.from(items).map(function (listItem) {
-        if ( hasClass( listItem.lastElementChild, 'subnav' ) ) {
+      Array.from(items).forEach(function (listItem) {
+        if (hasClass(listItem.lastElementChild, 'subnav')) {
           listItem[action]('mouseenter', enterHandler);
           listItem[action]('mouseleave', leaveHandler);
           listItem[action]('focusin', enterHandler);
           listItem[action]('focusout', leaveHandler);
         }
         var toggleElement = listItem.getElementsByClassName(parentToggle)[0];
-        toggleElement && toggleElement[action]( 'click', clickHandler); 
+        if (toggleElement) { toggleElement[action]('click', clickHandler); }
       });
-      navbarToggle && navbarToggle[action]('click', clickHandler);
+      if (navbarToggle) { navbarToggle[action]('click', clickHandler); }
     }
 
     // NAVBAR DEFINITION
     // =================
-    var Navbar = function Navbar( target, options ){
-
+    var NavbarClass = function NavbarClass(target, opsInput) {
       // bind
       self = this;
 
       // check options
-      options = options || {};
+      var options = opsInput || {};
 
       // instance targets
-      menu = queryElement( target );
+      menu = queryElement(target);
 
       // reset on re-init
-      menu[navbarComponent] && menu[navbarComponent].dispose();
+      if (menu[navbarComponent]) { menu[navbarComponent].dispose(); }
 
       // internal targets
-      items = menu.getElementsByTagName( 'LI' );
-      navbarToggle = queryElement( ("." + navbarString + "-toggle"), menu );
-      firstToggle = queryElement( parentToggle, menu );
-      firstSubnav = queryElement( '.subnav', menu );
+      items = menu.getElementsByTagName('LI');
+      navbarToggle = queryElement(("." + navbarString + "-toggle"), menu);
+      firstToggle = queryElement(parentToggle, menu);
+      firstSubnav = queryElement('.subnav', menu);
       transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
 
       // set options
-      ops = normalizeOptions( menu, defaultOptions, options );
-        
+      ops = normalizeOptions(menu, defaultOptions, options);
+
       // attach events
       toggleEvents(1);
 
@@ -253,33 +249,33 @@
 
     // NAVBAR PUBLIC METHOD
     // ====================
-    Navbar.prototype.dispose = function() {
+    Navbar.prototype.dispose = function dispose() {
       toggleEvents();
       delete menu[navbarComponent];
     };
 
-    return new Navbar( navbarElement, navbarOptions )
+    return new NavbarClass(navbarElement, navbarOptions);
   }
 
   var navbarInit = {
     component: navbarComponent,
     selector: navbarSelector,
-    constructor: Navbar
+    constructor: Navbar,
   };
 
   // DATA API
-  function initNavbar(lookup) {
-    lookup = lookup ? lookup : document;
+  function initNavbar(context) {
+    var lookup = context instanceof Element ? context : document;
 
     var selector = navbarInit.selector;
     var constructor = navbarInit.constructor;
-    var navs = lookup.querySelectorAll( selector );
+    var navs = lookup.querySelectorAll(selector);
 
-    Array.from( navs ).map(function (x){ return new constructor(x); });
+    Array.from(navs).map(function (x) { return new constructor(x); });
   }
   // initialize when loaded
-  document.body ? initNavbar() : 
-  document.addEventListener( 'DOMContentLoaded', initNavbar, {once: true} );
+  if (document.body) { initNavbar(); }
+  else { document.addEventListener('DOMContentLoaded', initNavbar, { once: true }); }
 
   return Navbar;
 

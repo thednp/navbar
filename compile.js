@@ -2,7 +2,7 @@
 // Build script to compile and minify the CSS file from SCSS folder
 // Usage: npm run compile-scss
 
-let fs = require('fs'), 
+const fs = require('fs'), 
     writeFileSync = fs.writeFileSync,
     sass = require('sass'),
     pkg = require('./package.json'),

@@ -6,10 +6,10 @@ $subnav_item_hover_background: #ddd;
 $subnav_item_active_color: #fff;
 $subnav_item_active_background: $primary_color;
 
-$navbar_padding: 0.5rem 1rem;
-$subnav_padding: 0.5rem;
+$navbar_padding: .5rem 1rem;
+$subnav_padding: .5rem;
 
-@import 'variables','mixins','mixins-bs';
+@import "variables","mixins","mixins-bs";
 
 @include navbar-style-bs;
 @include nav-layout-bs;

@@ -1,12 +1,12 @@
-$primary_color: #CD3232; 
-$navbar_background: #544040; 
-$subnav_padding: 0.5rem;
+$primary_color: #cd3232;
+$navbar_background: #544040;
+$subnav_padding: .5rem;
 $brand_link_background: #3e2e2e;
 $brand_link_background_hover: #2f1313;
 $subnav_item_hover_color: #eee;
 $subnav_item_hover_background: #4b3939;
 
-@import 'variables','mixins';
+@import "variables","mixins";
 
 @include navbar-mobile-layout;
 @include navbar-desktop-side-layout;
