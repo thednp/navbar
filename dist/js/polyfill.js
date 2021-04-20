@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.1 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.3-alpha2 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -21,7 +21,8 @@ if (!Array.from) {
       var len = toInteger(value);
       return Math.min(Math.max(len, 0), maxSafeInteger);
     };
-    return function from(arrayLike) {
+
+    return function from(arrayLike/*, mapFn, thisArg */) {
       var C = this, items = Object(arrayLike);
       if (arrayLike == null) {
         throw new TypeError('Array.from requires an array-like object - not null or undefined');
@@ -31,12 +32,14 @@ if (!Array.from) {
         if (!isCallable(mapFn)) {
           throw new TypeError('Array.from: when provided, the second argument must be a function');
         }
+
         if (arguments.length > 2) {
           T = arguments[2];
         }
       }
       var len = toLength(items.length);
       var A = isCallable(C) ? Object(new C(len)) : new Array(len);
+
       var k = 0;
       var kValue;
       while (k < len) {
@@ -61,16 +64,18 @@ if (!Element.prototype.matches) {
 if (!Element.prototype.closest) {
   Element.prototype.closest = function closest(selector) {
     var node = this;
+  
     while (node) {
       if (node.matches(selector)) { return node; }
       else { node = 'SVGElement' in window && node instanceof SVGElement ? node.parentNode : node.parentElement; }
     }
+  
     return null;
   };
 }
 
 if (!Array.prototype.includes) {
-  Array.prototype.includes = function(searchElement  ) {
+  Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
     var O = Object(this);
     var len = parseInt(O.length) || 0;
     if (len === 0) {
@@ -101,7 +106,7 @@ if (!String.prototype.includes) {
   String.prototype.includes = function(search, start) {
     if (search instanceof RegExp) {
       throw TypeError('first argument must not be a RegExp');
-    }
+    } 
     if (start === undefined) { start = 0; }
     return this.indexOf(search, start) !== -1;
   };
@@ -109,15 +114,19 @@ if (!String.prototype.includes) {
 
 if (typeof Object.assign !== 'function') {
   Object.defineProperty(Object, "assign", {
-    value: function assign(target, varArgs) {
+    value: function assign(target, varArgs) { // .length of function is 2
       var arguments$1 = arguments;
+
       if (target === null || target === undefined) {
         throw new TypeError('Cannot convert undefined or null to object');
       }
+
       var to = Object(target);
+
       for (var index = 1; index < arguments.length; index++) {
         var nextSource = arguments$1[index];
-        if (nextSource !== null && nextSource !== undefined) {
+
+        if (nextSource !== null && nextSource !== undefined) { 
           for (var nextKey in nextSource) {
             if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
               to[nextKey] = nextSource[nextKey];
@@ -138,5 +147,12 @@ if (!Node.prototype.contains) {
       if (el === this) { return true; }
     }
     return false;
+  };
+}
+
+if (!Number.isNaN) {
+  Number.isNaN = function(value) {
+    return typeof value === 'number'
+      && value !== value;
   };
 }
