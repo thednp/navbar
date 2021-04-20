@@ -12,9 +12,6 @@ import removeEventListener from 'shorter-js/src/strings/removeEventListener.js';
 const navbarString = 'navbar';
 const navbarComponent = 'Navbar';
 const navbarSelector = `[data-function="${navbarString}"]`;
-
-// NAVBAR PRIVATE GC
-// =================
 const openNavClass = 'open';
 const openPositionClass = 'open-position';
 const openMobileClass = 'open-mobile';
@@ -28,14 +25,13 @@ const defaultNavbarOptions = {
 // NAVBAR PRIVATE METHODS
 // ======================
 function closeNavbar(self, element, leave) {
-  const { options } = self;
   if (hasClass(element, openNavClass)) {
     removeClass(element, openNavClass);
     if (leave) {
       setTimeout(() => {
         removeClass(element, openPositionClass);
         element.isOpen = 0;
-      }, options.transitionDuration);
+      }, self.transitionDuration);
     } else {
       removeClass(element, openPositionClass);
       element.isOpen = 0;
@@ -138,6 +134,7 @@ export default class Navbar {
     // instance targets
     self.menu = queryElement(target);
     const { menu } = self;
+    const firstSubnav = queryElement('.subnav', menu);
 
     // reset on re-init
     if (menu[navbarComponent]) menu[navbarComponent].dispose();
@@ -148,7 +145,6 @@ export default class Navbar {
     // internal targets
     self.items = menu.getElementsByTagName('LI');
     self.navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
-    const firstSubnav = queryElement('.subnav', menu);
     self.transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
 
     // attach events

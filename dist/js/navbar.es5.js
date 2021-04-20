@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.3-alpha3 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.3-alpha4 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -106,9 +106,6 @@
   var navbarString = 'navbar';
   var navbarComponent = 'Navbar';
   var navbarSelector = "[data-function=\"" + navbarString + "\"]";
-
-  // NAVBAR PRIVATE GC
-  // =================
   var openNavClass = 'open';
   var openPositionClass = 'open-position';
   var openMobileClass = 'open-mobile';
@@ -122,14 +119,13 @@
   // NAVBAR PRIVATE METHODS
   // ======================
   function closeNavbar(self, element, leave) {
-    var options = self.options;
     if (hasClass(element, openNavClass)) {
       removeClass(element, openNavClass);
       if (leave) {
         setTimeout(function () {
           removeClass(element, openPositionClass);
           element.isOpen = 0;
-        }, options.transitionDuration);
+        }, self.transitionDuration);
       } else {
         removeClass(element, openPositionClass);
         element.isOpen = 0;
@@ -234,6 +230,7 @@
     // instance targets
     self.menu = queryElement(target);
     var menu = self.menu;
+    var firstSubnav = queryElement('.subnav', menu);
 
     // reset on re-init
     if (menu[navbarComponent]) { menu[navbarComponent].dispose(); }
@@ -244,7 +241,6 @@
     // internal targets
     self.items = menu.getElementsByTagName('LI');
     self.navbarToggle = queryElement(("." + navbarString + "-toggle"), menu);
-    var firstSubnav = queryElement('.subnav', menu);
     self.transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
 
     // attach events
