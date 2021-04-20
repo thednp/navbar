@@ -5,6 +5,7 @@ import node from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 import * as pkg from "./package.json";
 
+const ES = process.env.ES; // es6|es5
 const MIN = process.env.MIN === 'true' || false; // true/false|unset
 const FORMAT = process.env.FORMAT; // JS umd|iife|esm
 
@@ -20,7 +21,7 @@ const banner =
 const miniBannerJS = `// Navbar.js v${pkg.version} | ${pkg.author} © ${year} | ${pkg.license}-License`;
 
 const INPUTFILE = 'src/js/index.js';
-const OUTPUTFILE = 'dist/js/navbar'+(FORMAT!=='umd'?'.'+FORMAT:'')+(MIN?'.min':'')+'.js';
+const OUTPUTFILE = 'dist/js/navbar'+(FORMAT!=='umd'?'.'+FORMAT:'')+(ES?`.${ES}`:'')+(MIN?'.min':'')+'.js';
 
 const OUTPUT = {
   file: OUTPUTFILE,
@@ -28,10 +29,13 @@ const OUTPUT = {
 };
 
 const PLUGINS = [ 
-  json(), 
-  buble(),
+  json(),
   node({mainFields: ['jsnext', 'module']}) 
 ];
+
+if (ES === 'es5'){
+  PLUGINS.push(buble({objectAssign: 'Object.assign'}));
+}
 
 if (MIN){
   PLUGINS.push(terser({output: {preamble: miniBannerJS}}));

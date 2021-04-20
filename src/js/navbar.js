@@ -13,161 +13,158 @@ const navbarString = 'navbar';
 const navbarComponent = 'Navbar';
 const navbarSelector = `[data-function="${navbarString}"]`;
 
-// NAVBAR SCOPE
-// ============
-export default function Navbar(navbarElement, navbarOptions) {
-  // NAVBAR PRIVATE GC
-  // =================
-  const openClass = 'open';
-  const openPosition = 'open-position';
-  const openMobile = 'open-mobile';
-  const parentToggle = 'parent-toggle';
-  const defaultOptions = {
-    breakpoint: 768,
-    toggleSiblings: true,
-    delay: 500,
-  };
+// NAVBAR PRIVATE GC
+// =================
+const openNavClass = 'open';
+const openPositionClass = 'open-position';
+const openMobileClass = 'open-mobile';
+const parentToggleClass = 'parent-toggle';
+const defaultNavbarOptions = {
+  breakpoint: 768,
+  toggleSiblings: true,
+  delay: 500,
+};
 
-  let self;
-  let ops = {};
-  let menu;
-  let items;
-  let navbarToggle;
-  let firstToggle;
-  let firstSubnav;
-  let transitionDuration;
-
-  // NAVBAR EVENT LISTENERS
-  // ======================
-  function clickHandler(e) {
-    e.preventDefault();
-
-    const that = this; let lookup; let
-      element;
-
-    if (e.target === that || that.contains(e.target)) {
-      element = that.closest('LI') || that.closest(`.${navbarString}`);
-
-      if (!hasClass(element, openMobile)) {
-        addClass(element, openMobile);
-
-        lookup = ops.toggleSiblings
-          ? element.parentNode.getElementsByTagName('LI')
-          : element.getElementsByTagName('LI');
-
-        Array.from(lookup).map((x) => x !== element && close(x));
-      } else {
-        removeClass(element, openMobile);
-      }
-    }
-  }
-
-  function enterHandler() {
-    const that = this; // this is now the event target, the LI
-    clearTimeout(that.timer);
-
-    if (!that.isOpen && !checkView()) {
-      that.timer = setTimeout(() => {
-        addClass(that, openPosition);
-        addClass(that, openClass);
-        that.isOpen = 1;
-
-        Array.from(that.parentNode.getElementsByTagName('LI'))
-          .map((x) => x !== that && close(x));
-      }, 17);
-    }
-  }
-
-  function leaveHandler() {
-    const that = this;
-
-    if (that.isOpen && !checkView()) {
-      clearTimeout(that.timer);
-      that.timer = setTimeout(() => close(that, 1), ops.delay);
-    }
-  }
-
-  // NAVBAR PRIVATE METHODS
-  // ======================
-  function close(element, leave) {
-    if (hasClass(element, openClass)) {
-      removeClass(element, openClass);
-      if (leave) {
-        setTimeout(() => {
-          removeClass(element, openPosition);
-          element.isOpen = 0;
-        }, transitionDuration);
-      } else {
-        removeClass(element, openPosition);
+// NAVBAR PRIVATE METHODS
+// ======================
+function closeNavbar(self, element, leave) {
+  const { options } = self;
+  if (hasClass(element, openNavClass)) {
+    removeClass(element, openNavClass);
+    if (leave) {
+      setTimeout(() => {
+        removeClass(element, openPositionClass);
         element.isOpen = 0;
-      }
+      }, options.transitionDuration);
+    } else {
+      removeClass(element, openPositionClass);
+      element.isOpen = 0;
     }
-    if (hasClass(element, openMobile)) removeClass(element, openMobile);
   }
+  if (hasClass(element, openMobileClass)) removeClass(element, openMobileClass);
+}
 
-  function checkView() {
-    return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
-        || window.innerWidth < ops.breakpoint;
-  }
+function checkNavbarView(self) {
+  const { options } = self;
+  const [firstToggle] = self.menu.getElementsByClassName(parentToggleClass);
+  return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
+    || window.innerWidth < options.breakpoint;
+}
 
-  function toggleEvents(add) {
-    const action = add ? addEventListener : removeEventListener;
+function toggleNavbarEvents(self, add) {
+  const action = add ? addEventListener : removeEventListener;
+  const { items, navbarToggle } = self;
 
-    Array.from(items).forEach((listItem) => {
-      if (hasClass(listItem.lastElementChild, 'subnav')) {
-        listItem[action]('mouseenter', enterHandler);
-        listItem[action]('mouseleave', leaveHandler);
-        listItem[action]('focusin', enterHandler);
-        listItem[action]('focusout', leaveHandler);
-      }
-      const toggleElement = listItem.getElementsByClassName(parentToggle)[0];
-      if (toggleElement) toggleElement[action]('click', clickHandler);
-    });
-    if (navbarToggle) navbarToggle[action]('click', clickHandler);
-  }
-
-  // NAVBAR DEFINITION
-  // =================
-  class NavbarClass {
-    constructor(target, opsInput) {
-      // bind
-      self = this;
-
-      // check options
-      const options = opsInput || {};
-
-      // instance targets
-      menu = queryElement(target);
-
-      // reset on re-init
-      if (menu[navbarComponent]) menu[navbarComponent].dispose();
-
-      // internal targets
-      items = menu.getElementsByTagName('LI');
-      navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
-      firstToggle = queryElement(parentToggle, menu);
-      firstSubnav = queryElement('.subnav', menu);
-      transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
-
-      // set options
-      ops = normalizeOptions(menu, defaultOptions, options);
-
-      // attach events
-      toggleEvents(1);
-
-      // attach instance to element
-      menu[navbarComponent] = self;
+  Array.from(items).forEach((listItem) => {
+    if (hasClass(listItem.lastElementChild, 'subnav')) {
+      listItem[action]('mouseenter', navbarEnterHandler);
+      listItem[action]('mouseleave', navbarLeaveHandler);
+      listItem[action]('focusin', navbarEnterHandler);
+      listItem[action]('focusout', navbarLeaveHandler);
     }
+    const [toggleElement] = listItem.getElementsByClassName(parentToggleClass);
+    if (toggleElement) toggleElement[action]('click', navbarClickHandler);
+  });
+
+  if (navbarToggle) navbarToggle[action]('click', navbarClickHandler);
+}
+
+// NAVBAR EVENT LISTENERS
+// ======================
+function navbarClickHandler(e) {
+  e.preventDefault();
+
+  const { target } = e;
+  const that = this;
+  const menu = that.closest(navbarSelector);
+  const self = menu[navbarComponent];
+  const { options } = self;
+
+  if (target === that || that.contains(target)) {
+    const element = that.closest('LI') || that.closest(`.${navbarString}`);
+
+    if (!hasClass(element, openMobileClass)) {
+      addClass(element, openMobileClass);
+
+      const lookup = options.toggleSiblings
+        ? element.parentNode.getElementsByTagName('LI')
+        : element.getElementsByTagName('LI');
+
+      Array.from(lookup).map((x) => x !== element && closeNavbar(self, x));
+    } else {
+      removeClass(element, openMobileClass);
+    }
+  }
+}
+
+function navbarEnterHandler() {
+  const target = this; // this is now the event target, the LI
+  const menu = target.closest(navbarSelector);
+  const self = menu && menu[navbarComponent];
+  clearTimeout(self.timer);
+
+  if (self && !target.isOpen && !checkNavbarView(self)) {
+    self.timer = setTimeout(() => {
+      addClass(target, openPositionClass);
+      addClass(target, openNavClass);
+      target.isOpen = 1;
+
+      Array.from(target.parentNode.getElementsByTagName('LI'))
+        .forEach((x) => {
+          if (x !== target) closeNavbar(self, x);
+        });
+    }, 17);
+  }
+}
+
+function navbarLeaveHandler() {
+  const target = this;
+  const menu = target.closest(navbarSelector);
+  const self = menu && menu[navbarComponent];
+
+  if (self && target.isOpen && !checkNavbarView(self)) {
+    clearTimeout(self.timer);
+    self.timer = setTimeout(() => closeNavbar(self, target, 1), self.options.delay);
+  }
+}
+
+// NAVBAR DEFINITION
+// =================
+export default class Navbar {
+  constructor(target, config) {
+    // bind
+    const self = this;
+
+    // instance targets
+    self.menu = queryElement(target);
+    const { menu } = self;
+
+    // reset on re-init
+    if (menu[navbarComponent]) menu[navbarComponent].dispose();
+
+    // set options
+    self.options = normalizeOptions(self.menu, defaultNavbarOptions, config || {});
+
+    // internal targets
+    self.items = menu.getElementsByTagName('LI');
+    self.navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
+    const firstSubnav = queryElement('.subnav', menu);
+    self.transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
+
+    // attach events
+    toggleNavbarEvents(self, 1);
+
+    // attach instance to element
+    menu[navbarComponent] = self;
   }
 
   // NAVBAR PUBLIC METHOD
   // ====================
-  Navbar.prototype.dispose = function dispose() {
-    toggleEvents();
-    delete menu[navbarComponent];
-  };
-
-  return new NavbarClass(navbarElement, navbarOptions);
+  dispose() {
+    const self = this;
+    toggleNavbarEvents(self);
+    delete self.menu[navbarComponent];
+  }
 }
 
 export const navbarInit = {

@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "2.1.3-alpha1",
+  "version": "2.1.3-alpha2",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -18,12 +18,15 @@
     "fix:css": "stylelint --config .stylelintrc.json -s --fix scss \"src/scss/*.scss\"",
     "lint:css": "stylelint --config .stylelintrc.json -s scss \"src/scss/*.scss\"",
     "bundle": "npm-run-all --parallel build compile",
-    "build": "npm run lint:js && npm-run-all --parallel build-* && npm run copy-build",
+    "build": "npm run lint:js && npm-run-all --parallel build-* && npm run copy-build && npm run copy-es5-build",
+    "build-es5-js": "rollup --environment FORMAT:umd,MIN:false,ES:es5 -c",
+    "build-es5-minjs": "rollup --environment FORMAT:umd,MIN:true,ES:es5 -c",
     "build-js": "rollup --environment FORMAT:umd,MIN:false -c",
     "build-minjs": "rollup --environment FORMAT:umd,MIN:true -c",
     "build-esm": "rollup --environment FORMAT:esm,MIN:false -c",
     "build-esmjs": "rollup --environment FORMAT:esm,MIN:true -c",
     "copy-build": "node compile.js INPUTFILE:dist/js/navbar.min.js OUTPUTFILE:demo/src/js/navbar.min.js COPY:true",
+    "copy-es5-build": "node compile.js INPUTFILE:dist/js/navbar.es5.min.js OUTPUTFILE:demo/src/js/navbar.es5.min.js COPY:true",
     "compile": "npm run lint:css && npm-run-all --parallel compile-* && npm run copy-compile",
     "compile-scss": "node compile.js",
     "compile-scss-min": "node compile.js MIN:true",
@@ -60,8 +63,8 @@
   },
   "homepage": "http://thednp.github.io/navbar.js",
   "dependencies": {
-    "minifill": "^0.0.9",
-    "shorter-js": "^0.1.10-b"
+    "minifill": "^0.0.16",
+    "shorter-js": "^0.2.0-alpha4"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",

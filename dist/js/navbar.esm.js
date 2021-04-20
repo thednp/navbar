@@ -1,257 +1,261 @@
 /*!
-* Navbar.js v2.1.3-alpha1 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.3-alpha2 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
-var supportTransition = 'webkitTransition' in document.head.style || 'transition' in document.head.style;
+const supportTransition = 'webkitTransition' in document.head.style || 'transition' in document.head.style;
 
-var transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
+const transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
 
-var transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransitionProperty' : 'transitionProperty';
+const transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransitionProperty' : 'transitionProperty';
 
 function getElementTransitionDuration(element) {
-  var computedStyle = getComputedStyle(element),
-      propertyValue = computedStyle[transitionProperty],
-      durationValue = computedStyle[transitionDuration],
-      durationScale = durationValue.includes('ms') ? 1 : 1000,
-      duration = supportTransition && propertyValue && propertyValue !== 'none' 
-               ? parseFloat( durationValue ) * durationScale : 0;
+  const computedStyle = getComputedStyle(element);
+  const propertyValue = computedStyle[transitionProperty];
+  const durationValue = computedStyle[transitionDuration];
+  const durationScale = durationValue.includes('ms') ? 1 : 1000;
+  const duration = supportTransition && propertyValue && propertyValue !== 'none'
+    ? parseFloat(durationValue) * durationScale : 0;
 
-  return !isNaN(duration) ? duration : 0
+  return !Number.isNaN(duration) ? duration : 0;
 }
 
 function queryElement(selector, parent) {
-  var lookUp = parent && parent instanceof Element ? parent : document;
+  const lookUp = parent && parent instanceof Element ? parent : document;
   return selector instanceof Element ? selector : lookUp.querySelector(selector);
 }
 
-function normalizeValue( value ) {
-  if ( value === 'true' ) {
-    return true
+function normalizeValue(value) {
+  if (value === 'true') {
+    return true;
   }
 
-  if ( value === 'false' ) {
-    return false
+  if (value === 'false') {
+    return false;
   }
 
-  if ( !isNaN(value) ) {
-    return +value
+  if (!Number.isNaN(+value)) {
+    return +value;
   }
 
-  if ( value === '' || value === 'null' ) {
-    return null
+  if (value === '' || value === 'null') {
+    return null;
   }
 
   // string / function / Element / Object
-  return value
+  return value;
 }
 
-function normalizeOptions( element, defaultOps, inputOps, ns ){
-  var normalOps = {}, dataOps = {}, 
-    data = Object.assign( {}, element.dataset );
+function normalizeOptions(element, defaultOps, inputOps, ns) {
+  const normalOps = {};
+  const dataOps = {};
+  const data = { ...element.dataset };
 
-  Object.keys( data )
-    .map( function (k) {
-      var key = k.includes( ns ) 
-        ? k.replace( ns, '' ) .replace(/[A-Z]/, function (match) { return match.toLowerCase(); } ) 
+  Object.keys(data)
+    .forEach((k) => {
+      const key = k.includes(ns)
+        ? k.replace(ns, '').replace(/[A-Z]/, (match) => match.toLowerCase())
         : k;
 
-      dataOps[key] =  normalizeValue( data[k] );
+      dataOps[key] = normalizeValue(data[k]);
     });
 
-  Object.keys( inputOps )
-    .map( function (k) {
-      inputOps[k] = normalizeValue( inputOps[k] );
+  Object.keys(inputOps)
+    .forEach((k) => {
+      inputOps[k] = normalizeValue(inputOps[k]);
     });
 
-  Object.keys( defaultOps )
-    .map( function (k) {
-      normalOps[k] = k in inputOps ? inputOps[k]
-        : k in dataOps ? dataOps[k]
-        : defaultOps[k];
+  Object.keys(defaultOps)
+    .forEach((k) => {
+      if (k in inputOps) {
+        normalOps[k] = inputOps[k];
+      } else if (k in dataOps) {
+        normalOps[k] = dataOps[k];
+      } else {
+        normalOps[k] = defaultOps[k];
+      }
     });
 
-  return normalOps
+  return normalOps;
 }
 
-function addClass(element,classNAME) {
+function addClass(element, classNAME) {
   element.classList.add(classNAME);
 }
 
-function hasClass(element,classNAME) {
-  return element.classList.contains(classNAME)
+function hasClass(element, classNAME) {
+  return element.classList.contains(classNAME);
 }
 
-function removeClass(element,classNAME) {
+function removeClass(element, classNAME) {
   element.classList.remove(classNAME);
 }
 
-var addEventListener = 'addEventListener';
+const addEventListener = 'addEventListener';
 
-var removeEventListener = 'removeEventListener';
+const removeEventListener = 'removeEventListener';
 
 // NAVBAR GC
 // =========
-var navbarString = 'navbar';
-var navbarComponent = 'Navbar';
-var navbarSelector = "[data-function=\"" + navbarString + "\"]";
+const navbarString = 'navbar';
+const navbarComponent = 'Navbar';
+const navbarSelector = `[data-function="${navbarString}"]`;
 
-// NAVBAR SCOPE
-// ============
-function Navbar(navbarElement, navbarOptions) {
-  // NAVBAR PRIVATE GC
-  // =================
-  var openClass = 'open';
-  var openPosition = 'open-position';
-  var openMobile = 'open-mobile';
-  var parentToggle = 'parent-toggle';
-  var defaultOptions = {
-    breakpoint: 768,
-    toggleSiblings: true,
-    delay: 500,
-  };
+// NAVBAR PRIVATE GC
+// =================
+const openNavClass = 'open';
+const openPositionClass = 'open-position';
+const openMobileClass = 'open-mobile';
+const parentToggleClass = 'parent-toggle';
+const defaultNavbarOptions = {
+  breakpoint: 768,
+  toggleSiblings: true,
+  delay: 500,
+};
 
-  var self;
-  var ops = {};
-  var menu;
-  var items;
-  var navbarToggle;
-  var firstToggle;
-  var firstSubnav;
-  var transitionDuration;
-
-  // NAVBAR EVENT LISTENERS
-  // ======================
-  function clickHandler(e) {
-    e.preventDefault();
-
-    var that = this; var lookup; var
-      element;
-
-    if (e.target === that || that.contains(e.target)) {
-      element = that.closest('LI') || that.closest(("." + navbarString));
-
-      if (!hasClass(element, openMobile)) {
-        addClass(element, openMobile);
-
-        lookup = ops.toggleSiblings
-          ? element.parentNode.getElementsByTagName('LI')
-          : element.getElementsByTagName('LI');
-
-        Array.from(lookup).map(function (x) { return x !== element && close(x); });
-      } else {
-        removeClass(element, openMobile);
-      }
-    }
-  }
-
-  function enterHandler() {
-    var that = this; // this is now the event target, the LI
-    clearTimeout(that.timer);
-
-    if (!that.isOpen && !checkView()) {
-      that.timer = setTimeout(function () {
-        addClass(that, openPosition);
-        addClass(that, openClass);
-        that.isOpen = 1;
-
-        Array.from(that.parentNode.getElementsByTagName('LI'))
-          .map(function (x) { return x !== that && close(x); });
-      }, 17);
-    }
-  }
-
-  function leaveHandler() {
-    var that = this;
-
-    if (that.isOpen && !checkView()) {
-      clearTimeout(that.timer);
-      that.timer = setTimeout(function () { return close(that, 1); }, ops.delay);
-    }
-  }
-
-  // NAVBAR PRIVATE METHODS
-  // ======================
-  function close(element, leave) {
-    if (hasClass(element, openClass)) {
-      removeClass(element, openClass);
-      if (leave) {
-        setTimeout(function () {
-          removeClass(element, openPosition);
-          element.isOpen = 0;
-        }, transitionDuration);
-      } else {
-        removeClass(element, openPosition);
+// NAVBAR PRIVATE METHODS
+// ======================
+function closeNavbar(self, element, leave) {
+  const { options } = self;
+  if (hasClass(element, openNavClass)) {
+    removeClass(element, openNavClass);
+    if (leave) {
+      setTimeout(() => {
+        removeClass(element, openPositionClass);
         element.isOpen = 0;
-      }
+      }, options.transitionDuration);
+    } else {
+      removeClass(element, openPositionClass);
+      element.isOpen = 0;
     }
-    if (hasClass(element, openMobile)) { removeClass(element, openMobile); }
   }
+  if (hasClass(element, openMobileClass)) removeClass(element, openMobileClass);
+}
 
-  function checkView() {
-    return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
-        || window.innerWidth < ops.breakpoint;
+function checkNavbarView(self) {
+  const { options } = self;
+  const [firstToggle] = self.menu.getElementsByClassName(parentToggleClass);
+  return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
+    || window.innerWidth < options.breakpoint;
+}
+
+function toggleNavbarEvents(self, add) {
+  const action = add ? addEventListener : removeEventListener;
+  const { items, navbarToggle } = self;
+
+  Array.from(items).forEach((listItem) => {
+    if (hasClass(listItem.lastElementChild, 'subnav')) {
+      listItem[action]('mouseenter', navbarEnterHandler);
+      listItem[action]('mouseleave', navbarLeaveHandler);
+      listItem[action]('focusin', navbarEnterHandler);
+      listItem[action]('focusout', navbarLeaveHandler);
+    }
+    const [toggleElement] = listItem.getElementsByClassName(parentToggleClass);
+    if (toggleElement) toggleElement[action]('click', navbarClickHandler);
+  });
+
+  if (navbarToggle) navbarToggle[action]('click', navbarClickHandler);
+}
+
+// NAVBAR EVENT LISTENERS
+// ======================
+function navbarClickHandler(e) {
+  e.preventDefault();
+
+  const { target } = e;
+  const that = this;
+  const menu = that.closest(navbarSelector);
+  const self = menu[navbarComponent];
+  const { options } = self;
+
+  if (target === that || that.contains(target)) {
+    const element = that.closest('LI') || that.closest(`.${navbarString}`);
+
+    if (!hasClass(element, openMobileClass)) {
+      addClass(element, openMobileClass);
+
+      const lookup = options.toggleSiblings
+        ? element.parentNode.getElementsByTagName('LI')
+        : element.getElementsByTagName('LI');
+
+      Array.from(lookup).map((x) => x !== element && closeNavbar(self, x));
+    } else {
+      removeClass(element, openMobileClass);
+    }
   }
+}
 
-  function toggleEvents(add) {
-    var action = add ? addEventListener : removeEventListener;
+function navbarEnterHandler() {
+  const target = this; // this is now the event target, the LI
+  const menu = target.closest(navbarSelector);
+  const self = menu && menu[navbarComponent];
+  clearTimeout(self.timer);
 
-    Array.from(items).forEach(function (listItem) {
-      if (hasClass(listItem.lastElementChild, 'subnav')) {
-        listItem[action]('mouseenter', enterHandler);
-        listItem[action]('mouseleave', leaveHandler);
-        listItem[action]('focusin', enterHandler);
-        listItem[action]('focusout', leaveHandler);
-      }
-      var toggleElement = listItem.getElementsByClassName(parentToggle)[0];
-      if (toggleElement) { toggleElement[action]('click', clickHandler); }
-    });
-    if (navbarToggle) { navbarToggle[action]('click', clickHandler); }
+  if (self && !target.isOpen && !checkNavbarView(self)) {
+    self.timer = setTimeout(() => {
+      addClass(target, openPositionClass);
+      addClass(target, openNavClass);
+      target.isOpen = 1;
+
+      Array.from(target.parentNode.getElementsByTagName('LI'))
+        .forEach((x) => {
+          if (x !== target) closeNavbar(self, x);
+        });
+    }, 17);
   }
+}
 
-  // NAVBAR DEFINITION
-  // =================
-  var NavbarClass = function NavbarClass(target, opsInput) {
+function navbarLeaveHandler() {
+  const target = this;
+  const menu = target.closest(navbarSelector);
+  const self = menu && menu[navbarComponent];
+
+  if (self && target.isOpen && !checkNavbarView(self)) {
+    clearTimeout(self.timer);
+    self.timer = setTimeout(() => closeNavbar(self, target, 1), self.options.delay);
+  }
+}
+
+// NAVBAR DEFINITION
+// =================
+class Navbar {
+  constructor(target, config) {
     // bind
-    self = this;
-
-    // check options
-    var options = opsInput || {};
+    const self = this;
 
     // instance targets
-    menu = queryElement(target);
+    self.menu = queryElement(target);
+    const { menu } = self;
 
     // reset on re-init
-    if (menu[navbarComponent]) { menu[navbarComponent].dispose(); }
-
-    // internal targets
-    items = menu.getElementsByTagName('LI');
-    navbarToggle = queryElement(("." + navbarString + "-toggle"), menu);
-    firstToggle = queryElement(parentToggle, menu);
-    firstSubnav = queryElement('.subnav', menu);
-    transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
+    if (menu[navbarComponent]) menu[navbarComponent].dispose();
 
     // set options
-    ops = normalizeOptions(menu, defaultOptions, options);
+    self.options = normalizeOptions(self.menu, defaultNavbarOptions, config || {});
+
+    // internal targets
+    self.items = menu.getElementsByTagName('LI');
+    self.navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
+    const firstSubnav = queryElement('.subnav', menu);
+    self.transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
 
     // attach events
-    toggleEvents(1);
+    toggleNavbarEvents(self, 1);
 
     // attach instance to element
     menu[navbarComponent] = self;
-  };
+  }
 
   // NAVBAR PUBLIC METHOD
   // ====================
-  Navbar.prototype.dispose = function dispose() {
-    toggleEvents();
-    delete menu[navbarComponent];
-  };
-
-  return new NavbarClass(navbarElement, navbarOptions);
+  dispose() {
+    const self = this;
+    toggleNavbarEvents(self);
+    delete self.menu[navbarComponent];
+  }
 }
 
-var navbarInit = {
+const navbarInit = {
   component: navbarComponent,
   selector: navbarSelector,
   constructor: Navbar,
@@ -259,16 +263,15 @@ var navbarInit = {
 
 // DATA API
 function initNavbar(context) {
-  var lookup = context instanceof Element ? context : document;
+  const lookup = context instanceof Element ? context : document;
 
-  var selector = navbarInit.selector;
-  var constructor = navbarInit.constructor;
-  var navs = lookup.querySelectorAll(selector);
+  const { selector, constructor } = navbarInit;
+  const navs = lookup.querySelectorAll(selector);
 
-  Array.from(navs).map(function (x) { return new constructor(x); });
+  Array.from(navs).map((x) => new constructor(x));
 }
 // initialize when loaded
-if (document.body) { initNavbar(); }
-else { document.addEventListener('DOMContentLoaded', initNavbar, { once: true }); }
+if (document.body) initNavbar();
+else document.addEventListener('DOMContentLoaded', initNavbar, { once: true });
 
 export default Navbar;
