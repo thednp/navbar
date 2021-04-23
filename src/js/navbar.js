@@ -72,7 +72,7 @@ function navbarClickHandler(e) {
 
   const { target } = e;
   const that = this;
-  const menu = that.closest(navbarSelector);
+  const menu = that.closest(`${navbarSelector},.${navbarString}`);
   const self = menu[navbarComponent];
   const { options } = self;
 
@@ -86,7 +86,7 @@ function navbarClickHandler(e) {
         ? element.parentNode.getElementsByTagName('LI')
         : element.getElementsByTagName('LI');
 
-      Array.from(lookup).map((x) => x !== element && closeNavbar(self, x));
+      Array.from(lookup).forEach((x) => { if (x !== element) closeNavbar(self, x); });
     } else {
       removeClass(element, openMobileClass);
     }
@@ -95,11 +95,11 @@ function navbarClickHandler(e) {
 
 function navbarEnterHandler() {
   const target = this; // this is now the event target, the LI
-  const menu = target.closest(navbarSelector);
+  const menu = target.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && menu[navbarComponent];
-  clearTimeout(self.timer);
 
   if (self && !target.isOpen && !checkNavbarView(self)) {
+    clearTimeout(self.timer);
     self.timer = setTimeout(() => {
       addClass(target, openPositionClass);
       addClass(target, openNavClass);
@@ -115,7 +115,7 @@ function navbarEnterHandler() {
 
 function navbarLeaveHandler() {
   const target = this;
-  const menu = target.closest(navbarSelector);
+  const menu = target.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && menu[navbarComponent];
 
   if (self && target.isOpen && !checkNavbarView(self)) {
@@ -140,11 +140,14 @@ export default class Navbar {
     if (menu[navbarComponent]) menu[navbarComponent].dispose();
 
     // set options
-    self.options = normalizeOptions(self.menu, defaultNavbarOptions, config || {});
+    self.options = normalizeOptions(menu, defaultNavbarOptions, config || {});
 
     // internal targets
     self.items = menu.getElementsByTagName('LI');
     self.navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
+
+    // set additional properties
+    self.timer = null;
     self.transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
 
     // attach events

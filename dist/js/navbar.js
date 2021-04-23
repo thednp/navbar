@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.3-alpha4 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.4 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -166,7 +166,7 @@
 
     const { target } = e;
     const that = this;
-    const menu = that.closest(navbarSelector);
+    const menu = that.closest(`${navbarSelector},.${navbarString}`);
     const self = menu[navbarComponent];
     const { options } = self;
 
@@ -180,7 +180,7 @@
           ? element.parentNode.getElementsByTagName('LI')
           : element.getElementsByTagName('LI');
 
-        Array.from(lookup).map((x) => x !== element && closeNavbar(self, x));
+        Array.from(lookup).forEach((x) => { if (x !== element) closeNavbar(self, x); });
       } else {
         removeClass(element, openMobileClass);
       }
@@ -189,11 +189,11 @@
 
   function navbarEnterHandler() {
     const target = this; // this is now the event target, the LI
-    const menu = target.closest(navbarSelector);
+    const menu = target.closest(`${navbarSelector},.${navbarString}`);
     const self = menu && menu[navbarComponent];
-    clearTimeout(self.timer);
 
     if (self && !target.isOpen && !checkNavbarView(self)) {
+      clearTimeout(self.timer);
       self.timer = setTimeout(() => {
         addClass(target, openPositionClass);
         addClass(target, openNavClass);
@@ -209,7 +209,7 @@
 
   function navbarLeaveHandler() {
     const target = this;
-    const menu = target.closest(navbarSelector);
+    const menu = target.closest(`${navbarSelector},.${navbarString}`);
     const self = menu && menu[navbarComponent];
 
     if (self && target.isOpen && !checkNavbarView(self)) {
@@ -234,11 +234,14 @@
       if (menu[navbarComponent]) menu[navbarComponent].dispose();
 
       // set options
-      self.options = normalizeOptions(self.menu, defaultNavbarOptions, config || {});
+      self.options = normalizeOptions(menu, defaultNavbarOptions, config || {});
 
       // internal targets
       self.items = menu.getElementsByTagName('LI');
       self.navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
+
+      // set additional properties
+      self.timer = null;
       self.transitionDuration = firstSubnav ? getElementTransitionDuration(firstSubnav) : 0;
 
       // attach events
