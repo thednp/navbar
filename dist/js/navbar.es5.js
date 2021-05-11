@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.4 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.5 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -100,6 +100,8 @@
   var addEventListener = 'addEventListener';
 
   var removeEventListener = 'removeEventListener';
+
+  var version = "2.1.5";
 
   // NAVBAR GC
   // =========
@@ -261,18 +263,20 @@
     delete self.menu[navbarComponent];
   };
 
-  var navbarInit = {
+  Navbar.init = {
     component: navbarComponent,
     selector: navbarSelector,
     constructor: Navbar,
+    version: version,
   };
 
   // DATA API
   function initNavbar(context) {
     var lookup = context instanceof Element ? context : document;
 
-    var selector = navbarInit.selector;
-    var constructor = navbarInit.constructor;
+    var ref = Navbar.init;
+    var selector = ref.selector;
+    var constructor = ref.constructor;
     var navs = lookup.querySelectorAll(selector);
 
     Array.from(navs).map(function (x) { return new constructor(x); });
