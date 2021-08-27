@@ -64,6 +64,9 @@ $dark_navbar_background: #343a40;
   .navbar {
     @include set-metric("padding",$navbar_padding);
   }
+  .subnav {
+    z-index: $subnav_zindex;
+  }
 
   // mobile view visibility
   .subnav,

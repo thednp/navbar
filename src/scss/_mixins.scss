@@ -463,6 +463,7 @@
   }
   @media (min-width: $responsive_breakpoint) {
     .subnav {
+      z-index: $subnav_zindex;
       // background
       @include set-background($subnav_bg);
       // box-shadow

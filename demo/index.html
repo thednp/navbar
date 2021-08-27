@@ -1019,6 +1019,7 @@ $brand_link_background_hover: transparent !default;
 <div class="code-wrapper">
 <pre><code class="language-scss">// MISC
 $responsive_breakpoint: 768px !default;
+$subnav_zindex: 50 !default;
 $icon_height: auto !default;
 $navbar_toggle_padding: 0.125rem 0.5rem !default;
 $mobile_expanded_background: auto !default;
@@ -1030,6 +1031,7 @@ $base_radius: 0.25rem !default;
             <li><code>$responsive_breakpoint</code> sets the width of the viewport to which the Navbar component switches
               its behaviour, above this value the menu is expected to work with non-mobile devices, and with mobile devices 
               when the viewport width is below this value;</li>
+            <li><code>$subnav_zindex</code> sets the z-index for the submenus;</li>
             <li><code>$icon_height</code> sets the height of all the menu icons, by default we're using one of the 
               above line-height metrics, which is probably most accurate; if your menu has submenus and you are using
               any menu icons, this value or the line-height variables must be a valid <code>em</code>, <code>px</code>, 

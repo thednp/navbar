@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",

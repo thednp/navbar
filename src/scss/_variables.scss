@@ -89,6 +89,7 @@ $xxl: 1400px;
 
 // MISC
 $responsive_breakpoint: $md !default; // default is 768px
+$subnav_zindex: 50 !default; // default is 768px
 $icon_height: auto !default; // sets icon size in any unit, when using icons, this variable is a must
 $navbar_toggle_padding: .125rem .5rem !default; // toggle button
 $base_radius: .25rem !default; // [valid value|0] can be either a valid value or 0 which removes the style rule
