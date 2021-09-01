@@ -2,14 +2,14 @@
 // Build script to compile and minify the CSS file from SCSS folder
 // Usage: npm run compile-scss
 
-const fs = require('fs'), 
-    writeFileSync = fs.writeFileSync,
-    sass = require('sass'),
-    pkg = require('./package.json'),
-    year = (new Date).getFullYear(),
-    args = {};
+const fs = require('fs');
+const writeFileSync = fs.writeFileSync;
+const sass = require('sass');
+const pkg = require('./package.json');
+const year = (new Date).getFullYear();
+const args = {};
 
-process.argv.map((x) => {let y=x.split(':'); args[y[0]] = y[1]; }); 
+process.argv.map((x) => {const [name, value] = x.split(':'); args[name] = value; });
 
 let banner = args.MIN === 'true'
 ? `/* Navbar.js v${pkg.version} | ${pkg.author} © ${year} | ${pkg.license}-License */`
