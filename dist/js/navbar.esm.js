@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.7 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.8 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -95,7 +95,7 @@ const addEventListener = 'addEventListener';
 
 const removeEventListener = 'removeEventListener';
 
-var version = "2.1.7";
+var version = "2.1.8";
 
 // NAVBAR GC
 // =========

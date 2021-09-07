@@ -64,9 +64,6 @@ $dark_navbar_background: #343a40;
   .navbar {
     @include set-metric("padding",$navbar_padding);
   }
-  .subnav {
-    z-index: $subnav_zindex;
-  }
 
   // mobile view visibility
   .subnav,
@@ -190,7 +187,7 @@ $dark_navbar_background: #343a40;
         li.open-position > .subnav { top: 0; left: 100%; }
       }
 
-      li.open-position > .subnav { top: 100%; left: 0; z-index: 1; }
+      li.open-position > .subnav { top: 100%; left: 0; z-index: $subnav_zindex; }
       li.open > .subnav { opacity: 1; transform: translate(0); }
     }
   }
