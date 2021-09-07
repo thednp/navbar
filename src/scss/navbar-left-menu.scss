@@ -1,0 +1,32 @@
+$primary_color: #e68a00;
+$navbar_background: transparent; // setting $navbar_background: transparent, will force root menu items to inherit colors
+$subnav_background: rgba(0,0,0,.8);
+$subnav_padding: .5rem;
+$subnav_link_color: transparent; // setting $subnav_link_color: transparent; disables forces links to inherit document color
+$subnav_link_color_hover: transparent; // setting $subnav_link_color_hover: transparent; disables forces links to inherit document color
+$root_item_hover_color: #eee;
+$root_item_hover_background: #222;
+$subnav_item_color: transparent; // setting $subnav_link_color: transparent; disables forces links to inherit document color
+$subnav_item_hover_color: #222;
+$subnav_item_hover_background: #fff;
+$mobile_expanded_background: rgba(0,0,0,.075); // required since $navbar_background is transparent
+
+// special design
+// $root_item_margin: 2px 0 0 0;
+// $subnav_item_margin: 0 0 2px 2px;
+// $navbar_background: transparent;
+// $subnav_background: transparent;
+// $subnav_padding: 0;
+// $root_item_hover_color: #eee;
+// $root_item_hover_background: #222;
+// $subnav_item_hover_color: #333;
+// $subnav_item_background: rgba(0,0,0,0.8);
+// $subnav_item_hover_background: #fff;
+// $subnav_shadow: 0;
+
+@import "navbar-variables","navbar-mixins";
+
+@include nav-layout(1);
+@include nav-style;
+@include subnav-style;
+@include left-side;

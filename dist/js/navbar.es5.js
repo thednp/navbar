@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.6 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.7 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -101,7 +101,7 @@
 
   var removeEventListener = 'removeEventListener';
 
-  var version = "2.1.6";
+  var version = "2.1.7";
 
   // NAVBAR GC
   // =========
@@ -138,8 +138,7 @@
 
   function checkNavbarView(self) {
     var options = self.options;
-    var ref = self.menu.getElementsByClassName(parentToggleClass);
-    var firstToggle = ref[0];
+    var firstToggle = self.firstToggle;
     return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
       || window.innerWidth < options.breakpoint;
   }
@@ -197,8 +196,8 @@
     var menu = target.closest((navbarSelector + ",." + navbarString));
     var self = menu && menu[navbarComponent];
 
+    clearTimeout(self.timer);
     if (self && !target.isOpen && !checkNavbarView(self)) {
-      clearTimeout(self.timer);
       self.timer = setTimeout(function () {
         addClass(target, openPositionClass);
         addClass(target, openNavClass);
@@ -226,6 +225,8 @@
   // NAVBAR DEFINITION
   // =================
   var Navbar = function Navbar(target, config) {
+    var assign;
+
     // bind
     var self = this;
 
@@ -243,6 +244,7 @@
     // internal targets
     self.items = menu.getElementsByTagName('LI');
     self.navbarToggle = queryElement(("." + navbarString + "-toggle"), menu);
+    (assign = menu.getElementsByClassName(parentToggleClass), self.firstToggle = assign[0]);
 
     // set additional properties
     self.timer = null;

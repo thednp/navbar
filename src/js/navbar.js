@@ -42,8 +42,7 @@ function closeNavbar(self, element, leave) {
 }
 
 function checkNavbarView(self) {
-  const { options } = self;
-  const [firstToggle] = self.menu.getElementsByClassName(parentToggleClass);
+  const { options, firstToggle } = self;
   return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
     || window.innerWidth < options.breakpoint;
 }
@@ -99,8 +98,8 @@ function navbarEnterHandler() {
   const menu = target.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && menu[navbarComponent];
 
+  clearTimeout(self.timer);
   if (self && !target.isOpen && !checkNavbarView(self)) {
-    clearTimeout(self.timer);
     self.timer = setTimeout(() => {
       addClass(target, openPositionClass);
       addClass(target, openNavClass);
@@ -146,6 +145,7 @@ export default class Navbar {
     // internal targets
     self.items = menu.getElementsByTagName('LI');
     self.navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
+    [self.firstToggle] = menu.getElementsByClassName(parentToggleClass);
 
     // set additional properties
     self.timer = null;

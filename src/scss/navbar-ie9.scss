@@ -1,0 +1,28 @@
+.navbar .brand,
+.nav li > a,
+.nav li > span {display: block;}
+
+.navbar .brand {float: left;}
+
+.open-mobile.navbar > div {
+  display: block;
+  clear: both;
+}
+
+.subnav > li {display: block;width: 100%;}
+
+.navbar-toggle,
+.parent-icon,
+.parent-toggle {float: right;}
+
+@media (min-width: $responsive_breakpoint) {
+
+  .nav,
+  .navbar > div {
+    display: block;
+  }
+
+  .nav > li {display: block; float: left;}
+
+  .navbar-content {float: right;}
+}

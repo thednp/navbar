@@ -1,0 +1,31 @@
+$primary_color: #007bff;
+
+$navbar_background: #343a40;
+$subnav_background: #e4ebf3;
+
+$navbar_padding: .5rem 0;
+$subnav_padding: .5rem;
+
+$root_item_hover_background: transparent; // rgba(255,255,255,0.85)
+$root_item_hover_color: auto;
+
+$root_item_active_background: transparent;
+
+$subnav_item_hover_color: rgba(0,0,0,.75);
+$subnav_item_hover_background: rgba(0,0,0,.125);
+
+$subnav_item_active_color: $primary_color;
+$subnav_item_active_background: transparent;
+
+$brand_link_background: transparent;
+$brand_link_background_hover: transparent;
+
+@import "navbar-variables","navbar-mixins";
+
+@include navbar-mobile-layout;
+@include navbar-desktop-layout;
+@include navbar-style;
+@include nav-layout;
+@include nav-style;
+@include subnav-style;
+@include main-menu;

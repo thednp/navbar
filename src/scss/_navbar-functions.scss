@@ -1,0 +1,42 @@
+@use "sass:math";
+
+@function real-color($color) {
+  @return type-of($color) == "color" and $color != "none" and $color != transparent;
+}
+
+@function real-size($size,$rem:0) { // all unit sizes, except %
+  $pxSize: 0;
+
+  @if type-of($size) == "number" and $rem != 0 {
+    @if unit($size) == "rem" {
+      $pxSize: $size;
+    } @else if unit($size) == "em" {
+      $pxSize: math.div($size, 1em) * 1rem;
+    } @else if unit($size) == "px" {
+      $pxSize: math.div($size, 16px) * 1rem;
+    }
+  } @else if type-of($size) == "number" and $rem == 0 {
+    @if unit($size) == "rem" {
+      $pxSize: math.div($size, 1rem) * 16px;
+    } @else if unit($size) == "em" {
+      $pxSize: math.div($size, 1em) * 16px;
+    }
+  }
+  @return $pxSize;
+}
+
+@function sum-size($a:0,$b:0) {
+  $result: 0;
+  @if type-of($a) == "number" and type-of($b) == "number" {
+    @if unit($a) != unit($b) {
+      @if unit($a) == "rem" or unit($b) == "rem" {
+        $result: real-size($a,1) + real-size($b,1);
+      } @else {
+        $result: real-size($a) + real-size($b);
+      }
+    } @else {
+      $result: $a + $b;
+    }
+  }
+  @return $result;
+}

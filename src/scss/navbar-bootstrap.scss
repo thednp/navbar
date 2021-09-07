@@ -1,0 +1,16 @@
+$primary_color: #007bff;
+
+$subnav_item_hover_color: #262626;
+$subnav_item_hover_background: #ddd;
+
+$subnav_item_active_color: #fff;
+$subnav_item_active_background: $primary_color;
+
+$navbar_padding: .5rem 1rem;
+$subnav_padding: .5rem;
+
+@import "navbar-variables","navbar-mixins","navbar-mixins-bs";
+
+@include navbar-style-bs;
+@include nav-layout-bs;
+@include main-menu-bs;

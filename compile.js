@@ -26,8 +26,6 @@ let COPY = args.COPY === 'true' || false
 
 // Helper Functions
 function compile(inputPath, writePath, compressType) {
-  // console.log(`Compiling ${inputPath} - ${pkg.version}..`);
-
   let result = sass.renderSync({
     file: inputPath,
     // sourceMap: true,

@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v2.1.6 (http://thednp.github.io/navbar.js)
+* Navbar.js v2.1.7 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -101,7 +101,7 @@
 
   const removeEventListener = 'removeEventListener';
 
-  var version = "2.1.6";
+  var version = "2.1.7";
 
   // NAVBAR GC
   // =========
@@ -137,8 +137,7 @@
   }
 
   function checkNavbarView(self) {
-    const { options } = self;
-    const [firstToggle] = self.menu.getElementsByClassName(parentToggleClass);
+    const { options, firstToggle } = self;
     return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
       || window.innerWidth < options.breakpoint;
   }
@@ -194,8 +193,8 @@
     const menu = target.closest(`${navbarSelector},.${navbarString}`);
     const self = menu && menu[navbarComponent];
 
+    clearTimeout(self.timer);
     if (self && !target.isOpen && !checkNavbarView(self)) {
-      clearTimeout(self.timer);
       self.timer = setTimeout(() => {
         addClass(target, openPositionClass);
         addClass(target, openNavClass);
@@ -241,6 +240,7 @@
       // internal targets
       self.items = menu.getElementsByTagName('LI');
       self.navbarToggle = queryElement(`.${navbarString}-toggle`, menu);
+      [self.firstToggle] = menu.getElementsByClassName(parentToggleClass);
 
       // set additional properties
       self.timer = null;
