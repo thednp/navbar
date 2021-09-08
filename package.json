@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -33,6 +33,7 @@
     "compile-bs": "node compile.js INPUTFILE:src/scss/navbar-bootstrap.scss OUTPUTFILE:demo/src/css/navbar-bootstrap.min.css MIN:true",
     "compile-bs-ext": "node compile.js INPUTFILE:src/scss/navbar-bootstrap-extended.scss OUTPUTFILE:demo/src/css/navbar-bootstrap-extended.min.css MIN:true",
     "compile-combo": "node compile.js INPUTFILE:src/scss/navbar-combo.scss OUTPUTFILE:demo/src/css/navbar-combo.min.css MIN:true",
+    "compile-combo-rtl": "node compile.js INPUTFILE:src/scss/navbar-combo-rtl.scss OUTPUTFILE:demo/src/css/navbar-combo-rtl.min.css MIN:true",
     "compile-left": "node compile.js INPUTFILE:src/scss/navbar-left.scss OUTPUTFILE:demo/src/css/navbar-left.min.css MIN:true",
     "compile-left-menu": "node compile.js INPUTFILE:src/scss/navbar-left-menu.scss OUTPUTFILE:demo/src/css/navbar-left-menu.min.css MIN:true",
     "compile-right": "node compile.js INPUTFILE:src/scss/navbar-right.scss OUTPUTFILE:demo/src/css/navbar-right.min.css MIN:true",

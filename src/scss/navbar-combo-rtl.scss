@@ -1,0 +1,49 @@
+// main menu
+$navbar_background: #4a5848;
+$primary_color: #0e8000;
+$subnav_padding: .5rem;
+$subnav_background: inherit;
+$brand_link_background: #21331f;
+$brand_link_background_hover: #1e211d;
+$subnav_link_color: auto;
+$subnav_link_color_hover: auto;
+$subnav_shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
+
+@import "navbar-variables","navbar-mixins";
+
+@include navbar-mobile-layout;
+@include navbar-desktop-layout;
+@include navbar-style;
+@include nav-layout;
+.navbar {
+  @include nav-style;
+  @include subnav-style;
+  @include main-menu-rtl;
+}
+
+// side modules
+$navbar_background: #eee; // required as a new reference for root menu items
+$root_item_hover_color: #fff;
+$root_item_hover_background: #333;
+$subnav_item_hover_background: #444;
+$subnav_item_hover_color: #eee;
+$subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
+
+.sidebar {
+  @include nav-style;
+  @include subnav-style;
+}
+
+.right {
+  @include left-side(1);
+}
+
+.left {
+  @include right-side(1);
+  @media (min-width: $responsive_breakpoint) {
+    $subnav_shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+
+    &.nav li>.subnav {
+      @include set-metric("box-shadow",$subnav_shadow); }
+  }
+}

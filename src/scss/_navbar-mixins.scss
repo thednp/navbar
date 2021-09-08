@@ -571,6 +571,27 @@
   }
 }
 
+@mixin main-menu-rtl($include:0) {
+  #{if($include !=0, '&.nav', '.nav')} {
+    @media (min-width: $responsive_breakpoint) {
+      // animation
+      li {
+        > .subnav {
+          top: -99999em; left: -99999em;
+          transition: transform .5s ease, opacity .4s linear;
+          transform: translate(0,-10px);
+        }
+
+        li > .subnav { transform: translate(10px); }
+        li.open-position > .subnav { top: 0; right: 100%; left: auto; }
+      }
+
+      li.open-position > .subnav { top: 100%; right: 0; left: auto; z-index: $subnav_zindex; }
+      li.open > .subnav { opacity: 1; transform: translate(0); }
+    }
+  }
+}
+
 // vertical left-side animation
 @mixin left-side($include:0) {
   #{if($include !=0, '&.nav', '.nav')} {
