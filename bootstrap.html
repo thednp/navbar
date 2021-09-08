@@ -126,7 +126,7 @@
             </a>
             <ul class="subnav">
               <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share navbar.js on Facebook">
+                <a class="nav-link" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share Navbar.js on Facebook">
                   <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M713.143 73.143c90.857 0 164.571 73.714 164.571 164.571v548.571c0 90.857-73.714 164.571-164.571 164.571h-107.429v-340h113.714l17.143-132.571h-130.857v-84.571c0-38.286 10.286-64 65.714-64l69.714-0.571v-118.286c-12-1.714-53.714-5.143-101.714-5.143-101.143 0-170.857 61.714-170.857 174.857v97.714h-114.286v132.571h114.286v340h-304c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571z" />
                   </svg>
@@ -179,7 +179,7 @@
 <div class="code-wrapper">
 <pre><code class="language-markup">&lt;nav class="navbar navbar-dark bg-dark">
   &lt;a class="navbar-brand" href="#">Navbar.js&lt;/a>
-  &lt;button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper">
+  &lt;button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper">
     &lt;span class="navbar-toggler-icon">&lt;/span>
   &lt;/button>
       
@@ -213,8 +213,8 @@
     <h2>Bootstrap Menu Mixins</h2>
     
 <div class="code-wrapper">
-<pre><code class="language-scss">// bootstrap.scss - mixins
-@import 'variables','mixins','mixins-bs';
+<pre><code class="language-scss">// navbar-bootstrap.scss - mixins
+@import 'navbar-variables','navbar-mixins','navbar-mixins-bs';
 
 @include navbar-style-bs;
 @include nav-layout-bs;
@@ -233,7 +233,7 @@
     <h2>Used Variables</h2>
     
 <div class="code-wrapper">
-<pre><code class="language-scss">// bootstrap.scss - custom variable input values
+<pre><code class="language-scss">// navbar-bootstrap.scss - custom variable input values
 $primary_color: #007bff;
 $item_line_height: 24px;
 
@@ -261,7 +261,7 @@ $subnav_padding: 0.5rem;
     <h2>More Demos</h2>
     <nav class="navbar navbar-light navbar-expand-md bg-light border rounded mb-3">
       <a class="navbar-brand" href="#">Navbar.js</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper-light"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-light"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -360,7 +360,7 @@ $subnav_padding: 0.5rem;
 
     <nav class="navbar navbar-dark navbar-expand-md bg-secondary rounded mb-3">
       <a class="navbar-brand" href="#">Navbar.js</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper-secondary"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-secondary"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -459,7 +459,7 @@ $subnav_padding: 0.5rem;
 
     <nav class="navbar navbar-dark navbar-expand-md bg-primary rounded mb-3">
       <a class="navbar-brand" href="#">Navbar.js</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper-primary"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-primary"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -558,7 +558,7 @@ $subnav_padding: 0.5rem;
 
     <nav class="navbar navbar-dark navbar-expand-md bg-info rounded mb-3">
       <a class="navbar-brand" href="#">Navbar.js</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper-info"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-info"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -657,7 +657,7 @@ $subnav_padding: 0.5rem;
 
     <nav class="navbar navbar-dark navbar-expand-md bg-success rounded mb-3">
       <a class="navbar-brand" href="#">Navbar.js</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper-success"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-success"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -756,7 +756,7 @@ $subnav_padding: 0.5rem;
 
     <nav class="navbar navbar-light navbar-expand-md bg-warning rounded mb-3">
       <a class="navbar-brand" href="#">Navbar.js</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper-warning"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-warning"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -855,7 +855,7 @@ $subnav_padding: 0.5rem;
 
     <nav class="navbar navbar-dark navbar-expand-md bg-danger rounded mb-3">
       <a class="navbar-brand" href="#">Navbar.js</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wrapper-danger"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-danger"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -968,7 +968,7 @@ $subnav_padding: 0.5rem;
   </div>
 
   <script src="./src/js/polyfill.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap.native@3.0.15-alpha1/dist/bootstrap-native-v5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap.native@4.0.6/dist/bootstrap-native.js"></script>
   <script src="./src/js/navbar.min.js"></script>
   <script src="./assets/js/prism.js"></script>
 

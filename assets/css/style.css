@@ -6,7 +6,7 @@
 /* base typography */
 body {
 	font-size: 16px; line-height: 24px; font-family:'Roboto Condensed',Helvetica,Arial,sans-serif;
-	background-color: #f6f6f6; color: #777
+	background-color: #f6f6f6; color: #777; text-align: inherit
 }
 /* typo */
 a { text-decoration: none}
@@ -71,7 +71,8 @@ ul { list-style: inherit; list-style-position: inside; }
 .code-wrapper {
 	max-width: 100%;
 	overflow: auto;
-	display: grid
+	display: grid;
+	direction: ltr;
 }
 
 /* grid */
@@ -309,4 +310,16 @@ code:not([class*="language-"]) {
 	margin: 0 0 0.5rem;
 	padding: 0 0 0.5rem;
 	display: flex;
+}
+
+/* RTL Languages */
+
+[dir="rtl"] {
+	text-align: right;
+	direction: rtl;
+}
+
+[dir="rtl"] .attr-list {
+	text-align: right;
+	padding: 0 1rem 0 0;
 }

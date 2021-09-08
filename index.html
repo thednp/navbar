@@ -22,7 +22,7 @@
 
   <div class="content-wrapper">
     <div class="container">
-      <nav class="navbar navigation" data-function="navbar">
+      <nav class="navbar" data-function="navbar">
         <a class="brand" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Navbar.js</a>
         <button class="navbar-toggle">
           <svg class="menu-icon" viewBox="0 0 1024 1024">
@@ -671,7 +671,7 @@ myMenuInit.dispose();
           file sets the default style and uses the default mixins:</p>
 
 <div class="code-wrapper">
-<pre><code class="language-scss">@import 'variables','mixins';
+<pre><code class="language-scss">@import 'navbar-variables','navbar-mixins';
 
 @include navbar-mobile-layout;
 @include navbar-desktop-layout;
@@ -1046,6 +1046,19 @@ $base_radius: 0.25rem !default;
             <li><code>$base_radius</code> sets a global border-radius needed for various elements of the navbar, currently
               used by the toggle button and icons specific to parent menu items.</li>
           </ul>
+
+          <h2>RTL Languages</h2>
+          <p class="lead">While you can play around and style Navbar.js your way, we put together some SCSS to have it ready for you
+          to play. We created the <code>main-menu-rtl</code> mixin to work along with the following CSS:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// general styling required for RTL Languages
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+</code></pre></div>
+          <p>You can have a look at the <a href="combo.html">Combined Layout</a> as well as the <a href="right.html">Right Navbar</a> demos.</p>
 
           <h2>More Demos</h2>
           <p class="lead">For various other purposes we've set a couple of additional demos to showcase mixins flexibility:</p>
