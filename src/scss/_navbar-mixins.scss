@@ -1,5 +1,4 @@
 // MIXINS - DEFAULT STYLING, LAYOUT & ANIMATION
-@use "sass:math";
 @import "navbar-functions";
 
 @mixin navbar-mobile-layout($include:0) {
@@ -276,7 +275,6 @@
       li > a {
         @include set-metric("font-size",$subnav_item_font_size,$subnav_font_size);
         @include set-metric("line-height",$subnav_item_line_height,$subnav_line_height);
-        // @include set-metric('padding',$subnav_item_padding,$root_item_padding);
       }
     }
     // reset menu tree highlight padding
@@ -653,7 +651,7 @@
     } @else if type-of($navbar_line_height) == "number" {
       $height: $navbar_line_height;
     } @else {
-      $height: 16px // ICONS MUST HAVE A SIZE
+      $height: 16px; // ICONS MUST HAVE A SIZE
     }
   }
 
@@ -679,8 +677,7 @@
     fill: currentColor;
   }
   .menu-icon {
-    // font-size: round($height * 94/100*10)/10;
-    font-size: math.div(round($height * math.div(94, 100) * 10), 10);
+    font-size: decimal-round($height * .94, 1); // 94% = 0.94
   }
 }
 

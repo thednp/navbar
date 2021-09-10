@@ -1,28 +1,44 @@
-@use "sass:math";
-
 @function real-color($color) {
   @return type-of($color) == "color" and $color != "none" and $color != transparent;
 }
 
-@function real-size($size,$rem:0) { // all unit sizes, except %
-  $pxSize: 0;
+// 1 up to 4 decimals only
+@function decimal-round($number:0,$decimals:0) {
+  @if $decimals == 1 {
+    @return round($number * 10) * .1;
+  } @else if $decimals == 2 {
+    @return round($number * 100) * .01;
+  } @else if $decimals == 3 {
+    @return round($number * 1000) * .001;
+  } @else if $decimals == 4 {
+    @return round($number * 10000) * .0001;
+  } @else {
+    @return round($number);
+  }
+}
 
-  @if type-of($size) == "number" and $rem != 0 {
-    @if unit($size) == "rem" {
-      $pxSize: $size;
-    } @else if unit($size) == "em" {
-      $pxSize: math.div($size, 1em) * 1rem;
-    } @else if unit($size) == "px" {
-      $pxSize: math.div($size, 16px) * 1rem;
-    }
-  } @else if type-of($size) == "number" and $rem == 0 {
-    @if unit($size) == "rem" {
-      $pxSize: math.div($size, 1rem) * 16px;
-    } @else if unit($size) == "em" {
-      $pxSize: math.div($size, 1em) * 16px;
+@function real-size($size,$rem:0) { // all unit sizes, except %
+  $result: 0;
+
+  @if type-of($size) == "number" {
+    $unit: unit($size);
+    @if $rem != 0 {
+      @if $unit == "rem" {
+        $result: $size;
+      } @else if $unit == "em" {
+        $result: $size * 1rem;
+      } @else if $unit == "px" {
+        $result: decimal-round($size * .0625, 2) * 1rem; // 1/16 = 0.0625
+      }
+    } @else {
+      @if $unit == "rem" {
+        $result: $size * 16px;
+      } @else if $unit == "em" {
+        $result: $size * 16px;
+      }
     }
   }
-  @return $pxSize;
+  @return $result;
 }
 
 @function sum-size($a:0,$b:0) {
