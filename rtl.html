@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="./assets/img/favicon.ico">
   <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
   
-  <title>Navbar.js Main Demo</title>
+  <title>Navbar.js Documentation - RTL Languages</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">
   <link href="./assets/css/style.css" rel="stylesheet">
   <link href="./assets/css/prism.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                 </svg>
               </button>
               <ul class="subnav">
-                <li class="active">
+                <li>
                   <a href="#">Demos
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -53,7 +53,7 @@
                     </svg>
                   </button>                  
                   <ul class="subnav">
-                    <li class="active"><a href="index.html" aria-current="page">Main Demo</a></li>
+                    <li><a href="index.html">Main Demo</a></li>
                     <li><a href="left.html">Left Side</a></li>
                     <li><a href="left-menu.html">Left Menu</a></li>
                     <li><a href="right.html">Right Side</a></li>
@@ -62,7 +62,7 @@
                     <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
                   </ul>
                 </li>
-                <li>
+                <li class="active">
                   <a href="#">Documentation
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -79,7 +79,7 @@
                     <li><a href="js-api.html">JavaScript API</a></li>
                     <li><a href="megamenu.html">Mega Menu</a></li>
                     <li><a href="scss.html">SCSS Source</a></li>
-                    <li><a href="rtl.html">RTL Languages</a></li>
+                    <li class="active"><a href="rtl.html" aria-current="page">RTL Languages</a></li>
                     <li><a href="accessibility.html">Accessibility</a></li>
                   </ul>
                 </li>
@@ -210,87 +210,25 @@
       </nav>
 
       <div class="content">
-        <div class="hero">
-          <div class="row" style="align-items: center">
-            <div class="col-6">
-              <img class="hidden-md" src="assets/img/navbar.png" alt="Navbar.js">
-            </div>
-            <div class="col-6">
-              <h1>Navbar.js <small>Modern Navigation Component</small></h1>
-              <div class="install">npm install navbar.js</div>
-              <p class="lead">The mobile first menu navigation for today's modern web, developed
-                with native JavaScript and packed with lots of features.</p>
-              <p>
-                <a class="btn btn-brand" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a>
-                <a class="btn" href="https://github.com/thednp/navbar.js/">Fork</a>
-              </p>
-            </div>
-          </div>
-        </div>
         <div class="content-inner main">
-          <div class="row boxes">
-            <div class="col-6">
-              <div class="box">
-                <p><b>ES6+ Native JavaScript</b><br>
-                  The component was redesigned for the latest tools and modern applications and comes
-                  packed fully featured. In addition, build tools and sources are provided so you can 
-                  get started working on your application right away.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>Simple &amp; Light Scripting</b><br>
-                  Navbar.js is meant to be simple, fast, reliable and easy to implement, all in a very
-                  light footprint.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>DATA API</b><br>
-                  Initialize automatically and set options for your target elements via DATA API.</p>
-              </div>
-            </div>
 
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>SCSS Sources Ready</b><br>
-                  Unleash your creativity into those SCSS variables and make it your way, your style,
-                  any time you wanna play. The sources are modular and very easy to follow.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Mobile First Design</b><br>
-                  The navbar.js component was redesigned to be a viable mobile first solution.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Accessibility</b><br>
-                  Since our Navbar 3.0 version release, we've moved the focus on accessibility.</p>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>With Modern Browsers In Mind</b><br>
-                  In the redesign process we've put everything modern to the table for the best script
-                  execution performance and the optimal rendering load.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Well Documented</b><br>
-                  As always well documented and filled with tips and cookies.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>MIT Licensed</b><br>
-                  The component is released under the 
-                  <a href="https://github.com/thednp/navbar.js/blob/master/LICENSE">MIT License</a>.</p>
-              </div>
-            </div>
-          </div>
+          <h1>RTL Languages</h1>
+          <p class="lead">Thanks to Flexbox, modern browsers built in styling and other factors, Navbar.js can cover
+            RTL Languages very easy. We also created the <code>main-menu-rtl</code> mixin to provide appropriate
+            animation support for RTL Languages. The following CSS is the only requirement to enable RTL layout:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// general styling required for RTL Languages
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+</code></pre></div>
+
+          <p>Keep in mind that no markup change is required except the <code>&lt;i class="menu-icon"></code> and 
+            <code>&lt;i class="parent-icon"></code> icons to better serve the RTL layout.</p>
+          <p>You can have a look at the <a href="combo.html">Combined Layout</a> as well as the
+            <a href="right.html">Right Navbar</a> demos to preview RTL Languages demo.</p>
 
           <div class="row">
             <div class="col-6">
@@ -323,7 +261,7 @@
                   in a Bootstrap styled page.</li>
               </ul>
             </div>
-          </div>
+          </div>            
 
         </div>
         <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021</span> <a href="#">Go back to top</a></div>
@@ -333,26 +271,6 @@
 
   <script src="./src/js/polyfill.min.js"></script>
   <script src="./src/js/navbar.min.js"></script>
-  <script>
-    // events demo
-    var shareBtn = document.querySelector('[target="_blank"]').parentNode.parentNode.parentNode;
-    shareBtn.addEventListener('show.navbar', function(e){
-      var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('shown.navbar', function(e){
-      var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('hide.navbar', function(e){
-      var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('hidden.navbar', function(e){
-      var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-  </script>
   <script src="./assets/js/prism.js"></script>
 
 </body>

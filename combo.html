@@ -11,15 +11,13 @@
   <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">  
 
   <title>Navbar.js | Combined Demo</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,800|Roboto+Condensed:400,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
   <link id="navbar-css" href="./src/css/navbar-combo.min.css" rel="stylesheet">
   <link href="./assets/css/prism.css" rel="stylesheet">
-
   <style>
     body {
       background: #fff;
-      /* padding-top: calc(1.5rem + 1rem) */
     }
     a {color: #24d00f}
 
@@ -50,29 +48,66 @@
 </head>
 
 <body>
-  <nav class="navbar" data-function="navbar" data-toggle-siblings="true">
+  <nav class="navbar" data-function="navbar" data-toggle-siblings="true" aria-label="Main">
     <div>
       <div class="copy navbar-content" style="min-width:20%">
         <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021</span>
       </div>
       <ul class="nav" style="flex:auto">
         <li class="active">
-          <a href="#">Demos
-            <svg class="parent-icon" viewBox="0 0 1024 1024">
-              <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
-            </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Explore
+            <svg class="parent-icon" aria-hidden="true" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
           </a>
+          <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+            <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+              <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+            </svg>
+          </button>
           <ul class="subnav">
-            <li><a href="index.html">Main</a></li>
-            <li><a href="left.html">Left Side</a></li>
-            <li><a href="left-menu.html">Left Menu</a></li>
-            <li><a href="right.html">Right Side</a></li>
-            <li class="active"><a href="combo.html">Combo</a></li>
-            <li><a href="bootstrap.html">Bootstrap</a></li>
-            <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+            <li class="active">
+              <a href="#">Demos
+                <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                  <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
+                </svg>
+              </a>
+              <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </button>                  
+              <ul class="subnav">
+                <li><a href="index.html">Main Demo</a></li>
+                <li><a href="left.html">Left Side</a></li>
+                <li><a href="left-menu.html">Left Menu</a></li>
+                <li><a href="right.html">Right Side</a></li>
+                <li class="active"><a href="combo.html" aria-current="page">Combo</a></li>
+                <li><a href="bootstrap.html">Bootstrap</a></li>
+                <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">Documentation
+                <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                  <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
+                </svg>
+              </a>
+              <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </button>                  
+              <ul class="subnav">
+                <li><a href="markup.html">Markup</a></li>
+                <li><a href="data-api.html">DATA API</a></li>
+                <li><a href="js-api.html">JavaScript API</a></li>
+                <li><a href="megamenu.html">Mega Menu</a></li>
+                <li><a href="scss.html">SCSS Source</a></li>
+                <li><a href="rtl.html">RTL Languages</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li>
@@ -80,42 +115,45 @@
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
-
+          </button>
           <div class="subnav">
             <ul class="row nomargin">
               <li class='col-4'>
-                <span class="column-title">
-                  Locations
-                  <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                <span class="column-title">Locations</span>
+                <button class="subnav-toggle">
+                  <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                   </svg>
-                </span>
+                </button>                
                 <ul>
                   <li>
-                    <a href="#">
-                      Rentals
+                    <a href="#">Rentals
                       <svg class="parent-icon" viewBox="0 0 1024 1024">
                         <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                       </svg>
-                      <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                    </a>
+                    <button class="subnav-toggle">
+                      <svg class="menu-icon" viewBox="0 0 1024 1024">
                         <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                       </svg>
-                    </a>
+                    </button>
                     <ul class="subnav">
                       <li>
-                        <a href="#">
-                          Housing
+                        <a href="#">Housing
                           <svg class="parent-icon" viewBox="0 0 1024 1024">
                             <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                           </svg>
-                          <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                        </a>
+                        <button class="subnav-toggle">
+                          <svg class="menu-icon" viewBox="0 0 1024 1024">
                             <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                           </svg>
-                        </a>
+                        </button>
                         <ul class="subnav">
                           <li><a href="#">Entry</a></li>
                           <li><a href="#">Popular</a></li>
@@ -134,12 +172,12 @@
                 </ul>
               </li>
               <li class='col-4'>
-                <span class="column-title">
-                  Hidden Text Box
-                  <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                <span class="column-title">Hidden Text Box</span>
+                <button class="subnav-toggle">
+                  <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                   </svg>
-                </span>
+                </button>
                 <div class="subnav-content">
                   <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                   <p>Features a nice <a href="#">link anchor</a> affected by navbar styling.</p>
@@ -161,10 +199,12 @@
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
+          </button>
           <ul class="subnav">
             <li>
               <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share Navbar.js on Facebook">
@@ -199,16 +239,18 @@
   <div class="row nomargin overflow-x-hidden">
     <div class="sidebar col-2">
       <span class="column-title">Sidebar Left</span>
-      <ul class="nav left" data-function="navbar" data-toggle-siblings="true">
+      <ul class="nav left" data-function="navbar" data-toggle-siblings="true" role="navigation" aria-label="Left Side">
         <li>
-          <a href="#">Explore
+          <a href="#">Sections
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
+          </button>
           <ul class="subnav">
             <li><a href="#">Science</a></li>
             <li><a href="#">Trends</a></li>
@@ -222,42 +264,45 @@
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
-
+          </button>
           <div class="subnav">
             <ul class="row nomargin">
               <li class='col-4'>
-                <span class="column-title">
-                  Locations
-                  <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                <span class="column-title">Locations</span>
+                <button class="subnav-toggle">
+                  <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                   </svg>
-                </span>
+                </button>
                 <ul class="">
                   <li>
-                    <a href="#">
-                      Rentals
+                    <a href="#">Rentals
                       <svg class="parent-icon" viewBox="0 0 1024 1024">
                         <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                       </svg>
-                      <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                    </a>
+                    <button class="subnav-toggle">
+                      <svg class="menu-icon" viewBox="0 0 1024 1024">
                         <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                       </svg>
-                    </a>
+                    </button>
                     <ul class="subnav">
                       <li>
-                        <a href="#">
-                          Housing
+                        <a href="#">Housing
                           <svg class="parent-icon" viewBox="0 0 1024 1024">
                             <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                           </svg>
-                          <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                        </a>
+                        <button class="subnav-toggle">
+                          <svg class="menu-icon" viewBox="0 0 1024 1024">
                             <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                           </svg>
-                        </a>
+                        </button>
                         <ul class="subnav">
                           <li><a href="#">Entry</a></li>
                           <li><a href="#">Popular</a></li>
@@ -277,12 +322,12 @@
                 </ul>
               </li>
               <li class='col-4'>
-                <span class="column-title">
-                  Hidden Text Box
-                  <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                <span class="column-title">Hidden Text Box</span>
+                <button class="subnav-toggle">
+                  <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                   </svg>
-                </span>
+                </button>
                 <div class="subnav-content">
                   <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                   <p>Features a nice <a href="#">link anchor</a> affected by navbar styling.</p>
@@ -304,10 +349,12 @@
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
+          </button>
           <ul class="subnav">
             <li>
               <a target="_blank" href="#"><span>A long menu item text can be wrapped in a <code>&lt;span></code>.</span></a>
@@ -494,17 +541,19 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
 
     <div class="sidebar col-2">
       <span class="column-title right">Sidebar Right</span>
-      <ul class="nav right" data-function="navbar" data-toggle-siblings="true">
+      <ul class="nav right" data-function="navbar" data-toggle-siblings="true" role="navigation" aria-label="Right Side">
         <li>
           <a href="#">
             Breaking
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
+          </button>
           <ul class="subnav">
             <li><a href="#">Science</a></li>
             <li><a href="#">Trends</a></li>
@@ -514,25 +563,25 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
           </ul>
         </li>
         <li>
-          <a href="#">
-            Explore
+          <a href="#">Reports
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
-
+          </button>
           <div class="subnav">
             <ul class="row nomargin">
               <li class='col-4'>
-                <span class="column-title">
-                  Services
-                  <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                <span class="column-title">Services</span>
+                <button class="subnav-toggle">
+                  <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                   </svg>
-                </span>
+                </button>
                 <ul>
                   <li><a href="#">Research</a></li>
                   <li><a href="#">Intelligence</a></li>
@@ -541,12 +590,12 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
                 </ul>
               </li>
               <li class="col-4">
-                <span class="column-title">
-                  Personal Info
-                  <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                <span class="column-title">Personal Info</span>
+                <button class="subnav-toggle">
+                  <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                   </svg>
-                </span>
+                </button>
                 <ul>
                   <li><a href="#">Name</a></li>
                   <li><a href="#">Address</a></li>
@@ -555,34 +604,36 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
                 </ul>
               </li>
               <li class='col-4'>
-                <span class="column-title">
-                  Locations
-                  <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                <span class="column-title">Locations</span>
+                <button class="subnav-toggle">
+                  <svg class="menu-icon" viewBox="0 0 1024 1024">
                     <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                   </svg>
-                </span>
+                </button>
                 <ul>
                   <li>
-                    <a href="#">
-                      Rentals
+                    <a href="#">Rentals
                       <svg class="parent-icon" viewBox="0 0 1024 1024">
                         <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
                       </svg>
-                      <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                    </a>
+                    <button class="subnav-toggle">
+                      <svg class="menu-icon" viewBox="0 0 1024 1024">
                         <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                       </svg>
-                    </a>
+                    </button>
                     <ul class="subnav">
                       <li>
-                        <a href="#">
-                          Housing
+                        <a href="#">Housing
                           <svg class="parent-icon" viewBox="0 0 1024 1024">
                             <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
                           </svg>
-                          <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                        </a>
+                        <button class="subnav-toggle">
+                          <svg class="menu-icon" viewBox="0 0 1024 1024">
                             <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                           </svg>
-                        </a>
+                        </button>
                         <ul class="subnav">
                           <li><a href="#">Entry</a></li>
                           <li><a href="#">Popular</a></li>
@@ -609,10 +660,12 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
             <svg class="parent-icon" viewBox="0 0 1024 1024">
               <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
             </svg>
-            <svg class="parent-toggle" viewBox="0 0 1024 1024">
+          </a>
+          <button class="subnav-toggle">
+            <svg class="menu-icon" viewBox="0 0 1024 1024">
               <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
             </svg>
-          </a>
+          </button>
           <ul class="subnav">
             <li><a href="#">Science</a></li>
             <li><a href="#">Trends</a></li>
@@ -633,7 +686,7 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
   <script>
     document.getElementById('direction-toggle').addEventListener('click', ({target}) => {
       const navbarCss = document.getElementById('navbar-css');
-      console.log(target)
+
       if (document.documentElement.dir) {
         document.documentElement.removeAttribute('dir');
         navbarCss.href = './src/css/navbar-combo.min.css';
@@ -643,11 +696,9 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
         navbarCss.href = './src/css/navbar-combo-rtl.min.css';
         target.innerText = 'LTR';
       }
-
     });
   </script>
   <script src="./assets/js/prism.js"></script>
 
 </body>
-
 </html>

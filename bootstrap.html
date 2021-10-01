@@ -28,25 +28,61 @@
       </button>
 
       <div id="navbar-wrapper" class="navbar-collapse collapse">
-        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true">
+        <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true" aria-label="Main Navigation">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Demos
-              <svg class="parent-icon" viewBox="0 0 1024 1024">
-                <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
-              </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">Explore
+              <svg class="parent-icon" aria-hidden="true" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
             </a>
+            <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+              <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+              </svg>
+            </button>
             <ul class="subnav">
-              <li class="nav-item"><a class="nav-link" href="index.html">Main</a></li>
-              <li class="nav-item"><a class="nav-link" href="left.html">Left Side</a></li>
-              <li class="nav-item"><a class="nav-link" href="left-menu.html">Left Menu</a></li>
-              <li class="nav-item"><a class="nav-link" href="right.html">Right Side</a></li>
-              <li class="nav-item"><a class="nav-link" href="combo.html">Combo</a></li>
-              <li class="nav-item active"><a class="nav-link" href="bootstrap.html">Bootstrap</a></li>
-              <li class="nav-item"><a class="nav-link" href="bootstrap-extended.html">Bootstrap XT</a></li>
-
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Demos
+                  <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                    <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
+                  </svg>
+                </a>
+                <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                  <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                    <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                  </svg>
+                </button>                  
+                <ul class="subnav">
+                  <li class="nav-item"><a class="nav-link" href="index.html">Main Demo</a></li>
+                  <li class="nav-item"><a class="nav-link" href="left.html">Left Side</a></li>
+                  <li class="nav-item"><a class="nav-link" href="left-menu.html">Left Menu</a></li>
+                  <li class="nav-item"><a class="nav-link" href="right.html">Right Side</a></li>
+                  <li class="nav-item"><a class="nav-link" href="combo.html">Combo</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="bootstrap.html" aria-current="page">Bootstrap</a></li>
+                  <li class="nav-item"><a class="nav-link" href="bootstrap-extended.html">Bootstrap XT</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Documentation
+                  <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                    <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
+                  </svg>
+                </a>
+                <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                  <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                    <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                  </svg>
+                </button>                  
+                <ul class="subnav">
+                  <li class="nav-item"><a class="nav-link" href="markup.html">Markup</a></li>
+                  <li class="nav-item"><a class="nav-link" href="data-api.html">DATA API</a></li>
+                  <li class="nav-item"><a class="nav-link" href="js-api.html">JavaScript API</a></li>
+                  <li class="nav-item"><a class="nav-link" href="megamenu.html">Mega Menu</a></li>
+                  <li class="nav-item"><a class="nav-link" href="scss.html">SCSS Source</a></li>
+                  <li class="nav-item"><a class="nav-link" href="rtl.html">RTL Languages</a></li>
+                  <li class="nav-item"><a class="nav-link" href="accessibility.html">Accessibility</a></li>
+                </ul>
+              </li>
             </ul>
           </li>
 
@@ -55,19 +91,21 @@
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <div class="subnav">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <ul class="">
                     <li class="nav-item">
                       <a class="nav-link" href="#">
@@ -75,10 +113,12 @@
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -95,10 +135,12 @@
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -120,10 +162,12 @@
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav">
               <li class="nav-item">
                 <a class="nav-link" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share Navbar.js on Facebook">
@@ -190,8 +234,10 @@
         &lt;a class="nav-link" href="#">
           Parent Menu Item
           &lt;i class="parent-icon">&lt;/i>
-          &lt;i class="parent-toggle">&lt;/i>
         &lt;/a>
+        &lt;button class="subnav-toggle">
+          &lt;i class="menu-icon"/>
+        &lt;/button>        
         &lt;ul class="subnav">
           &lt;li class="nav-item active">&lt;a class="nav-link" href="#">Submenu Item 1&lt;/a>&lt;/li>
           &lt;li class="nav-item">&lt;a class="nav-link" href="#">Submenu Item 2&lt;/a>&lt;/li>
@@ -205,7 +251,7 @@
 &lt;/nav>
 </code></pre>
 </div>
-    
+
     <p>As you can see we're using the original plugin markup and functionality with the collapsible element,
       as well as the <code>.navbar-nav</code> class for the menu itself, the <code>.nav-item</code> and
       <code>.nav-link</code> classes for menu items and <code>.navbar-text</code> class for other contents.</p>
@@ -274,30 +320,33 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <div class="subnav">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <ul class="">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">
-                        Rentals
+                      <a class="nav-link" href="#">Rentals
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -314,10 +363,12 @@ $subnav_padding: 0.5rem;
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -340,10 +391,12 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav">
               <li class="nav-item"><a class="nav-link" href="#">Primary</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Secondary</a></li>
@@ -373,30 +426,33 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <div class="subnav bg-secondary">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <ul class="">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">
-                        Rentals
+                      <a class="nav-link" href="#">Rentals
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav bg-secondary">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -413,10 +469,12 @@ $subnav_padding: 0.5rem;
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -439,10 +497,12 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav bg-secondary">
               <li class="nav-item"><a class="nav-link" href="#">Primary</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Secondary</a></li>
@@ -472,30 +532,33 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>            
             <div class="subnav bg-primary">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <ul class="">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">
-                        Rentals
+                      <a class="nav-link" href="#">Rentals
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav bg-primary">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -512,10 +575,12 @@ $subnav_padding: 0.5rem;
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -538,10 +603,12 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav bg-primary">
               <li class="nav-item"><a class="nav-link" href="#">Primary</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Secondary</a></li>
@@ -571,30 +638,33 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <div class="subnav bg-info">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <ul class="">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">
-                        Rentals
+                      <a class="nav-link" href="#">Rentals
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav bg-info">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -611,10 +681,12 @@ $subnav_padding: 0.5rem;
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -637,10 +709,12 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav bg-info">
               <li class="nav-item"><a class="nav-link" href="#">Primary</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Secondary</a></li>
@@ -670,30 +744,33 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <div class="subnav bg-success">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>                  
                   <ul class="">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">
-                        Rentals
+                      <a class="nav-link" href="#">Rentals
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav bg-success">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -710,10 +787,12 @@ $subnav_padding: 0.5rem;
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -731,15 +810,16 @@ $subnav_padding: 0.5rem;
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              Education
+            <a class="nav-link" href="#">Education
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav bg-success">
               <li class="nav-item"><a class="nav-link" href="#">Primary</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Secondary</a></li>
@@ -769,19 +849,21 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <div class="subnav bg-warning">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <ul class="">
                     <li class="nav-item">
                       <a class="nav-link" href="#">
@@ -789,10 +871,12 @@ $subnav_padding: 0.5rem;
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav bg-warning">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -809,10 +893,12 @@ $subnav_padding: 0.5rem;
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -835,10 +921,12 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav bg-warning">
               <li class="nav-item"><a class="nav-link" href="#">Primary</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Secondary</a></li>
@@ -868,19 +956,21 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <div class="subnav bg-danger">
               <ul class="row">
                 <li class='col-md-4'>
-                  <span class="nav-link">
-                    Locations
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  <span class="nav-link">Locations</span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <ul class="">
                     <li class="nav-item">
                       <a class="nav-link" href="#">
@@ -888,10 +978,12 @@ $subnav_padding: 0.5rem;
                         <svg class="parent-icon" viewBox="0 0 1024 1024">
                           <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
                         </svg>
-                        <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                      </a>
+                      <button class="subnav-toggle">
+                        <svg class="menu-icon" viewBox="0 0 1024 1024">
                           <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                         </svg>
-                      </a>
+                      </button>
                       <ul class="subnav bg-danger">
                         <li class="nav-item"><a class="nav-link" href="#">Housing</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Corporate</a></li>
@@ -908,10 +1000,12 @@ $subnav_padding: 0.5rem;
                 <li class='col-md-4'>
                   <span class="navbar-text d-flex justify-content-between">
                     <span>Hidden Text Box</span>
-                    <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                  </span>
+                  <button class="subnav-toggle">
+                    <svg class="menu-icon" viewBox="0 0 1024 1024">
                       <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                     </svg>
-                  </span>
+                  </button>
                   <div class="navbar-text py-0">
                     <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                     <p>Features a nice <a href="#">link anchor</a> <b>affected</b> by navbar styling.</p>
@@ -934,10 +1028,12 @@ $subnav_padding: 0.5rem;
               <svg class="parent-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+            </a>
+            <button class="subnav-toggle">
+              <svg class="menu-icon" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
-            </a>
+            </button>
             <ul class="subnav bg-danger">
               <li class="nav-item"><a class="nav-link" href="#">Primary</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Secondary</a></li>

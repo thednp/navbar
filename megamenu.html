@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="./assets/img/favicon.ico">
   <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
   
-  <title>Navbar.js Main Demo</title>
+  <title>Navbar.js Documentation - Mega Menu</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">
   <link href="./assets/css/style.css" rel="stylesheet">
   <link href="./assets/css/prism.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                 </svg>
               </button>
               <ul class="subnav">
-                <li class="active">
+                <li>
                   <a href="#">Demos
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -53,7 +53,7 @@
                     </svg>
                   </button>                  
                   <ul class="subnav">
-                    <li class="active"><a href="index.html" aria-current="page">Main Demo</a></li>
+                    <li><a href="index.html">Main Demo</a></li>
                     <li><a href="left.html">Left Side</a></li>
                     <li><a href="left-menu.html">Left Menu</a></li>
                     <li><a href="right.html">Right Side</a></li>
@@ -62,7 +62,7 @@
                     <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
                   </ul>
                 </li>
-                <li>
+                <li class="active">
                   <a href="#">Documentation
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -77,7 +77,7 @@
                     <li><a href="markup.html">Markup</a></li>
                     <li><a href="data-api.html">DATA API</a></li>
                     <li><a href="js-api.html">JavaScript API</a></li>
-                    <li><a href="megamenu.html">Mega Menu</a></li>
+                    <li class="active"><a href="megamenu.html" aria-current="page">Mega Menu</a></li>
                     <li><a href="scss.html">SCSS Source</a></li>
                     <li><a href="rtl.html">RTL Languages</a></li>
                     <li><a href="accessibility.html">Accessibility</a></li>
@@ -210,120 +210,88 @@
       </nav>
 
       <div class="content">
-        <div class="hero">
-          <div class="row" style="align-items: center">
-            <div class="col-6">
-              <img class="hidden-md" src="assets/img/navbar.png" alt="Navbar.js">
-            </div>
-            <div class="col-6">
-              <h1>Navbar.js <small>Modern Navigation Component</small></h1>
-              <div class="install">npm install navbar.js</div>
-              <p class="lead">The mobile first menu navigation for today's modern web, developed
-                with native JavaScript and packed with lots of features.</p>
-              <p>
-                <a class="btn btn-brand" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a>
-                <a class="btn" href="https://github.com/thednp/navbar.js/">Fork</a>
-              </p>
-            </div>
-          </div>
-        </div>
         <div class="content-inner main">
-          <div class="row boxes">
-            <div class="col-6">
-              <div class="box">
-                <p><b>ES6+ Native JavaScript</b><br>
-                  The component was redesigned for the latest tools and modern applications and comes
-                  packed fully featured. In addition, build tools and sources are provided so you can 
-                  get started working on your application right away.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>Simple &amp; Light Scripting</b><br>
-                  Navbar.js is meant to be simple, fast, reliable and easy to implement, all in a very
-                  light footprint.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>DATA API</b><br>
-                  Initialize automatically and set options for your target elements via DATA API.</p>
-              </div>
-            </div>
 
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>SCSS Sources Ready</b><br>
-                  Unleash your creativity into those SCSS variables and make it your way, your style,
-                  any time you wanna play. The sources are modular and very easy to follow.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Mobile First Design</b><br>
-                  The navbar.js component was redesigned to be a viable mobile first solution.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Accessibility</b><br>
-                  Since our Navbar 3.0 version release, we've moved the focus on accessibility.</p>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>With Modern Browsers In Mind</b><br>
-                  In the redesign process we've put everything modern to the table for the best script
-                  execution performance and the optimal rendering load.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Well Documented</b><br>
-                  As always well documented and filled with tips and cookies.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>MIT Licensed</b><br>
-                  The component is released under the 
-                  <a href="https://github.com/thednp/navbar.js/blob/master/LICENSE">MIT License</a>.</p>
-              </div>
-            </div>
-          </div>
+          <h1>Mega Menu</h1>
+          <p class="lead">The Navbar component can work with mega menu, and provides some styling for that, however it doesn't 
+            provide or include any grid column styling, which is a totally different thing.</p>
+          <p>The important part to remember is that this functionality is heavily restrictive on markup structure, 
+            especially for HTML validity reasons, but let's dive right in.</p>
 
-          <div class="row">
-            <div class="col-6">
-              <h2>Documentation</h2>
-              <p class="lead">Take your time and familiarize yourself with Navbar.js:</p>
-              <ul class="attr-list">
-                <li><a href="markup.html">Markup</a> - breaks down the markup and Navbar.js components;</li>
-                <li><a href="data-api.html">DATA API</a> - explains how to initialize or set options via data attributes;</li>
-                <li><a href="js-api.html">JavaScript API</a> - explains how to initialize, set options, attach event handles
-                  or dispose Navbar.js instances;</li>
-                <li><a href="megamenu.html">Mega Menu</a> - explains the markup required in order to enable Mega Menu layout;</li>
-                <li><a href="scss.html">SCSS Sources</a> - breaks down the mixins and variables used with the default demo;</li>
-                <li><a href="rtl.html">RTL Languages</a> - explains how to enable Navbar.js for RTL Languages.</li>
-                <li><a href="accessibility.html">Accessibility</a> - explains all about WAI-ARIA compliance.</li>
-              </ul>
-            </div>
-            <div class="col-6">
-              <h2>More Demos</h2>
-              <p class="lead">Here are additional demos to showcase Navbar.js flexibility:</p>
-              <ul class="attr-list">
-                <li><a href="left.html">Left Navbar</a> - showcases the LEFT SIDE column view of the Navbar layout;</li>
-                <li><a href="right.html">Right Navbar</a> - showcases the RIGHT SIDE column view of the Navbar layout;</li>
-                <li><a href="left-menu.html">Left Menu</a> - showcases the LEFT SIDE column view of only the menu layout, without the 
-                  Navbar wrapper;</li>
-                <li><a href="combo.html">Combined Layout</a> - showcases the combination of SCSS mixins to create styling to support 
-                  both TOP default view and SIDE column view of the Navbar layout and menus;</li>
-                <li><a href="bootstrap.html">Bootstrap</a> - showcases the dedicated SCSS mixins to create a seamless integration
-                  of the Navbar menu with the original Bootstrap Navbar wrapper and markup;</li>
-                <li><a href="bootstrap-extended.html">Bootstrap Extended</a> - showcases the full Navbar.js layout design and markup
-                  in a Bootstrap styled page.</li>
-              </ul>
-            </div>
-          </div>
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar">
+  &lt;a class="brand" href="#">Brand Text&lt;/a>
+  &lt;button class="subnav-toggle" aria-haspopup="true" aria-expanded="false">MENU&lt;/button>
+  &lt;div> &lt;!-- menu &amp; contents container -->
+    &lt;ul class="nav"> &lt;!-- menu starts here -->
+      &lt;li> &lt;!-- mega menu item LVL 0 -->
+        &lt;a href="#">Mega Menu Item
+          &lt;i aria-hidden="true" class="parent-icon">&lt;/i>
+          &lt;i class="menu-icon" aria-hidden="true">&lt;/i>
+        &lt;/a>
+        &lt;div class="subnav"> &lt;!-- notice the DIV tag here -->
+          &lt;ul class="row"> &lt;!-- columns wrapper, notice the UL tag -->
+            &lt;li class="column"> &lt;!-- mega sub-menu item is a column, menu item LVL 1 -->
+              &lt;span class="column-title">Mega Column Title LVL 1&lt;/span> &lt;!-- column title must always be SPAN -->
+              &lt;button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false"> &lt;!-- mega column title can also toggle sub-menu items -->
+                &lt;i class="menu-icon" aria-hidden="true">&lt;/i>
+              &lt;/button>           
+              &lt;ul> &lt;!-- IMPORTANT: notice this UL has no class -->
+                &lt;li> &lt;!-- menu item LVL 2 -->
+                  &lt;a href="#">Mega Sub Menu Item
+                    &lt;i aria-hidden="true" class="parent-icon">&lt;/i>
+                  &lt;/a>
+                  &lt;button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                    &lt;i class="menu-icon" aria-hidden="true">&lt;/i>
+                  &lt;/button>
+                  &lt;ul class="subnav"> &lt;!-- IMPORTANT: this UL has the "subnav" class -->
+                    &lt;li> &lt;!-- menu item LVL 3 -->
+                      &lt;a href="#">Regular Sub-menu
+                        &lt;i aria-hidden="true" class="parent-icon">&lt;/i>
+                      &lt;/a>
+                      &lt;button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                        &lt;i class="menu-icon" aria-hidden="true">&lt;/i>
+                      &lt;/button>                      
+                      &lt;ul class="subnav">
+                        &lt;li>&lt;a href="#">Regular Sub-menu Item&lt;/a>&lt;/li> &lt;!-- menu item LVL 4 -->
+                        &lt;li>&lt;a href="#">Regular Sub-menu Item&lt;/a>&lt;/li>
+                      &lt;/ul>
+                    &lt;/li>
+                  &lt;/ul>
+                &lt;/li>
+              &lt;/ul>
+            &lt;/li>
+            &lt;li class="column"> &lt;!-- second column, menu item LVL 1 -->
+              &lt;!-- this column has no column title, the DIV below will be visible -->
+              &lt;div class="subnav-content">
+                &lt;!-- your markup content comes here -->
+              &lt;/div>
+            &lt;/li>
+          &lt;/ul>
+        &lt;/div>
+      &lt;/li>
+    &lt;/ul>
+  &lt;/div>
+&lt;/nav>
+</code></pre></div>
+
+          <p>Mega Menu Breakdown:</p>
+          <ul class="attr-list">
+            <li>The <code>&lt;div class="subnav"></code> element is your mega-menu wrapper and the reason for using the DIV tag
+              is the need to apply the style rules differently from other non-mega-menu items, simple and effective.</li>
+            <li>The <code>&lt;ul class="row"></code> element wraps your columns. Note that your columns styling should use the
+              same breakpoint as your navbar initialization.</li>
+            <li>The <code>&lt;li class="column"></code> element wraps your column content.</li>
+            <li>The immediate <code>&lt;span class="column-title"></code> child element is important, if not used, the next 
+              child content is visible on mobile view, but that is up to you to decide. The <code>class="column-title"</code>
+              is styled by the component and helpful to better explain the structure.</li>
+            <li>The next <code>&lt;ul></code> or <code>&lt;div></code> child element of the above 
+              <code>&lt;li class="column"></code> must not use the <code>subnav</code> class;</li>
+            <li>The <code>class="subnav-content"</code> is similar to <code>class="navbar-content"</code>, both are useful 
+              to adjust all contained anchor link colors to match the navbar or submenu background in both mobile and desktop 
+              views.</li>
+          </ul>
+
 
         </div>
         <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021</span> <a href="#">Go back to top</a></div>
@@ -333,27 +301,8 @@
 
   <script src="./src/js/polyfill.min.js"></script>
   <script src="./src/js/navbar.min.js"></script>
-  <script>
-    // events demo
-    var shareBtn = document.querySelector('[target="_blank"]').parentNode.parentNode.parentNode;
-    shareBtn.addEventListener('show.navbar', function(e){
-      var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('shown.navbar', function(e){
-      var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('hide.navbar', function(e){
-      var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('hidden.navbar', function(e){
-      var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-  </script>
   <script src="./assets/js/prism.js"></script>
 
 </body>
+
 </html>
