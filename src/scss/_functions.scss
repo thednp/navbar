@@ -1,0 +1,109 @@
+@function real-color($color) {
+  @return type-of($color) == "color" and $color != "none" and $color != transparent and $color != currentColor;
+}
+
+// 1 up to 4 decimals only
+@function decimal-round($number:0, $decimals:0) {
+  @if $decimals == 1 {
+    @return round($number * 10) * .1;
+  } @else if $decimals == 2 {
+    @return round($number * 100) * .01;
+  } @else if $decimals == 3 {
+    @return round($number * 1000) * .001;
+  } @else if $decimals == 4 {
+    @return round($number * 10000) * .0001;
+  } @else {
+    @return round($number);
+  }
+}
+
+@function real-size($size, $rem:0) { // all unit sizes, except %
+  $result: 0;
+
+  @if type-of($size) == "number" {
+    $unit: unit($size);
+    @if $rem != 0 {
+      @if $unit == "rem" {
+        $result: $size;
+      } @else if $unit == "em" {
+        $result: $size * 1rem;
+      } @else if $unit == "px" {
+        $result: decimal-round($size * .0625, 2) * 1rem; // 1/16 = 0.0625
+      }
+    } @else {
+      @if $unit == "rem" {
+        $result: $size * 16px;
+      } @else if $unit == "em" {
+        $result: $size * 16px;
+      }
+    }
+  }
+  @return $result;
+}
+
+@function sum-size($a:0, $b:0) {
+  $result: 0;
+  @if type-of($a) == "number" and type-of($b) == "number" {
+    @if unit($a) != unit($b) {
+      @if unit($a) == "rem" or unit($b) == "rem" {
+        $result: real-size($a,1) + real-size($b,1);
+      } @else {
+        $result: real-size($a) + real-size($b);
+      }
+    } @else {
+      $result: $a + $b;
+    }
+  }
+  @return $result;
+}
+
+// STYLING UTIL MIXINS
+@mixin set-background($bg) {
+  @if type-of($bg) == "list" or real-color($bg) {
+    background: $bg;
+  } @else if $bg == currentColor {
+    background: currentColor;
+  } @else {
+    // @debug "set-background(#{$bg}); value-type '#{type-of($bg)}:#{$bg}' is ignored, style rule removed.";
+  }
+}
+
+@mixin set-color($color, $bg, $alpha) {
+  @if real-color($color) {
+    color: $color;
+  } @else if $color == currentColor {
+    color: currentColor;
+  } @else if $color == auto and real-color($bg) {
+    @if lightness($bg) > 60 {
+      color: rgba(#000, $alpha);
+    } @else {
+      color: rgba(#fff, $alpha);
+    }
+  } @else {
+    // @debug "set-color(#{$color},#{$bg},#{$alpha}); value-type '#{type-of($color)}:#{$color}' is ignored, style rule removed.";  // color-lightness: #{lightness($bg)}
+  }
+  // if transparent, cancel rule
+}
+
+@mixin set-metric($prop, $value, $inherited:0) {
+  @if $value == inherit and (type-of($inherited) == "list" or type-of($inherited) == "number" and $inherited != 0) {
+    #{$prop}: $inherited;
+  } @else if type-of($value) == "list" {
+    $totalSize: 0;
+    @each $one in $value {
+      @if real-size($one) {
+        $totalSize: sum-size($one,$totalSize);
+      } @else if type-of($one) == "color" {
+        $totalSize: sum-size(1,$totalSize);
+      }
+    }
+    @if $totalSize > 0 or $value {
+      #{$prop}: $value;
+    }
+
+  } @else if type-of($value) == "number" and $value != 0 {
+    #{$prop}: $value;
+    // } @else {
+  }
+  // @debug "set-metric(#{$prop},#{$value},#{$inherited});  value-type '#{type-of($value)}:#{$value}' is ignored, style rule removed.";
+}

@@ -6,7 +6,7 @@ $brand_link_background_hover: #2f1313;
 $subnav_item_hover_color: #eee;
 $subnav_item_hover_background: #4b3939;
 
-@import "navbar-variables","navbar-mixins";
+@import "variables","mixins";
 
 @include navbar-mobile-layout;
 @include navbar-desktop-side-layout;

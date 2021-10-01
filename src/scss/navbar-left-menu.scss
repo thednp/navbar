@@ -24,7 +24,7 @@ $mobile_expanded_background: rgba(0,0,0,.075); // required since $navbar_backgro
 // $subnav_item_hover_background: #fff;
 // $subnav_shadow: 0;
 
-@import "navbar-variables","navbar-mixins";
+@import "variables","mixins";
 
 @include nav-layout(1);
 @include nav-style;

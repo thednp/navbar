@@ -12,8 +12,8 @@
 .subnav > li {display: block;width: 100%;}
 
 .navbar-toggle,
-.parent-icon,
-.parent-toggle {float: right;}
+.subnav-toggle,
+.parent-icon {float: right;}
 
 @media (min-width: $responsive_breakpoint) {
 

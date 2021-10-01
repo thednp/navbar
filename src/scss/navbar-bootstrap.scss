@@ -9,7 +9,7 @@ $subnav_item_active_background: $primary_color;
 $navbar_padding: .5rem 1rem;
 $subnav_padding: .5rem;
 
-@import "navbar-variables","navbar-mixins","navbar-mixins-bs";
+@import "variables","mixins","mixins-bs";
 
 @include navbar-style-bs;
 @include nav-layout-bs;

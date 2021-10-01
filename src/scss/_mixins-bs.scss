@@ -4,16 +4,27 @@ $dark_navbar_background: #343a40;
 
 // bootstrap navbar style
 @mixin navbar-style-bs {
-  .navbar-light .open-mobile {
-    > a > .parent-toggle,
-    > span > .parent-toggle {
-      background: rgba(0,0,0,.15);
+  .navbar-light {
+    .subnav-toggle {
+      color: rgba(0,0,0,.55);
+    }
+    .open-mobile {
+      > .subnav-toggle {
+        color: rgba(0,0,0,.75);
+        background: rgba(0,0,0,.15);
+      }
     }
   }
-  .navbar-dark .open-mobile {
-    > a > .parent-toggle,
-    > span > .parent-toggle {
-      background: rgba(255,255,255,.15);
+  .navbar:not(.navbar-light),
+  .navbar-dark {
+    .subnav-toggle {
+      color: rgba(255,255,255,.55);
+    }
+    .open-mobile {
+      > .subnav-toggle {
+        color: rgba(255,255,255,.75);
+        background: rgba(255,255,255,.15);
+      }
     }
   }
   @media (min-width: $responsive_breakpoint) {
@@ -67,12 +78,12 @@ $dark_navbar_background: #343a40;
 
   // mobile view visibility
   .subnav,
-  .subnav span + ul,
-  .subnav span + div,
+  .subnav-toggle + ul,
+  .subnav-toggle + div,
   .parent-icon {display: none;}
   li.open-mobile {
-    > span + div,
-    > span + ul,
+    > .subnav-toggle + div,
+    > .subnav-toggle + ul,
     > .subnav {display: block;}
   }
 
@@ -82,43 +93,61 @@ $dark_navbar_background: #343a40;
     flex: auto;
     margin-left: $item_vertical_spacing;
   }
-  .parent-toggle {border-radius: $base_radius;}
-  span > .parent-toggle {
-    cursor: pointer;
+  .subnav-toggle {
+    background: transparent;
+    border: 0;
+    border-radius: $base_radius;
   }
+
   // mobile view menu tree highlight padding
   ul.subnav,
   div.subnav ul {
+    flex-basis: 100%;
+    flex-direction: column;
     padding: 0 0 0 $item_horizontal_spacing;
   }
   // general menu layout
   .navbar-nav {
     li {
       position: relative;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
       list-style: none;
-      // general item styling
-      // > a, .nav-link {
-      .nav-link {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        text-decoration: none;
-        span {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
+    }
+    // general item styling
+    .nav-link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
   @media (min-width: $responsive_breakpoint) {
     // desktop view visibility
-    .parent-toggle { display: none; }
-    .parent-icon { display: flex; }
-    .subnav span + div,
-    .subnav span + ul {
+    .subnav-toggle { display: none; }
+    .parent-icon,
+    .subnav-toggle + div,
+    .subnav-toggle + ul {
       display: block;
+    }
+    // disable focus on hidden menu items
+    ul.subnav > li,
+    div.subnav > ul > li { display: none; }
+    .open-position {
+      > ul.subnav > li,
+      > div.subnav > ul > li { display: flex; }
+    }
+    .nav-link {
+      flex-basis: 100%;
     }
     // set subnav position
     .subnav {
@@ -127,6 +156,7 @@ $dark_navbar_background: #343a40;
     // reset menu tree highlight padding
     ul.subnav,
     div.subnav ul {
+      flex-direction: row;
       padding: 0;
     }
     // set submenu width

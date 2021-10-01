@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="./assets/img/favicon.ico">
   <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
   
-  <title>Navbar.js Main Demo</title>
+  <title>Navbar.js Documentation - JavaScript API</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">
   <link href="./assets/css/style.css" rel="stylesheet">
   <link href="./assets/css/prism.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                 </svg>
               </button>
               <ul class="subnav">
-                <li class="active">
+                <li>
                   <a href="#">Demos
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -53,7 +53,7 @@
                     </svg>
                   </button>                  
                   <ul class="subnav">
-                    <li class="active"><a href="index.html" aria-current="page">Main Demo</a></li>
+                    <li><a href="index.html">Main Demo</a></li>
                     <li><a href="left.html">Left Side</a></li>
                     <li><a href="left-menu.html">Left Menu</a></li>
                     <li><a href="right.html">Right Side</a></li>
@@ -62,7 +62,7 @@
                     <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
                   </ul>
                 </li>
-                <li>
+                <li class="active">
                   <a href="#">Documentation
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -76,7 +76,7 @@
                   <ul class="subnav">
                     <li><a href="markup.html">Markup</a></li>
                     <li><a href="data-api.html">DATA API</a></li>
-                    <li><a href="js-api.html">JavaScript API</a></li>
+                    <li class="active"><a href="js-api.html" aria-current="page">JavaScript API</a></li>
                     <li><a href="megamenu.html">Mega Menu</a></li>
                     <li><a href="scss.html">SCSS Source</a></li>
                     <li><a href="rtl.html">RTL Languages</a></li>
@@ -210,121 +210,143 @@
       </nav>
 
       <div class="content">
-        <div class="hero">
-          <div class="row" style="align-items: center">
-            <div class="col-6">
-              <img class="hidden-md" src="assets/img/navbar.png" alt="Navbar.js">
-            </div>
-            <div class="col-6">
-              <h1>Navbar.js <small>Modern Navigation Component</small></h1>
-              <div class="install">npm install navbar.js</div>
-              <p class="lead">The mobile first menu navigation for today's modern web, developed
-                with native JavaScript and packed with lots of features.</p>
-              <p>
-                <a class="btn btn-brand" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a>
-                <a class="btn" href="https://github.com/thednp/navbar.js/">Fork</a>
-              </p>
-            </div>
-          </div>
-        </div>
         <div class="content-inner main">
-          <div class="row boxes">
-            <div class="col-6">
-              <div class="box">
-                <p><b>ES6+ Native JavaScript</b><br>
-                  The component was redesigned for the latest tools and modern applications and comes
-                  packed fully featured. In addition, build tools and sources are provided so you can 
-                  get started working on your application right away.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>Simple &amp; Light Scripting</b><br>
-                  Navbar.js is meant to be simple, fast, reliable and easy to implement, all in a very
-                  light footprint.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>DATA API</b><br>
-                  Initialize automatically and set options for your target elements via DATA API.</p>
-              </div>
-            </div>
 
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>SCSS Sources Ready</b><br>
-                  Unleash your creativity into those SCSS variables and make it your way, your style,
-                  any time you wanna play. The sources are modular and very easy to follow.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Mobile First Design</b><br>
-                  The navbar.js component was redesigned to be a viable mobile first solution.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Accessibility</b><br>
-                  Since our Navbar 3.0 version release, we've moved the focus on accessibility.</p>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>With Modern Browsers In Mind</b><br>
-                  In the redesign process we've put everything modern to the table for the best script
-                  execution performance and the optimal rendering load.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Well Documented</b><br>
-                  As always well documented and filled with tips and cookies.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>MIT Licensed</b><br>
-                  The component is released under the 
-                  <a href="https://github.com/thednp/navbar.js/blob/master/LICENSE">MIT License</a>.</p>
-              </div>
-            </div>
-          </div>
+          <h1>Navbar.js JavaScript API</h1>
+          <p class="lead">The navbar.js component can be initialized on a <code>&lt;nav></code> element as
+            well as an <code>&lt;ul></code> via JavaScript API, which is useful for dynamic content and
+            complete control over the initialization, public method and/or options.</p>
 
-          <div class="row">
-            <div class="col-6">
-              <h2>Documentation</h2>
-              <p class="lead">Take your time and familiarize yourself with Navbar.js:</p>
-              <ul class="attr-list">
-                <li><a href="markup.html">Markup</a> - breaks down the markup and Navbar.js components;</li>
-                <li><a href="data-api.html">DATA API</a> - explains how to initialize or set options via data attributes;</li>
-                <li><a href="js-api.html">JavaScript API</a> - explains how to initialize, set options, attach event handles
-                  or dispose Navbar.js instances;</li>
-                <li><a href="megamenu.html">Mega Menu</a> - explains the markup required in order to enable Mega Menu layout;</li>
-                <li><a href="scss.html">SCSS Sources</a> - breaks down the mixins and variables used with the default demo;</li>
-                <li><a href="rtl.html">RTL Languages</a> - explains how to enable Navbar.js for RTL Languages.</li>
-                <li><a href="accessibility.html">Accessibility</a> - explains all about WAI-ARIA compliance.</li>
+          <h2>Navbar.js Initialization</h2>
+          <p>When you don't use the specific DATA API attribute <code>data-function="navbar"</code>, you can
+            initialize very easy via JavaScript API.</p>
+<div class="code-wrapper">
+<pre><code class="language-javascript">// import into your project
+import Navbar from 'navbar.js';
+
+// initialize your target
+const myNavbarInit = new Navbar('#myNavbar');
+</code></pre></div>
+
+          <p>Alternatively you can initialize any <code>&lt;ul class="nav"></code> element:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-javascript">// import into your project
+import Navbar from 'navbar.js';
+
+// alternativelly initialize on a UL target
+// without the navbar wrapper
+const myMenu = document.querySelector('ul.nav');
+const myMenuInit = new Navbar(myMenu);
+</code></pre></div>
+
+          <p>Set the right options for your navigation:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-javascript">// import into your project
+import Navbar from 'navbar.js';
+
+// initialize with options
+const myMenuInit = new Navbar(
+  'selector', // any valid selector
+  {
+    breakpoint: 800, // your value must be the same with SCSS variable value
+    toggleSiblings: true,
+    delay: 600
+  }
+);
+</code></pre></div>
+
+          <p>In many cases you will find the default option values to be quite fine.</p>
+
+          <h2>Access Initialization Object</h2>
+          <p>Similar to our <a href="http://thednp.github.io/bootstrap.native/">bootstrap.native</a> components,
+            you can access the Navbar.js initialization object like this:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-javascript">// access an initialization object
+const myNavbarInit = document.getElementById('myNavbar').Navbar;
+</code></pre></div>
+
+          <h2>Custom Events</h2>
+          <p>Considering the above initialization, we can also attach Navbar.js custom events:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-javascript">// find any LI item you want to attach events
+const myMenuItem = document.getElementById('my-item');
+
+// add show.navbar handler
+myMenuItem.addEventListener('show.navbar', function(e){
+  // do some dew with this menu item
+  // e.target is myMenuItem
+});
+
+// add shown.navbar handler
+myMenuItem.addEventListener('shown.navbar', function(e){
+  // do some dew with this menu item
+  // e.target is myMenuItem
+});
+
+// add hide.navbar handler
+myMenuItem.addEventListener('hide.navbar', function(e){
+  // do some dew with this menu item
+  // e.target is myMenuItem
+});
+
+// add hidden.navbar handler
+myMenuItem.addEventListener('hidden.navbar', function(e){
+  // do some dew with this menu item
+  // e.target is myMenuItem
+});
+</code></pre></div>
+
+          <h2>Destroy The Initialization</h2>
+          <p>Considering the above initialization, we can destroy the initialization object
+            via the <code>.dispose()</code> public method.</p>
+
+<div class="code-wrapper">
+<pre><code class="language-javascript">// remove navbar functionality from target
+myMenuInit.dispose();
+</code></pre></div>
+
+          <p>When calling the <code>.dispose()</code> method, aside from removing the component's 
+            event handlers, all sub-menus are also be closed.</p>
+
+
+          <h2>JavaScript API Example</h2>
+          <nav id="navInitDemo" class="navbar mb-1" data-breakpoint="768" data-toggle-siblings="true" data-delay="500">
+            <div>
+              <ul class="nav">
+                <li class="active">
+                  <a href="#navInitDemo" aria-current="page" aria-haspopup="true" aria-expanded="false">Root Parent Item
+                    <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                  </a>
+                  <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                    <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                  </button>
+                  <ul class="subnav">
+                    <li><a href="#navInitDemo">Sub-Menu Item 1</a></li>
+                    <li><a href="#navInitDemo">Sub-Menu Item 2</a></li>
+                  </ul>
+                </li>
               </ul>
             </div>
-            <div class="col-6">
-              <h2>More Demos</h2>
-              <p class="lead">Here are additional demos to showcase Navbar.js flexibility:</p>
-              <ul class="attr-list">
-                <li><a href="left.html">Left Navbar</a> - showcases the LEFT SIDE column view of the Navbar layout;</li>
-                <li><a href="right.html">Right Navbar</a> - showcases the RIGHT SIDE column view of the Navbar layout;</li>
-                <li><a href="left-menu.html">Left Menu</a> - showcases the LEFT SIDE column view of only the menu layout, without the 
-                  Navbar wrapper;</li>
-                <li><a href="combo.html">Combined Layout</a> - showcases the combination of SCSS mixins to create styling to support 
-                  both TOP default view and SIDE column view of the Navbar layout and menus;</li>
-                <li><a href="bootstrap.html">Bootstrap</a> - showcases the dedicated SCSS mixins to create a seamless integration
-                  of the Navbar menu with the original Bootstrap Navbar wrapper and markup;</li>
-                <li><a href="bootstrap-extended.html">Bootstrap Extended</a> - showcases the full Navbar.js layout design and markup
-                  in a Bootstrap styled page.</li>
-              </ul>
-            </div>
-          </div>
 
+            <a class="brand" href="#navInitDemo" onclick="toggleButtons();">
+              <span id="spanText">Initialize</span>
+            </a>
+            <button class="navbar-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false" style="padding: 3px; border-radius: 50%;">
+              <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024" style="display: block; width: 23px; height: 23px">
+                <path d="M512 16c274 0 496 222 496 496s-222 496-496 496-496-222-496-496 222-496 496-496z" />
+              </svg>
+            </button>
+          </nav>
+          <p>This example showcases all features, options and events. You should open your browser console
+            as well as the source of this <a href="js-api.html">very page</a>.</p>
         </div>
         <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021</span> <a href="#">Go back to top</a></div>
       </div>
@@ -334,26 +356,46 @@
   <script src="./src/js/polyfill.min.js"></script>
   <script src="./src/js/navbar.min.js"></script>
   <script>
+    function toggleButtons() {
+      var navInitDemo = document.getElementById('navInitDemo'),
+        initCheck = document.getElementById('initCheck'),
+        spanText = document.getElementById('spanText');
+
+      if (navInitDemo.Navbar) {
+        navInitDemo.Navbar.dispose();
+        alert('NAV#' + navInitDemo.id + ' Destroyed');
+        spanText.innerHTML = 'Initialize';
+      } else {
+        new Navbar(navInitDemo);
+        alert('NAV#' + navInitDemo.id + ' Initialized');
+        spanText.innerHTML = 'Dispose';
+      }
+    }
     // events demo
-    var shareBtn = document.querySelector('[target="_blank"]').parentNode.parentNode.parentNode;
-    shareBtn.addEventListener('show.navbar', function(e){
+    var demoBTN = document.querySelector('[href="#navInitDemo"]').parentNode;
+    demoBTN.addEventListener('show.navbar', function(e){
       var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
+      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
       console.log(err);
     });
-    shareBtn.addEventListener('shown.navbar', function(e){
+    demoBTN.addEventListener('shown.navbar', function(e){
       var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
+      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
+      console.log(err);    
     });
-    shareBtn.addEventListener('hide.navbar', function(e){
+    demoBTN.addEventListener('hide.navbar', function(e){
       var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
+      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
       console.log(err);
     });
-    shareBtn.addEventListener('hidden.navbar', function(e){
+    demoBTN.addEventListener('hidden.navbar', function(e){
       var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
+      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
       console.log(err);
     });
   </script>
   <script src="./assets/js/prism.js"></script>
 
 </body>
+
 </html>

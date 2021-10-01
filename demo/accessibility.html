@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="./assets/img/favicon.ico">
   <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
   
-  <title>Navbar.js Main Demo</title>
+  <title>Navbar.js Documentation - Accessibility</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">
   <link href="./assets/css/style.css" rel="stylesheet">
   <link href="./assets/css/prism.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                 </svg>
               </button>
               <ul class="subnav">
-                <li class="active">
+                <li>
                   <a href="#">Demos
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -53,7 +53,7 @@
                     </svg>
                   </button>                  
                   <ul class="subnav">
-                    <li class="active"><a href="index.html" aria-current="page">Main Demo</a></li>
+                    <li><a href="index.html">Main Demo</a></li>
                     <li><a href="left.html">Left Side</a></li>
                     <li><a href="left-menu.html">Left Menu</a></li>
                     <li><a href="right.html">Right Side</a></li>
@@ -62,7 +62,7 @@
                     <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
                   </ul>
                 </li>
-                <li>
+                <li class="active">
                   <a href="#">Documentation
                     <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                       <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
@@ -80,7 +80,7 @@
                     <li><a href="megamenu.html">Mega Menu</a></li>
                     <li><a href="scss.html">SCSS Source</a></li>
                     <li><a href="rtl.html">RTL Languages</a></li>
-                    <li><a href="accessibility.html">Accessibility</a></li>
+                    <li class="active"><a href="accessibility.html" aria-current="page">Accessibility</a></li>
                   </ul>
                 </li>
               </ul>
@@ -210,120 +210,90 @@
       </nav>
 
       <div class="content">
-        <div class="hero">
-          <div class="row" style="align-items: center">
-            <div class="col-6">
-              <img class="hidden-md" src="assets/img/navbar.png" alt="Navbar.js">
-            </div>
-            <div class="col-6">
-              <h1>Navbar.js <small>Modern Navigation Component</small></h1>
-              <div class="install">npm install navbar.js</div>
-              <p class="lead">The mobile first menu navigation for today's modern web, developed
-                with native JavaScript and packed with lots of features.</p>
-              <p>
-                <a class="btn btn-brand" href="https://github.com/thednp/navbar.js/archive/master.zip">Download</a>
-                <a class="btn" href="https://github.com/thednp/navbar.js/">Fork</a>
-              </p>
-            </div>
-          </div>
-        </div>
         <div class="content-inner main">
-          <div class="row boxes">
-            <div class="col-6">
-              <div class="box">
-                <p><b>ES6+ Native JavaScript</b><br>
-                  The component was redesigned for the latest tools and modern applications and comes
-                  packed fully featured. In addition, build tools and sources are provided so you can 
-                  get started working on your application right away.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>Simple &amp; Light Scripting</b><br>
-                  Navbar.js is meant to be simple, fast, reliable and easy to implement, all in a very
-                  light footprint.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box">
-                <p><b>DATA API</b><br>
-                  Initialize automatically and set options for your target elements via DATA API.</p>
-              </div>
-            </div>
 
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>SCSS Sources Ready</b><br>
-                  Unleash your creativity into those SCSS variables and make it your way, your style,
-                  any time you wanna play. The sources are modular and very easy to follow.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Mobile First Design</b><br>
-                  The navbar.js component was redesigned to be a viable mobile first solution.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Accessibility</b><br>
-                  Since our Navbar 3.0 version release, we've moved the focus on accessibility.</p>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="box gray-0">
-                <p><b>With Modern Browsers In Mind</b><br>
-                  In the redesign process we've put everything modern to the table for the best script
-                  execution performance and the optimal rendering load.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>Well Documented</b><br>
-                  As always well documented and filled with tips and cookies.</p>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="box gray-0">
-                <p><b>MIT Licensed</b><br>
-                  The component is released under the 
-                  <a href="https://github.com/thednp/navbar.js/blob/master/LICENSE">MIT License</a>.</p>
-              </div>
-            </div>
-          </div>
+          <h1>Navbar.js Accessibility</h1>
+          <p class="lead">Starting with Navbar 3.0, our focus has shifted more towards accessibility, following a similar trend we see
+            with Bootstrap and other frameworks. We've prepared some minor markup tweaks to provide a modern 
+            <a href="https://www.w3.org/WAI/tutorials/menus/">WAI-ARIA</a> compliant component.</p>
+          <p>In that sense, we've changed the markup to incorporate the native <code>&lt;button></code> element to enable toggling of
+            sub-menus via keyboard. Let's break it down to pieces:</p>
+            
+            <h2>Navbar.js Wrapper</h2>
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;nav class="navbar" data-function="navbar" aria-label="Main">&lt;/nav></code>
+</pre></div>
 
-          <div class="row">
-            <div class="col-6">
-              <h2>Documentation</h2>
-              <p class="lead">Take your time and familiarize yourself with Navbar.js:</p>
-              <ul class="attr-list">
-                <li><a href="markup.html">Markup</a> - breaks down the markup and Navbar.js components;</li>
-                <li><a href="data-api.html">DATA API</a> - explains how to initialize or set options via data attributes;</li>
-                <li><a href="js-api.html">JavaScript API</a> - explains how to initialize, set options, attach event handles
-                  or dispose Navbar.js instances;</li>
-                <li><a href="megamenu.html">Mega Menu</a> - explains the markup required in order to enable Mega Menu layout;</li>
-                <li><a href="scss.html">SCSS Sources</a> - breaks down the mixins and variables used with the default demo;</li>
-                <li><a href="rtl.html">RTL Languages</a> - explains how to enable Navbar.js for RTL Languages.</li>
-                <li><a href="accessibility.html">Accessibility</a> - explains all about WAI-ARIA compliance.</li>
-              </ul>
-            </div>
-            <div class="col-6">
-              <h2>More Demos</h2>
-              <p class="lead">Here are additional demos to showcase Navbar.js flexibility:</p>
-              <ul class="attr-list">
-                <li><a href="left.html">Left Navbar</a> - showcases the LEFT SIDE column view of the Navbar layout;</li>
-                <li><a href="right.html">Right Navbar</a> - showcases the RIGHT SIDE column view of the Navbar layout;</li>
-                <li><a href="left-menu.html">Left Menu</a> - showcases the LEFT SIDE column view of only the menu layout, without the 
-                  Navbar wrapper;</li>
-                <li><a href="combo.html">Combined Layout</a> - showcases the combination of SCSS mixins to create styling to support 
-                  both TOP default view and SIDE column view of the Navbar layout and menus;</li>
-                <li><a href="bootstrap.html">Bootstrap</a> - showcases the dedicated SCSS mixins to create a seamless integration
-                  of the Navbar menu with the original Bootstrap Navbar wrapper and markup;</li>
-                <li><a href="bootstrap-extended.html">Bootstrap Extended</a> - showcases the full Navbar.js layout design and markup
-                  in a Bootstrap styled page.</li>
-              </ul>
-            </div>
-          </div>
+          <p>When using the wrapper, you mainly need to distinguish between several instances by using the <code>aria-label</code>
+            attribute. The purpose is to enable users' understanding of the context in which the navigation is provided to
+            improve usability and overall experience.</p>
+            
+          <h2>Navbar.js Menu</h2>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;ul class="nav" data-function="navbar" role="navigation" aria-label="Main">&lt;/ul></code>
+</pre></div>
+
+          <p>When <b>not</b> using the wrapper, your menu needs to inform the user that its links are in fact provided to help
+            him find the content easier and more convenient, and that is where the <code>role="navigation"</code> attribute
+            is to be used.</p>
+            
+          <h2>Navbar.js Toggles</h2>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;button class="navbar-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">&lt;/button></code>
+</pre></div>
+          <p>and..</p>
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;button class="subnav-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Toggle submenu">&lt;/button></code>
+</pre></div>
+
+          <p>The stars of the show, the <code>&lt;button class="navbar-toggle"></code> and <code>&lt;button class="subnav-toggle"></code> elements,
+            both make use of <code>aria-haspopup</code> as well as the <code>aria-expanded</code> attributes to inform the user about the existence
+            of a sub-menu and its state. Since these buttons don't have a text but make use of icons, it's ideal to make use of the <code>aria-label</code>
+            attribute to inform the user about their function.</p>
+            
+          <h2>Navbar.js Menu Item</h2>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;li class="active">
+  &lt;a href="#" aria-current="page">Menu Item&lt;/a>
+&lt;/li></code>
+</pre></div>
+
+          <p>The menu item is best highlighted when links the current page with a strong colourful contrast. In addition, the use of 
+            <code>aria-current</code> attribute will also inform the user of the current page within the navigation. Other menu items
+            also make use of colour contrast when hovered or focused which is in line with the WRC recommandations.</p>
+            
+          <h2>Navbar.js Menu Icons</h2>
+
+<div class="code-wrapper">
+<pre><code class="language-markup">&lt;li>
+  &lt;a href="#">
+    &lt;i class="menu-icon" aria-hidden="true">&lt;i>
+    &lt;span>Menu Item&lt;/span>
+    &lt;i class="parent-icon" aria-hidden="true">&lt;i>
+  &lt;/a>
+  &lt;button class="subnav-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Toggle submenu">
+    &lt;i class="menu-icon" aria-hidden="true">&lt;i>
+  &lt;/button>
+  &lt;ul class="subnav">&lt;/ul>
+&lt;/li></code>
+</pre></div>
+
+          <p>All icons within the Navbar.js markup are simply aesthetic enhancing graphics and serve no other purpose to the user,
+            which means that <code>aria-hidden</code> attribute is required at all times.</p>
+
+          <p><b>Other recommandations</b></p>
+          <ul class="attr-list">
+            <li>The <code>aria-controls</code> attribute can be used for the <code>&lt;button class="navbar-toggle"></code> /
+            <code>&lt;button class="subnav-toggle"></code> elements to indicate the connection with a very specific sub-menu.</li>
+            <li>In other cases, a more restrictive markup might be required, then the <code>aria-labelledby</code>
+              and <code>aria-describedby</code> attributes can be more useful to create a very clear description of the
+              context.</li>
+            <li>The usage of the native <code>&lt;label class="visually-hidden"></code> element can also be used to provide
+              the user with relevant information.</li>
+          </ul>
 
         </div>
         <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2021</span> <a href="#">Go back to top</a></div>
@@ -333,27 +303,8 @@
 
   <script src="./src/js/polyfill.min.js"></script>
   <script src="./src/js/navbar.min.js"></script>
-  <script>
-    // events demo
-    var shareBtn = document.querySelector('[target="_blank"]').parentNode.parentNode.parentNode;
-    shareBtn.addEventListener('show.navbar', function(e){
-      var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('shown.navbar', function(e){
-      var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('hide.navbar', function(e){
-      var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-    shareBtn.addEventListener('hidden.navbar', function(e){
-      var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      console.log(err);
-    });
-  </script>
   <script src="./assets/js/prism.js"></script>
 
 </body>
+
 </html>

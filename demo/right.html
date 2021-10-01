@@ -10,11 +10,10 @@
     <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">    
 
     <title>Navbar.js | Right Navbar Demo</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,800|Roboto+Condensed:400,800" rel="stylesheet">		
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">		
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="./src/css/navbar-right.min.css" rel="stylesheet">
     <link href="./assets/css/prism.css" rel="stylesheet">
-
     <style>
       .btn-brand { background: #a867e6; }
       a { color :#a867e6; }
@@ -171,7 +170,7 @@ $subnav_item_hover_color: #eee;
       </div>
     </div>
     <div class="col-3">
-      <nav class="navbar" data-function="navbar">
+      <nav class="navbar" data-function="navbar" aria-label="Main Navigation">
         <a class="brand" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Navbar.js</a>
         <button class="navbar-toggle">
           <svg class="menu-icon" viewBox="0 0 1024 1024">
@@ -181,15 +180,16 @@ $subnav_item_hover_color: #eee;
         <div>
           <ul class="nav">
             <li class="active">
-              <a href="#">
-                Demos
+              <a href="#">Demos
                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                   <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
-                </svg>
-                <svg class="parent-toggle" viewBox="0 0 1024 1024">
-                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
-                </svg>									
+                </svg>								
               </a>
+              <button class="subnav-toggle">
+                <svg class="menu-icon" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </button>
               <ul class="subnav">
                 <li><a href="index.html">Main</a></li>
                 <li><a href="left.html">Left Side</a></li>
@@ -201,25 +201,25 @@ $subnav_item_hover_color: #eee;
               </ul>
             </li>
             <li>
-              <a href="#">
-                Navigate
+              <a href="#">Navigate
                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                   <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
                 </svg>
-                <svg class="parent-toggle" viewBox="0 0 1024 1024">
+              </a>
+              <button class="subnav-toggle">
+                <svg class="menu-icon" viewBox="0 0 1024 1024">
                   <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                 </svg>
-              </a>
-
+              </button>
               <div class="subnav">
                 <ul class="row nomargin">
                   <li class='col-4'>
-                    <span class="column-title">
-                      Hidden Text Box
-                      <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                    <span class="column-title">Hidden Text Box</span>
+                    <button class="subnav-toggle">
+                      <svg class="menu-icon" viewBox="0 0 1024 1024">
                         <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                       </svg>
-                    </span>
+                    </button>                    
                     <div class="subnav-content">
                       <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
                       <p>Features a nice <a href="#">link anchor</a> affected by navbar styling.</p>
@@ -233,34 +233,36 @@ $subnav_item_hover_color: #eee;
                     </div>
                   </li>
                   <li class='col-4'>
-                    <span class="column-title">
-                      Locations
-                      <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                    <span class="column-title">Locations</span>
+                    <button class="subnav-toggle">
+                      <svg class="menu-icon" viewBox="0 0 1024 1024">
                         <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                       </svg>
-                    </span>
+                    </button>
                     <ul>
                       <li>
-                        <a href="#">
-                          Rentals
+                        <a href="#">Rentals
                           <svg class="parent-icon" viewBox="0 0 1024 1024">
                             <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
                           </svg>
-                          <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                        </a>
+                        <button class="subnav-toggle">
+                          <svg class="menu-icon" viewBox="0 0 1024 1024">
                             <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                           </svg>
-                        </a>
+                        </button>
                         <ul class="subnav">
                           <li>
-                            <a href="#">
-                              Housing
+                            <a href="#">Housing
                               <svg class="parent-icon" viewBox="0 0 1024 1024">
                                 <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
                               </svg>
-                              <svg class="parent-toggle" viewBox="0 0 1024 1024">
+                            </a>
+                            <button class="subnav-toggle">
+                              <svg class="menu-icon" viewBox="0 0 1024 1024">
                                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                               </svg>
-                            </a>
+                            </button>
                             <ul class="subnav">
                               <li><a href="#">Entry</a></li>
                               <li><a href="#">Popular</a></li>
@@ -287,10 +289,12 @@ $subnav_item_hover_color: #eee;
                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                   <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
                 </svg>
-                <svg class="parent-toggle" viewBox="0 0 1024 1024">
+              </a>
+              <button class="subnav-toggle">
+                <svg class="menu-icon" viewBox="0 0 1024 1024">
                   <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                 </svg>
-              </a>
+              </button>
               <ul class="subnav">
                 <li>
                   <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share Navbar.js on Facebook">

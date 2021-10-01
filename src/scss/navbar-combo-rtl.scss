@@ -9,7 +9,7 @@ $subnav_link_color: auto;
 $subnav_link_color_hover: auto;
 $subnav_shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
 
-@import "navbar-variables","navbar-mixins";
+@import "variables","mixins";
 
 @include navbar-mobile-layout;
 @include navbar-desktop-layout;
@@ -19,6 +19,13 @@ $subnav_shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.1
   @include nav-style;
   @include subnav-style;
   @include main-menu-rtl;
+}
+
+// fix menu icon spacing
+.menu-icon + span {
+  flex: auto;
+  margin-right: $item_vertical_spacing;
+  margin-left: 0;
 }
 
 // side modules

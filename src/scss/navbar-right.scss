@@ -10,7 +10,7 @@ $subnav_background: inherit;
 $subnav_item_hover_background: #2d1344;
 $subnav_item_hover_color: #eee;
 
-@import "navbar-variables","navbar-mixins";
+@import "variables","mixins";
 
 @include navbar-mobile-layout;
 @include navbar-desktop-side-layout;

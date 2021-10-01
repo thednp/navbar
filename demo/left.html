@@ -11,11 +11,10 @@
 
 		<title>Navbar.js | Left Navbar Demo</title>
 		<link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">		
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,800|Roboto+Condensed:400,800" rel="stylesheet">		
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">		
 		<link href="assets/css/style.css" rel="stylesheet">
     <link href="./assets/css/prism.css" rel="stylesheet">
-		<link href="./src/css/navbar-left.min.css" rel="stylesheet">
-		
+		<link href="./src/css/navbar-left.min.css" rel="stylesheet">		
 		<style>
 			.btn-brand { background: #ea5b5b; }
 			a { color :#ea5b5b; }
@@ -37,7 +36,7 @@
   
 	<div class="row nomargin" style="max-width: 1200px;">
 		<div class="col-3">
-			<nav class="navbar " data-function="navbar" data-toggle-siblings="true">
+			<nav class="navbar" data-function="navbar" data-toggle-siblings="true" aria-label="Main">
 				<a class="brand" href="https://github.com/thednp/navbar.js" title="Navbar.js on Github">Navbar.js</a>
 				<button class="navbar-toggle">
 					<i class="menu-icon fas fa-bars"></i>
@@ -45,48 +44,84 @@
 				<div>
 					<ul class="nav">
 						<li class="active">
-							<a href="#">Demos
+							<a href="#" aria-haspopup="true" aria-expanded="false">Explore
 								<i class="parent-icon fas fa-caret-right"></i>
-								<i class="parent-toggle fas fa-caret-down"></i>
 							</a>
+							<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+								<i class="menu-icon fas fa-caret-down"></i>
+							</button>
 							<ul class="subnav">
-								<li><a href="index.html">Main</a></li>
-								<li class="active"><a href="left.html">Left Side</a></li>
-								<li><a href="left-menu.html">Left Menu</a></li>
-								<li><a href="right.html">Right Side</a></li>
-								<li><a href="combo.html">Combo</a></li>
-								<li><a href="bootstrap.html">Bootstrap</a></li>
-								<li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+								<li class="active">
+									<a href="#">Demos
+										<i class="parent-icon fas fa-caret-right"></i>
+									</a>
+									<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+										<i class="menu-icon fas fa-caret-down"></i>
+									</button>                  
+									<ul class="subnav">
+										<li><a href="index.html">Main Demo</a></li>
+										<li class="active"><a href="left.html" aria-current="page">Left Side</a></li>
+										<li><a href="left-menu.html">Left Menu</a></li>
+										<li><a href="right.html">Right Side</a></li>
+										<li><a href="combo.html">Combo</a></li>
+										<li><a href="bootstrap.html">Bootstrap</a></li>
+										<li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#">Documentation
+										<i class="parent-icon fas fa-caret-right"></i>
+									</a>
+									<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+										<i class="menu-icon fas fa-caret-down"></i>
+									</button>                  
+									<ul class="subnav">
+										<li><a href="markup.html">Markup</a></li>
+										<li><a href="data-api.html">DATA API</a></li>
+										<li><a href="js-api.html">JavaScript API</a></li>
+										<li><a href="megamenu.html">Mega Menu</a></li>
+										<li><a href="scss.html">SCSS Source</a></li>
+										<li><a href="rtl.html">RTL Languages</a></li>
+										<li><a href="accessibility.html">Accessibility</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li>
 							<a href="#">Navigate
 								<i class="parent-icon fas fa-caret-right"></i>
-								<i class="parent-toggle fas fa-caret-down"></i>
 							</a>
-
+							<button class="subnav-toggle">
+								<i class="menu-icon fas fa-caret-down"></i>
+							</button>
 							<div class="subnav">
 								<ul class="row nomargin">
 									<li class='col-4'>
 										<span class="column-title">
 											<i class="menu-icon fas fa-brain"></i>
 											<span>Services</span>
-											<i class="parent-toggle fas fa-caret-down"></i>
 										</span>
+										<button class="subnav-toggle">
+											<i class="menu-icon fas fa-caret-down"></i>
+										</button>
 										<ul>
 											<li>
 												<a href="#">
 													<span>Rentals</span>
 													<i class="parent-icon fas fa-caret-right"></i>
-													<i class="parent-toggle fas fa-caret-down"></i>
 												</a>
+												<button class="subnav-toggle">
+													<i class="menu-icon fas fa-caret-down"></i>
+												</button>
 												<ul class="subnav">
 													<li>
 														<a href="#">
 															Housing
 															<i class="parent-icon fas fa-caret-right"></i>
-															<i class="parent-toggle fas fa-caret-down"></i>
 														</a>
+														<button class="subnav-toggle">
+															<i class="menu-icon fas fa-caret-down"></i>
+														</button>
 														<ul class="subnav">
 															<li><a href="#">Entry</a></li>
 															<li><a href="#">Popular</a></li>
@@ -108,8 +143,10 @@
 										<span class="column-title">
 											<i class="menu-icon fas fa-archway"></i>
 											<span>Hidden Text Box</span>
-											<i class="parent-toggle fas fa-caret-down"></i>
 										</span>
+										<button class="subnav-toggle">
+											<i class="menu-icon fas fa-caret-down"></i>
+										</button>
 										<div class="subnav-content">
 											<p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
 											<p>Features a nice <a href="#">link anchor</a> affected by navbar styling.</p>
@@ -132,8 +169,10 @@
 						<li>
 							<a href="#">Share
 								<i class="parent-icon fas fa-caret-right"></i>
-								<i class="parent-toggle fas fa-caret-down"></i>						
 							</a>
+							<button class="subnav-toggle">
+								<i class="menu-icon fas fa-caret-down"></i>
+							</button>
 							<ul class="subnav">
 								<li>
 									<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar.js/index.html" title="Share Navbar.js on Facebook">

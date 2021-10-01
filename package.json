@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "2.1.10",
+  "version": "3.0.0",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -65,7 +65,7 @@
   "homepage": "http://thednp.github.io/navbar.js",
   "dependencies": {
     "minifill": "^0.0.16",
-    "shorter-js": "^0.2.0-alpha4"
+    "shorter-js": "^0.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",

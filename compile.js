@@ -34,12 +34,12 @@ function compile(inputPath, writePath, compressType) {
     includePaths: ["src/scss"]
   })
   writeFileSync(writePath, `${banner}\n` + result.css.toString())
-  console.log(`Compiled ${inputPath} - ${pkg.version} to ${writePath}.`)
+  console.log(`✅ Compiled ${inputPath} - ${pkg.version} to ${writePath}.`)
 }
 function copy(input,output) {
   fs.copyFile(input, output, (err) => {
     if (err) throw err;
-    console.log(`${input} was copied to ${output}`);
+    console.log(`✅ Copied ${input} to ${output}`);
   });
 }
 
