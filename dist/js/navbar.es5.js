@@ -363,7 +363,7 @@
 
     // must always clear the timer
     clearTimeout(self.timer);
-    if (self && !checkNavbarView(self)) {
+    if (self && !checkNavbarView(self) && !hasClass(element, openNavClass)) {
       self.timer = setTimeout(function () { return openNavbar(element); }, 17);
     }
   }
@@ -373,7 +373,7 @@
     var menu = element.closest((navbarSelector + ",." + navbarString));
     var self = menu && menu[navbarComponent];
 
-    if (self && !checkNavbarView(self)) {
+    if (self && !checkNavbarView(self) && hasClass(element, openNavClass)) {
       clearTimeout(self.timer);
       self.timer = setTimeout(function () { return closeNavbar(element, 1); }, self.options.delay);
     }

@@ -357,7 +357,7 @@
 
     // must always clear the timer
     clearTimeout(self.timer);
-    if (self && !checkNavbarView(self)) {
+    if (self && !checkNavbarView(self) && !hasClass(element, openNavClass)) {
       self.timer = setTimeout(() => openNavbar(element), 17);
     }
   }
@@ -367,7 +367,7 @@
     const menu = element.closest(`${navbarSelector},.${navbarString}`);
     const self = menu && menu[navbarComponent];
 
-    if (self && !checkNavbarView(self)) {
+    if (self && !checkNavbarView(self) && hasClass(element, openNavClass)) {
       clearTimeout(self.timer);
       self.timer = setTimeout(() => closeNavbar(element, 1), self.options.delay);
     }
