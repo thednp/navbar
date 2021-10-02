@@ -173,7 +173,7 @@
             </li>
 
             <li>
-              <a href="#" aria-haspopup="true" aria-expanded="false">Share
+              <a href="#" aria-haspopup="true" aria-expanded="false" id="shareBTN">Share
                 <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
                   <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                 </svg>
@@ -335,7 +335,7 @@
   <script src="./src/js/navbar.min.js"></script>
   <script>
     // events demo
-    var shareBtn = document.querySelector('[target="_blank"]').parentNode.parentNode.parentNode;
+    var shareBtn = document.getElementById('shareBTN');
     shareBtn.addEventListener('show.navbar', function(e){
       var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
       console.log(err);

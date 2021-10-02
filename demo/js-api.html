@@ -272,7 +272,7 @@ const myNavbarInit = document.getElementById('myNavbar').Navbar;
           <p>Considering the above initialization, we can also attach Navbar.js custom events:</p>
 
 <div class="code-wrapper">
-<pre><code class="language-javascript">// find any LI item you want to attach events
+<pre><code class="language-javascript">// find any [LI > A] item you want to attach events
 const myMenuItem = document.getElementById('my-item');
 
 // add show.navbar handler
@@ -372,25 +372,21 @@ myMenuInit.dispose();
       }
     }
     // events demo
-    var demoBTN = document.querySelector('[href="#navInitDemo"]').parentNode;
+    var demoBTN = document.querySelector('[href="#navInitDemo"]');
     demoBTN.addEventListener('show.navbar', function(e){
-      var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
+      var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
       console.log(err);
     });
     demoBTN.addEventListener('shown.navbar', function(e){
-      var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
+      var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
       console.log(err);    
     });
     demoBTN.addEventListener('hide.navbar', function(e){
-      var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
+      var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
       console.log(err);
     });
     demoBTN.addEventListener('hidden.navbar', function(e){
-      var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
-      err += e.relatedTarget ? ', relatedTarget: ' + e.relatedTarget.tagName + '.' + e.relatedTarget.className : ', relatedTarget: null';
+      var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
       console.log(err);
     });
   </script>

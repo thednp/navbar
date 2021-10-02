@@ -70,52 +70,56 @@ function toggleNavbarEvents(self, add) {
   if (navbarToggle) navbarToggle[action]('click', navbarClickHandler);
 }
 
-function openNavbar(element) {
-  const subMenu = queryElement(`.${subnavClass}`, element);
+function findChild(element, selector) {
+  return Array.from(element.children).find((x) => x.tagName === selector || hasClass(x, selector));
+}
 
-  element.dispatchEvent(showNavbarEvent);
+function openNavbar(element) {
+  const subMenu = findChild(element, subnavClass);
+  const anchor = findChild(element, 'A');
+
+  anchor.dispatchEvent(showNavbarEvent);
   if (showNavbarEvent.isDefaultPrevented) return;
 
   addClass(element, openPositionClass);
   addClass(element, openNavClass);
 
-  const [anchor] = element.getElementsByTagName('A');
-  if (anchor) anchor.setAttribute(ariaExpanded, true);
+  anchor.setAttribute(ariaExpanded, true);
 
   const siblings = element.parentNode.getElementsByTagName('LI');
   closeNavbars(Array.from(siblings).filter((x) => x !== element));
 
   emulateTransitionEnd(subMenu, () => {
-    element.dispatchEvent(shownNavbarEvent);
+    anchor.dispatchEvent(shownNavbarEvent);
   });
 }
 
 function closeNavbar(element, leave) {
-  const subMenu = queryElement(`.${subnavClass}`, element);
-  const [toggleElement] = element.getElementsByClassName(subnavToggleClass);
-  const [anchor] = element.getElementsByTagName('A');
+  const subMenu = findChild(element, subnavClass);
+  const anchor = findChild(element, 'A');
+  const toggleElement = findChild(element, subnavToggleClass);
   const navTransitionEndHandler = () => {
     removeClass(element, openPositionClass);
-    element.dispatchEvent(hiddenNavbarEvent);
+    anchor.dispatchEvent(hiddenNavbarEvent);
   };
 
   if (hasClass(element, openNavClass)) {
-    element.dispatchEvent(hideNavbarEvent);
+    anchor.dispatchEvent(hideNavbarEvent);
     if (hideNavbarEvent.isDefaultPrevented) return;
     removeClass(element, openNavClass);
     if (leave) emulateTransitionEnd(subMenu, navTransitionEndHandler);
     else navTransitionEndHandler();
-    if (anchor) anchor.setAttribute(ariaExpanded, false);
+    anchor.setAttribute(ariaExpanded, false);
   }
   if (hasClass(element, openMobileClass)) {
-    element.dispatchEvent(hideNavbarEvent);
+    anchor.dispatchEvent(hideNavbarEvent);
     if (hideNavbarEvent.isDefaultPrevented) return;
     removeClass(element, openMobileClass);
 
     [toggleElement, anchor].forEach((x) => {
       if (x) x.setAttribute(ariaExpanded, false);
     });
-    element.dispatchEvent(hiddenNavbarEvent);
+    anchor.dispatchEvent(hiddenNavbarEvent);
   }
 }
 
@@ -161,19 +165,18 @@ function navbarClickHandler(e) {
     const element = that.closest('LI') || menu;
     const toggleElement = that.closest(`.${navbarToggleClass}`) === navbarToggle
       ? navbarToggle
-      : element.getElementsByClassName(subnavToggleClass)[0];
+      : findChild(element, subnavToggleClass);
     const anchor = toggleElement === navbarToggle
-      ? null : element.getElementsByTagName('A')[0];
+      ? null : findChild(element, 'A');
     const openSubs = element.getElementsByClassName(openMobileClass);
 
     if (!hasClass(element, openMobileClass)) {
-      element.dispatchEvent(showNavbarEvent);
+      if (anchor) anchor.dispatchEvent(showNavbarEvent);
+      if (showNavbarEvent.isDefaultPrevented) return;
 
       if (toggleElement !== navbarToggle) {
         toggleNavbarResizeEvent(1);
       }
-
-      if (showNavbarEvent.isDefaultPrevented) return;
 
       if (toggleElement !== navbarToggle) {
         const selection = options.toggleSiblings
@@ -184,11 +187,12 @@ function navbarClickHandler(e) {
       addClass(element, openMobileClass);
 
       if (toggleElement) toggleElement.setAttribute(ariaExpanded, true);
-      if (anchor) anchor.setAttribute(ariaExpanded, true);
-
-      element.dispatchEvent(shownNavbarEvent);
+      if (anchor) {
+        anchor.setAttribute(ariaExpanded, true);
+        anchor.dispatchEvent(shownNavbarEvent);
+      }
     } else {
-      element.dispatchEvent(hideNavbarEvent);
+      if (anchor) anchor.dispatchEvent(hideNavbarEvent);
       if (hideNavbarEvent.isDefaultPrevented) return;
 
       closeNavbars(openSubs);
@@ -198,9 +202,10 @@ function navbarClickHandler(e) {
         toggleElement.setAttribute(ariaExpanded, false);
         toggleNavbarResizeEvent();
       }
-      if (anchor) anchor.setAttribute(ariaExpanded, false);
-
-      element.dispatchEvent(hiddenNavbarEvent);
+      if (anchor) {
+        anchor.setAttribute(ariaExpanded, false);
+        anchor.dispatchEvent(hiddenNavbarEvent);
+      }
     }
   }
 }

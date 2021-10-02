@@ -215,55 +215,56 @@
     if (navbarToggle) { navbarToggle[action]('click', navbarClickHandler); }
   }
 
-  function openNavbar(element) {
-    var subMenu = queryElement(("." + subnavClass), element);
+  function findChild(element, selector) {
+    return Array.from(element.children).find(function (x) { return x.tagName === selector || hasClass(x, selector); });
+  }
 
-    element.dispatchEvent(showNavbarEvent);
+  function openNavbar(element) {
+    var subMenu = findChild(element, subnavClass);
+    var anchor = findChild(element, 'A');
+
+    anchor.dispatchEvent(showNavbarEvent);
     if (showNavbarEvent.isDefaultPrevented) { return; }
 
     addClass(element, openPositionClass);
     addClass(element, openNavClass);
 
-    var ref = element.getElementsByTagName('A');
-    var anchor = ref[0];
-    if (anchor) { anchor.setAttribute(ariaExpanded, true); }
+    anchor.setAttribute(ariaExpanded, true);
 
     var siblings = element.parentNode.getElementsByTagName('LI');
     closeNavbars(Array.from(siblings).filter(function (x) { return x !== element; }));
 
     emulateTransitionEnd(subMenu, function () {
-      element.dispatchEvent(shownNavbarEvent);
+      anchor.dispatchEvent(shownNavbarEvent);
     });
   }
 
   function closeNavbar(element, leave) {
-    var subMenu = queryElement(("." + subnavClass), element);
-    var ref = element.getElementsByClassName(subnavToggleClass);
-    var toggleElement = ref[0];
-    var ref$1 = element.getElementsByTagName('A');
-    var anchor = ref$1[0];
+    var subMenu = findChild(element, subnavClass);
+    var anchor = findChild(element, 'A');
+    var toggleElement = findChild(element, subnavToggleClass);
     var navTransitionEndHandler = function () {
       removeClass(element, openPositionClass);
-      element.dispatchEvent(hiddenNavbarEvent);
+      anchor.dispatchEvent(hiddenNavbarEvent);
     };
 
     if (hasClass(element, openNavClass)) {
-      element.dispatchEvent(hideNavbarEvent);
+      anchor.dispatchEvent(hideNavbarEvent);
       if (hideNavbarEvent.isDefaultPrevented) { return; }
       removeClass(element, openNavClass);
       if (leave) { emulateTransitionEnd(subMenu, navTransitionEndHandler); }
       else { navTransitionEndHandler(); }
-      if (anchor) { anchor.setAttribute(ariaExpanded, false); }
+      anchor.setAttribute(ariaExpanded, false);
     }
     if (hasClass(element, openMobileClass)) {
-      element.dispatchEvent(hideNavbarEvent);
+      anchor.dispatchEvent(hideNavbarEvent);
       if (hideNavbarEvent.isDefaultPrevented) { return; }
       removeClass(element, openMobileClass);
 
       [toggleElement, anchor].forEach(function (x) {
         if (x) { x.setAttribute(ariaExpanded, false); }
       });
-      element.dispatchEvent(hiddenNavbarEvent);
+      anchor.dispatchEvent(hiddenNavbarEvent);
     }
   }
 
@@ -310,19 +311,18 @@
       var element = that.closest('LI') || menu;
       var toggleElement = that.closest(("." + navbarToggleClass)) === navbarToggle
         ? navbarToggle
-        : element.getElementsByClassName(subnavToggleClass)[0];
+        : findChild(element, subnavToggleClass);
       var anchor = toggleElement === navbarToggle
-        ? null : element.getElementsByTagName('A')[0];
+        ? null : findChild(element, 'A');
       var openSubs = element.getElementsByClassName(openMobileClass);
 
       if (!hasClass(element, openMobileClass)) {
-        element.dispatchEvent(showNavbarEvent);
+        if (anchor) { anchor.dispatchEvent(showNavbarEvent); }
+        if (showNavbarEvent.isDefaultPrevented) { return; }
 
         if (toggleElement !== navbarToggle) {
           toggleNavbarResizeEvent(1);
         }
-
-        if (showNavbarEvent.isDefaultPrevented) { return; }
 
         if (toggleElement !== navbarToggle) {
           var selection = options.toggleSiblings
@@ -333,11 +333,12 @@
         addClass(element, openMobileClass);
 
         if (toggleElement) { toggleElement.setAttribute(ariaExpanded, true); }
-        if (anchor) { anchor.setAttribute(ariaExpanded, true); }
-
-        element.dispatchEvent(shownNavbarEvent);
+        if (anchor) {
+          anchor.setAttribute(ariaExpanded, true);
+          anchor.dispatchEvent(shownNavbarEvent);
+        }
       } else {
-        element.dispatchEvent(hideNavbarEvent);
+        if (anchor) { anchor.dispatchEvent(hideNavbarEvent); }
         if (hideNavbarEvent.isDefaultPrevented) { return; }
 
         closeNavbars(openSubs);
@@ -347,9 +348,10 @@
           toggleElement.setAttribute(ariaExpanded, false);
           toggleNavbarResizeEvent();
         }
-        if (anchor) { anchor.setAttribute(ariaExpanded, false); }
-
-        element.dispatchEvent(hiddenNavbarEvent);
+        if (anchor) {
+          anchor.setAttribute(ariaExpanded, false);
+          anchor.dispatchEvent(hiddenNavbarEvent);
+        }
       }
     }
   }
