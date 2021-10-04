@@ -180,24 +180,59 @@ $subnav_item_hover_color: #eee;
         <div>
           <ul class="nav">
             <li class="active">
-              <a href="#">Demos
+              <a href="#" aria-haspopup="true" aria-expanded="false">Explore
                 <svg class="parent-icon" viewBox="0 0 1024 1024">
                   <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
-                </svg>								
+                </svg>
               </a>
-              <button class="subnav-toggle">
-                <svg class="menu-icon" viewBox="0 0 1024 1024">
+              <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
                   <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
                 </svg>
               </button>
               <ul class="subnav">
-                <li><a href="index.html">Main</a></li>
-                <li><a href="left.html">Left Side</a></li>
-                <li><a href="left-menu.html">Left Menu</a></li>
-                <li class="active"><a href="right.html">Right Side</a></li>
-                <li><a href="combo.html">Combo</a></li>
-                <li><a href="bootstrap.html">Bootstrap</a></li>
-                <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+                <li class="active">
+                  <a href="#">Demos
+                    <svg class="parent-icon" viewBox="0 0 1024 1024">
+                      <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
+                    </svg>
+                  </a>
+                  <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                    <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                  </button>                  
+                  <ul class="subnav">
+                    <li><a href="index.html">Main Demo</a></li>
+                    <li><a href="left.html">Left Side</a></li>
+                    <li><a href="left-menu.html">Left Menu</a></li>
+                    <li class="active"><a href="right.html" aria-current="page">Right Side</a></li>
+                    <li><a href="combo.html">Combo</a></li>
+                    <li><a href="bootstrap.html">Bootstrap</a></li>
+                    <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Documentation
+                    <svg class="parent-icon" viewBox="0 0 1024 1024">
+                      <path d="M658 686l-60 60-256-256 256-256 60 60-196 196z" />
+                    </svg>
+                  </a>
+                  <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                    <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                  </button>                  
+                  <ul class="subnav">
+                    <li><a href="markup.html">Markup</a></li>
+                    <li><a href="data-api.html">DATA API</a></li>
+                    <li><a href="js-api.html">JavaScript API</a></li>
+                    <li><a href="megamenu.html">Mega Menu</a></li>
+                    <li><a href="scss.html">SCSS Source</a></li>
+                    <li><a href="rtl.html">RTL Languages</a></li>
+                    <li><a href="accessibility.html">Accessibility</a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
             <li>
