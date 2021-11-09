@@ -26,10 +26,11 @@ const defaultNavbarOptions = {
   toggleSiblings: true,
   delay: 500,
 };
-const showNavbarEvent = new CustomEvent('show.navbar', { cancelable: true });
-const shownNavbarEvent = new CustomEvent('shown.navbar', { cancelable: true });
-const hideNavbarEvent = new CustomEvent('hide.navbar', { cancelable: true });
-const hiddenNavbarEvent = new CustomEvent('hidden.navbar', { cancelable: true });
+const navbarEventOptions = { cancelable: true };
+const showNavbarEvent = new CustomEvent('show.navbar', navbarEventOptions);
+const shownNavbarEvent = new CustomEvent('shown.navbar', navbarEventOptions);
+const hideNavbarEvent = new CustomEvent('hide.navbar', navbarEventOptions);
+const hiddenNavbarEvent = new CustomEvent('hidden.navbar', navbarEventOptions);
 
 // NAVBAR PRIVATE METHODS
 // ======================
@@ -71,27 +72,31 @@ function toggleNavbarEvents(self, add) {
 }
 
 function findChild(element, selector) {
-  return Array.from(element.children).find((x) => x.tagName === selector || hasClass(x, selector));
+  return Array.from(element.children).find((x) => selector === x.tagName || hasClass(x, selector));
 }
 
 function openNavbar(element) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
 
-  anchor.dispatchEvent(showNavbarEvent);
-  if (showNavbarEvent.isDefaultPrevented) return;
+  if (anchor) {
+    anchor.dispatchEvent(showNavbarEvent);
+    if (showNavbarEvent.isDefaultPrevented) return;
+  }
 
   addClass(element, openPositionClass);
   addClass(element, openNavClass);
 
-  anchor.setAttribute(ariaExpanded, true);
+  if (anchor) anchor.setAttribute(ariaExpanded, true);
 
   const siblings = element.parentNode.getElementsByTagName('LI');
   closeNavbars(Array.from(siblings).filter((x) => x !== element));
 
-  emulateTransitionEnd(subMenu, () => {
-    anchor.dispatchEvent(shownNavbarEvent);
-  });
+  if (anchor) {
+    emulateTransitionEnd(subMenu, () => {
+      anchor.dispatchEvent(shownNavbarEvent);
+    });
+  }
 }
 
 function closeNavbar(element, leave) {
@@ -100,26 +105,28 @@ function closeNavbar(element, leave) {
   const toggleElement = findChild(element, subnavToggleClass);
   const navTransitionEndHandler = () => {
     removeClass(element, openPositionClass);
-    anchor.dispatchEvent(hiddenNavbarEvent);
+    if (anchor) anchor.dispatchEvent(hiddenNavbarEvent);
   };
 
   if (hasClass(element, openNavClass)) {
-    anchor.dispatchEvent(hideNavbarEvent);
-    if (hideNavbarEvent.isDefaultPrevented) return;
+    if (anchor) {
+      anchor.dispatchEvent(hideNavbarEvent);
+      if (hideNavbarEvent.isDefaultPrevented) return;
+    }
     removeClass(element, openNavClass);
     if (leave) emulateTransitionEnd(subMenu, navTransitionEndHandler);
     else navTransitionEndHandler();
-    anchor.setAttribute(ariaExpanded, false);
+    if (anchor) anchor.setAttribute(ariaExpanded, false);
   }
   if (hasClass(element, openMobileClass)) {
-    anchor.dispatchEvent(hideNavbarEvent);
+    if (anchor) anchor.dispatchEvent(hideNavbarEvent);
     if (hideNavbarEvent.isDefaultPrevented) return;
     removeClass(element, openMobileClass);
 
     [toggleElement, anchor].forEach((x) => {
       if (x) x.setAttribute(ariaExpanded, false);
     });
-    anchor.dispatchEvent(hiddenNavbarEvent);
+    if (anchor) anchor.dispatchEvent(hiddenNavbarEvent);
   }
 }
 
@@ -218,7 +225,7 @@ function navbarEnterHandler() {
   // must always clear the timer
   clearTimeout(self.timer);
   if (self && !checkNavbarView(self) && !hasClass(element, openNavClass)) {
-    self.timer = setTimeout(() => openNavbar(element), 17);
+    openNavbar(element);
   }
 }
 
