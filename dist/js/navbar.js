@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.0 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.1 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -147,7 +147,7 @@
     element.classList.remove(classNAME);
   }
 
-  var version = "3.0.0";
+  var version = "3.0.1";
 
   // NAVBAR GC
   // =========
@@ -426,7 +426,7 @@
     component: navbarComponent,
     selector: navbarSelector,
     constructor: Navbar,
-    version,
+    Version: version,
   };
 
   // DATA API

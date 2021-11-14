@@ -1,13 +1,15 @@
 {
   "name": "navbar.js",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
+  "types": "types/index.d.ts",
   "style": "dist/css/navbar.min.css",
   "sass": "src/css/navbar.scss",
   "jsnext": "src/js/navbar.js",
   "files": [
+    "types/*.{ts,map}",
     "dist/{css,js}/*.{css,js,map}",
     "src/{js,scss}/*.{js,scss,map}"
   ],
@@ -21,6 +23,7 @@
     "build": "npm run lint:js && npm-run-all --parallel build-* && npm run copy-build && npm run copy-es5-build",
     "build-es5-js": "rollup --environment FORMAT:umd,MIN:false,ES:es5 -c",
     "build-es5-minjs": "rollup --environment FORMAT:umd,MIN:true,ES:es5 -c",
+    "build-ts": "tsc -d",
     "build-js": "rollup --environment FORMAT:umd,MIN:false -c",
     "build-minjs": "rollup --environment FORMAT:umd,MIN:true -c",
     "build-esm": "rollup --environment FORMAT:esm,MIN:false -c",
@@ -82,6 +85,7 @@
     "stylelint": "^13.12.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.19.0"
+    "stylelint-scss": "^3.19.0",
+    "typescript": "^4.4.4"
   }
 }

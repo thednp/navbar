@@ -7,7 +7,7 @@ import hasClass from 'shorter-js/src/class/hasClass.js';
 import removeClass from 'shorter-js/src/class/removeClass.js';
 import addEventListener from 'shorter-js/src/strings/addEventListener.js';
 import removeEventListener from 'shorter-js/src/strings/removeEventListener.js';
-import { version } from '../../package.json';
+import Version from './version.js';
 
 // NAVBAR GC
 // =========
@@ -286,5 +286,5 @@ Navbar.init = {
   component: navbarComponent,
   selector: navbarSelector,
   constructor: Navbar,
-  version,
+  Version,
 };
