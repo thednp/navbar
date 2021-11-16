@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    // "resolveJsonModule": true,
+    "resolveJsonModule": true,
     "emitDeclarationOnly": true,
     "strict": true,
     "allowJs": true,
@@ -9,5 +9,5 @@
     "outDir": "types"
   },
   "include": ["src/js/*"],
-  "exclude": ["dist", "types", "demo"]
+  "exclude": ["dist", "demo", "types", "src/js/init.js", "src/js/polyfill.js"]
 }

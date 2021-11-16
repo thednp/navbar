@@ -1,6 +1,10 @@
 import Navbar from './navbar.js';
 
 // DATA API
+/**
+ * Navbar initialization callback
+ * @param {Element | undefined} context Element
+ */
 function initNavbar(context) {
   const lookup = context instanceof Element ? context : document;
 

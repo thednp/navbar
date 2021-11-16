@@ -242,26 +242,39 @@ function navbarLeaveHandler() {
 
 // NAVBAR DEFINITION
 // =================
-export default class Navbar {
+
+/**
+ * Creates a new Navbar for desktop and mobile navigation.
+ * @class
+ */
+class Navbar {
+  /**
+   * Navbar constructor
+   * @constructor
+   * @param {string | Element} target Element or selector
+   * @param {object | undefined} config instance options
+   */
   constructor(target, config) {
     // bind
     const self = this;
 
     // instance targets
+    /** @private */
     self.menu = queryElement(target);
     const { menu } = self;
 
     // reset on re-init
     if (menu[navbarComponent]) menu[navbarComponent].dispose();
 
-    // set options
+    /** @private */
     self.options = normalizeOptions(menu, defaultNavbarOptions, config || {});
 
-    // internal targets
+    /** @private */
     self.items = menu.getElementsByTagName('LI');
+    /** @private */
     [self.navbarToggle] = menu.getElementsByClassName(navbarToggleClass);
 
-    // set additional properties
+    /** @private */
     self.timer = null;
 
     // attach events
@@ -273,6 +286,9 @@ export default class Navbar {
 
   // NAVBAR PUBLIC METHOD
   // ====================
+  /**
+   * Destroy Navbar instance.
+   * @public */
   dispose() {
     const self = this;
     closeNavbars(self.items);
@@ -282,9 +298,15 @@ export default class Navbar {
   }
 }
 
+/**
+ * An object with all necesary information
+ * for Navbar component initialization.
+ */
 Navbar.init = {
   component: navbarComponent,
   selector: navbarSelector,
   constructor: Navbar,
   Version,
 };
+
+export default Navbar;

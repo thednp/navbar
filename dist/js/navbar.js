@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.1 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.2 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -9,14 +9,61 @@
   (global = global || self, global.Navbar = factory());
 }(this, (function () { 'use strict';
 
+  /**
+   * A global namespace for 'transitionend' string.
+   * @type {string}
+   */
   const transitionEndEvent = 'webkitTransition' in document.head.style ? 'webkitTransitionEnd' : 'transitionend';
 
+  /**
+   * A global namespace for CSS3 transition support.
+   * @type {boolean}
+   */
   const supportTransition = 'webkitTransition' in document.head.style || 'transition' in document.head.style;
 
+  /**
+   * A global namespace for 'transitionDelay' string.
+   * @type {string}
+   */
+  const transitionDelay = 'webkitTransition' in document.head.style ? 'webkitTransitionDelay' : 'transitionDelay';
+
+  /**
+   * A global namespace for 'transition' string.
+   * @type {string}
+   */
+  const transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransition' : 'transition';
+
+  /**
+   * Utility to get the computed transitionDelay
+   * from Element in miliseconds.
+   *
+   * @param {Element} element target
+   * @return {Number} the value in miliseconds
+   */
+  function getElementTransitionDelay(element) {
+    const computedStyle = getComputedStyle(element);
+    const propertyValue = computedStyle[transitionProperty];
+    const delayValue = computedStyle[transitionDelay];
+    const delayScale = delayValue.includes('ms') ? 1 : 1000;
+    const duration = supportTransition && propertyValue && propertyValue !== 'none'
+      ? parseFloat(delayValue) * delayScale : 0;
+
+    return !Number.isNaN(duration) ? duration : 0;
+  }
+
+  /**
+   * A global namespace for 'transitionDuration' string.
+   * @type {string}
+   */
   const transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
 
-  const transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransitionProperty' : 'transitionProperty';
-
+  /**
+   * Utility to get the computed transitionDuration
+   * from Element in miliseconds.
+   *
+   * @param {Element} element target
+   * @return {Number} the value in miliseconds
+   */
   function getElementTransitionDuration(element) {
     const computedStyle = getComputedStyle(element);
     const propertyValue = computedStyle[transitionProperty];
@@ -28,31 +75,56 @@
     return !Number.isNaN(duration) ? duration : 0;
   }
 
+  /**
+   * Utility to make sure callbacks are consistently
+   * called when transition ends.
+   *
+   * @param {Element} element target
+   * @param {Function} handler callback
+   */
   function emulateTransitionEnd(element, handler) {
     let called = 0;
     const endEvent = new Event(transitionEndEvent);
     const duration = getElementTransitionDuration(element);
+    const delay = getElementTransitionDelay(element);
 
     if (duration) {
-      element.addEventListener(transitionEndEvent, function transitionEndWrapper(e) {
+      /**
+       * Wrap the handler in on -> off callback
+       * @param {object | Event} e Event object
+       */
+      const transitionEndWrapper = (e) => {
         if (e.target === element) {
           handler.apply(element, [e]);
           element.removeEventListener(transitionEndEvent, transitionEndWrapper);
           called = 1;
         }
-      });
+      };
+      element.addEventListener(transitionEndEvent, transitionEndWrapper);
       setTimeout(() => {
         if (!called) element.dispatchEvent(endEvent);
-      }, duration + 17);
+      }, duration + delay + 17);
     } else {
       handler.apply(element, [endEvent]);
     }
   }
 
+  /**
+   * A global namespace for 'addEventListener' string.
+   * @type {string}
+   */
   const addEventListener = 'addEventListener';
 
+  /**
+   * A global namespace for 'removeEventListener' string.
+   * @type {string}
+   */
   const removeEventListener = 'removeEventListener';
 
+  /**
+   * A global namespace for passive events support.
+   * @type {boolean}
+   */
   const supportPassive = (() => {
     let result = false;
     try {
@@ -74,13 +146,27 @@
 
   // general event options
 
-  var passiveHandler = supportPassive ? { passive: true } : false;
+  const passiveHandler = supportPassive ? { passive: true } : false;
 
+  /**
+   * Utility to check if target is typeof Element
+   * or find one that matches a selector.
+   *
+   * @param {string | Element} selector the input selector or target element
+   * @param {undefined | Element} parent optional Element to look into
+   * @return {null | Element} the Element
+   */
   function queryElement(selector, parent) {
     const lookUp = parent && parent instanceof Element ? parent : document;
     return selector instanceof Element ? selector : lookUp.querySelector(selector);
   }
 
+  /**
+   * Utility to normalize component options
+   *
+   * @param {string | Function | Element | object} value the input value
+   * @return {string | Function | Element | object} the normalized value
+   */
   function normalizeValue(value) {
     if (value === 'true') {
       return true;
@@ -102,9 +188,19 @@
     return value;
   }
 
+  /**
+   * Utility to normalize component options
+   *
+   * @param {Element} element target
+   * @param {object} defaultOps component default options
+   * @param {object} inputOps component instance options
+   * @param {string} ns component namespace
+   * @return {object} normalized component options object
+   */
   function normalizeOptions(element, defaultOps, inputOps, ns) {
     const normalOps = {};
     const dataOps = {};
+    // @ts-ignore
     const data = { ...element.dataset };
 
     Object.keys(data)
@@ -135,19 +231,42 @@
     return normalOps;
   }
 
+  /**
+   * Add class to Element.classList
+   *
+   * @param {Element} element target
+   * @param {string} classNAME to add
+   */
   function addClass(element, classNAME) {
     element.classList.add(classNAME);
   }
 
+  /**
+   * Check class in Element.classList
+   *
+   * @param {Element} element target
+   * @param {string} classNAME to check
+   * @return {boolean}
+   */
   function hasClass(element, classNAME) {
     return element.classList.contains(classNAME);
   }
 
+  /**
+   * Remove class from Element.classList
+   *
+   * @param {Element} element target
+   * @param {string} classNAME to remove
+   */
   function removeClass(element, classNAME) {
     element.classList.remove(classNAME);
   }
 
-  var version = "3.0.1";
+  var version = "3.0.2";
+
+  // @ts-ignore
+
+  const Version = version;
 
   // NAVBAR GC
   // =========
@@ -382,26 +501,39 @@
 
   // NAVBAR DEFINITION
   // =================
+
+  /**
+   * Creates a new Navbar for desktop and mobile navigation.
+   * @class
+   */
   class Navbar {
+    /**
+     * Navbar constructor
+     * @constructor
+     * @param {string | Element} target Element or selector
+     * @param {object | undefined} config instance options
+     */
     constructor(target, config) {
       // bind
       const self = this;
 
       // instance targets
+      /** @private */
       self.menu = queryElement(target);
       const { menu } = self;
 
       // reset on re-init
       if (menu[navbarComponent]) menu[navbarComponent].dispose();
 
-      // set options
+      /** @private */
       self.options = normalizeOptions(menu, defaultNavbarOptions, config || {});
 
-      // internal targets
+      /** @private */
       self.items = menu.getElementsByTagName('LI');
+      /** @private */
       [self.navbarToggle] = menu.getElementsByClassName(navbarToggleClass);
 
-      // set additional properties
+      /** @private */
       self.timer = null;
 
       // attach events
@@ -413,6 +545,9 @@
 
     // NAVBAR PUBLIC METHOD
     // ====================
+    /**
+     * Destroy Navbar instance.
+     * @public */
     dispose() {
       const self = this;
       closeNavbars(self.items);
@@ -422,14 +557,22 @@
     }
   }
 
+  /**
+   * An object with all necesary information
+   * for Navbar component initialization.
+   */
   Navbar.init = {
     component: navbarComponent,
     selector: navbarSelector,
     constructor: Navbar,
-    Version: version,
+    Version,
   };
 
   // DATA API
+  /**
+   * Navbar initialization callback
+   * @param {Element | undefined} context Element
+   */
   function initNavbar(context) {
     const lookup = context instanceof Element ? context : document;
 
