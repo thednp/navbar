@@ -1,4 +1,4 @@
-import Navbar from './navbar.js';
+import Navbar from './navbar';
 
 // DATA API
 /**
@@ -8,10 +8,10 @@ import Navbar from './navbar.js';
 function initNavbar(context) {
   const lookup = context instanceof Element ? context : document;
 
-  const { selector, constructor } = Navbar.init;
+  const { selector, init } = Navbar;
   const navs = lookup.querySelectorAll(selector);
 
-  Array.from(navs).map((x) => new constructor(x));
+  Array.from(navs).map((x) => init(x));
 }
 // initialize when loaded
 if (document.body) initNavbar();

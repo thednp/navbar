@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.2 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.3 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -8,6 +8,90 @@
   typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.Navbar = factory());
 }(this, (function () { 'use strict';
+
+  /**
+   * A global namespace for `Space` key.
+   * @type {string} e.which = 32 equivalent
+   */
+  var keySpace = 'Space';
+
+  /**
+   * A global namespace for `Escape` key.
+   * @type {string} e.which = 27 equivalent
+   */
+  var keyEscape = 'Escape';
+
+  /**
+   * A global namespace for `ArrowUp` key.
+   * @type {string} e.which = 38 equivalent
+   */
+  var keyArrowUp = 'ArrowUp';
+
+  /**
+   * A global namespace for `ArrowDown` key.
+   * @type {string} e.which = 40 equivalent
+   */
+  var keyArrowDown = 'ArrowDown';
+
+  /**
+   * A global namespace for `ArrowLeft` key.
+   * @type {string} e.which = 37 equivalent
+   */
+  var keyArrowLeft = 'ArrowLeft';
+
+  /**
+   * A global namespace for `ArrowRight` key.
+   * @type {string} e.which = 39 equivalent
+   */
+  var keyArrowRight = 'ArrowRight';
+
+  /**
+   * A global namespace for aria-expanded.
+   * @type {string}
+   */
+  var ariaExpanded = 'aria-expanded';
+
+  /**
+   * A global namespace for 'addEventListener' string.
+   * @type {string}
+   */
+  var addEventListener = 'addEventListener';
+
+  /**
+   * A global namespace for 'removeEventListener' string.
+   * @type {string}
+   */
+  var removeEventListener = 'removeEventListener';
+
+  /**
+   * A global namespace for `mouseenter` event.
+   * @type {string}
+   */
+  var mouseenterEvent = 'mouseenter';
+
+  /**
+   * A global namespace for `mouseleave` event.
+   * @type {string}
+   */
+  var mouseleaveEvent = 'mouseleave';
+
+  /**
+   * A global namespace for `click` event.
+   * @type {string}
+   */
+  var mouseclickEvent = 'click';
+
+  /**
+   * A global namespace for `keydown` event.
+   * @type {string}
+   */
+  var keydownEvent = 'keydown';
+
+  /**
+   * A global namespace for `resize` event.
+   * @type {string}
+   */
+  var resizeEvent = 'resize';
 
   /**
    * A global namespace for 'transitionend' string.
@@ -28,17 +112,17 @@
   var transitionDelay = 'webkitTransition' in document.head.style ? 'webkitTransitionDelay' : 'transitionDelay';
 
   /**
-   * A global namespace for 'transition' string.
+   * A global namespace for 'transitionProperty' string.
    * @type {string}
    */
-  var transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransition' : 'transition';
+  var transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransitionProperty' : 'transitionProperty';
 
   /**
-   * Utility to get the computed transitionDelay
+   * Utility to get the computed `transitionDelay`
    * from Element in miliseconds.
    *
    * @param {Element} element target
-   * @return {Number} the value in miliseconds
+   * @return {number} the value in miliseconds
    */
   function getElementTransitionDelay(element) {
     var computedStyle = getComputedStyle(element);
@@ -58,11 +142,11 @@
   var transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
 
   /**
-   * Utility to get the computed transitionDuration
+   * Utility to get the computed `transitionDuration`
    * from Element in miliseconds.
    *
    * @param {Element} element target
-   * @return {Number} the value in miliseconds
+   * @return {number} the value in miliseconds
    */
   function getElementTransitionDuration(element) {
     var computedStyle = getComputedStyle(element);
@@ -80,7 +164,7 @@
    * called when transition ends.
    *
    * @param {Element} element target
-   * @param {Function} handler callback
+   * @param {EventListener} handler `transitionend` callback
    */
   function emulateTransitionEnd(element, handler) {
     var called = 0;
@@ -91,7 +175,7 @@
     if (duration) {
       /**
        * Wrap the handler in on -> off callback
-       * @param {object | Event} e Event object
+       * @param {Event} e Event object
        */
       var transitionEndWrapper = function (e) {
         if (e.target === element) {
@@ -108,18 +192,6 @@
       handler.apply(element, [endEvent]);
     }
   }
-
-  /**
-   * A global namespace for 'addEventListener' string.
-   * @type {string}
-   */
-  var addEventListener = 'addEventListener';
-
-  /**
-   * A global namespace for 'removeEventListener' string.
-   * @type {string}
-   */
-  var removeEventListener = 'removeEventListener';
 
   /**
    * A global namespace for passive events support.
@@ -146,45 +218,65 @@
 
   // general event options
 
+  /**
+   * A global namespace for most scroll event listeners.
+   */
   var passiveHandler = supportPassive ? { passive: true } : false;
 
   /**
-   * Utility to check if target is typeof Element
+   * Checks if an object is an `Element`.
+   *
+   * @param {any} element the target object
+   * @returns {boolean} the query result
+   */
+  function isElement(element) {
+    return element instanceof Element;
+  }
+
+  /**
+   * Utility to check if target is typeof `Element`
    * or find one that matches a selector.
    *
-   * @param {string | Element} selector the input selector or target element
-   * @param {undefined | Element} parent optional Element to look into
-   * @return {null | Element} the Element
+   * @param {Element | string} selector the input selector or target element
+   * @param {Element=} parent optional Element to look into
+   * @return {Element?} the Element or `querySelector` result
    */
-  function queryElement(selector, parent) {
-    var lookUp = parent && parent instanceof Element ? parent : document;
-    return selector instanceof Element ? selector : lookUp.querySelector(selector);
+  function querySelector(selector, parent) {
+    var lookUp = parent && isElement(parent) ? parent : document;
+    // @ts-ignore -- `isElement` is just as good
+    return isElement(selector) ? selector : lookUp.querySelector(selector);
   }
+
+  /**
+   * The raw value or a given component option.
+   *
+   * @typedef {string | Element | Function | number | boolean | null} niceValue
+   */
 
   /**
    * Utility to normalize component options
    *
-   * @param {string | Function | Element | object} value the input value
-   * @return {string | Function | Element | object} the normalized value
+   * @param {any} value the input value
+   * @return {niceValue} the normalized value
    */
   function normalizeValue(value) {
-    if (value === 'true') {
+    if (value === 'true') { // boolean
       return true;
     }
 
-    if (value === 'false') {
+    if (value === 'false') { // boolean
       return false;
     }
 
-    if (!Number.isNaN(+value)) {
+    if (!Number.isNaN(+value)) { // number
       return +value;
     }
 
-    if (value === '' || value === 'null') {
+    if (value === '' || value === 'null') { // null
       return null;
     }
 
-    // string / function / Element / Object
+    // string / function / Element / object
     return value;
   }
 
@@ -192,20 +284,20 @@
    * Utility to normalize component options
    *
    * @param {Element} element target
-   * @param {object} defaultOps component default options
-   * @param {object} inputOps component instance options
-   * @param {string} ns component namespace
-   * @return {object} normalized component options object
+   * @param {Record<string, any>} defaultOps component default options
+   * @param {Record<string, any>} inputOps component instance options
+   * @param {string=} ns component namespace
+   * @return {Record<string, any>} normalized component options object
    */
   function normalizeOptions(element, defaultOps, inputOps, ns) {
+    // @ts-ignore -- usually our `Element` is `HTMLElement` as well
+    var data = Object.assign({}, element.dataset);
     var normalOps = {};
     var dataOps = {};
-    // @ts-ignore
-    var data = Object.assign({}, element.dataset);
 
     Object.keys(data)
       .forEach(function (k) {
-        var key = k.includes(ns)
+        var key = ns && k.includes(ns)
           ? k.replace(ns, '').replace(/[A-Z]/, function (match) { return match.toLowerCase(); })
           : k;
 
@@ -262,7 +354,149 @@
     element.classList.remove(classNAME);
   }
 
-  var version = "3.0.2";
+  var componentData = new Map();
+  /**
+   * An interface for web components background data.
+   * @see https://github.com/thednp/bootstrap.native/blob/master/src/components/base-component.js
+   */
+  var Data = {
+    /**
+     * Sets web components data.
+     * @param {Element | string} element target element
+     * @param {string} component the component's name or a unique key
+     * @param {any} instance the component instance
+     */
+    set: function (element, component, instance) {
+      var ELEMENT = querySelector(element);
+      if (!isElement(ELEMENT)) { return; }
+
+      if (!componentData.has(component)) {
+        componentData.set(component, new Map());
+      }
+
+      var instanceMap = componentData.get(component);
+      instanceMap.set(ELEMENT, instance);
+    },
+
+    /**
+     * Returns all instances for specified component.
+     * @param {string} component the component's name or a unique key
+     * @returns {any?} all the component instances
+     */
+    getAllFor: function (component) {
+      if (componentData.has(component)) {
+        return componentData.get(component);
+      }
+      return null;
+    },
+
+    /**
+     * Returns the instance associated with the target.
+     * @param {Element | string} element target element
+     * @param {string} component the component's name or a unique key
+     * @returns {any?} the instance
+     */
+    get: function (element, component) {
+      var ELEMENT = querySelector(element);
+
+      var allForC = Data.getAllFor(component);
+      if (allForC && isElement(ELEMENT) && allForC.has(ELEMENT)) {
+        return allForC.get(ELEMENT);
+      }
+      return null;
+    },
+
+    /**
+     * Removes web components data.
+     * @param {Element} element target element
+     * @param {string} component the component's name or a unique key
+     */
+    remove: function (element, component) {
+      if (!componentData.has(component)) { return; }
+
+      var instanceMap = componentData.get(component);
+      instanceMap.delete(element);
+
+      if (instanceMap.size === 0) {
+        componentData.delete(component);
+      }
+    },
+  };
+
+  /**
+   * Shortcut for `window.getComputedStyle(element).propertyName`
+   * static method.
+   * * If `element` parameter is not an `Element`, `getComputedStyle`
+   * throws a `ReferenceError`.
+   * * If no property is defined, the entire `CSSStyleDeclaration`
+   * instance is returned.
+   *
+   * @param {Element} element target
+   * @param {string=} property the css property
+   * @return {string} the css property value
+   */
+  function getElementStyle(element, property) {
+    var computedStyle = getComputedStyle(element);
+
+    return property && property in computedStyle
+      ? computedStyle[property]
+      : computedStyle;
+  }
+
+  /**
+   * Checks if a page is Right To Left.
+   * @returns {boolean} the query result
+   */
+  var isRTL = function () { return document.documentElement.dir === 'rtl'; };
+
+  /**
+   * Shortcut for `Object.assign()` static method.
+   * @param  {Record<string, any>} obj a target object
+   * @param  {Record<string, any>} source a source object
+   */
+  var ObjectAssign = function (obj, source) { return Object.assign(obj, source); };
+
+  /**
+   * Shortcut for `Array.from()` static method.
+   *
+   * @param  {any[] | HTMLCollection | NodeList} arr array-like iterable object
+   * @returns {Array}
+   */
+  var ArrayFrom = function (arr) { return Array.from(arr); };
+
+  /**
+   * Shortcut for `Element.setAttribute()` method.
+   * @param  {Element} element target element
+   * @param  {string} attribute attribute name
+   * @param  {string} value attribute value
+   */
+  var setAttribute = function (element, attribute, value) { return element.setAttribute(attribute, value); };
+
+  /**
+   * Shortcut for `Element.getElementsByClassName` method.
+   *
+   * @param {string} selector the class name
+   * @param {Element=} parent optional Element to look into
+   * @return {HTMLCollection} the 'HTMLCollection'
+   */
+  function getElementsByClassName(selector, parent) {
+    var lookUp = parent && isElement(parent) ? parent : document;
+    return lookUp.getElementsByClassName(selector);
+  }
+
+  /**
+   * Shortcut for `Element.getElementsByTagName` method.
+   *
+   * @param {string} selector the tag name
+   * @param {Element=} parent optional Element to look into
+   * @return {HTMLCollection} the 'HTMLCollection'
+   */
+  function getElementsByTagName(selector, parent) {
+    var lookUp = parent && isElement(parent) ? parent : document;
+    return lookUp.getElementsByTagName(selector);
+  }
+
+  var version = "3.0.3";
 
   // @ts-ignore
 
@@ -279,90 +513,131 @@
   var subnavClass = 'subnav';
   var subnavToggleClass = subnavClass + "-toggle";
   var navbarToggleClass = navbarString + "-toggle";
-  var ariaExpanded = 'aria-expanded';
+
   var defaultNavbarOptions = {
     breakpoint: 768,
     toggleSiblings: true,
     delay: 500,
   };
-  var navbarEventOptions = { cancelable: true };
+
+  var navbarEventOptions = { cancelable: true, bubbles: true };
   var showNavbarEvent = new CustomEvent('show.navbar', navbarEventOptions);
   var shownNavbarEvent = new CustomEvent('shown.navbar', navbarEventOptions);
   var hideNavbarEvent = new CustomEvent('hide.navbar', navbarEventOptions);
   var hiddenNavbarEvent = new CustomEvent('hidden.navbar', navbarEventOptions);
 
+  /**
+   * Returns a `Navbar` instance.
+   * @param {Element} element target element
+   * @returns {Navbar?} the `Navbar` instance
+   */
+  var getNavbarInstance = function (element) { return Data.get(element, navbarComponent); };
+
+  /**
+   * Returns a `Navbar` instance.
+   * @param {Element} element target element
+   * @returns {Navbar}
+   */
+  var initNavbarCallback = function (element) { return new Navbar(element); };
+
   // NAVBAR PRIVATE METHODS
   // ======================
+  /** @param {boolean=} add */
   function toggleNavbarResizeEvent(add) {
     var action = add ? addEventListener : removeEventListener;
     if (!document.querySelector(("li." + openMobileClass))) {
-      window[action]('resize', resizeNavbarHandler, passiveHandler);
+      // @ts-ignore
+      window[action](resizeEvent, resizeNavbarHandler, passiveHandler);
     }
   }
 
   function resizeNavbarHandler() {
-    closeNavbars(document.getElementsByClassName(openMobileClass));
+    closeNavbars(getElementsByClassName(openMobileClass));
     toggleNavbarResizeEvent();
   }
 
+  /** @param {Navbar} self */
   function checkNavbarView(self) { // returns TRUE if "is mobile"
+    // @ts-ignore
     var options = self.options;
     var menu = self.menu;
     var ref = menu.getElementsByClassName(subnavToggleClass);
     var firstToggle = ref[0];
-    return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
+    return (firstToggle && getElementStyle(firstToggle, 'display') !== 'none')
       || window.innerWidth < options.breakpoint;
   }
 
+  /**
+   * @param {Navbar} self
+   * @param {boolean=} add
+   */
   function toggleNavbarEvents(self, add) {
     var action = add ? addEventListener : removeEventListener;
+    // @ts-ignore
     var items = self.items;
     var navbarToggle = self.navbarToggle;
     var menu = self.menu;
 
-    Array.from(items).forEach(function (x) {
+    ArrayFrom(items).forEach(function (x) {
+      // @ts-ignore
       if (hasClass(x.lastElementChild, subnavClass)) {
-        x[action]('mouseenter', navbarEnterHandler);
-        x[action]('mouseleave', navbarLeaveHandler);
+        // @ts-ignore
+        x[action](mouseenterEvent, navbarEnterHandler);
+        // @ts-ignore
+        x[action](mouseleaveEvent, navbarLeaveHandler);
       }
 
-      var ref = x.getElementsByClassName(subnavToggleClass);
+      var ref = getElementsByClassName(subnavToggleClass, x);
       var toggleElement = ref[0];
-      if (toggleElement) { toggleElement[action]('click', navbarClickHandler); }
+      // @ts-ignore
+      if (toggleElement) { toggleElement[action](mouseclickEvent, navbarClickHandler); }
     });
 
-    menu[action]('keydown', navbarKeyHandler);
-    if (navbarToggle) { navbarToggle[action]('click', navbarClickHandler); }
+    // @ts-ignore
+    menu[action](keydownEvent, navbarKeyHandler);
+    // @ts-ignore
+    if (navbarToggle) { navbarToggle[action](mouseclickEvent, navbarClickHandler); }
   }
 
+  /**
+   * @param {Element} element
+   * @param {string} selector
+   * @returns {Element=}
+   */
   function findChild(element, selector) {
-    return Array.from(element.children).find(function (x) { return selector === x.tagName || hasClass(x, selector); });
+    return ArrayFrom(element.children).find(function (x) { return selector === x.tagName || hasClass(x, selector); });
   }
 
+  /** @param {Element} element */
   function openNavbar(element) {
     var subMenu = findChild(element, subnavClass);
     var anchor = findChild(element, 'A');
 
     if (anchor) {
       anchor.dispatchEvent(showNavbarEvent);
-      if (showNavbarEvent.isDefaultPrevented) { return; }
+      if (showNavbarEvent.defaultPrevented) { return; }
     }
 
     addClass(element, openPositionClass);
     addClass(element, openNavClass);
 
-    if (anchor) { anchor.setAttribute(ariaExpanded, true); }
+    if (anchor) { setAttribute(anchor, ariaExpanded, 'true'); }
 
-    var siblings = element.parentNode.getElementsByTagName('LI');
-    closeNavbars(Array.from(siblings).filter(function (x) { return x !== element; }));
+    // @ts-ignore
+    var siblings = getElementsByTagName('LI', element.parentElement);
+    closeNavbars(ArrayFrom(siblings).filter(function (x) { return x !== element; }));
 
-    if (anchor) {
+    if (anchor && subMenu) {
       emulateTransitionEnd(subMenu, function () {
         anchor.dispatchEvent(shownNavbarEvent);
       });
     }
   }
 
+  /**
+   * @param {Element} element
+   * @param {boolean=} leave
+   */
   function closeNavbar(element, leave) {
     var subMenu = findChild(element, subnavClass);
     var anchor = findChild(element, 'A');
@@ -375,64 +650,101 @@
     if (hasClass(element, openNavClass)) {
       if (anchor) {
         anchor.dispatchEvent(hideNavbarEvent);
-        if (hideNavbarEvent.isDefaultPrevented) { return; }
+        if (hideNavbarEvent.defaultPrevented) { return; }
       }
       removeClass(element, openNavClass);
-      if (leave) { emulateTransitionEnd(subMenu, navTransitionEndHandler); }
+      if (leave && subMenu) { emulateTransitionEnd(subMenu, navTransitionEndHandler); }
       else { navTransitionEndHandler(); }
-      if (anchor) { anchor.setAttribute(ariaExpanded, false); }
+      if (anchor) { setAttribute(anchor, ariaExpanded, 'false'); }
     }
     if (hasClass(element, openMobileClass)) {
       if (anchor) { anchor.dispatchEvent(hideNavbarEvent); }
-      if (hideNavbarEvent.isDefaultPrevented) { return; }
+      if (hideNavbarEvent.defaultPrevented) { return; }
       removeClass(element, openMobileClass);
 
       [toggleElement, anchor].forEach(function (x) {
-        if (x) { x.setAttribute(ariaExpanded, false); }
+        if (x) { setAttribute(x, ariaExpanded, 'false'); }
       });
       if (anchor) { anchor.dispatchEvent(hiddenNavbarEvent); }
     }
   }
 
+  /** @param {HTMLCollection | Element[]} collection */
   function closeNavbars(collection) {
-    Array.from(collection).forEach(function (x) { return closeNavbar(x); });
+    ArrayFrom(collection).forEach(function (x) { return closeNavbar(x); });
   }
 
   // NAVBAR EVENT LISTENERS
   // ======================
+  /**
+   * @this {Element}
+   * @param {KeyboardEvent} e Event object
+   */
   function navbarKeyHandler(e) {
-    var which = e.which;
+    var code = e.code;
+    var menu = this;
     var activeElement = document.activeElement;
-    var self = this[navbarComponent];
+    var self = getNavbarInstance(menu);
+    if (!activeElement || !menu.contains(activeElement)) { return; }
     var element = activeElement.closest('LI');
-    var openMenu = activeElement.closest(("." + openNavClass));
-    var subnavMenu = queryElement(("." + subnavClass), element);
+    if (!element) { return; }
+    // @ts-ignore
     var isMobile = checkNavbarView(self);
+    var previousElementSibling = element.previousElementSibling;
+    var nextElementSibling = element.nextElementSibling;
+    var openParentElement = element.closest(("." + openNavClass));
+    var parentMenu = element.closest('UL');
+    var ref = getElementsByClassName(subnavClass, element);
+    var subnavMenu = ref[0];
+    var preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
+    var isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
+    var sidePrevKey = isRTL() ? keyArrowRight : keyArrowLeft;
+    var sideNextKey = isRTL() ? keyArrowLeft : keyArrowRight;
+    var prevSelection = parentMenu && previousElementSibling
+      && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
+    var nextSelection = parentMenu && nextElementSibling
+      && ((code === keyArrowDown && isColumn) || (code === sideNextKey && !isColumn));
+    /** @type {Element?} */
+    var elementToFocus = null;
 
-    if (!isMobile && this.contains(activeElement) && which === 32) {
+    if (code === keyEscape && openParentElement) {
+      navbarLeaveHandler.call(openParentElement);
+      elementToFocus = openParentElement;
+    } else if (!isMobile && subnavMenu && code === keySpace) {
+      if (hasClass(element, openNavClass)) { navbarLeaveHandler.call(element); }
+      else { navbarEnterHandler.call(element); }
+    }
+
+    if (prevSelection && element !== parentMenu.firstElementChild) {
+      elementToFocus = previousElementSibling;
+    } else if (nextSelection && element !== parentMenu.lastElementChild) {
+      elementToFocus = nextElementSibling;
+    }
+
+    // @ts-ignore
+    if (elementToFocus) { elementToFocus.firstElementChild.focus(); }
+
+    if (!isMobile && preventableEvents.includes(code)) {
       e.preventDefault();
-    }
-    if (which === 27 && openMenu) {
-      navbarLeaveHandler.call(openMenu);
-    }
-    if (element && subnavMenu && !isMobile) {
-      if (which === 32) {
-        if (hasClass(element, openNavClass)) { navbarLeaveHandler.call(element); }
-        else { navbarEnterHandler.call(element); }
-      }
     }
   }
 
+  /**
+   * @this {Element}
+   * @param {PointerEvent} e Event object
+   */
   function navbarClickHandler(e) {
     e.preventDefault();
 
     var target = e.target;
     var that = this;
     var menu = that.closest((navbarSelector + ",." + navbarString));
-    var self = menu[navbarComponent];
+    var self = menu && getNavbarInstance(menu);
+    // @ts-ignore
     var options = self.options;
     var navbarToggle = self.navbarToggle;
 
+    // @ts-ignore
     if (self && (target === that || that.contains(target))) {
       var element = that.closest('LI') || menu;
       var toggleElement = that.closest(("." + navbarToggleClass)) === navbarToggle
@@ -440,78 +752,80 @@
         : findChild(element, subnavToggleClass);
       var anchor = toggleElement === navbarToggle
         ? null : findChild(element, 'A');
-      var openSubs = element.getElementsByClassName(openMobileClass);
+      var openSubs = getElementsByClassName(openMobileClass, element);
 
       if (!hasClass(element, openMobileClass)) {
         if (anchor) { anchor.dispatchEvent(showNavbarEvent); }
-        if (showNavbarEvent.isDefaultPrevented) { return; }
+        if (showNavbarEvent.defaultPrevented) { return; }
 
         if (toggleElement !== navbarToggle) {
-          toggleNavbarResizeEvent(1);
+          toggleNavbarResizeEvent(true);
         }
 
         if (toggleElement !== navbarToggle) {
           var selection = options.toggleSiblings
-            ? element.parentNode.getElementsByClassName(openMobileClass)
+            // @ts-ignore element.parentElement is an `Element`
+            ? getElementsByClassName(openMobileClass, element.parentElement)
             : openSubs;
           closeNavbars(selection);
         }
         addClass(element, openMobileClass);
 
-        if (toggleElement) { toggleElement.setAttribute(ariaExpanded, true); }
+        if (toggleElement) { setAttribute(toggleElement, ariaExpanded, 'true'); }
         if (anchor) {
-          anchor.setAttribute(ariaExpanded, true);
+          setAttribute(anchor, ariaExpanded, 'true');
           anchor.dispatchEvent(shownNavbarEvent);
         }
       } else {
         if (anchor) { anchor.dispatchEvent(hideNavbarEvent); }
-        if (hideNavbarEvent.isDefaultPrevented) { return; }
+        if (hideNavbarEvent.defaultPrevented) { return; }
 
         closeNavbars(openSubs);
         removeClass(element, openMobileClass);
 
         if (toggleElement) {
-          toggleElement.setAttribute(ariaExpanded, false);
+          setAttribute(toggleElement, ariaExpanded, 'false');
           toggleNavbarResizeEvent();
         }
         if (anchor) {
-          anchor.setAttribute(ariaExpanded, false);
+          setAttribute(anchor, ariaExpanded, 'false');
           anchor.dispatchEvent(hiddenNavbarEvent);
         }
       }
     }
   }
 
+  /** @this {Element} */
   function navbarEnterHandler() {
     var element = this;
     var menu = element.closest((navbarSelector + ",." + navbarString));
-    var self = menu && menu[navbarComponent];
+    var self = menu && getNavbarInstance(menu);
 
     // must always clear the timer
+    // @ts-ignore
     clearTimeout(self.timer);
     if (self && !checkNavbarView(self) && !hasClass(element, openNavClass)) {
       openNavbar(element);
     }
   }
 
+  /** @this {Element} */
   function navbarLeaveHandler() {
     var element = this;
     var menu = element.closest((navbarSelector + ",." + navbarString));
-    var self = menu && menu[navbarComponent];
+    var self = menu && getNavbarInstance(menu);
 
     if (self && !checkNavbarView(self) && hasClass(element, openNavClass)) {
+      // @ts-ignore
       clearTimeout(self.timer);
-      self.timer = setTimeout(function () { return closeNavbar(element, 1); }, self.options.delay);
+      // @ts-ignore
+      self.timer = setTimeout(function () { return closeNavbar(element, true); }, self.options.delay);
     }
   }
 
   // NAVBAR DEFINITION
   // =================
-
-  /**
-   * Creates a new Navbar for desktop and mobile navigation.
-   * @class
-   */
+  /** Creates a new Navbar for desktop and mobile navigation. */
   var Navbar = function Navbar(target, config) {
     var assign;
 
@@ -519,30 +833,44 @@
     var self = this;
 
     // instance targets
-    /** @private */
-    self.menu = queryElement(target);
+    /** @private @type {Element} */
+    // @ts-ignore
+    self.menu = querySelector(target);
     var menu = self.menu;
 
     // reset on re-init
-    if (menu[navbarComponent]) { menu[navbarComponent].dispose(); }
+    var existing = getNavbarInstance(menu);
+    if (existing) { existing.dispose(); }
+
+    /** @private @type {Record<string, any>} */
+    self.options = normalizeOptions(menu, defaultNavbarOptions, config || {}, '');
 
     /** @private */
-    self.options = normalizeOptions(menu, defaultNavbarOptions, config || {});
+    self.items = getElementsByTagName('LI', menu);
+    /** @private @type {Element?} */
+    self.navbarToggle = null;
+    (assign = getElementsByClassName(navbarToggleClass, menu), self.navbarToggle = assign[0]);
 
-    /** @private */
-    self.items = menu.getElementsByTagName('LI');
-    /** @private */
-    (assign = menu.getElementsByClassName(navbarToggleClass), self.navbarToggle = assign[0]);
-
-    /** @private */
+    /** @private @type {number?} */
     self.timer = null;
 
     // attach events
-    toggleNavbarEvents(self, 1);
+    toggleNavbarEvents(self, true);
 
     // attach instance to element
-    menu[navbarComponent] = self;
+    Data.set(menu, navbarComponent, self);
   };
+
+  var prototypeAccessors = { defaults: { configurable: true },version: { configurable: true },name: { configurable: true } };
+
+  /* eslint-disable */
+  /** @static */
+  prototypeAccessors.defaults.get = function () { return defaultNavbarOptions; };
+  /** @static */
+  prototypeAccessors.version.get = function () { return Version; };
+  /** @static */
+  prototypeAccessors.name.get = function () { return navbarComponent; };
+  /* eslint-enable */
 
   // NAVBAR PUBLIC METHOD
   // ====================
@@ -554,19 +882,16 @@
     closeNavbars(self.items);
     toggleNavbarEvents(self);
     toggleNavbarResizeEvent();
-    delete self.menu[navbarComponent];
+    Data.remove(self.menu, navbarComponent);
   };
 
-  /**
-   * An object with all necesary information
-   * for Navbar component initialization.
-   */
-  Navbar.init = {
-    component: navbarComponent,
+  Object.defineProperties( Navbar.prototype, prototypeAccessors );
+
+  ObjectAssign(Navbar, {
     selector: navbarSelector,
-    constructor: Navbar,
-    Version: Version,
-  };
+    init: initNavbarCallback,
+    getInstance: getNavbarInstance,
+  });
 
   // DATA API
   /**
@@ -576,12 +901,11 @@
   function initNavbar(context) {
     var lookup = context instanceof Element ? context : document;
 
-    var ref = Navbar.init;
-    var selector = ref.selector;
-    var constructor = ref.constructor;
+    var selector = Navbar.selector;
+    var init = Navbar.init;
     var navs = lookup.querySelectorAll(selector);
 
-    Array.from(navs).map(function (x) { return new constructor(x); });
+    Array.from(navs).map(function (x) { return init(x); });
   }
   // initialize when loaded
   if (document.body) { initNavbar(); }

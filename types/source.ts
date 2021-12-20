@@ -1,0 +1,1 @@
+export {default as Navbar} from '../src/js/navbar';

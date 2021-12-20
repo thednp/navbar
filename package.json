@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -9,9 +9,9 @@
   "sass": "src/css/navbar.scss",
   "jsnext": "src/js/navbar.js",
   "files": [
-    "types/*.{ts,map}",
-    "dist/{css,js}/*.{css,js,map}",
-    "src/{js,scss}/*.{js,scss,map}"
+    "types",
+    "dist",
+    "src"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,7 +23,7 @@
     "build": "npm run lint:js && npm-run-all --parallel build-* && npm run copy-build && npm run copy-es5-build",
     "build-es5-js": "rollup --environment FORMAT:umd,MIN:false,ES:es5 -c",
     "build-es5-minjs": "rollup --environment FORMAT:umd,MIN:true,ES:es5 -c",
-    "build-ts": "tsc -d",
+    "build:ts": "tsc -d",
     "build-js": "rollup --environment FORMAT:umd,MIN:false -c",
     "build-minjs": "rollup --environment FORMAT:umd,MIN:true -c",
     "build-esm": "rollup --environment FORMAT:esm,MIN:false -c",
@@ -67,8 +67,8 @@
   },
   "homepage": "http://thednp.github.io/navbar.js",
   "dependencies": {
-    "minifill": "^0.0.16",
-    "shorter-js": "^0.2.3"
+    "minifill": "^0.0.17",
+    "shorter-js": "^0.2.20"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
@@ -86,6 +86,6 @@
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.19.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.5.2"
   }
 }

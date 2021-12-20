@@ -173,6 +173,9 @@
     align-items: center;
     justify-content: space-between;
   }
+  .nav li > span, .nav li > a {
+    flex-wrap: nowrap;
+  }
 
   .nav {
     // set flex
@@ -281,7 +284,7 @@
     .parent-icon,
     .subnav-toggle + ul,
     .subnav-toggle + div {
-      display: block;
+      display: flex;
     }
     // disable focus on hidden menu items
     ul.subnav > li,
@@ -310,9 +313,11 @@
     // reset menu tree highlight padding
     ul.subnav,
     div.subnav ul {
-      flex-direction: row;
       padding: 0;
     }
+    .subnav-content,
+    ul.subnav { flex-direction: column; }
+    div.subnav > ul { flex-direction: row; }
     // reset open-mobile
     @if real-color($mobile_expanded_background) or $mobile_expanded_background == auto {
       li.open-mobile {

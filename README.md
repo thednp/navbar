@@ -1,5 +1,5 @@
 # Navbar.js - Modern Navigation Component
-The mobile first menu navigation for today's modern web, developed with native JavaScript and packed with lots of features.
+The mobile first menu navigation for today's modern web, developed with ES6+ JavaScript, TypeScript definitions and packed with lots of features.
 
 [![NPM Version](https://img.shields.io/npm/v/navbar.js.svg?style=flat-square)](https://www.npmjs.com/package/navbar.js)
 [![NPM Downloads](https://img.shields.io/npm/dm/navbar.js.svg?style=flat-square)](http://npm-stat.com/charts.html?package=navbar.js)
@@ -11,7 +11,7 @@ Download the package and check the demo folder, or check it online [here](http:/
 # Navbar.js Highlights
 * Mobile First Design
 * Accessibility Focus
-* ES6+ sources and powerful build tools
+* ES6+ sources with TypeScript definitions and powerful build tools
 * SCSS sources with powerful mixins and advanced inheritance and automation functionality
 * very light footprint, `5kb` in size when minified
 * 3 sets of positions top (main), left or right
@@ -31,7 +31,7 @@ Download the package and check the demo folder, or check it online [here](http:/
   * opens submenus on `mouseenter`, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
   * hides submenus on `mouseleave`, by removing the above classes in a delayed succesion</li>
 
-On both mobile and desktop, Navbar.js allows for full keyboard navigation via the **TAB** and **SPACE** keys.
+On both mobile and desktop, Navbar.js allows for full keyboard navigation via the **TAB** and **SPACE** keys. In addition, directional arrows provide navigation on desktop with RTL support.
 
 # NPM
 You can install this through NPM:
@@ -81,7 +81,7 @@ Alternatively you can use only the menu itself and use the specific attribute:
 <div class="sidebar">
   <ul class="nav" data-function="navbar">
     <li><a href="#">Link Title</a></li>
-    <li><a href="#">Another Link Title</a></li>
+    <li><a href="#">Another Link</a></li>
   </ul>
 </div>
 ```

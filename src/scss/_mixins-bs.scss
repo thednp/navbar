@@ -137,7 +137,7 @@ $dark_navbar_background: #343a40;
     .parent-icon,
     .subnav-toggle + div,
     .subnav-toggle + ul {
-      display: block;
+      display: flex;
     }
     // disable focus on hidden menu items
     ul.subnav > li,
@@ -156,9 +156,11 @@ $dark_navbar_background: #343a40;
     // reset menu tree highlight padding
     ul.subnav,
     div.subnav ul {
-      flex-direction: row;
       padding: 0;
     }
+    .navbar-text,
+    ul.subnav {flex-direction: column;}
+    div.subnav > ul {flex-direction: row;}
     // set submenu width
     ul.subnav { width: $subnav_width; }
     div.subnav { min-width: $subnav_larger_width; }

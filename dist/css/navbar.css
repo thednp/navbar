@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.1 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.3 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -117,6 +117,10 @@
   justify-content: space-between;
 }
 
+.nav li > span, .nav li > a {
+  flex-wrap: nowrap;
+}
+
 .nav {
   display: flex;
 }
@@ -218,7 +222,7 @@ div.subnav {
   .parent-icon,
 .subnav-toggle + ul,
 .subnav-toggle + div {
-    display: block;
+    display: flex;
   }
 
   ul.subnav > li,
@@ -245,8 +249,16 @@ div.subnav > ul > li {
   }
   ul.subnav,
 div.subnav ul {
-    flex-direction: row;
     padding: 0;
+  }
+
+  .subnav-content,
+ul.subnav {
+    flex-direction: column;
+  }
+
+  div.subnav > ul {
+    flex-direction: row;
   }
 
   li.open-mobile {

@@ -1,8 +1,92 @@
 /*!
-* Navbar.js v3.0.2 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.3 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
+/**
+ * A global namespace for `Space` key.
+ * @type {string} e.which = 32 equivalent
+ */
+const keySpace = 'Space';
+
+/**
+ * A global namespace for `Escape` key.
+ * @type {string} e.which = 27 equivalent
+ */
+const keyEscape = 'Escape';
+
+/**
+ * A global namespace for `ArrowUp` key.
+ * @type {string} e.which = 38 equivalent
+ */
+const keyArrowUp = 'ArrowUp';
+
+/**
+ * A global namespace for `ArrowDown` key.
+ * @type {string} e.which = 40 equivalent
+ */
+const keyArrowDown = 'ArrowDown';
+
+/**
+ * A global namespace for `ArrowLeft` key.
+ * @type {string} e.which = 37 equivalent
+ */
+const keyArrowLeft = 'ArrowLeft';
+
+/**
+ * A global namespace for `ArrowRight` key.
+ * @type {string} e.which = 39 equivalent
+ */
+const keyArrowRight = 'ArrowRight';
+
+/**
+ * A global namespace for aria-expanded.
+ * @type {string}
+ */
+const ariaExpanded = 'aria-expanded';
+
+/**
+ * A global namespace for 'addEventListener' string.
+ * @type {string}
+ */
+const addEventListener = 'addEventListener';
+
+/**
+ * A global namespace for 'removeEventListener' string.
+ * @type {string}
+ */
+const removeEventListener = 'removeEventListener';
+
+/**
+ * A global namespace for `mouseenter` event.
+ * @type {string}
+ */
+const mouseenterEvent = 'mouseenter';
+
+/**
+ * A global namespace for `mouseleave` event.
+ * @type {string}
+ */
+const mouseleaveEvent = 'mouseleave';
+
+/**
+ * A global namespace for `click` event.
+ * @type {string}
+ */
+const mouseclickEvent = 'click';
+
+/**
+ * A global namespace for `keydown` event.
+ * @type {string}
+ */
+const keydownEvent = 'keydown';
+
+/**
+ * A global namespace for `resize` event.
+ * @type {string}
+ */
+const resizeEvent = 'resize';
+
 /**
  * A global namespace for 'transitionend' string.
  * @type {string}
@@ -22,17 +106,17 @@ const supportTransition = 'webkitTransition' in document.head.style || 'transiti
 const transitionDelay = 'webkitTransition' in document.head.style ? 'webkitTransitionDelay' : 'transitionDelay';
 
 /**
- * A global namespace for 'transition' string.
+ * A global namespace for 'transitionProperty' string.
  * @type {string}
  */
-const transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransition' : 'transition';
+const transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransitionProperty' : 'transitionProperty';
 
 /**
- * Utility to get the computed transitionDelay
+ * Utility to get the computed `transitionDelay`
  * from Element in miliseconds.
  *
  * @param {Element} element target
- * @return {Number} the value in miliseconds
+ * @return {number} the value in miliseconds
  */
 function getElementTransitionDelay(element) {
   const computedStyle = getComputedStyle(element);
@@ -52,11 +136,11 @@ function getElementTransitionDelay(element) {
 const transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
 
 /**
- * Utility to get the computed transitionDuration
+ * Utility to get the computed `transitionDuration`
  * from Element in miliseconds.
  *
  * @param {Element} element target
- * @return {Number} the value in miliseconds
+ * @return {number} the value in miliseconds
  */
 function getElementTransitionDuration(element) {
   const computedStyle = getComputedStyle(element);
@@ -74,7 +158,7 @@ function getElementTransitionDuration(element) {
  * called when transition ends.
  *
  * @param {Element} element target
- * @param {Function} handler callback
+ * @param {EventListener} handler `transitionend` callback
  */
 function emulateTransitionEnd(element, handler) {
   let called = 0;
@@ -85,7 +169,7 @@ function emulateTransitionEnd(element, handler) {
   if (duration) {
     /**
      * Wrap the handler in on -> off callback
-     * @param {object | Event} e Event object
+     * @param {Event} e Event object
      */
     const transitionEndWrapper = (e) => {
       if (e.target === element) {
@@ -102,18 +186,6 @@ function emulateTransitionEnd(element, handler) {
     handler.apply(element, [endEvent]);
   }
 }
-
-/**
- * A global namespace for 'addEventListener' string.
- * @type {string}
- */
-const addEventListener = 'addEventListener';
-
-/**
- * A global namespace for 'removeEventListener' string.
- * @type {string}
- */
-const removeEventListener = 'removeEventListener';
 
 /**
  * A global namespace for passive events support.
@@ -140,45 +212,65 @@ const supportPassive = (() => {
 
 // general event options
 
+/**
+ * A global namespace for most scroll event listeners.
+ */
 const passiveHandler = supportPassive ? { passive: true } : false;
 
 /**
- * Utility to check if target is typeof Element
+ * Checks if an object is an `Element`.
+ *
+ * @param {any} element the target object
+ * @returns {boolean} the query result
+ */
+function isElement(element) {
+  return element instanceof Element;
+}
+
+/**
+ * Utility to check if target is typeof `Element`
  * or find one that matches a selector.
  *
- * @param {string | Element} selector the input selector or target element
- * @param {undefined | Element} parent optional Element to look into
- * @return {null | Element} the Element
+ * @param {Element | string} selector the input selector or target element
+ * @param {Element=} parent optional Element to look into
+ * @return {Element?} the Element or `querySelector` result
  */
-function queryElement(selector, parent) {
-  const lookUp = parent && parent instanceof Element ? parent : document;
-  return selector instanceof Element ? selector : lookUp.querySelector(selector);
+function querySelector(selector, parent) {
+  const lookUp = parent && isElement(parent) ? parent : document;
+  // @ts-ignore -- `isElement` is just as good
+  return isElement(selector) ? selector : lookUp.querySelector(selector);
 }
+
+/**
+ * The raw value or a given component option.
+ *
+ * @typedef {string | Element | Function | number | boolean | null} niceValue
+ */
 
 /**
  * Utility to normalize component options
  *
- * @param {string | Function | Element | object} value the input value
- * @return {string | Function | Element | object} the normalized value
+ * @param {any} value the input value
+ * @return {niceValue} the normalized value
  */
 function normalizeValue(value) {
-  if (value === 'true') {
+  if (value === 'true') { // boolean
     return true;
   }
 
-  if (value === 'false') {
+  if (value === 'false') { // boolean
     return false;
   }
 
-  if (!Number.isNaN(+value)) {
+  if (!Number.isNaN(+value)) { // number
     return +value;
   }
 
-  if (value === '' || value === 'null') {
+  if (value === '' || value === 'null') { // null
     return null;
   }
 
-  // string / function / Element / Object
+  // string / function / Element / object
   return value;
 }
 
@@ -186,20 +278,20 @@ function normalizeValue(value) {
  * Utility to normalize component options
  *
  * @param {Element} element target
- * @param {object} defaultOps component default options
- * @param {object} inputOps component instance options
- * @param {string} ns component namespace
- * @return {object} normalized component options object
+ * @param {Record<string, any>} defaultOps component default options
+ * @param {Record<string, any>} inputOps component instance options
+ * @param {string=} ns component namespace
+ * @return {Record<string, any>} normalized component options object
  */
 function normalizeOptions(element, defaultOps, inputOps, ns) {
+  // @ts-ignore -- usually our `Element` is `HTMLElement` as well
+  const data = { ...element.dataset };
   const normalOps = {};
   const dataOps = {};
-  // @ts-ignore
-  const data = { ...element.dataset };
 
   Object.keys(data)
     .forEach((k) => {
-      const key = k.includes(ns)
+      const key = ns && k.includes(ns)
         ? k.replace(ns, '').replace(/[A-Z]/, (match) => match.toLowerCase())
         : k;
 
@@ -256,7 +348,149 @@ function removeClass(element, classNAME) {
   element.classList.remove(classNAME);
 }
 
-var version = "3.0.2";
+const componentData = new Map();
+/**
+ * An interface for web components background data.
+ * @see https://github.com/thednp/bootstrap.native/blob/master/src/components/base-component.js
+ */
+const Data = {
+  /**
+   * Sets web components data.
+   * @param {Element | string} element target element
+   * @param {string} component the component's name or a unique key
+   * @param {any} instance the component instance
+   */
+  set: (element, component, instance) => {
+    const ELEMENT = querySelector(element);
+    if (!isElement(ELEMENT)) return;
+
+    if (!componentData.has(component)) {
+      componentData.set(component, new Map());
+    }
+
+    const instanceMap = componentData.get(component);
+    instanceMap.set(ELEMENT, instance);
+  },
+
+  /**
+   * Returns all instances for specified component.
+   * @param {string} component the component's name or a unique key
+   * @returns {any?} all the component instances
+   */
+  getAllFor: (component) => {
+    if (componentData.has(component)) {
+      return componentData.get(component);
+    }
+    return null;
+  },
+
+  /**
+   * Returns the instance associated with the target.
+   * @param {Element | string} element target element
+   * @param {string} component the component's name or a unique key
+   * @returns {any?} the instance
+   */
+  get: (element, component) => {
+    const ELEMENT = querySelector(element);
+
+    const allForC = Data.getAllFor(component);
+    if (allForC && isElement(ELEMENT) && allForC.has(ELEMENT)) {
+      return allForC.get(ELEMENT);
+    }
+    return null;
+  },
+
+  /**
+   * Removes web components data.
+   * @param {Element} element target element
+   * @param {string} component the component's name or a unique key
+   */
+  remove: (element, component) => {
+    if (!componentData.has(component)) return;
+
+    const instanceMap = componentData.get(component);
+    instanceMap.delete(element);
+
+    if (instanceMap.size === 0) {
+      componentData.delete(component);
+    }
+  },
+};
+
+/**
+ * Shortcut for `window.getComputedStyle(element).propertyName`
+ * static method.
+ * * If `element` parameter is not an `Element`, `getComputedStyle`
+ * throws a `ReferenceError`.
+ * * If no property is defined, the entire `CSSStyleDeclaration`
+ * instance is returned.
+ *
+ * @param {Element} element target
+ * @param {string=} property the css property
+ * @return {string} the css property value
+ */
+function getElementStyle(element, property) {
+  const computedStyle = getComputedStyle(element);
+
+  return property && property in computedStyle
+    ? computedStyle[property]
+    : computedStyle;
+}
+
+/**
+ * Checks if a page is Right To Left.
+ * @returns {boolean} the query result
+ */
+const isRTL = () => document.documentElement.dir === 'rtl';
+
+/**
+ * Shortcut for `Object.assign()` static method.
+ * @param  {Record<string, any>} obj a target object
+ * @param  {Record<string, any>} source a source object
+ */
+const ObjectAssign = (obj, source) => Object.assign(obj, source);
+
+/**
+ * Shortcut for `Array.from()` static method.
+ *
+ * @param  {any[] | HTMLCollection | NodeList} arr array-like iterable object
+ * @returns {Array}
+ */
+const ArrayFrom = (arr) => Array.from(arr);
+
+/**
+ * Shortcut for `Element.setAttribute()` method.
+ * @param  {Element} element target element
+ * @param  {string} attribute attribute name
+ * @param  {string} value attribute value
+ */
+const setAttribute = (element, attribute, value) => element.setAttribute(attribute, value);
+
+/**
+ * Shortcut for `Element.getElementsByClassName` method.
+ *
+ * @param {string} selector the class name
+ * @param {Element=} parent optional Element to look into
+ * @return {HTMLCollection} the 'HTMLCollection'
+ */
+function getElementsByClassName(selector, parent) {
+  const lookUp = parent && isElement(parent) ? parent : document;
+  return lookUp.getElementsByClassName(selector);
+}
+
+/**
+ * Shortcut for `Element.getElementsByTagName` method.
+ *
+ * @param {string} selector the tag name
+ * @param {Element=} parent optional Element to look into
+ * @return {HTMLCollection} the 'HTMLCollection'
+ */
+function getElementsByTagName(selector, parent) {
+  const lookUp = parent && isElement(parent) ? parent : document;
+  return lookUp.getElementsByTagName(selector);
+}
+
+var version = "3.0.3";
 
 // @ts-ignore
 
@@ -273,85 +507,126 @@ const openMobileClass = 'open-mobile';
 const subnavClass = 'subnav';
 const subnavToggleClass = `${subnavClass}-toggle`;
 const navbarToggleClass = `${navbarString}-toggle`;
-const ariaExpanded = 'aria-expanded';
+
 const defaultNavbarOptions = {
   breakpoint: 768,
   toggleSiblings: true,
   delay: 500,
 };
-const navbarEventOptions = { cancelable: true };
+
+const navbarEventOptions = { cancelable: true, bubbles: true };
 const showNavbarEvent = new CustomEvent('show.navbar', navbarEventOptions);
 const shownNavbarEvent = new CustomEvent('shown.navbar', navbarEventOptions);
 const hideNavbarEvent = new CustomEvent('hide.navbar', navbarEventOptions);
 const hiddenNavbarEvent = new CustomEvent('hidden.navbar', navbarEventOptions);
 
+/**
+ * Returns a `Navbar` instance.
+ * @param {Element} element target element
+ * @returns {Navbar?} the `Navbar` instance
+ */
+const getNavbarInstance = (element) => Data.get(element, navbarComponent);
+
+/**
+ * Returns a `Navbar` instance.
+ * @param {Element} element target element
+ * @returns {Navbar}
+ */
+const initNavbarCallback = (element) => new Navbar(element);
+
 // NAVBAR PRIVATE METHODS
 // ======================
+/** @param {boolean=} add */
 function toggleNavbarResizeEvent(add) {
   const action = add ? addEventListener : removeEventListener;
   if (!document.querySelector(`li.${openMobileClass}`)) {
-    window[action]('resize', resizeNavbarHandler, passiveHandler);
+    // @ts-ignore
+    window[action](resizeEvent, resizeNavbarHandler, passiveHandler);
   }
 }
 
 function resizeNavbarHandler() {
-  closeNavbars(document.getElementsByClassName(openMobileClass));
+  closeNavbars(getElementsByClassName(openMobileClass));
   toggleNavbarResizeEvent();
 }
 
+/** @param {Navbar} self */
 function checkNavbarView(self) { // returns TRUE if "is mobile"
+  // @ts-ignore
   const { options, menu } = self;
   const [firstToggle] = menu.getElementsByClassName(subnavToggleClass);
-  return (firstToggle && getComputedStyle(firstToggle).display !== 'none')
+  return (firstToggle && getElementStyle(firstToggle, 'display') !== 'none')
     || window.innerWidth < options.breakpoint;
 }
 
+/**
+ * @param {Navbar} self
+ * @param {boolean=} add
+ */
 function toggleNavbarEvents(self, add) {
   const action = add ? addEventListener : removeEventListener;
+  // @ts-ignore
   const { items, navbarToggle, menu } = self;
 
-  Array.from(items).forEach((x) => {
+  ArrayFrom(items).forEach((x) => {
+    // @ts-ignore
     if (hasClass(x.lastElementChild, subnavClass)) {
-      x[action]('mouseenter', navbarEnterHandler);
-      x[action]('mouseleave', navbarLeaveHandler);
+      // @ts-ignore
+      x[action](mouseenterEvent, navbarEnterHandler);
+      // @ts-ignore
+      x[action](mouseleaveEvent, navbarLeaveHandler);
     }
 
-    const [toggleElement] = x.getElementsByClassName(subnavToggleClass);
-    if (toggleElement) toggleElement[action]('click', navbarClickHandler);
+    const [toggleElement] = getElementsByClassName(subnavToggleClass, x);
+    // @ts-ignore
+    if (toggleElement) toggleElement[action](mouseclickEvent, navbarClickHandler);
   });
 
-  menu[action]('keydown', navbarKeyHandler);
-  if (navbarToggle) navbarToggle[action]('click', navbarClickHandler);
+  // @ts-ignore
+  menu[action](keydownEvent, navbarKeyHandler);
+  // @ts-ignore
+  if (navbarToggle) navbarToggle[action](mouseclickEvent, navbarClickHandler);
 }
 
+/**
+ * @param {Element} element
+ * @param {string} selector
+ * @returns {Element=}
+ */
 function findChild(element, selector) {
-  return Array.from(element.children).find((x) => selector === x.tagName || hasClass(x, selector));
+  return ArrayFrom(element.children).find((x) => selector === x.tagName || hasClass(x, selector));
 }
 
+/** @param {Element} element */
 function openNavbar(element) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
 
   if (anchor) {
     anchor.dispatchEvent(showNavbarEvent);
-    if (showNavbarEvent.isDefaultPrevented) return;
+    if (showNavbarEvent.defaultPrevented) return;
   }
 
   addClass(element, openPositionClass);
   addClass(element, openNavClass);
 
-  if (anchor) anchor.setAttribute(ariaExpanded, true);
+  if (anchor) setAttribute(anchor, ariaExpanded, 'true');
 
-  const siblings = element.parentNode.getElementsByTagName('LI');
-  closeNavbars(Array.from(siblings).filter((x) => x !== element));
+  // @ts-ignore
+  const siblings = getElementsByTagName('LI', element.parentElement);
+  closeNavbars(ArrayFrom(siblings).filter((x) => x !== element));
 
-  if (anchor) {
+  if (anchor && subMenu) {
     emulateTransitionEnd(subMenu, () => {
       anchor.dispatchEvent(shownNavbarEvent);
     });
   }
 }
 
+/**
+ * @param {Element} element
+ * @param {boolean=} leave
+ */
 function closeNavbar(element, leave) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
@@ -364,63 +639,99 @@ function closeNavbar(element, leave) {
   if (hasClass(element, openNavClass)) {
     if (anchor) {
       anchor.dispatchEvent(hideNavbarEvent);
-      if (hideNavbarEvent.isDefaultPrevented) return;
+      if (hideNavbarEvent.defaultPrevented) return;
     }
     removeClass(element, openNavClass);
-    if (leave) emulateTransitionEnd(subMenu, navTransitionEndHandler);
+    if (leave && subMenu) emulateTransitionEnd(subMenu, navTransitionEndHandler);
     else navTransitionEndHandler();
-    if (anchor) anchor.setAttribute(ariaExpanded, false);
+    if (anchor) setAttribute(anchor, ariaExpanded, 'false');
   }
   if (hasClass(element, openMobileClass)) {
     if (anchor) anchor.dispatchEvent(hideNavbarEvent);
-    if (hideNavbarEvent.isDefaultPrevented) return;
+    if (hideNavbarEvent.defaultPrevented) return;
     removeClass(element, openMobileClass);
 
     [toggleElement, anchor].forEach((x) => {
-      if (x) x.setAttribute(ariaExpanded, false);
+      if (x) setAttribute(x, ariaExpanded, 'false');
     });
     if (anchor) anchor.dispatchEvent(hiddenNavbarEvent);
   }
 }
 
+/** @param {HTMLCollection | Element[]} collection */
 function closeNavbars(collection) {
-  Array.from(collection).forEach((x) => closeNavbar(x));
+  ArrayFrom(collection).forEach((x) => closeNavbar(x));
 }
 
 // NAVBAR EVENT LISTENERS
 // ======================
+/**
+ * @this {Element}
+ * @param {KeyboardEvent} e Event object
+ */
 function navbarKeyHandler(e) {
-  const { which } = e;
+  const { code } = e;
+  const menu = this;
   const { activeElement } = document;
-  const self = this[navbarComponent];
+  const self = getNavbarInstance(menu);
+  if (!activeElement || !menu.contains(activeElement)) return;
   const element = activeElement.closest('LI');
-  const openMenu = activeElement.closest(`.${openNavClass}`);
-  const subnavMenu = queryElement(`.${subnavClass}`, element);
+  if (!element) return;
+  // @ts-ignore
   const isMobile = checkNavbarView(self);
+  const { previousElementSibling } = element;
+  const { nextElementSibling } = element;
+  const openParentElement = element.closest(`.${openNavClass}`);
+  const parentMenu = element.closest('UL');
+  const [subnavMenu] = getElementsByClassName(subnavClass, element);
+  const preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
+  const isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
+  const sidePrevKey = isRTL() ? keyArrowRight : keyArrowLeft;
+  const sideNextKey = isRTL() ? keyArrowLeft : keyArrowRight;
+  const prevSelection = parentMenu && previousElementSibling
+    && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
+  const nextSelection = parentMenu && nextElementSibling
+    && ((code === keyArrowDown && isColumn) || (code === sideNextKey && !isColumn));
+  /** @type {Element?} */
+  let elementToFocus = null;
 
-  if (!isMobile && this.contains(activeElement) && which === 32) {
+  if (code === keyEscape && openParentElement) {
+    navbarLeaveHandler.call(openParentElement);
+    elementToFocus = openParentElement;
+  } else if (!isMobile && subnavMenu && code === keySpace) {
+    if (hasClass(element, openNavClass)) navbarLeaveHandler.call(element);
+    else navbarEnterHandler.call(element);
+  }
+
+  if (prevSelection && element !== parentMenu.firstElementChild) {
+    elementToFocus = previousElementSibling;
+  } else if (nextSelection && element !== parentMenu.lastElementChild) {
+    elementToFocus = nextElementSibling;
+  }
+
+  // @ts-ignore
+  if (elementToFocus) elementToFocus.firstElementChild.focus();
+
+  if (!isMobile && preventableEvents.includes(code)) {
     e.preventDefault();
-  }
-  if (which === 27 && openMenu) {
-    navbarLeaveHandler.call(openMenu);
-  }
-  if (element && subnavMenu && !isMobile) {
-    if (which === 32) {
-      if (hasClass(element, openNavClass)) navbarLeaveHandler.call(element);
-      else navbarEnterHandler.call(element);
-    }
   }
 }
 
+/**
+ * @this {Element}
+ * @param {PointerEvent} e Event object
+ */
 function navbarClickHandler(e) {
   e.preventDefault();
 
   const { target } = e;
   const that = this;
   const menu = that.closest(`${navbarSelector},.${navbarString}`);
-  const self = menu[navbarComponent];
+  const self = menu && getNavbarInstance(menu);
+  // @ts-ignore
   const { options, navbarToggle } = self;
 
+  // @ts-ignore
   if (self && (target === that || that.contains(target))) {
     const element = that.closest('LI') || menu;
     const toggleElement = that.closest(`.${navbarToggleClass}`) === navbarToggle
@@ -428,114 +739,126 @@ function navbarClickHandler(e) {
       : findChild(element, subnavToggleClass);
     const anchor = toggleElement === navbarToggle
       ? null : findChild(element, 'A');
-    const openSubs = element.getElementsByClassName(openMobileClass);
+    const openSubs = getElementsByClassName(openMobileClass, element);
 
     if (!hasClass(element, openMobileClass)) {
       if (anchor) anchor.dispatchEvent(showNavbarEvent);
-      if (showNavbarEvent.isDefaultPrevented) return;
+      if (showNavbarEvent.defaultPrevented) return;
 
       if (toggleElement !== navbarToggle) {
-        toggleNavbarResizeEvent(1);
+        toggleNavbarResizeEvent(true);
       }
 
       if (toggleElement !== navbarToggle) {
         const selection = options.toggleSiblings
-          ? element.parentNode.getElementsByClassName(openMobileClass)
+          // @ts-ignore element.parentElement is an `Element`
+          ? getElementsByClassName(openMobileClass, element.parentElement)
           : openSubs;
         closeNavbars(selection);
       }
       addClass(element, openMobileClass);
 
-      if (toggleElement) toggleElement.setAttribute(ariaExpanded, true);
+      if (toggleElement) setAttribute(toggleElement, ariaExpanded, 'true');
       if (anchor) {
-        anchor.setAttribute(ariaExpanded, true);
+        setAttribute(anchor, ariaExpanded, 'true');
         anchor.dispatchEvent(shownNavbarEvent);
       }
     } else {
       if (anchor) anchor.dispatchEvent(hideNavbarEvent);
-      if (hideNavbarEvent.isDefaultPrevented) return;
+      if (hideNavbarEvent.defaultPrevented) return;
 
       closeNavbars(openSubs);
       removeClass(element, openMobileClass);
 
       if (toggleElement) {
-        toggleElement.setAttribute(ariaExpanded, false);
+        setAttribute(toggleElement, ariaExpanded, 'false');
         toggleNavbarResizeEvent();
       }
       if (anchor) {
-        anchor.setAttribute(ariaExpanded, false);
+        setAttribute(anchor, ariaExpanded, 'false');
         anchor.dispatchEvent(hiddenNavbarEvent);
       }
     }
   }
 }
 
+/** @this {Element} */
 function navbarEnterHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
-  const self = menu && menu[navbarComponent];
+  const self = menu && getNavbarInstance(menu);
 
   // must always clear the timer
+  // @ts-ignore
   clearTimeout(self.timer);
   if (self && !checkNavbarView(self) && !hasClass(element, openNavClass)) {
     openNavbar(element);
   }
 }
 
+/** @this {Element} */
 function navbarLeaveHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
-  const self = menu && menu[navbarComponent];
+  const self = menu && getNavbarInstance(menu);
 
   if (self && !checkNavbarView(self) && hasClass(element, openNavClass)) {
+    // @ts-ignore
     clearTimeout(self.timer);
-    self.timer = setTimeout(() => closeNavbar(element, 1), self.options.delay);
+    // @ts-ignore
+    self.timer = setTimeout(() => closeNavbar(element, true), self.options.delay);
   }
 }
 
 // NAVBAR DEFINITION
 // =================
-
-/**
- * Creates a new Navbar for desktop and mobile navigation.
- * @class
- */
+/** Creates a new Navbar for desktop and mobile navigation. */
 class Navbar {
   /**
-   * Navbar constructor
-   * @constructor
    * @param {string | Element} target Element or selector
-   * @param {object | undefined} config instance options
+   * @param {Record<string, any>=} config instance options
    */
   constructor(target, config) {
     // bind
     const self = this;
 
     // instance targets
-    /** @private */
-    self.menu = queryElement(target);
+    /** @private @type {Element} */
+    // @ts-ignore
+    self.menu = querySelector(target);
     const { menu } = self;
 
     // reset on re-init
-    if (menu[navbarComponent]) menu[navbarComponent].dispose();
+    const existing = getNavbarInstance(menu);
+    if (existing) existing.dispose();
+
+    /** @private @type {Record<string, any>} */
+    self.options = normalizeOptions(menu, defaultNavbarOptions, config || {}, '');
 
     /** @private */
-    self.options = normalizeOptions(menu, defaultNavbarOptions, config || {});
+    self.items = getElementsByTagName('LI', menu);
+    /** @private @type {Element?} */
+    self.navbarToggle = null;
+    [self.navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
 
-    /** @private */
-    self.items = menu.getElementsByTagName('LI');
-    /** @private */
-    [self.navbarToggle] = menu.getElementsByClassName(navbarToggleClass);
-
-    /** @private */
+    /** @private @type {number?} */
     self.timer = null;
 
     // attach events
-    toggleNavbarEvents(self, 1);
+    toggleNavbarEvents(self, true);
 
     // attach instance to element
-    menu[navbarComponent] = self;
+    Data.set(menu, navbarComponent, self);
   }
+
+  /* eslint-disable */
+  /** @static */
+  get defaults() { return defaultNavbarOptions; }
+  /** @static */
+  get version() { return Version; }
+  /** @static */
+  get name() { return navbarComponent; }
+  /* eslint-enable */
 
   // NAVBAR PUBLIC METHOD
   // ====================
@@ -547,20 +870,15 @@ class Navbar {
     closeNavbars(self.items);
     toggleNavbarEvents(self);
     toggleNavbarResizeEvent();
-    delete self.menu[navbarComponent];
+    Data.remove(self.menu, navbarComponent);
   }
 }
 
-/**
- * An object with all necesary information
- * for Navbar component initialization.
- */
-Navbar.init = {
-  component: navbarComponent,
+ObjectAssign(Navbar, {
   selector: navbarSelector,
-  constructor: Navbar,
-  Version,
-};
+  init: initNavbarCallback,
+  getInstance: getNavbarInstance,
+});
 
 // DATA API
 /**
@@ -570,10 +888,10 @@ Navbar.init = {
 function initNavbar(context) {
   const lookup = context instanceof Element ? context : document;
 
-  const { selector, constructor } = Navbar.init;
+  const { selector, init } = Navbar;
   const navs = lookup.querySelectorAll(selector);
 
-  Array.from(navs).map((x) => new constructor(x));
+  Array.from(navs).map((x) => init(x));
 }
 // initialize when loaded
 if (document.body) initNavbar();

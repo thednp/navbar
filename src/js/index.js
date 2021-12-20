@@ -1,4 +1,4 @@
-import Navbar from './navbar.js';
-import './init.js';
+import Navbar from './navbar';
+import './init';
 
 export default Navbar;

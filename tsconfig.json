@@ -1,13 +1,20 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "moduleResolution": "Node",
     "declaration": true,
     "resolveJsonModule": true,
     "emitDeclarationOnly": true,
     "strict": true,
     "allowJs": true,
-    "rootDir": "src/js",
-    "outDir": "types"
+    "checkJs": true,
+    "rootDir": "../",
+    // "outFile": "types/navbar.d.ts", // comment after generate
+    "outDir": "types",
   },
-  "include": ["src/js/*"],
-  "exclude": ["dist", "demo", "types", "src/js/init.js", "src/js/polyfill.js"]
+  "types": [],
+  "files": [
+    "types/index.d.ts",
+    "types/source.ts",
+  ]
 }
