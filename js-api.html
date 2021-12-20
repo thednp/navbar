@@ -266,7 +266,7 @@ const myMenuInit = new Navbar(
 
 <div class="code-wrapper">
 <pre><code class="language-javascript">// access an initialization object
-const myNavbarInit = document.getElementById('myNavbar').Navbar;
+const myNavbarInit = Navbar.getInstance('#myNavbar');
 </code></pre></div>
 
           <h2>Custom Events</h2>
@@ -358,39 +358,46 @@ myMenuInit.dispose();
   <script src="./src/js/polyfill.min.js"></script>
   <script src="./src/js/navbar.min.js"></script>
   <script>
+    function toggleEvents(add) {
+      // events demo
+      var demoBTN = document.querySelector('[href="#navInitDemo"]');
+      var action = add ? 'addEventListener' : 'removeEventListener';
+      demoBTN[action]('show.navbar', function(e){
+        var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
+        console.log(err);
+      });
+      demoBTN[action]('shown.navbar', function(e){
+        var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
+        console.log(err);    
+      });
+      demoBTN[action]('hide.navbar', function(e){
+        var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
+        console.log(err);
+      });
+      demoBTN[action]('hidden.navbar', function(e){
+        var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
+        console.log(err);
+      });
+    }
     function toggleButtons() {
       var navInitDemo = document.getElementById('navInitDemo'),
         initCheck = document.getElementById('initCheck'),
         spanText = document.getElementById('spanText');
+        navbarInstance = null;
 
-      if (navInitDemo.Navbar) {
-        navInitDemo.Navbar.dispose();
+      if (navbarInstance = Navbar.getInstance('#navInitDemo')) {
+        navbarInstance.dispose();
         alert('NAV#' + navInitDemo.id + ' Destroyed');
         spanText.innerHTML = 'Initialize';
+        toggleEvents()
       } else {
-        new Navbar(navInitDemo);
+        new Navbar('#navInitDemo');
         alert('NAV#' + navInitDemo.id + ' Initialized');
         spanText.innerHTML = 'Dispose';
+        toggleEvents(true)
       }
     }
-    // events demo
-    var demoBTN = document.querySelector('[href="#navInitDemo"]');
-    demoBTN.addEventListener('show.navbar', function(e){
-      var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
-      console.log(err);
-    });
-    demoBTN.addEventListener('shown.navbar', function(e){
-      var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
-      console.log(err);    
-    });
-    demoBTN.addEventListener('hide.navbar', function(e){
-      var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
-      console.log(err);
-    });
-    demoBTN.addEventListener('hidden.navbar', function(e){
-      var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.href;
-      console.log(err);
-    });
+
   </script>
   <script src="./assets/js/prism.js"></script>
 
