@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.3 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.4 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -490,7 +490,7 @@ function getElementsByTagName(selector, parent) {
   return lookUp.getElementsByTagName(selector);
 }
 
-var version = "3.0.3";
+var version = "3.0.4";
 
 // @ts-ignore
 
@@ -554,7 +554,7 @@ function resizeNavbarHandler() {
 function checkNavbarView(self) { // returns TRUE if "is mobile"
   // @ts-ignore
   const { options, menu } = self;
-  const [firstToggle] = menu.getElementsByClassName(subnavToggleClass);
+  const [firstToggle] = getElementsByClassName(subnavToggleClass, menu);
   return (firstToggle && getElementStyle(firstToggle, 'display') !== 'none')
     || window.innerWidth < options.breakpoint;
 }
@@ -569,11 +569,8 @@ function toggleNavbarEvents(self, add) {
   const { items, navbarToggle, menu } = self;
 
   ArrayFrom(items).forEach((x) => {
-    // @ts-ignore
     if (hasClass(x.lastElementChild, subnavClass)) {
-      // @ts-ignore
       x[action](mouseenterEvent, navbarEnterHandler);
-      // @ts-ignore
       x[action](mouseleaveEvent, navbarLeaveHandler);
     }
 
@@ -686,8 +683,9 @@ function navbarKeyHandler(e) {
   const [subnavMenu] = getElementsByClassName(subnavClass, element);
   const preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
   const isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
-  const sidePrevKey = isRTL() ? keyArrowRight : keyArrowLeft;
-  const sideNextKey = isRTL() ? keyArrowLeft : keyArrowRight;
+  const RTL = isRTL();
+  const sidePrevKey = RTL ? keyArrowRight : keyArrowLeft;
+  const sideNextKey = RTL ? keyArrowLeft : keyArrowRight;
   const prevSelection = parentMenu && previousElementSibling
     && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
   const nextSelection = parentMenu && nextElementSibling
@@ -787,13 +785,17 @@ function navbarEnterHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-
-  // must always clear the timer
   // @ts-ignore
+  if (!self) return;
+
+  // @ts-ignore -- never change the clearTimeout structure
   clearTimeout(self.timer);
-  if (self && !checkNavbarView(self) && !hasClass(element, openNavClass)) {
-    openNavbar(element);
-  }
+  // @ts-ignore
+  self.timer = setTimeout(() => {
+    if (!checkNavbarView(self) && !hasClass(element, openNavClass)) {
+      openNavbar(element);
+    }
+  }, 17);
 }
 
 /** @this {Element} */
@@ -801,13 +803,17 @@ function navbarLeaveHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
+  if (!self) return;
 
-  if (self && !checkNavbarView(self) && hasClass(element, openNavClass)) {
-    // @ts-ignore
-    clearTimeout(self.timer);
-    // @ts-ignore
-    self.timer = setTimeout(() => closeNavbar(element, true), self.options.delay);
-  }
+  // @ts-ignore -- never change the clearTimeout structure
+  clearTimeout(self.timer);
+  // @ts-ignore
+  self.timer = setTimeout(() => {
+    if (!checkNavbarView(self) && hasClass(element, openNavClass)) {
+      closeNavbar(element, true);
+    }
+  // @ts-ignore
+  }, self.options.delay);
 }
 
 // NAVBAR DEFINITION

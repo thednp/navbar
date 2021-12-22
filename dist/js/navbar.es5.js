@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.3 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.4 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -496,7 +496,7 @@
     return lookUp.getElementsByTagName(selector);
   }
 
-  var version = "3.0.3";
+  var version = "3.0.4";
 
   // @ts-ignore
 
@@ -561,7 +561,7 @@
     // @ts-ignore
     var options = self.options;
     var menu = self.menu;
-    var ref = menu.getElementsByClassName(subnavToggleClass);
+    var ref = getElementsByClassName(subnavToggleClass, menu);
     var firstToggle = ref[0];
     return (firstToggle && getElementStyle(firstToggle, 'display') !== 'none')
       || window.innerWidth < options.breakpoint;
@@ -579,11 +579,8 @@
     var menu = self.menu;
 
     ArrayFrom(items).forEach(function (x) {
-      // @ts-ignore
       if (hasClass(x.lastElementChild, subnavClass)) {
-        // @ts-ignore
         x[action](mouseenterEvent, navbarEnterHandler);
-        // @ts-ignore
         x[action](mouseleaveEvent, navbarLeaveHandler);
       }
 
@@ -698,8 +695,9 @@
     var subnavMenu = ref[0];
     var preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
     var isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
-    var sidePrevKey = isRTL() ? keyArrowRight : keyArrowLeft;
-    var sideNextKey = isRTL() ? keyArrowLeft : keyArrowRight;
+    var RTL = isRTL();
+    var sidePrevKey = RTL ? keyArrowRight : keyArrowLeft;
+    var sideNextKey = RTL ? keyArrowLeft : keyArrowRight;
     var prevSelection = parentMenu && previousElementSibling
       && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
     var nextSelection = parentMenu && nextElementSibling
@@ -800,13 +798,17 @@
     var element = this;
     var menu = element.closest((navbarSelector + ",." + navbarString));
     var self = menu && getNavbarInstance(menu);
-
-    // must always clear the timer
     // @ts-ignore
+    if (!self) { return; }
+
+    // @ts-ignore -- never change the clearTimeout structure
     clearTimeout(self.timer);
-    if (self && !checkNavbarView(self) && !hasClass(element, openNavClass)) {
-      openNavbar(element);
-    }
+    // @ts-ignore
+    self.timer = setTimeout(function () {
+      if (!checkNavbarView(self) && !hasClass(element, openNavClass)) {
+        openNavbar(element);
+      }
+    }, 17);
   }
 
   /** @this {Element} */
@@ -814,13 +816,17 @@
     var element = this;
     var menu = element.closest((navbarSelector + ",." + navbarString));
     var self = menu && getNavbarInstance(menu);
+    if (!self) { return; }
 
-    if (self && !checkNavbarView(self) && hasClass(element, openNavClass)) {
-      // @ts-ignore
-      clearTimeout(self.timer);
-      // @ts-ignore
-      self.timer = setTimeout(function () { return closeNavbar(element, true); }, self.options.delay);
-    }
+    // @ts-ignore -- never change the clearTimeout structure
+    clearTimeout(self.timer);
+    // @ts-ignore
+    self.timer = setTimeout(function () {
+      if (!checkNavbarView(self) && hasClass(element, openNavClass)) {
+        closeNavbar(element, true);
+      }
+    // @ts-ignore
+    }, self.options.delay);
   }
 
   // NAVBAR DEFINITION
