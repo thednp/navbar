@@ -24,8 +24,6 @@ declare module "navbar.js/src/js/navbar" {
         private items;
         /** @private @type {Element?} */
         private navbarToggle;
-        /** @private @type {number?} */
-        private timer;
         /** @static */
         get defaults(): {
             breakpoint: number;

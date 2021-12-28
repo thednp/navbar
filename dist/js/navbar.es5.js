@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.4 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.5 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -92,6 +92,103 @@
    * @type {string}
    */
   var resizeEvent = 'resize';
+
+  /**
+   * Checks if an object is an `Element`.
+   *
+   * @param {any} element the target object
+   * @returns {boolean} the query result
+   */
+  function isElement(element) {
+    return element instanceof Element;
+  }
+
+  /**
+   * Utility to check if target is typeof `Element`
+   * or find one that matches a selector.
+   *
+   * @param {Element | string} selector the input selector or target element
+   * @param {Element=} parent optional Element to look into
+   * @return {Element?} the Element or `querySelector` result
+   */
+  function querySelector(selector, parent) {
+    var lookUp = parent && isElement(parent) ? parent : document;
+    // @ts-ignore -- `isElement` is just as good
+    return isElement(selector) ? selector : lookUp.querySelector(selector);
+  }
+
+  var TimeCache = new Map();
+
+  var Timer = {
+    /**
+     * Sets a new timeout timer for an element, or element -> key association.
+     * @param {Element | string} target target element
+     * @param {ReturnType<TimerHandler>} callback the callback
+     * @param {number} delay the execution delay
+     * @param {string=} key a unique
+     */
+    set: function (target, callback, delay, key) {
+      var element = querySelector(target);
+      if (!isElement(element)) { return; }
+
+      if (typeof key === 'string' && key.length) {
+        if (!TimeCache.has(element)) {
+          TimeCache.set(element, new Map());
+        }
+        var keyTimers = TimeCache.get(element);
+        keyTimers.set(key, setTimeout(callback, delay));
+      } else {
+        TimeCache.set(element, setTimeout(callback, delay));
+      }
+    },
+
+    /**
+     * Returns the timer associated with the target.
+     * @param {Element | string} target target element
+     * @param {string=} key a unique
+     * @returns {Map<Element, TimerHandler>?} the timer
+     */
+    get: function (target, key) {
+      var element = querySelector(target);
+      if (!isElement(element)) { return null; }
+
+      if (typeof key === 'string' && key.length) {
+        if (!TimeCache.has(element)) {
+          TimeCache.set(element, new Map());
+        }
+        var keyTimers = TimeCache.get(element);
+        if (keyTimers.has(key)) {
+          return keyTimers.get(key);
+        }
+      } else if (TimeCache.has(element)) {
+        return TimeCache.get(element);
+      }
+      return null;
+    },
+
+    /**
+     * Clears the element's timer.
+     * @param {Element} target target element
+     * @param {string=} key a unique
+     */
+    clear: function (target, key) {
+      var element = querySelector(target);
+
+      if (!isElement(element) || !TimeCache.has(element)) { return; }
+
+      if (typeof key === 'string' && key.length) {
+        var keyTimers = TimeCache.get(element);
+
+        if (keyTimers && keyTimers.has(key)) {
+          clearTimeout(keyTimers.get(key));
+          keyTimers.delete(key);
+        }
+      } else if (TimeCache.has(element)) {
+        clearTimeout(TimeCache.get(element));
+        TimeCache.delete(element);
+      }
+    },
+  };
 
   /**
    * A global namespace for 'transitionend' string.
@@ -224,30 +321,6 @@
   var passiveHandler = supportPassive ? { passive: true } : false;
 
   /**
-   * Checks if an object is an `Element`.
-   *
-   * @param {any} element the target object
-   * @returns {boolean} the query result
-   */
-  function isElement(element) {
-    return element instanceof Element;
-  }
-
-  /**
-   * Utility to check if target is typeof `Element`
-   * or find one that matches a selector.
-   *
-   * @param {Element | string} selector the input selector or target element
-   * @param {Element=} parent optional Element to look into
-   * @return {Element?} the Element or `querySelector` result
-   */
-  function querySelector(selector, parent) {
-    var lookUp = parent && isElement(parent) ? parent : document;
-    // @ts-ignore -- `isElement` is just as good
-    return isElement(selector) ? selector : lookUp.querySelector(selector);
-  }
-
-  /**
    * The raw value or a given component option.
    *
    * @typedef {string | Element | Function | number | boolean | null} niceValue
@@ -281,6 +354,13 @@
   }
 
   /**
+   * Shortcut for `Object.keys()` static method.
+   * @param  {Record<string, any>} obj a target object
+   * @returns {string[]}
+   */
+  var ObjectKeys = function (obj) { return Object.keys(obj); };
+
+  /**
    * Utility to normalize component options
    *
    * @param {Element} element target
@@ -295,30 +375,27 @@
     var normalOps = {};
     var dataOps = {};
 
-    Object.keys(data)
-      .forEach(function (k) {
-        var key = ns && k.includes(ns)
-          ? k.replace(ns, '').replace(/[A-Z]/, function (match) { return match.toLowerCase(); })
-          : k;
+    ObjectKeys(data).forEach(function (k) {
+      var key = ns && k.includes(ns)
+        ? k.replace(ns, '').replace(/[A-Z]/, function (match) { return match.toLowerCase(); })
+        : k;
 
-        dataOps[key] = normalizeValue(data[k]);
-      });
+      dataOps[key] = normalizeValue(data[k]);
+    });
 
-    Object.keys(inputOps)
-      .forEach(function (k) {
-        inputOps[k] = normalizeValue(inputOps[k]);
-      });
+    ObjectKeys(inputOps).forEach(function (k) {
+      inputOps[k] = normalizeValue(inputOps[k]);
+    });
 
-    Object.keys(defaultOps)
-      .forEach(function (k) {
-        if (k in inputOps) {
-          normalOps[k] = inputOps[k];
-        } else if (k in dataOps) {
-          normalOps[k] = dataOps[k];
-        } else {
-          normalOps[k] = defaultOps[k];
-        }
-      });
+    ObjectKeys(defaultOps).forEach(function (k) {
+      if (k in inputOps) {
+        normalOps[k] = inputOps[k];
+      } else if (k in dataOps) {
+        normalOps[k] = dataOps[k];
+      } else {
+        normalOps[k] = defaultOps[k];
+      }
+    });
 
     return normalOps;
   }
@@ -496,7 +573,7 @@
     return lookUp.getElementsByTagName(selector);
   }
 
-  var version = "3.0.4";
+  var version = "3.0.5";
 
   // @ts-ignore
 
@@ -556,8 +633,11 @@
     toggleNavbarResizeEvent();
   }
 
-  /** @param {Navbar} self */
-  function checkNavbarView(self) { // returns TRUE if "is mobile"
+  /**
+   * Returns `TRUE` if is mobile.
+   * @param {Navbar} self
+   */
+  function checkNavbarView(self) {
     // @ts-ignore
     var options = self.options;
     var menu = self.menu;
@@ -610,6 +690,15 @@
     var subMenu = findChild(element, subnavClass);
     var anchor = findChild(element, 'A');
 
+    var navOpenTransitionEnd = function () {
+      Timer.clear(element, 'in');
+
+      if (anchor) {
+        anchor.dispatchEvent(shownNavbarEvent);
+        setAttribute(anchor, ariaExpanded, 'true');
+      }
+    };
+
     if (anchor) {
       anchor.dispatchEvent(showNavbarEvent);
       if (showNavbarEvent.defaultPrevented) { return; }
@@ -618,17 +707,12 @@
     addClass(element, openPositionClass);
     addClass(element, openNavClass);
 
-    if (anchor) { setAttribute(anchor, ariaExpanded, 'true'); }
-
     // @ts-ignore
     var siblings = getElementsByTagName('LI', element.parentElement);
     closeNavbars(ArrayFrom(siblings).filter(function (x) { return x !== element; }));
 
-    if (anchor && subMenu) {
-      emulateTransitionEnd(subMenu, function () {
-        anchor.dispatchEvent(shownNavbarEvent);
-      });
-    }
+    if (subMenu) { emulateTransitionEnd(subMenu, navOpenTransitionEnd); }
+    else { navOpenTransitionEnd(); }
   }
 
   /**
@@ -639,9 +723,13 @@
     var subMenu = findChild(element, subnavClass);
     var anchor = findChild(element, 'A');
     var toggleElement = findChild(element, subnavToggleClass);
-    var navTransitionEndHandler = function () {
+    var navCloseTransitionEnd = function () {
       removeClass(element, openPositionClass);
-      if (anchor) { anchor.dispatchEvent(hiddenNavbarEvent); }
+      Timer.clear(element, 'out');
+      if (anchor) {
+        anchor.dispatchEvent(hiddenNavbarEvent);
+        setAttribute(anchor, ariaExpanded, 'false');
+      }
     };
 
     if (hasClass(element, openNavClass)) {
@@ -650,9 +738,8 @@
         if (hideNavbarEvent.defaultPrevented) { return; }
       }
       removeClass(element, openNavClass);
-      if (leave && subMenu) { emulateTransitionEnd(subMenu, navTransitionEndHandler); }
-      else { navTransitionEndHandler(); }
-      if (anchor) { setAttribute(anchor, ariaExpanded, 'false'); }
+      if (leave && subMenu) { emulateTransitionEnd(subMenu, navCloseTransitionEnd); }
+      else { navCloseTransitionEnd(); }
     }
     if (hasClass(element, openMobileClass)) {
       if (anchor) { anchor.dispatchEvent(hideNavbarEvent); }
@@ -798,17 +885,18 @@
     var element = this;
     var menu = element.closest((navbarSelector + ",." + navbarString));
     var self = menu && getNavbarInstance(menu);
-    // @ts-ignore
-    if (!self) { return; }
+    var timerOut = Timer.get(element, 'out');
 
-    // @ts-ignore -- never change the clearTimeout structure
-    clearTimeout(self.timer);
     // @ts-ignore
-    self.timer = setTimeout(function () {
-      if (!checkNavbarView(self) && !hasClass(element, openNavClass)) {
-        openNavbar(element);
-      }
-    }, 17);
+    if (!self || checkNavbarView(self)) { return; }
+
+    Timer.clear(element, 'out');
+
+    if (!hasClass(element, openNavClass) && !timerOut) {
+      var enterCallback = function () { return openNavbar(element); };
+
+      Timer.set(element, enterCallback, 17, 'in');
+    }
   }
 
   /** @this {Element} */
@@ -816,17 +904,17 @@
     var element = this;
     var menu = element.closest((navbarSelector + ",." + navbarString));
     var self = menu && getNavbarInstance(menu);
-    if (!self) { return; }
 
-    // @ts-ignore -- never change the clearTimeout structure
-    clearTimeout(self.timer);
     // @ts-ignore
-    self.timer = setTimeout(function () {
-      if (!checkNavbarView(self) && hasClass(element, openNavClass)) {
-        closeNavbar(element, true);
-      }
-    // @ts-ignore
-    }, self.options.delay);
+    if (!self || checkNavbarView(self)) { return; }
+
+    if (hasClass(element, openNavClass)) {
+      Timer.clear(element, 'in');
+      var leaveCallback = function () { return closeNavbar(element, true); };
+
+      // @ts-ignore
+      Timer.set(element, leaveCallback, self.options.delay, 'out');
+    }
   }
 
   // NAVBAR DEFINITION
@@ -856,9 +944,6 @@
     /** @private @type {Element?} */
     self.navbarToggle = null;
     (assign = getElementsByClassName(navbarToggleClass, menu), self.navbarToggle = assign[0]);
-
-    /** @private @type {number?} */
-    self.timer = null;
 
     // attach events
     toggleNavbarEvents(self, true);

@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.4 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.5 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2021 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -86,6 +86,103 @@ const keydownEvent = 'keydown';
  * @type {string}
  */
 const resizeEvent = 'resize';
+
+/**
+ * Checks if an object is an `Element`.
+ *
+ * @param {any} element the target object
+ * @returns {boolean} the query result
+ */
+function isElement(element) {
+  return element instanceof Element;
+}
+
+/**
+ * Utility to check if target is typeof `Element`
+ * or find one that matches a selector.
+ *
+ * @param {Element | string} selector the input selector or target element
+ * @param {Element=} parent optional Element to look into
+ * @return {Element?} the Element or `querySelector` result
+ */
+function querySelector(selector, parent) {
+  const lookUp = parent && isElement(parent) ? parent : document;
+  // @ts-ignore -- `isElement` is just as good
+  return isElement(selector) ? selector : lookUp.querySelector(selector);
+}
+
+const TimeCache = new Map();
+
+const Timer = {
+  /**
+   * Sets a new timeout timer for an element, or element -> key association.
+   * @param {Element | string} target target element
+   * @param {ReturnType<TimerHandler>} callback the callback
+   * @param {number} delay the execution delay
+   * @param {string=} key a unique
+   */
+  set: (target, callback, delay, key) => {
+    const element = querySelector(target);
+    if (!isElement(element)) return;
+
+    if (typeof key === 'string' && key.length) {
+      if (!TimeCache.has(element)) {
+        TimeCache.set(element, new Map());
+      }
+      const keyTimers = TimeCache.get(element);
+      keyTimers.set(key, setTimeout(callback, delay));
+    } else {
+      TimeCache.set(element, setTimeout(callback, delay));
+    }
+  },
+
+  /**
+   * Returns the timer associated with the target.
+   * @param {Element | string} target target element
+   * @param {string=} key a unique
+   * @returns {Map<Element, TimerHandler>?} the timer
+   */
+  get: (target, key) => {
+    const element = querySelector(target);
+    if (!isElement(element)) return null;
+
+    if (typeof key === 'string' && key.length) {
+      if (!TimeCache.has(element)) {
+        TimeCache.set(element, new Map());
+      }
+      const keyTimers = TimeCache.get(element);
+      if (keyTimers.has(key)) {
+        return keyTimers.get(key);
+      }
+    } else if (TimeCache.has(element)) {
+      return TimeCache.get(element);
+    }
+    return null;
+  },
+
+  /**
+   * Clears the element's timer.
+   * @param {Element} target target element
+   * @param {string=} key a unique
+   */
+  clear: (target, key) => {
+    const element = querySelector(target);
+
+    if (!isElement(element) || !TimeCache.has(element)) return;
+
+    if (typeof key === 'string' && key.length) {
+      const keyTimers = TimeCache.get(element);
+
+      if (keyTimers && keyTimers.has(key)) {
+        clearTimeout(keyTimers.get(key));
+        keyTimers.delete(key);
+      }
+    } else if (TimeCache.has(element)) {
+      clearTimeout(TimeCache.get(element));
+      TimeCache.delete(element);
+    }
+  },
+};
 
 /**
  * A global namespace for 'transitionend' string.
@@ -218,30 +315,6 @@ const supportPassive = (() => {
 const passiveHandler = supportPassive ? { passive: true } : false;
 
 /**
- * Checks if an object is an `Element`.
- *
- * @param {any} element the target object
- * @returns {boolean} the query result
- */
-function isElement(element) {
-  return element instanceof Element;
-}
-
-/**
- * Utility to check if target is typeof `Element`
- * or find one that matches a selector.
- *
- * @param {Element | string} selector the input selector or target element
- * @param {Element=} parent optional Element to look into
- * @return {Element?} the Element or `querySelector` result
- */
-function querySelector(selector, parent) {
-  const lookUp = parent && isElement(parent) ? parent : document;
-  // @ts-ignore -- `isElement` is just as good
-  return isElement(selector) ? selector : lookUp.querySelector(selector);
-}
-
-/**
  * The raw value or a given component option.
  *
  * @typedef {string | Element | Function | number | boolean | null} niceValue
@@ -275,6 +348,13 @@ function normalizeValue(value) {
 }
 
 /**
+ * Shortcut for `Object.keys()` static method.
+ * @param  {Record<string, any>} obj a target object
+ * @returns {string[]}
+ */
+const ObjectKeys = (obj) => Object.keys(obj);
+
+/**
  * Utility to normalize component options
  *
  * @param {Element} element target
@@ -289,30 +369,27 @@ function normalizeOptions(element, defaultOps, inputOps, ns) {
   const normalOps = {};
   const dataOps = {};
 
-  Object.keys(data)
-    .forEach((k) => {
-      const key = ns && k.includes(ns)
-        ? k.replace(ns, '').replace(/[A-Z]/, (match) => match.toLowerCase())
-        : k;
+  ObjectKeys(data).forEach((k) => {
+    const key = ns && k.includes(ns)
+      ? k.replace(ns, '').replace(/[A-Z]/, (match) => match.toLowerCase())
+      : k;
 
-      dataOps[key] = normalizeValue(data[k]);
-    });
+    dataOps[key] = normalizeValue(data[k]);
+  });
 
-  Object.keys(inputOps)
-    .forEach((k) => {
-      inputOps[k] = normalizeValue(inputOps[k]);
-    });
+  ObjectKeys(inputOps).forEach((k) => {
+    inputOps[k] = normalizeValue(inputOps[k]);
+  });
 
-  Object.keys(defaultOps)
-    .forEach((k) => {
-      if (k in inputOps) {
-        normalOps[k] = inputOps[k];
-      } else if (k in dataOps) {
-        normalOps[k] = dataOps[k];
-      } else {
-        normalOps[k] = defaultOps[k];
-      }
-    });
+  ObjectKeys(defaultOps).forEach((k) => {
+    if (k in inputOps) {
+      normalOps[k] = inputOps[k];
+    } else if (k in dataOps) {
+      normalOps[k] = dataOps[k];
+    } else {
+      normalOps[k] = defaultOps[k];
+    }
+  });
 
   return normalOps;
 }
@@ -490,7 +567,7 @@ function getElementsByTagName(selector, parent) {
   return lookUp.getElementsByTagName(selector);
 }
 
-var version = "3.0.4";
+var version = "3.0.5";
 
 // @ts-ignore
 
@@ -550,8 +627,11 @@ function resizeNavbarHandler() {
   toggleNavbarResizeEvent();
 }
 
-/** @param {Navbar} self */
-function checkNavbarView(self) { // returns TRUE if "is mobile"
+/**
+ * Returns `TRUE` if is mobile.
+ * @param {Navbar} self
+ */
+function checkNavbarView(self) {
   // @ts-ignore
   const { options, menu } = self;
   const [firstToggle] = getElementsByClassName(subnavToggleClass, menu);
@@ -599,6 +679,15 @@ function openNavbar(element) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
 
+  const navOpenTransitionEnd = () => {
+    Timer.clear(element, 'in');
+
+    if (anchor) {
+      anchor.dispatchEvent(shownNavbarEvent);
+      setAttribute(anchor, ariaExpanded, 'true');
+    }
+  };
+
   if (anchor) {
     anchor.dispatchEvent(showNavbarEvent);
     if (showNavbarEvent.defaultPrevented) return;
@@ -607,17 +696,12 @@ function openNavbar(element) {
   addClass(element, openPositionClass);
   addClass(element, openNavClass);
 
-  if (anchor) setAttribute(anchor, ariaExpanded, 'true');
-
   // @ts-ignore
   const siblings = getElementsByTagName('LI', element.parentElement);
   closeNavbars(ArrayFrom(siblings).filter((x) => x !== element));
 
-  if (anchor && subMenu) {
-    emulateTransitionEnd(subMenu, () => {
-      anchor.dispatchEvent(shownNavbarEvent);
-    });
-  }
+  if (subMenu) emulateTransitionEnd(subMenu, navOpenTransitionEnd);
+  else navOpenTransitionEnd();
 }
 
 /**
@@ -628,9 +712,13 @@ function closeNavbar(element, leave) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
   const toggleElement = findChild(element, subnavToggleClass);
-  const navTransitionEndHandler = () => {
+  const navCloseTransitionEnd = () => {
     removeClass(element, openPositionClass);
-    if (anchor) anchor.dispatchEvent(hiddenNavbarEvent);
+    Timer.clear(element, 'out');
+    if (anchor) {
+      anchor.dispatchEvent(hiddenNavbarEvent);
+      setAttribute(anchor, ariaExpanded, 'false');
+    }
   };
 
   if (hasClass(element, openNavClass)) {
@@ -639,9 +727,8 @@ function closeNavbar(element, leave) {
       if (hideNavbarEvent.defaultPrevented) return;
     }
     removeClass(element, openNavClass);
-    if (leave && subMenu) emulateTransitionEnd(subMenu, navTransitionEndHandler);
-    else navTransitionEndHandler();
-    if (anchor) setAttribute(anchor, ariaExpanded, 'false');
+    if (leave && subMenu) emulateTransitionEnd(subMenu, navCloseTransitionEnd);
+    else navCloseTransitionEnd();
   }
   if (hasClass(element, openMobileClass)) {
     if (anchor) anchor.dispatchEvent(hideNavbarEvent);
@@ -785,17 +872,18 @@ function navbarEnterHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-  // @ts-ignore
-  if (!self) return;
+  const timerOut = Timer.get(element, 'out');
 
-  // @ts-ignore -- never change the clearTimeout structure
-  clearTimeout(self.timer);
   // @ts-ignore
-  self.timer = setTimeout(() => {
-    if (!checkNavbarView(self) && !hasClass(element, openNavClass)) {
-      openNavbar(element);
-    }
-  }, 17);
+  if (!self || checkNavbarView(self)) return;
+
+  Timer.clear(element, 'out');
+
+  if (!hasClass(element, openNavClass) && !timerOut) {
+    const enterCallback = () => openNavbar(element);
+
+    Timer.set(element, enterCallback, 17, 'in');
+  }
 }
 
 /** @this {Element} */
@@ -803,17 +891,17 @@ function navbarLeaveHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-  if (!self) return;
 
-  // @ts-ignore -- never change the clearTimeout structure
-  clearTimeout(self.timer);
   // @ts-ignore
-  self.timer = setTimeout(() => {
-    if (!checkNavbarView(self) && hasClass(element, openNavClass)) {
-      closeNavbar(element, true);
-    }
-  // @ts-ignore
-  }, self.options.delay);
+  if (!self || checkNavbarView(self)) return;
+
+  if (hasClass(element, openNavClass)) {
+    Timer.clear(element, 'in');
+    const leaveCallback = () => closeNavbar(element, true);
+
+    // @ts-ignore
+    Timer.set(element, leaveCallback, self.options.delay, 'out');
+  }
 }
 
 // NAVBAR DEFINITION
@@ -846,9 +934,6 @@ class Navbar {
     /** @private @type {Element?} */
     self.navbarToggle = null;
     [self.navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
-
-    /** @private @type {number?} */
-    self.timer = null;
 
     // attach events
     toggleNavbarEvents(self, true);

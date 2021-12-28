@@ -12,6 +12,7 @@ import mouseleaveEvent from 'shorter-js/src/strings/mouseleaveEvent';
 import mouseclickEvent from 'shorter-js/src/strings/mouseclickEvent';
 import keydownEvent from 'shorter-js/src/strings/keydownEvent';
 import resizeEvent from 'shorter-js/src/strings/resizeEvent';
+import Timer from 'shorter-js/src/misc/timer';
 
 import emulateTransitionEnd from 'shorter-js/src/misc/emulateTransitionEnd';
 import passiveHandler from 'shorter-js/src/misc/passiveHandler';
@@ -85,8 +86,11 @@ function resizeNavbarHandler() {
   toggleNavbarResizeEvent();
 }
 
-/** @param {Navbar} self */
-function checkNavbarView(self) { // returns TRUE if "is mobile"
+/**
+ * Returns `TRUE` if is mobile.
+ * @param {Navbar} self
+ */
+function checkNavbarView(self) {
   // @ts-ignore
   const { options, menu } = self;
   const [firstToggle] = getElementsByClassName(subnavToggleClass, menu);
@@ -134,6 +138,15 @@ function openNavbar(element) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
 
+  const navOpenTransitionEnd = () => {
+    Timer.clear(element, 'in');
+
+    if (anchor) {
+      anchor.dispatchEvent(shownNavbarEvent);
+      setAttribute(anchor, ariaExpanded, 'true');
+    }
+  };
+
   if (anchor) {
     anchor.dispatchEvent(showNavbarEvent);
     if (showNavbarEvent.defaultPrevented) return;
@@ -142,17 +155,12 @@ function openNavbar(element) {
   addClass(element, openPositionClass);
   addClass(element, openNavClass);
 
-  if (anchor) setAttribute(anchor, ariaExpanded, 'true');
-
   // @ts-ignore
   const siblings = getElementsByTagName('LI', element.parentElement);
   closeNavbars(ArrayFrom(siblings).filter((x) => x !== element));
 
-  if (anchor && subMenu) {
-    emulateTransitionEnd(subMenu, () => {
-      anchor.dispatchEvent(shownNavbarEvent);
-    });
-  }
+  if (subMenu) emulateTransitionEnd(subMenu, navOpenTransitionEnd);
+  else navOpenTransitionEnd();
 }
 
 /**
@@ -163,9 +171,13 @@ function closeNavbar(element, leave) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
   const toggleElement = findChild(element, subnavToggleClass);
-  const navTransitionEndHandler = () => {
+  const navCloseTransitionEnd = () => {
     removeClass(element, openPositionClass);
-    if (anchor) anchor.dispatchEvent(hiddenNavbarEvent);
+    Timer.clear(element, 'out');
+    if (anchor) {
+      anchor.dispatchEvent(hiddenNavbarEvent);
+      setAttribute(anchor, ariaExpanded, 'false');
+    }
   };
 
   if (hasClass(element, openNavClass)) {
@@ -174,9 +186,8 @@ function closeNavbar(element, leave) {
       if (hideNavbarEvent.defaultPrevented) return;
     }
     removeClass(element, openNavClass);
-    if (leave && subMenu) emulateTransitionEnd(subMenu, navTransitionEndHandler);
-    else navTransitionEndHandler();
-    if (anchor) setAttribute(anchor, ariaExpanded, 'false');
+    if (leave && subMenu) emulateTransitionEnd(subMenu, navCloseTransitionEnd);
+    else navCloseTransitionEnd();
   }
   if (hasClass(element, openMobileClass)) {
     if (anchor) anchor.dispatchEvent(hideNavbarEvent);
@@ -320,17 +331,18 @@ function navbarEnterHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-  // @ts-ignore
-  if (!self) return;
+  const timerOut = Timer.get(element, 'out');
 
-  // @ts-ignore -- never change the clearTimeout structure
-  clearTimeout(self.timer);
   // @ts-ignore
-  self.timer = setTimeout(() => {
-    if (!checkNavbarView(self) && !hasClass(element, openNavClass)) {
-      openNavbar(element);
-    }
-  }, 17);
+  if (!self || checkNavbarView(self)) return;
+
+  Timer.clear(element, 'out');
+
+  if (!hasClass(element, openNavClass) && !timerOut) {
+    const enterCallback = () => openNavbar(element);
+
+    Timer.set(element, enterCallback, 17, 'in');
+  }
 }
 
 /** @this {Element} */
@@ -338,17 +350,17 @@ function navbarLeaveHandler() {
   const element = this;
   const menu = element.closest(`${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-  if (!self) return;
 
-  // @ts-ignore -- never change the clearTimeout structure
-  clearTimeout(self.timer);
   // @ts-ignore
-  self.timer = setTimeout(() => {
-    if (!checkNavbarView(self) && hasClass(element, openNavClass)) {
-      closeNavbar(element, true);
-    }
-  // @ts-ignore
-  }, self.options.delay);
+  if (!self || checkNavbarView(self)) return;
+
+  if (hasClass(element, openNavClass)) {
+    Timer.clear(element, 'in');
+    const leaveCallback = () => closeNavbar(element, true);
+
+    // @ts-ignore
+    Timer.set(element, leaveCallback, self.options.delay, 'out');
+  }
 }
 
 // NAVBAR DEFINITION
@@ -381,9 +393,6 @@ export default class Navbar {
     /** @private @type {Element?} */
     self.navbarToggle = null;
     [self.navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
-
-    /** @private @type {number?} */
-    self.timer = null;
 
     // attach events
     toggleNavbarEvents(self, true);
