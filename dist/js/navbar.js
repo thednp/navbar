@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.5 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.6 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -654,7 +654,7 @@
     return null;
   }
 
-  var version = "3.0.5";
+  var version = "3.0.6";
 
   // @ts-ignore
 
