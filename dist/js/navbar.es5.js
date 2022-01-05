@@ -1,6 +1,6 @@
 /*!
 * Navbar.js v3.0.5 (http://thednp.github.io/navbar.js)
-* Copyright 2016-2021 © thednp
+* Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
 (function (global, factory) {
@@ -94,44 +94,42 @@
   var resizeEvent = 'resize';
 
   /**
-   * Checks if an object is an `Element`.
-   *
-   * @param {any} element the target object
-   * @returns {boolean} the query result
-   */
-  function isElement(element) {
-    return element instanceof Element;
-  }
-
-  /**
-   * Utility to check if target is typeof `Element`
+   * Utility to check if target is typeof `HTMLElement`, `Element`, `Node`
    * or find one that matches a selector.
    *
-   * @param {Element | string} selector the input selector or target element
-   * @param {Element=} parent optional Element to look into
-   * @return {Element?} the Element or `querySelector` result
+   * @param {HTMLElement | string} selector the input selector or target element
+   * @param {(Node | Element | HTMLElement)=} parent optional node to look into
+   * @return {HTMLElement?} the `HTMLElement` or `querySelector` result
    */
   function querySelector(selector, parent) {
-    var lookUp = parent && isElement(parent) ? parent : document;
-    // @ts-ignore -- `isElement` is just as good
-    return isElement(selector) ? selector : lookUp.querySelector(selector);
+    var nodeTypes = [HTMLElement, Element, Node];
+    var lookUp = parent && nodeTypes.some(function (x) { return parent instanceof x; }) ? parent : document;
+
+    return nodeTypes.some(function (x) { return selector instanceof x; })
+      // @ts-ignore -- we must include ShadowRoot Node
+      ? selector : lookUp.querySelector(selector);
   }
 
+  /** @type {Map<HTMLElement, any>} */
   var TimeCache = new Map();
-
+  /**
+   * An interface for one or more `TimerHandler`s per `Element`.
+   * @see https://github.com/thednp/navbar.js/
+   */
   var Timer = {
     /**
      * Sets a new timeout timer for an element, or element -> key association.
-     * @param {Element | string} target target element
+     * @param {HTMLElement | string} target target element
      * @param {ReturnType<TimerHandler>} callback the callback
      * @param {number} delay the execution delay
      * @param {string=} key a unique
      */
     set: function (target, callback, delay, key) {
       var element = querySelector(target);
-      if (!isElement(element)) { return; }
 
-      if (typeof key === 'string' && key.length) {
+      if (!element) { return; }
+
+      if (key && key.length) {
         if (!TimeCache.has(element)) {
           TimeCache.set(element, new Map());
         }
@@ -144,15 +142,16 @@
 
     /**
      * Returns the timer associated with the target.
-     * @param {Element | string} target target element
+     * @param {HTMLElement | string} target target element
      * @param {string=} key a unique
-     * @returns {Map<Element, TimerHandler>?} the timer
+     * @returns {ReturnType<TimerHandler>?} the timer
      */
     get: function (target, key) {
       var element = querySelector(target);
-      if (!isElement(element)) { return null; }
 
-      if (typeof key === 'string' && key.length) {
+      if (!element) { return null; }
+
+      if (key && key.length) {
         if (!TimeCache.has(element)) {
           TimeCache.set(element, new Map());
         }
@@ -168,23 +167,22 @@
 
     /**
      * Clears the element's timer.
-     * @param {Element} target target element
+     * @param {HTMLElement} target target element
      * @param {string=} key a unique
      */
     clear: function (target, key) {
       var element = querySelector(target);
+      var timers = element && TimeCache.get(element);
 
-      if (!isElement(element) || !TimeCache.has(element)) { return; }
+      if (!timers) { return; }
 
-      if (typeof key === 'string' && key.length) {
-        var keyTimers = TimeCache.get(element);
-
-        if (keyTimers && keyTimers.has(key)) {
-          clearTimeout(keyTimers.get(key));
-          keyTimers.delete(key);
+      if (key && key.length) {
+        if (timers.has(key)) {
+          clearTimeout(timers.get(key));
+          timers.delete(key);
         }
-      } else if (TimeCache.has(element)) {
-        clearTimeout(TimeCache.get(element));
+      } else {
+        clearTimeout(timers);
         TimeCache.delete(element);
       }
     },
@@ -194,39 +192,55 @@
    * A global namespace for 'transitionend' string.
    * @type {string}
    */
-  var transitionEndEvent = 'webkitTransition' in document.head.style ? 'webkitTransitionEnd' : 'transitionend';
-
-  /**
-   * A global namespace for CSS3 transition support.
-   * @type {boolean}
-   */
-  var supportTransition = 'webkitTransition' in document.head.style || 'transition' in document.head.style;
+  var transitionEndEvent = 'transitionend';
 
   /**
    * A global namespace for 'transitionDelay' string.
    * @type {string}
    */
-  var transitionDelay = 'webkitTransition' in document.head.style ? 'webkitTransitionDelay' : 'transitionDelay';
+  var transitionDelay = 'transitionDelay';
 
   /**
-   * A global namespace for 'transitionProperty' string.
+   * A global namespace for:
+   * * `transitionProperty` string for Firefox,
+   * * `transition` property for all other browsers.
+   *
    * @type {string}
    */
-  var transitionProperty = 'webkitTransition' in document.head.style ? 'webkitTransitionProperty' : 'transitionProperty';
+  var transitionProperty = 'transitionProperty';
+
+  /**
+   * Shortcut for `window.getComputedStyle(element).propertyName`
+   * static method.
+   *
+   * * If `element` parameter is not an `HTMLElement`, `getComputedStyle`
+   * throws a `ReferenceError`.
+   *
+   * @param {HTMLElement} element target
+   * @param {string} property the css property
+   * @return {string} the css property value
+   */
+  function getElementStyle(element, property) {
+    var computedStyle = getComputedStyle(element);
+
+    // @ts-ignore -- must use camelcase strings,
+    // or non-camelcase strings with `getPropertyValue`
+    return property in computedStyle ? computedStyle[property] : '';
+  }
 
   /**
    * Utility to get the computed `transitionDelay`
    * from Element in miliseconds.
    *
-   * @param {Element} element target
+   * @param {HTMLElement} element target
    * @return {number} the value in miliseconds
    */
   function getElementTransitionDelay(element) {
-    var computedStyle = getComputedStyle(element);
-    var propertyValue = computedStyle[transitionProperty];
-    var delayValue = computedStyle[transitionDelay];
+    var propertyValue = getElementStyle(element, transitionProperty);
+    var delayValue = getElementStyle(element, transitionDelay);
+
     var delayScale = delayValue.includes('ms') ? 1 : 1000;
-    var duration = supportTransition && propertyValue && propertyValue !== 'none'
+    var duration = propertyValue && propertyValue !== 'none'
       ? parseFloat(delayValue) * delayScale : 0;
 
     return !Number.isNaN(duration) ? duration : 0;
@@ -236,21 +250,20 @@
    * A global namespace for 'transitionDuration' string.
    * @type {string}
    */
-  var transitionDuration = 'webkitTransition' in document.head.style ? 'webkitTransitionDuration' : 'transitionDuration';
+  var transitionDuration = 'transitionDuration';
 
   /**
    * Utility to get the computed `transitionDuration`
    * from Element in miliseconds.
    *
-   * @param {Element} element target
+   * @param {HTMLElement} element target
    * @return {number} the value in miliseconds
    */
   function getElementTransitionDuration(element) {
-    var computedStyle = getComputedStyle(element);
-    var propertyValue = computedStyle[transitionProperty];
-    var durationValue = computedStyle[transitionDuration];
+    var propertyValue = getElementStyle(element, transitionProperty);
+    var durationValue = getElementStyle(element, transitionDuration);
     var durationScale = durationValue.includes('ms') ? 1 : 1000;
-    var duration = supportTransition && propertyValue && propertyValue !== 'none'
+    var duration = propertyValue && propertyValue !== 'none'
       ? parseFloat(durationValue) * durationScale : 0;
 
     return !Number.isNaN(duration) ? duration : 0;
@@ -260,7 +273,7 @@
    * Utility to make sure callbacks are consistently
    * called when transition ends.
    *
-   * @param {Element} element target
+   * @param {HTMLElement} element target
    * @param {EventListener} handler `transitionend` callback
    */
   function emulateTransitionEnd(element, handler) {
@@ -291,7 +304,65 @@
   }
 
   /**
-   * A global namespace for passive events support.
+   * A global namespace for `DOMContentLoaded` event.
+   * @type {string}
+   */
+  var DOMContentLoadedEvent = 'DOMContentLoaded';
+
+  /**
+   * Add eventListener to an `HTMLElement` | `Document` target.
+   *
+   * @param {HTMLElement | Document} element event.target
+   * @param {string} eventName event.type
+   * @param {EventListener} handler callback
+   * @param {EventListenerOptions | boolean | undefined} options other event options
+   */
+  function on(element, eventName, handler, options) {
+    var ops = options || false;
+    element.addEventListener(eventName, handler, ops);
+  }
+
+  /**
+   * Remove eventListener from an `HTMLElement` | `Document` target.
+   *
+   * @param {HTMLElement | Document} element event.target
+   * @param {string} eventName event.type
+   * @param {EventListener} handler callback
+   * @param {EventListenerOptions | boolean | undefined} options other event options
+   */
+  function off(element, eventName, handler, options) {
+    var ops = options || false;
+    element.removeEventListener(eventName, handler, ops);
+  }
+
+  /**
+   * Add an `eventListener` to an `HTMLElement` | `Document` target
+   * and remove it once callback is called.
+   *
+   * @param {HTMLElement | Document} element event.target
+   * @param {string} eventName event.type
+   * @param {EventListener} handler callback
+   * @param {EventListenerOptions | boolean | undefined} options other event options
+   */
+  function one(element, eventName, handler, options) {
+  /**
+   * Wrap the handler for easy on -> off
+   * @param {Event} e the Event object
+   */
+    function handlerWrapper(e) {
+      if (e.target === element) {
+        handler.apply(element, [e]);
+        off(element, eventName, handlerWrapper, options);
+      }
+    }
+    on(element, eventName, handlerWrapper, options);
+  }
+
+  /**
+   * A global `boolean` for passive events support,
+   * in general event options are not suited for scroll prevention.
+   *
+   * @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
    * @type {boolean}
    */
   var supportPassive = (function () {
@@ -303,17 +374,13 @@
           return result;
         },
       });
-      document[addEventListener]('DOMContentLoaded', function wrap() {
-        document[removeEventListener]('DOMContentLoaded', wrap, opts);
-      }, opts);
+      one(document, DOMContentLoadedEvent, function () {}, opts);
     } catch (e) {
       throw Error('Passive events are not supported');
     }
 
     return result;
   })();
-
-  // general event options
 
   /**
    * A global namespace for most scroll event listeners.
@@ -323,7 +390,7 @@
   /**
    * The raw value or a given component option.
    *
-   * @typedef {string | Element | Function | number | boolean | null} niceValue
+   * @typedef {string | HTMLElement | Function | number | boolean | null} niceValue
    */
 
   /**
@@ -349,7 +416,7 @@
       return null;
     }
 
-    // string / function / Element / object
+    // string / function / HTMLElement / object
     return value;
   }
 
@@ -361,18 +428,19 @@
   var ObjectKeys = function (obj) { return Object.keys(obj); };
 
   /**
-   * Utility to normalize component options
+   * Utility to normalize component options.
    *
-   * @param {Element} element target
+   * @param {HTMLElement} element target
    * @param {Record<string, any>} defaultOps component default options
    * @param {Record<string, any>} inputOps component instance options
    * @param {string=} ns component namespace
    * @return {Record<string, any>} normalized component options object
    */
   function normalizeOptions(element, defaultOps, inputOps, ns) {
-    // @ts-ignore -- usually our `Element` is `HTMLElement` as well
     var data = Object.assign({}, element.dataset);
+    /** @type {Record<string, any>} */
     var normalOps = {};
+    /** @type {Record<string, any>} */
     var dataOps = {};
 
     ObjectKeys(data).forEach(function (k) {
@@ -401,9 +469,9 @@
   }
 
   /**
-   * Add class to Element.classList
+   * Add class to `HTMLElement.classList`.
    *
-   * @param {Element} element target
+   * @param {HTMLElement} element target
    * @param {string} classNAME to add
    */
   function addClass(element, classNAME) {
@@ -411,9 +479,9 @@
   }
 
   /**
-   * Check class in Element.classList
+   * Check class in `HTMLElement.classList`.
    *
-   * @param {Element} element target
+   * @param {HTMLElement} element target
    * @param {string} classNAME to check
    * @return {boolean}
    */
@@ -422,15 +490,16 @@
   }
 
   /**
-   * Remove class from Element.classList
+   * Remove class from `HTMLElement.classList`.
    *
-   * @param {Element} element target
+   * @param {HTMLElement} element target
    * @param {string} classNAME to remove
    */
   function removeClass(element, classNAME) {
     element.classList.remove(classNAME);
   }
 
+  /** @type {Map<string, Map<HTMLElement, SHORTER.Component>>} */
   var componentData = new Map();
   /**
    * An interface for web components background data.
@@ -439,59 +508,60 @@
   var Data = {
     /**
      * Sets web components data.
-     * @param {Element | string} element target element
+     * @param {HTMLElement | string} target target element
      * @param {string} component the component's name or a unique key
-     * @param {any} instance the component instance
+     * @param {SHORTER.Component} instance the component instance
      */
-    set: function (element, component, instance) {
-      var ELEMENT = querySelector(element);
-      if (!isElement(ELEMENT)) { return; }
+    set: function (target, component, instance) {
+      var element = querySelector(target);
+      if (!element) { return; }
 
       if (!componentData.has(component)) {
         componentData.set(component, new Map());
       }
 
       var instanceMap = componentData.get(component);
-      instanceMap.set(ELEMENT, instance);
+      // @ts-ignore - not undefined, but defined right above
+      instanceMap.set(element, instance);
     },
 
     /**
      * Returns all instances for specified component.
      * @param {string} component the component's name or a unique key
-     * @returns {any?} all the component instances
+     * @returns {Map<HTMLElement, SHORTER.Component>?} all the component instances
      */
     getAllFor: function (component) {
-      if (componentData.has(component)) {
-        return componentData.get(component);
-      }
+      var instanceMap = componentData.get(component);
+
+      if (instanceMap) { return instanceMap; }
       return null;
     },
 
     /**
      * Returns the instance associated with the target.
-     * @param {Element | string} element target element
+     * @param {HTMLElement | string} target target element
      * @param {string} component the component's name or a unique key
-     * @returns {any?} the instance
+     * @returns {SHORTER.Component?} the instance
      */
-    get: function (element, component) {
-      var ELEMENT = querySelector(element);
-
+    get: function (target, component) {
+      var element = querySelector(target);
       var allForC = Data.getAllFor(component);
-      if (allForC && isElement(ELEMENT) && allForC.has(ELEMENT)) {
-        return allForC.get(ELEMENT);
-      }
+      var instance = element && allForC && allForC.get(element);
+
+      if (instance) { return instance; }
       return null;
     },
 
     /**
      * Removes web components data.
-     * @param {Element} element target element
+     * @param {HTMLElement | string} target target element
      * @param {string} component the component's name or a unique key
      */
-    remove: function (element, component) {
-      if (!componentData.has(component)) { return; }
-
+    remove: function (target, component) {
+      var element = querySelector(target);
       var instanceMap = componentData.get(component);
+      if (!instanceMap || !element) { return; }
+
       instanceMap.delete(element);
 
       if (instanceMap.size === 0) {
@@ -501,30 +571,18 @@
   };
 
   /**
-   * Shortcut for `window.getComputedStyle(element).propertyName`
-   * static method.
-   * * If `element` parameter is not an `Element`, `getComputedStyle`
-   * throws a `ReferenceError`.
-   * * If no property is defined, the entire `CSSStyleDeclaration`
-   * instance is returned.
-   *
-   * @param {Element} element target
-   * @param {string=} property the css property
-   * @return {string} the css property value
+   * An alias for `Data.get()`.
+   * @type {SHORTER.getInstance<any>}
    */
-  function getElementStyle(element, property) {
-    var computedStyle = getComputedStyle(element);
-
-    return property && property in computedStyle
-      ? computedStyle[property]
-      : computedStyle;
-  }
+  var getInstance = function (target, component) { return Data.get(target, component); };
 
   /**
    * Checks if a page is Right To Left.
    * @returns {boolean} the query result
    */
-  var isRTL = function () { return document.documentElement.dir === 'rtl'; };
+  var isRTL = function () { return [
+    document.body,
+    document.documentElement ].some(function (el) { return el.dir === 'rtl'; }); };
 
   /**
    * Shortcut for `Object.assign()` static method.
@@ -536,41 +594,63 @@
   /**
    * Shortcut for `Array.from()` static method.
    *
-   * @param  {any[] | HTMLCollection | NodeList} arr array-like iterable object
-   * @returns {Array}
+   * @param  {any[] | HTMLCollection | NodeList | Map<any, any>} arr array-like iterable object
+   * @returns {Array<any>}
    */
   var ArrayFrom = function (arr) { return Array.from(arr); };
 
   /**
-   * Shortcut for `Element.setAttribute()` method.
-   * @param  {Element} element target element
+   * Shortcut for `HTMLElement.setAttribute()` method.
+   * @param  {HTMLElement} element target element
    * @param  {string} attribute attribute name
    * @param  {string} value attribute value
    */
   var setAttribute = function (element, attribute, value) { return element.setAttribute(attribute, value); };
 
   /**
-   * Shortcut for `Element.getElementsByClassName` method.
+   * Checks if an element is an `HTMLElement`.
+   *
+   * @param {any} element the target object
+   * @returns {boolean} the query result
+   */
+  var isHTMLElement = function (element) { return element instanceof HTMLElement; };
+
+  /**
+   * Shortcut for `HTMLElement.getElementsByClassName` method.
    *
    * @param {string} selector the class name
-   * @param {Element=} parent optional Element to look into
-   * @return {HTMLCollection} the 'HTMLCollection'
+   * @param {HTMLElement=} parent optional Element to look into
+   * @return {HTMLCollectionOf<HTMLElement>} the 'HTMLCollection'
    */
   function getElementsByClassName(selector, parent) {
-    var lookUp = parent && isElement(parent) ? parent : document;
+    var lookUp = parent && isHTMLElement(parent) ? parent : document;
+    // @ts-ignore
     return lookUp.getElementsByClassName(selector);
   }
 
   /**
-   * Shortcut for `Element.getElementsByTagName` method.
+   * Shortcut for `HTMLElement.getElementsByTagName` method.
    *
    * @param {string} selector the tag name
-   * @param {Element=} parent optional Element to look into
-   * @return {HTMLCollection} the 'HTMLCollection'
+   * @param {HTMLElement=} parent optional Element to look into
+   * @return {HTMLCollectionOf<HTMLElement>} the 'HTMLCollection'
    */
   function getElementsByTagName(selector, parent) {
-    var lookUp = parent && isElement(parent) ? parent : document;
+    var lookUp = parent && isHTMLElement(parent) ? parent : document;
+    // @ts-ignore
     return lookUp.getElementsByTagName(selector);
+  }
+
+  /**
+   * Shortcut for `HTMLElement.closest` method.
+   *
+   * @param {HTMLElement} element optional Element to look into
+   * @param {string} selector the selector name
+   * @return {HTMLElement?} the query result
+   */
+  function closest(element, selector) {
+    if (element && selector) { return element.closest(selector); }
+    return null;
   }
 
   var version = "3.0.5";
@@ -605,14 +685,14 @@
 
   /**
    * Returns a `Navbar` instance.
-   * @param {Element} element target element
-   * @returns {Navbar?} the `Navbar` instance
+   * @param {HTMLElement} element target element
+   * @returns {Navbar?}
    */
-  var getNavbarInstance = function (element) { return Data.get(element, navbarComponent); };
+  var getNavbarInstance = function (element) { return getInstance(element, navbarComponent); };
 
   /**
    * Returns a `Navbar` instance.
-   * @param {Element} element target element
+   * @param {HTMLElement} element target element
    * @returns {Navbar}
    */
   var initNavbarCallback = function (element) { return new Navbar(element); };
@@ -641,6 +721,7 @@
     // @ts-ignore
     var options = self.options;
     var menu = self.menu;
+    // @ts-ignore
     var ref = getElementsByClassName(subnavToggleClass, menu);
     var firstToggle = ref[0];
     return (firstToggle && getElementStyle(firstToggle, 'display') !== 'none')
@@ -677,15 +758,15 @@
   }
 
   /**
-   * @param {Element} element
+   * @param {HTMLElement} element
    * @param {string} selector
-   * @returns {Element=}
+   * @returns {HTMLElement=}
    */
   function findChild(element, selector) {
     return ArrayFrom(element.children).find(function (x) { return selector === x.tagName || hasClass(x, selector); });
   }
 
-  /** @param {Element} element */
+  /** @param {HTMLElement} element */
   function openNavbar(element) {
     var subMenu = findChild(element, subnavClass);
     var anchor = findChild(element, 'A');
@@ -716,7 +797,7 @@
   }
 
   /**
-   * @param {Element} element
+   * @param {HTMLElement} element
    * @param {boolean=} leave
    */
   function closeNavbar(element, leave) {
@@ -761,23 +842,25 @@
   // NAVBAR EVENT LISTENERS
   // ======================
   /**
-   * @this {Element}
+   * @this {HTMLElement}
    * @param {KeyboardEvent} e Event object
    */
   function navbarKeyHandler(e) {
     var code = e.code;
     var menu = this;
+    // @ts-ignore
     var activeElement = document.activeElement;
     var self = getNavbarInstance(menu);
-    if (!activeElement || !menu.contains(activeElement)) { return; }
-    var element = activeElement.closest('LI');
-    if (!element) { return; }
+    if (!self || !activeElement || !menu.contains(activeElement)) { return; }
     // @ts-ignore
+    var element = closest(activeElement, 'LI');
+    if (!element) { return; }
+
     var isMobile = checkNavbarView(self);
     var previousElementSibling = element.previousElementSibling;
     var nextElementSibling = element.nextElementSibling;
-    var openParentElement = element.closest(("." + openNavClass));
-    var parentMenu = element.closest('UL');
+    var openParentElement = closest(element, ("." + openNavClass));
+    var parentMenu = closest(element, 'UL');
     var ref = getElementsByClassName(subnavClass, element);
     var subnavMenu = ref[0];
     var preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
@@ -789,7 +872,7 @@
       && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
     var nextSelection = parentMenu && nextElementSibling
       && ((code === keyArrowDown && isColumn) || (code === sideNextKey && !isColumn));
-    /** @type {Element?} */
+    /** @type {HTMLElement?} */
     var elementToFocus = null;
 
     if (code === keyEscape && openParentElement) {
@@ -801,8 +884,10 @@
     }
 
     if (prevSelection && element !== parentMenu.firstElementChild) {
+      // @ts-ignore
       elementToFocus = previousElementSibling;
     } else if (nextSelection && element !== parentMenu.lastElementChild) {
+      // @ts-ignore
       elementToFocus = nextElementSibling;
     }
 
@@ -815,7 +900,7 @@
   }
 
   /**
-   * @this {Element}
+   * @this {HTMLElement}
    * @param {PointerEvent} e Event object
    */
   function navbarClickHandler(e) {
@@ -823,7 +908,7 @@
 
     var target = e.target;
     var that = this;
-    var menu = that.closest((navbarSelector + ",." + navbarString));
+    var menu = closest(that, (navbarSelector + ",." + navbarString));
     var self = menu && getNavbarInstance(menu);
     // @ts-ignore
     var options = self.options;
@@ -831,8 +916,8 @@
 
     // @ts-ignore
     if (self && (target === that || that.contains(target))) {
-      var element = that.closest('LI') || menu;
-      var toggleElement = that.closest(("." + navbarToggleClass)) === navbarToggle
+      var element = closest(that, 'LI') || menu;
+      var toggleElement = closest(that, ("." + navbarToggleClass)) === navbarToggle
         ? navbarToggle
         : findChild(element, subnavToggleClass);
       var anchor = toggleElement === navbarToggle
@@ -880,10 +965,10 @@
     }
   }
 
-  /** @this {Element} */
+  /** @this {HTMLElement} */
   function navbarEnterHandler() {
     var element = this;
-    var menu = element.closest((navbarSelector + ",." + navbarString));
+    var menu = closest(element, (navbarSelector + ",." + navbarString));
     var self = menu && getNavbarInstance(menu);
     var timerOut = Timer.get(element, 'out');
 
@@ -899,10 +984,10 @@
     }
   }
 
-  /** @this {Element} */
+  /** @this {HTMLElement} */
   function navbarLeaveHandler() {
     var element = this;
-    var menu = element.closest((navbarSelector + ",." + navbarString));
+    var menu = closest(element, (navbarSelector + ",." + navbarString));
     var self = menu && getNavbarInstance(menu);
 
     // @ts-ignore
@@ -927,10 +1012,10 @@
     var self = this;
 
     // instance targets
-    /** @private @type {Element} */
-    // @ts-ignore
+    /** @private @type {HTMLElement?} */
     self.menu = querySelector(target);
     var menu = self.menu;
+    if (!menu) { return; }
 
     // reset on re-init
     var existing = getNavbarInstance(menu);
@@ -941,7 +1026,7 @@
 
     /** @private */
     self.items = getElementsByTagName('LI', menu);
-    /** @private @type {Element?} */
+    /** @private @type {HTMLElement?} */
     self.navbarToggle = null;
     (assign = getElementsByClassName(navbarToggleClass, menu), self.navbarToggle = assign[0]);
 
@@ -973,6 +1058,7 @@
     closeNavbars(self.items);
     toggleNavbarEvents(self);
     toggleNavbarResizeEvent();
+    // @ts-ignore
     Data.remove(self.menu, navbarComponent);
   };
 
@@ -987,7 +1073,7 @@
   // DATA API
   /**
    * Navbar initialization callback
-   * @param {Element | undefined} context Element
+   * @param {HTMLElement=} context Element
    */
   function initNavbar(context) {
     var lookup = context instanceof Element ? context : document;

@@ -3,7 +3,7 @@ import Navbar from './navbar';
 // DATA API
 /**
  * Navbar initialization callback
- * @param {Element | undefined} context Element
+ * @param {HTMLElement=} context Element
  */
 function initNavbar(context) {
   const lookup = context instanceof Element ? context : document;
