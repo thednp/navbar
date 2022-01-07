@@ -232,7 +232,7 @@ function navbarKeyHandler(e) {
   const [subnavMenu] = getElementsByClassName(subnavClass, element);
   const preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
   const isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
-  const RTL = isRTL();
+  const RTL = isRTL(element);
   const sidePrevKey = RTL ? keyArrowRight : keyArrowLeft;
   const sideNextKey = RTL ? keyArrowLeft : keyArrowRight;
   const prevSelection = parentMenu && previousElementSibling

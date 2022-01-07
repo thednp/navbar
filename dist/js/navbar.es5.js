@@ -577,12 +577,53 @@
   var getInstance = function (target, component) { return Data.get(target, component); };
 
   /**
-   * Checks if a page is Right To Left.
+   * Check if a target node is `window`.
+   *
+   * @param {any} node the target node
    * @returns {boolean} the query result
    */
-  var isRTL = function () { return [
-    document.body,
-    document.documentElement ].some(function (el) { return el.dir === 'rtl'; }); };
+  function isWindow(node) {
+    return node instanceof Window;
+  }
+
+  /**
+   * Checks if an object is a `Node`.
+   *
+   * @param {any} node the target object
+   * @returns {boolean} the query result
+   */
+  var isNode = function (node) { return node instanceof Node; };
+
+  /**
+   * Returns the `document` or the `#document` element.
+   * @see https://github.com/floating-ui/floating-ui
+   * @param {(Node | HTMLElement | Element | Window)=} node
+   * @returns {Document}
+   */
+  function getDocument(node) {
+    // @ts-ignore -- `isNode` checks that
+    if (isNode(node)) { return node.ownerDocument; }
+    // @ts-ignore -- `isWindow` checks that too
+    if (isWindow(node)) { return node.document; }
+    return window.document;
+  }
+
+  /**
+   * Returns the `document.documentElement` or the `<html>` element.
+   *
+   * @param {(Node | HTMLElement | Element)=} node
+   * @returns {HTMLElement}
+   */
+  function getDocumentElement(node) {
+    return getDocument(node).documentElement;
+  }
+
+  /**
+   * Checks if a page is Right To Left.
+   * @param {HTMLElement=} node the target
+   * @returns {boolean} the query result
+   */
+  var isRTL = function (node) { return getDocumentElement(node).dir === 'rtl'; };
 
   /**
    * Shortcut for `Object.assign()` static method.
