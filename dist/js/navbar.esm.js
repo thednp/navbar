@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.6 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.7 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -46,16 +46,30 @@ const keyArrowRight = 'ArrowRight';
 const ariaExpanded = 'aria-expanded';
 
 /**
- * A global namespace for 'addEventListener' string.
- * @type {string}
+ * Add eventListener to an `Element` | `HTMLElement` | `Document` target.
+ *
+ * @param {HTMLElement | Element | Document | Window} element event.target
+ * @param {string} eventName event.type
+ * @param {EventListenerObject['handleEvent']} handler callback
+ * @param {(EventListenerOptions | boolean)=} options other event options
  */
-const addEventListener = 'addEventListener';
+function on(element, eventName, handler, options) {
+  const ops = options || false;
+  element.addEventListener(eventName, handler, ops);
+}
 
 /**
- * A global namespace for 'removeEventListener' string.
- * @type {string}
+ * Remove eventListener from an `Element` | `HTMLElement` | `Document` | `Window` target.
+ *
+ * @param {HTMLElement | Element | Document | Window} element event.target
+ * @param {string} eventName event.type
+ * @param {EventListenerObject['handleEvent']} handler callback
+ * @param {(EventListenerOptions | boolean)=} options other event options
  */
-const removeEventListener = 'removeEventListener';
+function off(element, eventName, handler, options) {
+  const ops = options || false;
+  element.removeEventListener(eventName, handler, ops);
+}
 
 /**
  * A global namespace for `mouseenter` event.
@@ -88,23 +102,48 @@ const keydownEvent = 'keydown';
 const resizeEvent = 'resize';
 
 /**
+ * Returns the `document` or the `#document` element.
+ * @see https://github.com/floating-ui/floating-ui
+ * @param {(Node | HTMLElement | Element | globalThis)=} node
+ * @returns {Document}
+ */
+function getDocument(node) {
+  if (node instanceof HTMLElement) return node.ownerDocument;
+  if (node instanceof Window) return node.document;
+  return window.document;
+}
+
+/**
+ * A global array of possible `ParentNode`.
+ */
+const parentNodes = [Document, Node, Element, HTMLElement];
+
+/**
+ * A global array with `Element` | `HTMLElement`.
+ */
+const elementNodes = [Element, HTMLElement];
+
+/**
  * Utility to check if target is typeof `HTMLElement`, `Element`, `Node`
  * or find one that matches a selector.
  *
- * @param {HTMLElement | string} selector the input selector or target element
- * @param {(Node | Element | HTMLElement)=} parent optional node to look into
- * @return {HTMLElement?} the `HTMLElement` or `querySelector` result
+ * @param {HTMLElement | Element | string} selector the input selector or target element
+ * @param {(HTMLElement | Element | Node | Document)=} parent optional node to look into
+ * @return {(HTMLElement | Element)?} the `HTMLElement` or `querySelector` result
  */
 function querySelector(selector, parent) {
-  const nodeTypes = [HTMLElement, Element, Node];
-  const lookUp = parent && nodeTypes.some((x) => parent instanceof x) ? parent : document;
+  const selectorIsString = typeof selector === 'string';
+  const lookUp = parent && parentNodes.some((x) => parent instanceof x)
+    ? parent : getDocument();
 
-  return nodeTypes.some((x) => selector instanceof x)
-    // @ts-ignore -- we must include ShadowRoot Node
-    ? selector : lookUp.querySelector(selector);
+  if (!selectorIsString && [...elementNodes].some((x) => selector instanceof x)) {
+    return selector;
+  }
+  // @ts-ignore -- `ShadowRoot` is also a node
+  return selectorIsString ? lookUp.querySelector(selector) : null;
 }
 
-/** @type {Map<HTMLElement, any>} */
+/** @type {Map<HTMLElement | Element, any>} */
 const TimeCache = new Map();
 /**
  * An interface for one or more `TimerHandler`s per `Element`.
@@ -113,7 +152,7 @@ const TimeCache = new Map();
 const Timer = {
   /**
    * Sets a new timeout timer for an element, or element -> key association.
-   * @param {HTMLElement | string} target target element
+   * @param {HTMLElement | Element | string} target target element
    * @param {ReturnType<TimerHandler>} callback the callback
    * @param {number} delay the execution delay
    * @param {string=} key a unique
@@ -136,51 +175,69 @@ const Timer = {
 
   /**
    * Returns the timer associated with the target.
-   * @param {HTMLElement | string} target target element
+   * @param {HTMLElement | Element | string} target target element
    * @param {string=} key a unique
-   * @returns {ReturnType<TimerHandler>?} the timer
+   * @returns {number?} the timer
    */
   get: (target, key) => {
     const element = querySelector(target);
 
     if (!element) return null;
+    const keyTimers = TimeCache.get(element);
 
-    if (key && key.length) {
-      if (!TimeCache.has(element)) {
-        TimeCache.set(element, new Map());
-      }
-      const keyTimers = TimeCache.get(element);
-      if (keyTimers.has(key)) {
-        return keyTimers.get(key);
-      }
-    } else if (TimeCache.has(element)) {
-      return TimeCache.get(element);
+    if (key && key.length && keyTimers && keyTimers.get) {
+      return keyTimers.get(key) || null;
     }
-    return null;
+    return keyTimers || null;
   },
 
   /**
    * Clears the element's timer.
-   * @param {HTMLElement} target target element
-   * @param {string=} key a unique
+   * @param {HTMLElement | Element | string} target target element
+   * @param {string=} key a unique key
    */
   clear: (target, key) => {
     const element = querySelector(target);
-    const timers = element && TimeCache.get(element);
 
-    if (!timers) return;
+    if (!element) return;
 
     if (key && key.length) {
-      if (timers.has(key)) {
-        clearTimeout(timers.get(key));
-        timers.delete(key);
+      const keyTimers = TimeCache.get(element);
+
+      if (keyTimers && keyTimers.get) {
+        clearTimeout(keyTimers.get(key));
+        keyTimers.delete(key);
+        if (keyTimers.size === 0) {
+          TimeCache.delete(element);
+        }
       }
     } else {
-      clearTimeout(timers);
+      clearTimeout(TimeCache.get(element));
       TimeCache.delete(element);
     }
   },
 };
+
+/**
+ * Returns the `Window` object of a target node.
+ * @see https://github.com/floating-ui/floating-ui
+ *
+ * @param {(Node | HTMLElement | Element | Window)=} node target node
+ * @returns {globalThis}
+ */
+function getWindow(node) {
+  if (node == null) {
+    return window;
+  }
+
+  if (!(node instanceof Window)) {
+    const { ownerDocument } = node;
+    return ownerDocument ? ownerDocument.defaultView || window : window;
+  }
+
+  // @ts-ignore
+  return node;
+}
 
 /**
  * A global namespace for 'transitionend' string.
@@ -210,7 +267,7 @@ const transitionProperty = 'transitionProperty';
  * * If `element` parameter is not an `HTMLElement`, `getComputedStyle`
  * throws a `ReferenceError`.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @param {string} property the css property
  * @return {string} the css property value
  */
@@ -226,7 +283,7 @@ function getElementStyle(element, property) {
  * Utility to get the computed `transitionDelay`
  * from Element in miliseconds.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @return {number} the value in miliseconds
  */
 function getElementTransitionDelay(element) {
@@ -250,7 +307,7 @@ const transitionDuration = 'transitionDuration';
  * Utility to get the computed `transitionDuration`
  * from Element in miliseconds.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @return {number} the value in miliseconds
  */
 function getElementTransitionDuration(element) {
@@ -267,7 +324,7 @@ function getElementTransitionDuration(element) {
  * Utility to make sure callbacks are consistently
  * called when transition ends.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @param {EventListener} handler `transitionend` callback
  */
 function emulateTransitionEnd(element, handler) {
@@ -279,16 +336,16 @@ function emulateTransitionEnd(element, handler) {
   if (duration) {
     /**
      * Wrap the handler in on -> off callback
-     * @param {Event} e Event object
+     * @param {TransitionEvent} e Event object
      */
     const transitionEndWrapper = (e) => {
       if (e.target === element) {
         handler.apply(element, [e]);
-        element.removeEventListener(transitionEndEvent, transitionEndWrapper);
+        off(element, transitionEndEvent, transitionEndWrapper);
         called = 1;
       }
     };
-    element.addEventListener(transitionEndEvent, transitionEndWrapper);
+    on(element, transitionEndEvent, transitionEndWrapper);
     setTimeout(() => {
       if (!called) element.dispatchEvent(endEvent);
     }, duration + delay + 17);
@@ -298,88 +355,10 @@ function emulateTransitionEnd(element, handler) {
 }
 
 /**
- * A global namespace for `DOMContentLoaded` event.
- * @type {string}
- */
-const DOMContentLoadedEvent = 'DOMContentLoaded';
-
-/**
- * Add eventListener to an `HTMLElement` | `Document` target.
- *
- * @param {HTMLElement | Document} element event.target
- * @param {string} eventName event.type
- * @param {EventListener} handler callback
- * @param {EventListenerOptions | boolean | undefined} options other event options
- */
-function on(element, eventName, handler, options) {
-  const ops = options || false;
-  element.addEventListener(eventName, handler, ops);
-}
-
-/**
- * Remove eventListener from an `HTMLElement` | `Document` target.
- *
- * @param {HTMLElement | Document} element event.target
- * @param {string} eventName event.type
- * @param {EventListener} handler callback
- * @param {EventListenerOptions | boolean | undefined} options other event options
- */
-function off(element, eventName, handler, options) {
-  const ops = options || false;
-  element.removeEventListener(eventName, handler, ops);
-}
-
-/**
- * Add an `eventListener` to an `HTMLElement` | `Document` target
- * and remove it once callback is called.
- *
- * @param {HTMLElement | Document} element event.target
- * @param {string} eventName event.type
- * @param {EventListener} handler callback
- * @param {EventListenerOptions | boolean | undefined} options other event options
- */
-function one(element, eventName, handler, options) {
-/**
- * Wrap the handler for easy on -> off
- * @param {Event} e the Event object
- */
-  function handlerWrapper(e) {
-    if (e.target === element) {
-      handler.apply(element, [e]);
-      off(element, eventName, handlerWrapper, options);
-    }
-  }
-  on(element, eventName, handlerWrapper, options);
-}
-
-/**
- * A global `boolean` for passive events support,
- * in general event options are not suited for scroll prevention.
- *
- * @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
- * @type {boolean}
- */
-const supportPassive = (() => {
-  let result = false;
-  try {
-    const opts = Object.defineProperty({}, 'passive', {
-      get() {
-        result = true;
-        return result;
-      },
-    });
-    one(document, DOMContentLoadedEvent, () => {}, opts);
-  } catch (e) {
-    throw Error('Passive events are not supported');
-  }
-
-  return result;
-})();
-
-/**
  * A global namespace for most scroll event listeners.
+ * @type {Partial<AddEventListenerOptions>}
  */
-const passiveHandler = supportPassive ? { passive: true } : false;
+const passiveHandler = { passive: true };
 
 /**
  * The raw value or a given component option.
@@ -424,13 +403,14 @@ const ObjectKeys = (obj) => Object.keys(obj);
 /**
  * Utility to normalize component options.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @param {Record<string, any>} defaultOps component default options
  * @param {Record<string, any>} inputOps component instance options
  * @param {string=} ns component namespace
  * @return {Record<string, any>} normalized component options object
  */
 function normalizeOptions(element, defaultOps, inputOps, ns) {
+  // @ts-ignore -- our targets are always `HTMLElement`
   const data = { ...element.dataset };
   /** @type {Record<string, any>} */
   const normalOps = {};
@@ -465,7 +445,7 @@ function normalizeOptions(element, defaultOps, inputOps, ns) {
 /**
  * Add class to `HTMLElement.classList`.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @param {string} classNAME to add
  */
 function addClass(element, classNAME) {
@@ -475,7 +455,7 @@ function addClass(element, classNAME) {
 /**
  * Check class in `HTMLElement.classList`.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @param {string} classNAME to check
  * @return {boolean}
  */
@@ -486,14 +466,14 @@ function hasClass(element, classNAME) {
 /**
  * Remove class from `HTMLElement.classList`.
  *
- * @param {HTMLElement} element target
+ * @param {HTMLElement | Element} element target
  * @param {string} classNAME to remove
  */
 function removeClass(element, classNAME) {
   element.classList.remove(classNAME);
 }
 
-/** @type {Map<string, Map<HTMLElement, SHORTER.Component>>} */
+/** @type {Map<string, Map<HTMLElement | Element, Record<string, any>>>} */
 const componentData = new Map();
 /**
  * An interface for web components background data.
@@ -502,9 +482,9 @@ const componentData = new Map();
 const Data = {
   /**
    * Sets web components data.
-   * @param {HTMLElement | string} target target element
+   * @param {HTMLElement | Element | string} target target element
    * @param {string} component the component's name or a unique key
-   * @param {SHORTER.Component} instance the component instance
+   * @param {Record<string, any>} instance the component instance
    */
   set: (target, component, instance) => {
     const element = querySelector(target);
@@ -522,33 +502,31 @@ const Data = {
   /**
    * Returns all instances for specified component.
    * @param {string} component the component's name or a unique key
-   * @returns {Map<HTMLElement, SHORTER.Component>?} all the component instances
+   * @returns {Map<HTMLElement | Element, Record<string, any>>?} all the component instances
    */
   getAllFor: (component) => {
     const instanceMap = componentData.get(component);
 
-    if (instanceMap) return instanceMap;
-    return null;
+    return instanceMap || null;
   },
 
   /**
    * Returns the instance associated with the target.
-   * @param {HTMLElement | string} target target element
+   * @param {HTMLElement | Element | string} target target element
    * @param {string} component the component's name or a unique key
-   * @returns {SHORTER.Component?} the instance
+   * @returns {Record<string, any>?} the instance
    */
   get: (target, component) => {
     const element = querySelector(target);
     const allForC = Data.getAllFor(component);
     const instance = element && allForC && allForC.get(element);
 
-    if (instance) return instance;
-    return null;
+    return instance || null;
   },
 
   /**
    * Removes web components data.
-   * @param {HTMLElement | string} target target element
+   * @param {HTMLElement | Element | string} target target element
    * @param {string} component the component's name or a unique key
    */
   remove: (target, component) => {
@@ -571,42 +549,10 @@ const Data = {
 const getInstance = (target, component) => Data.get(target, component);
 
 /**
- * Check if a target node is `window`.
- *
- * @param {any} node the target node
- * @returns {boolean} the query result
- */
-function isWindow(node) {
-  return node instanceof Window;
-}
-
-/**
- * Checks if an object is a `Node`.
- *
- * @param {any} node the target object
- * @returns {boolean} the query result
- */
-const isNode = (node) => node instanceof Node;
-
-/**
- * Returns the `document` or the `#document` element.
- * @see https://github.com/floating-ui/floating-ui
- * @param {(Node | HTMLElement | Element | Window)=} node
- * @returns {Document}
- */
-function getDocument(node) {
-  // @ts-ignore -- `isNode` checks that
-  if (isNode(node)) return node.ownerDocument;
-  // @ts-ignore -- `isWindow` checks that too
-  if (isWindow(node)) return node.document;
-  return window.document;
-}
-
-/**
  * Returns the `document.documentElement` or the `<html>` element.
  *
- * @param {(Node | HTMLElement | Element)=} node
- * @returns {HTMLElement}
+ * @param {(Node | HTMLElement | Element | globalThis)=} node
+ * @returns {HTMLElement | HTMLHtmlElement}
  */
 function getDocumentElement(node) {
   return getDocument(node).documentElement;
@@ -614,7 +560,7 @@ function getDocumentElement(node) {
 
 /**
  * Checks if a page is Right To Left.
- * @param {HTMLElement=} node the target
+ * @param {(HTMLElement | Element)=} node the target
  * @returns {boolean} the query result
  */
 const isRTL = (node) => getDocumentElement(node).dir === 'rtl';
@@ -636,59 +582,58 @@ const ArrayFrom = (arr) => Array.from(arr);
 
 /**
  * Shortcut for `HTMLElement.setAttribute()` method.
- * @param  {HTMLElement} element target element
+ * @param  {HTMLElement | Element} element target element
  * @param  {string} attribute attribute name
  * @param  {string} value attribute value
  */
 const setAttribute = (element, attribute, value) => element.setAttribute(attribute, value);
 
 /**
- * Checks if an element is an `HTMLElement`.
- *
- * @param {any} element the target object
- * @returns {boolean} the query result
- */
-const isHTMLElement = (element) => element instanceof HTMLElement;
-
-/**
- * Shortcut for `HTMLElement.getElementsByClassName` method.
+ * Shortcut for `HTMLElement.getElementsByClassName` method. Some `Node` elements
+ * like `ShadowRoot` do not support `getElementsByClassName`.
  *
  * @param {string} selector the class name
- * @param {HTMLElement=} parent optional Element to look into
- * @return {HTMLCollectionOf<HTMLElement>} the 'HTMLCollection'
+ * @param {(HTMLElement | Element | Document)=} parent optional Element to look into
+ * @return {HTMLCollectionOf<HTMLElement | Element>} the 'HTMLCollection'
  */
 function getElementsByClassName(selector, parent) {
-  const lookUp = parent && isHTMLElement(parent) ? parent : document;
-  // @ts-ignore
+  const lookUp = parent && parentNodes.some((x) => parent instanceof x)
+    ? parent : getDocument();
   return lookUp.getElementsByClassName(selector);
 }
 
 /**
- * Shortcut for `HTMLElement.getElementsByTagName` method.
+ * Shortcut for `HTMLElement.getElementsByTagName` method. Some `Node` elements
+ * like `ShadowRoot` do not support `getElementsByTagName`.
  *
  * @param {string} selector the tag name
- * @param {HTMLElement=} parent optional Element to look into
- * @return {HTMLCollectionOf<HTMLElement>} the 'HTMLCollection'
+ * @param {(HTMLElement | Element | Document)=} parent optional Element to look into
+ * @return {HTMLCollectionOf<HTMLElement | Element>} the 'HTMLCollection'
  */
 function getElementsByTagName(selector, parent) {
-  const lookUp = parent && isHTMLElement(parent) ? parent : document;
-  // @ts-ignore
+  const lookUp = parent && parentNodes
+    .some((x) => parent instanceof x) ? parent : getDocument();
   return lookUp.getElementsByTagName(selector);
 }
 
 /**
- * Shortcut for `HTMLElement.closest` method.
+ * Shortcut for `HTMLElement.closest` method which also works
+ * with children of `ShadowRoot`. The order of the parameters
+ * is intentional since they're both required.
  *
- * @param {HTMLElement} element optional Element to look into
+ * @see https://stackoverflow.com/q/54520554/803358
+ *
+ * @param {HTMLElement | Element} element Element to look into
  * @param {string} selector the selector name
- * @return {HTMLElement?} the query result
+ * @return {(HTMLElement | Element)?} the query result
  */
 function closest(element, selector) {
-  if (element && selector) return element.closest(selector);
-  return null;
+  return element ? (element.closest(selector)
+    // @ts-ignore -- break out of `ShadowRoot`
+    || closest(element.getRootNode().host, selector)) : null;
 }
 
-var version = "3.0.6";
+var version = "3.0.7";
 
 // @ts-ignore
 
@@ -720,7 +665,7 @@ const hiddenNavbarEvent = new CustomEvent('hidden.navbar', navbarEventOptions);
 
 /**
  * Returns a `Navbar` instance.
- * @param {HTMLElement} element target element
+ * @param {HTMLElement | Element} element target element
  * @returns {Navbar?}
  */
 const getNavbarInstance = (element) => getInstance(element, navbarComponent);
@@ -734,18 +679,23 @@ const initNavbarCallback = (element) => new Navbar(element);
 
 // NAVBAR PRIVATE METHODS
 // ======================
-/** @param {boolean=} add */
-function toggleNavbarResizeEvent(add) {
-  const action = add ? addEventListener : removeEventListener;
-  if (!document.querySelector(`li.${openMobileClass}`)) {
+/**
+ * @param {Navbar} self
+ * @param {boolean=} add
+ */
+function toggleNavbarResizeEvent(self, add) {
+  const action = add ? on : off;
+  const { menu } = self;
+  if (!querySelector(`li.${openMobileClass}`, getDocument(menu))) {
     // @ts-ignore
-    window[action](resizeEvent, resizeNavbarHandler, passiveHandler);
+    action(getWindow(menu), resizeEvent, () => resizeNavbarHandler(self), passiveHandler);
   }
 }
 
-function resizeNavbarHandler() {
+/** @param {Navbar} self */
+function resizeNavbarHandler(self) {
   closeNavbars(getElementsByClassName(openMobileClass));
-  toggleNavbarResizeEvent();
+  toggleNavbarResizeEvent(self);
 }
 
 /**
@@ -766,29 +716,26 @@ function checkNavbarView(self) {
  * @param {boolean=} add
  */
 function toggleNavbarEvents(self, add) {
-  const action = add ? addEventListener : removeEventListener;
-  // @ts-ignore
+  const action = add ? on : off;
   const { items, navbarToggle, menu } = self;
 
-  ArrayFrom(items).forEach((x) => {
-    if (hasClass(x.lastElementChild, subnavClass)) {
-      x[action](mouseenterEvent, navbarEnterHandler);
-      x[action](mouseleaveEvent, navbarLeaveHandler);
+  [...items].forEach((x) => {
+    const { lastElementChild } = x;
+    if (lastElementChild && hasClass(lastElementChild, subnavClass)) {
+      action(x, mouseenterEvent, navbarEnterHandler);
+      action(x, mouseleaveEvent, navbarLeaveHandler);
     }
 
     const [toggleElement] = getElementsByClassName(subnavToggleClass, x);
-    // @ts-ignore
-    if (toggleElement) toggleElement[action](mouseclickEvent, navbarClickHandler);
+    if (toggleElement) action(toggleElement, mouseclickEvent, navbarClickHandler);
   });
 
-  // @ts-ignore
-  menu[action](keydownEvent, navbarKeyHandler);
-  // @ts-ignore
-  if (navbarToggle) navbarToggle[action](mouseclickEvent, navbarClickHandler);
+  action(menu, keydownEvent, navbarKeyHandler);
+  if (navbarToggle) action(navbarToggle, mouseclickEvent, navbarClickHandler);
 }
 
 /**
- * @param {HTMLElement} element
+ * @param {HTMLElement | Element} element
  * @param {string} selector
  * @returns {HTMLElement=}
  */
@@ -796,7 +743,7 @@ function findChild(element, selector) {
   return ArrayFrom(element.children).find((x) => selector === x.tagName || hasClass(x, selector));
 }
 
-/** @param {HTMLElement} element */
+/** @param {HTMLElement | Element} element */
 function openNavbar(element) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
@@ -827,7 +774,7 @@ function openNavbar(element) {
 }
 
 /**
- * @param {HTMLElement} element
+ * @param {HTMLElement | Element} element
  * @param {boolean=} leave
  */
 function closeNavbar(element, leave) {
@@ -872,17 +819,17 @@ function closeNavbars(collection) {
 // NAVBAR EVENT LISTENERS
 // ======================
 /**
- * @this {HTMLElement}
+ * @this {HTMLElement | Element}
  * @param {KeyboardEvent} e Event object
  */
 function navbarKeyHandler(e) {
   const { code } = e;
   const menu = this;
-  // @ts-ignore
   const { activeElement } = document;
   const self = getNavbarInstance(menu);
+
   if (!self || !activeElement || !menu.contains(activeElement)) return;
-  // @ts-ignore
+
   const element = closest(activeElement, 'LI');
   if (!element) return;
 
@@ -893,14 +840,14 @@ function navbarKeyHandler(e) {
   const [subnavMenu] = getElementsByClassName(subnavClass, element);
   const preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
   const isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
-  const RTL = isRTL();
+  const RTL = isRTL(element);
   const sidePrevKey = RTL ? keyArrowRight : keyArrowLeft;
   const sideNextKey = RTL ? keyArrowLeft : keyArrowRight;
   const prevSelection = parentMenu && previousElementSibling
     && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
   const nextSelection = parentMenu && nextElementSibling
     && ((code === keyArrowDown && isColumn) || (code === sideNextKey && !isColumn));
-  /** @type {HTMLElement?} */
+  /** @type {(HTMLElement | Element)?} */
   let elementToFocus = null;
 
   if (code === keyEscape && openParentElement) {
@@ -912,15 +859,14 @@ function navbarKeyHandler(e) {
   }
 
   if (prevSelection && element !== parentMenu.firstElementChild) {
-    // @ts-ignore
     elementToFocus = previousElementSibling;
   } else if (nextSelection && element !== parentMenu.lastElementChild) {
-    // @ts-ignore
     elementToFocus = nextElementSibling;
   }
 
   // @ts-ignore
-  if (elementToFocus) elementToFocus.firstElementChild.focus();
+  const { firstElementChild } = elementToFocus;
+  if (firstElementChild) firstElementChild.focus();
 
   if (!isMobile && preventableEvents.includes(code)) {
     e.preventDefault();
@@ -928,8 +874,8 @@ function navbarKeyHandler(e) {
 }
 
 /**
- * @this {HTMLElement}
- * @param {PointerEvent} e Event object
+ * @this {HTMLElement | Element}
+ * @param {MouseEvent} e Event object
  */
 function navbarClickHandler(e) {
   e.preventDefault();
@@ -938,11 +884,12 @@ function navbarClickHandler(e) {
   const that = this;
   const menu = closest(that, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-  // @ts-ignore
+  if (!self) return;
+
   const { options, navbarToggle } = self;
 
   // @ts-ignore
-  if (self && (target === that || that.contains(target))) {
+  if (target === that || that.contains(target)) {
     const element = closest(that, 'LI') || menu;
     const toggleElement = closest(that, `.${navbarToggleClass}`) === navbarToggle
       ? navbarToggle
@@ -956,7 +903,7 @@ function navbarClickHandler(e) {
       if (showNavbarEvent.defaultPrevented) return;
 
       if (toggleElement !== navbarToggle) {
-        toggleNavbarResizeEvent(true);
+        toggleNavbarResizeEvent(self, true);
       }
 
       if (toggleElement !== navbarToggle) {
@@ -982,7 +929,7 @@ function navbarClickHandler(e) {
 
       if (toggleElement) {
         setAttribute(toggleElement, ariaExpanded, 'false');
-        toggleNavbarResizeEvent();
+        toggleNavbarResizeEvent(self);
       }
       if (anchor) {
         setAttribute(anchor, ariaExpanded, 'false');
@@ -992,14 +939,13 @@ function navbarClickHandler(e) {
   }
 }
 
-/** @this {HTMLElement} */
+/** @this {HTMLElement | Element} */
 function navbarEnterHandler() {
   const element = this;
   const menu = closest(element, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
   const timerOut = Timer.get(element, 'out');
 
-  // @ts-ignore
   if (!self || checkNavbarView(self)) return;
 
   Timer.clear(element, 'out');
@@ -1011,20 +957,18 @@ function navbarEnterHandler() {
   }
 }
 
-/** @this {HTMLElement} */
+/** @this {HTMLElement | Element} */
 function navbarLeaveHandler() {
   const element = this;
   const menu = closest(element, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
 
-  // @ts-ignore
   if (!self || checkNavbarView(self)) return;
 
   if (hasClass(element, openNavClass)) {
     Timer.clear(element, 'in');
     const leaveCallback = () => closeNavbar(element, true);
 
-    // @ts-ignore
     Timer.set(element, leaveCallback, self.options.delay, 'out');
   }
 }
@@ -1034,7 +978,7 @@ function navbarLeaveHandler() {
 /** Creates a new Navbar for desktop and mobile navigation. */
 class Navbar {
   /**
-   * @param {string | HTMLElement} target Element or selector
+   * @param {string | HTMLElement | Element} target Element or selector
    * @param {Record<string, any>=} config instance options
    */
   constructor(target, config) {
@@ -1042,21 +986,24 @@ class Navbar {
     const self = this;
 
     // instance targets
-    /** @private @type {HTMLElement?} */
+    /** @type {(HTMLElement | Element)} */
+    // @ts-ignore -- we invalidate right after
     self.menu = querySelector(target);
     const { menu } = self;
+
+    // invalidate
     if (!menu) return;
 
     // reset on re-init
     const existing = getNavbarInstance(menu);
     if (existing) existing.dispose();
 
-    /** @private @type {Record<string, any>} */
+    /** @type {Record<string, any>} */
     self.options = normalizeOptions(menu, defaultNavbarOptions, config || {}, '');
 
-    /** @private */
+    /** @type {HTMLCollectionOf<Element | HTMLElement>} */
     self.items = getElementsByTagName('LI', menu);
-    /** @private @type {HTMLElement?} */
+    /** @type {(HTMLElement | Element)?} */
     self.navbarToggle = null;
     [self.navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
 
@@ -1085,8 +1032,7 @@ class Navbar {
     const self = this;
     closeNavbars(self.items);
     toggleNavbarEvents(self);
-    toggleNavbarResizeEvent();
-    // @ts-ignore
+    toggleNavbarResizeEvent(self);
     Data.remove(self.menu, navbarComponent);
   }
 }

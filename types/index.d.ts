@@ -20,7 +20,7 @@ declare global {
   interface HTMLElement {
     addEventListener(
       type: Navbar.Event,
-      listener: (this: Element, ev: Navbar.Event) => any,
+      listener: (this: HTMLElement | Element, ev: Navbar.Event) => any,
       options?: boolean | AddEventListenerOptions,
     ): void;
   }

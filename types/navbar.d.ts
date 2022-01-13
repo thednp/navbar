@@ -6,18 +6,18 @@ declare module "navbar.js/src/js/navbar" {
     /** Creates a new Navbar for desktop and mobile navigation. */
     export default class Navbar {
         /**
-         * @param {string | HTMLElement} target Element or selector
+         * @param {string | HTMLElement | Element} target Element or selector
          * @param {Record<string, any>=} config instance options
          */
-        constructor(target: string | HTMLElement, config?: Record<string, any> | undefined);
-        /** @private @type {HTMLElement?} */
-        private menu;
-        /** @private @type {Record<string, any>} */
-        private options;
-        /** @private */
-        private items;
-        /** @private @type {HTMLElement?} */
-        private navbarToggle;
+        constructor(target: string | HTMLElement | Element, config?: Record<string, any> | undefined);
+        /** @type {(HTMLElement | Element)} */
+        menu: (HTMLElement | Element);
+        /** @type {Record<string, any>} */
+        options: Record<string, any>;
+        /** @type {HTMLCollectionOf<Element | HTMLElement>} */
+        items: HTMLCollectionOf<Element | HTMLElement>;
+        /** @type {(HTMLElement | Element)?} */
+        navbarToggle: (HTMLElement | Element) | null;
         /** @static */
         get defaults(): {
             breakpoint: number;

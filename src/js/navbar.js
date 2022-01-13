@@ -5,14 +5,16 @@ import keyArrowDown from 'shorter-js/src/strings/keyArrowDown';
 import keyArrowLeft from 'shorter-js/src/strings/keyArrowLeft';
 import keyArrowRight from 'shorter-js/src/strings/keyArrowRight';
 import ariaExpanded from 'shorter-js/src/strings/ariaExpanded';
-import addEventListener from 'shorter-js/src/strings/addEventListener';
-import removeEventListener from 'shorter-js/src/strings/removeEventListener';
+import on from 'shorter-js/src/event/on';
+import off from 'shorter-js/src/event/off';
 import mouseenterEvent from 'shorter-js/src/strings/mouseenterEvent';
 import mouseleaveEvent from 'shorter-js/src/strings/mouseleaveEvent';
 import mouseclickEvent from 'shorter-js/src/strings/mouseclickEvent';
 import keydownEvent from 'shorter-js/src/strings/keydownEvent';
 import resizeEvent from 'shorter-js/src/strings/resizeEvent';
 import Timer from 'shorter-js/src/misc/timer';
+import getDocument from 'shorter-js/src/get/getDocument';
+import getWindow from 'shorter-js/src/get/getWindow';
 
 import emulateTransitionEnd from 'shorter-js/src/misc/emulateTransitionEnd';
 import passiveHandler from 'shorter-js/src/misc/passiveHandler';
@@ -59,7 +61,7 @@ const hiddenNavbarEvent = new CustomEvent('hidden.navbar', navbarEventOptions);
 
 /**
  * Returns a `Navbar` instance.
- * @param {HTMLElement} element target element
+ * @param {HTMLElement | Element} element target element
  * @returns {Navbar?}
  */
 const getNavbarInstance = (element) => getInstance(element, navbarComponent);
@@ -73,18 +75,23 @@ const initNavbarCallback = (element) => new Navbar(element);
 
 // NAVBAR PRIVATE METHODS
 // ======================
-/** @param {boolean=} add */
-function toggleNavbarResizeEvent(add) {
-  const action = add ? addEventListener : removeEventListener;
-  if (!document.querySelector(`li.${openMobileClass}`)) {
+/**
+ * @param {Navbar} self
+ * @param {boolean=} add
+ */
+function toggleNavbarResizeEvent(self, add) {
+  const action = add ? on : off;
+  const { menu } = self;
+  if (!querySelector(`li.${openMobileClass}`, getDocument(menu))) {
     // @ts-ignore
-    window[action](resizeEvent, resizeNavbarHandler, passiveHandler);
+    action(getWindow(menu), resizeEvent, () => resizeNavbarHandler(self), passiveHandler);
   }
 }
 
-function resizeNavbarHandler() {
+/** @param {Navbar} self */
+function resizeNavbarHandler(self) {
   closeNavbars(getElementsByClassName(openMobileClass));
-  toggleNavbarResizeEvent();
+  toggleNavbarResizeEvent(self);
 }
 
 /**
@@ -105,29 +112,26 @@ function checkNavbarView(self) {
  * @param {boolean=} add
  */
 function toggleNavbarEvents(self, add) {
-  const action = add ? addEventListener : removeEventListener;
-  // @ts-ignore
+  const action = add ? on : off;
   const { items, navbarToggle, menu } = self;
 
-  ArrayFrom(items).forEach((x) => {
-    if (hasClass(x.lastElementChild, subnavClass)) {
-      x[action](mouseenterEvent, navbarEnterHandler);
-      x[action](mouseleaveEvent, navbarLeaveHandler);
+  [...items].forEach((x) => {
+    const { lastElementChild } = x;
+    if (lastElementChild && hasClass(lastElementChild, subnavClass)) {
+      action(x, mouseenterEvent, navbarEnterHandler);
+      action(x, mouseleaveEvent, navbarLeaveHandler);
     }
 
     const [toggleElement] = getElementsByClassName(subnavToggleClass, x);
-    // @ts-ignore
-    if (toggleElement) toggleElement[action](mouseclickEvent, navbarClickHandler);
+    if (toggleElement) action(toggleElement, mouseclickEvent, navbarClickHandler);
   });
 
-  // @ts-ignore
-  menu[action](keydownEvent, navbarKeyHandler);
-  // @ts-ignore
-  if (navbarToggle) navbarToggle[action](mouseclickEvent, navbarClickHandler);
+  action(menu, keydownEvent, navbarKeyHandler);
+  if (navbarToggle) action(navbarToggle, mouseclickEvent, navbarClickHandler);
 }
 
 /**
- * @param {HTMLElement} element
+ * @param {HTMLElement | Element} element
  * @param {string} selector
  * @returns {HTMLElement=}
  */
@@ -135,7 +139,7 @@ function findChild(element, selector) {
   return ArrayFrom(element.children).find((x) => selector === x.tagName || hasClass(x, selector));
 }
 
-/** @param {HTMLElement} element */
+/** @param {HTMLElement | Element} element */
 function openNavbar(element) {
   const subMenu = findChild(element, subnavClass);
   const anchor = findChild(element, 'A');
@@ -166,7 +170,7 @@ function openNavbar(element) {
 }
 
 /**
- * @param {HTMLElement} element
+ * @param {HTMLElement | Element} element
  * @param {boolean=} leave
  */
 function closeNavbar(element, leave) {
@@ -211,17 +215,17 @@ function closeNavbars(collection) {
 // NAVBAR EVENT LISTENERS
 // ======================
 /**
- * @this {HTMLElement}
+ * @this {HTMLElement | Element}
  * @param {KeyboardEvent} e Event object
  */
 function navbarKeyHandler(e) {
   const { code } = e;
   const menu = this;
-  // @ts-ignore
   const { activeElement } = document;
   const self = getNavbarInstance(menu);
+
   if (!self || !activeElement || !menu.contains(activeElement)) return;
-  // @ts-ignore
+
   const element = closest(activeElement, 'LI');
   if (!element) return;
 
@@ -239,7 +243,7 @@ function navbarKeyHandler(e) {
     && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
   const nextSelection = parentMenu && nextElementSibling
     && ((code === keyArrowDown && isColumn) || (code === sideNextKey && !isColumn));
-  /** @type {HTMLElement?} */
+  /** @type {(HTMLElement | Element)?} */
   let elementToFocus = null;
 
   if (code === keyEscape && openParentElement) {
@@ -251,15 +255,14 @@ function navbarKeyHandler(e) {
   }
 
   if (prevSelection && element !== parentMenu.firstElementChild) {
-    // @ts-ignore
     elementToFocus = previousElementSibling;
   } else if (nextSelection && element !== parentMenu.lastElementChild) {
-    // @ts-ignore
     elementToFocus = nextElementSibling;
   }
 
   // @ts-ignore
-  if (elementToFocus) elementToFocus.firstElementChild.focus();
+  const { firstElementChild } = elementToFocus;
+  if (firstElementChild) firstElementChild.focus();
 
   if (!isMobile && preventableEvents.includes(code)) {
     e.preventDefault();
@@ -267,8 +270,8 @@ function navbarKeyHandler(e) {
 }
 
 /**
- * @this {HTMLElement}
- * @param {PointerEvent} e Event object
+ * @this {HTMLElement | Element}
+ * @param {MouseEvent} e Event object
  */
 function navbarClickHandler(e) {
   e.preventDefault();
@@ -277,11 +280,12 @@ function navbarClickHandler(e) {
   const that = this;
   const menu = closest(that, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-  // @ts-ignore
+  if (!self) return;
+
   const { options, navbarToggle } = self;
 
   // @ts-ignore
-  if (self && (target === that || that.contains(target))) {
+  if (target === that || that.contains(target)) {
     const element = closest(that, 'LI') || menu;
     const toggleElement = closest(that, `.${navbarToggleClass}`) === navbarToggle
       ? navbarToggle
@@ -295,7 +299,7 @@ function navbarClickHandler(e) {
       if (showNavbarEvent.defaultPrevented) return;
 
       if (toggleElement !== navbarToggle) {
-        toggleNavbarResizeEvent(true);
+        toggleNavbarResizeEvent(self, true);
       }
 
       if (toggleElement !== navbarToggle) {
@@ -321,7 +325,7 @@ function navbarClickHandler(e) {
 
       if (toggleElement) {
         setAttribute(toggleElement, ariaExpanded, 'false');
-        toggleNavbarResizeEvent();
+        toggleNavbarResizeEvent(self);
       }
       if (anchor) {
         setAttribute(anchor, ariaExpanded, 'false');
@@ -331,14 +335,13 @@ function navbarClickHandler(e) {
   }
 }
 
-/** @this {HTMLElement} */
+/** @this {HTMLElement | Element} */
 function navbarEnterHandler() {
   const element = this;
   const menu = closest(element, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
   const timerOut = Timer.get(element, 'out');
 
-  // @ts-ignore
   if (!self || checkNavbarView(self)) return;
 
   Timer.clear(element, 'out');
@@ -350,20 +353,18 @@ function navbarEnterHandler() {
   }
 }
 
-/** @this {HTMLElement} */
+/** @this {HTMLElement | Element} */
 function navbarLeaveHandler() {
   const element = this;
   const menu = closest(element, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
 
-  // @ts-ignore
   if (!self || checkNavbarView(self)) return;
 
   if (hasClass(element, openNavClass)) {
     Timer.clear(element, 'in');
     const leaveCallback = () => closeNavbar(element, true);
 
-    // @ts-ignore
     Timer.set(element, leaveCallback, self.options.delay, 'out');
   }
 }
@@ -373,7 +374,7 @@ function navbarLeaveHandler() {
 /** Creates a new Navbar for desktop and mobile navigation. */
 export default class Navbar {
   /**
-   * @param {string | HTMLElement} target Element or selector
+   * @param {string | HTMLElement | Element} target Element or selector
    * @param {Record<string, any>=} config instance options
    */
   constructor(target, config) {
@@ -381,21 +382,24 @@ export default class Navbar {
     const self = this;
 
     // instance targets
-    /** @private @type {HTMLElement?} */
+    /** @type {(HTMLElement | Element)} */
+    // @ts-ignore -- we invalidate right after
     self.menu = querySelector(target);
     const { menu } = self;
+
+    // invalidate
     if (!menu) return;
 
     // reset on re-init
     const existing = getNavbarInstance(menu);
     if (existing) existing.dispose();
 
-    /** @private @type {Record<string, any>} */
+    /** @type {Record<string, any>} */
     self.options = normalizeOptions(menu, defaultNavbarOptions, config || {}, '');
 
-    /** @private */
+    /** @type {HTMLCollectionOf<Element | HTMLElement>} */
     self.items = getElementsByTagName('LI', menu);
-    /** @private @type {HTMLElement?} */
+    /** @type {(HTMLElement | Element)?} */
     self.navbarToggle = null;
     [self.navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
 
@@ -424,8 +428,7 @@ export default class Navbar {
     const self = this;
     closeNavbars(self.items);
     toggleNavbarEvents(self);
-    toggleNavbarResizeEvent();
-    // @ts-ignore
+    toggleNavbarResizeEvent(self);
     Data.remove(self.menu, navbarComponent);
   }
 }
