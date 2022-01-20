@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.7 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.8 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -52,32 +52,6 @@
   var ariaExpanded = 'aria-expanded';
 
   /**
-   * Add eventListener to an `Element` | `HTMLElement` | `Document` target.
-   *
-   * @param {HTMLElement | Element | Document | Window} element event.target
-   * @param {string} eventName event.type
-   * @param {EventListenerObject['handleEvent']} handler callback
-   * @param {(EventListenerOptions | boolean)=} options other event options
-   */
-  function on(element, eventName, handler, options) {
-    var ops = options || false;
-    element.addEventListener(eventName, handler, ops);
-  }
-
-  /**
-   * Remove eventListener from an `Element` | `HTMLElement` | `Document` | `Window` target.
-   *
-   * @param {HTMLElement | Element | Document | Window} element event.target
-   * @param {string} eventName event.type
-   * @param {EventListenerObject['handleEvent']} handler callback
-   * @param {(EventListenerOptions | boolean)=} options other event options
-   */
-  function off(element, eventName, handler, options) {
-    var ops = options || false;
-    element.removeEventListener(eventName, handler, ops);
-  }
-
-  /**
    * A global namespace for `mouseenter` event.
    * @type {string}
    */
@@ -106,6 +80,32 @@
    * @type {string}
    */
   var resizeEvent = 'resize';
+
+  /**
+   * Add eventListener to an `Element` | `HTMLElement` | `Document` target.
+   *
+   * @param {HTMLElement | Element | Document | Window} element event.target
+   * @param {string} eventName event.type
+   * @param {EventListenerObject['handleEvent']} handler callback
+   * @param {(EventListenerOptions | boolean)=} options other event options
+   */
+  function on(element, eventName, handler, options) {
+    var ops = options || false;
+    element.addEventListener(eventName, handler, ops);
+  }
+
+  /**
+   * Remove eventListener from an `Element` | `HTMLElement` | `Document` | `Window` target.
+   *
+   * @param {HTMLElement | Element | Document | Window} element event.target
+   * @param {string} eventName event.type
+   * @param {EventListenerObject['handleEvent']} handler callback
+   * @param {(EventListenerOptions | boolean)=} options other event options
+   */
+  function off(element, eventName, handler, options) {
+    var ops = options || false;
+    element.removeEventListener(eventName, handler, ops);
+  }
 
   /**
    * Returns the `document` or the `#document` element.
@@ -246,6 +246,25 @@
   }
 
   /**
+   * Shortcut for `window.getComputedStyle(element).propertyName`
+   * static method.
+   *
+   * * If `element` parameter is not an `HTMLElement`, `getComputedStyle`
+   * throws a `ReferenceError`.
+   *
+   * @param {HTMLElement | Element} element target
+   * @param {string} property the css property
+   * @return {string} the css property value
+   */
+  function getElementStyle(element, property) {
+    var computedStyle = getComputedStyle(element);
+
+    // @ts-ignore -- must use camelcase strings,
+    // or non-camelcase strings with `getPropertyValue`
+    return property in computedStyle ? computedStyle[property] : '';
+  }
+
+  /**
    * A global namespace for 'transitionend' string.
    * @type {string}
    */
@@ -265,25 +284,6 @@
    * @type {string}
    */
   var transitionProperty = 'transitionProperty';
-
-  /**
-   * Shortcut for `window.getComputedStyle(element).propertyName`
-   * static method.
-   *
-   * * If `element` parameter is not an `HTMLElement`, `getComputedStyle`
-   * throws a `ReferenceError`.
-   *
-   * @param {HTMLElement | Element} element target
-   * @param {string} property the css property
-   * @return {string} the css property value
-   */
-  function getElementStyle(element, property) {
-    var computedStyle = getComputedStyle(element);
-
-    // @ts-ignore -- must use camelcase strings,
-    // or non-camelcase strings with `getPropertyValue`
-    return property in computedStyle ? computedStyle[property] : '';
-  }
 
   /**
    * Utility to get the computed `transitionDelay`
@@ -449,6 +449,30 @@
   }
 
   /**
+   * Shortcut for `Object.assign()` static method.
+   * @param  {Record<string, any>} obj a target object
+   * @param  {Record<string, any>} source a source object
+   */
+  var ObjectAssign = function (obj, source) { return Object.assign(obj, source); };
+
+  /**
+   * Returns a namespaced `CustomEvent` specific to each component.
+   * @param {string} EventType Event.type
+   * @param {Record<string, any>=} config Event.options | Event.properties
+   * @returns {SHORTER.OriginalEvent} a new namespaced event
+   */
+  function OriginalEvent(EventType, config) {
+    var OriginalCustomEvent = new CustomEvent(EventType, {
+      cancelable: true, bubbles: true,
+    });
+
+    if (config instanceof Object) {
+      ObjectAssign(OriginalCustomEvent, config);
+    }
+    return OriginalCustomEvent;
+  }
+
+  /**
    * Add class to `HTMLElement.classList`.
    *
    * @param {HTMLElement | Element} element target
@@ -572,13 +596,6 @@
   var isRTL = function (node) { return getDocumentElement(node).dir === 'rtl'; };
 
   /**
-   * Shortcut for `Object.assign()` static method.
-   * @param  {Record<string, any>} obj a target object
-   * @param  {Record<string, any>} source a source object
-   */
-  var ObjectAssign = function (obj, source) { return Object.assign(obj, source); };
-
-  /**
    * Shortcut for `Array.from()` static method.
    *
    * @param  {any[] | HTMLCollection | NodeList | Map<any, any>} arr array-like iterable object
@@ -639,7 +656,7 @@
       || closest(element.getRootNode().host, selector)) : null;
   }
 
-  var version = "3.0.7";
+  var version = "3.0.8";
 
   // @ts-ignore
 
@@ -663,11 +680,10 @@
     delay: 500,
   };
 
-  var navbarEventOptions = { cancelable: true, bubbles: true };
-  var showNavbarEvent = new CustomEvent('show.navbar', navbarEventOptions);
-  var shownNavbarEvent = new CustomEvent('shown.navbar', navbarEventOptions);
-  var hideNavbarEvent = new CustomEvent('hide.navbar', navbarEventOptions);
-  var hiddenNavbarEvent = new CustomEvent('hidden.navbar', navbarEventOptions);
+  var showNavbarEvent = OriginalEvent(("show." + navbarString));
+  var shownNavbarEvent = OriginalEvent(("shown." + navbarString));
+  var hideNavbarEvent = OriginalEvent(("hide." + navbarString));
+  var hiddenNavbarEvent = OriginalEvent(("hidden." + navbarString));
 
   /**
    * Returns a `Navbar` instance.

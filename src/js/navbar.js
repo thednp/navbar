@@ -5,26 +5,28 @@ import keyArrowDown from 'shorter-js/src/strings/keyArrowDown';
 import keyArrowLeft from 'shorter-js/src/strings/keyArrowLeft';
 import keyArrowRight from 'shorter-js/src/strings/keyArrowRight';
 import ariaExpanded from 'shorter-js/src/strings/ariaExpanded';
-import on from 'shorter-js/src/event/on';
-import off from 'shorter-js/src/event/off';
 import mouseenterEvent from 'shorter-js/src/strings/mouseenterEvent';
 import mouseleaveEvent from 'shorter-js/src/strings/mouseleaveEvent';
 import mouseclickEvent from 'shorter-js/src/strings/mouseclickEvent';
 import keydownEvent from 'shorter-js/src/strings/keydownEvent';
 import resizeEvent from 'shorter-js/src/strings/resizeEvent';
+import on from 'shorter-js/src/event/on';
+import off from 'shorter-js/src/event/off';
 import Timer from 'shorter-js/src/misc/timer';
+
 import getDocument from 'shorter-js/src/get/getDocument';
 import getWindow from 'shorter-js/src/get/getWindow';
+import getElementStyle from 'shorter-js/src/get/getElementStyle';
 
 import emulateTransitionEnd from 'shorter-js/src/misc/emulateTransitionEnd';
 import passiveHandler from 'shorter-js/src/misc/passiveHandler';
 import querySelector from 'shorter-js/src/selectors/querySelector';
 import normalizeOptions from 'shorter-js/src/misc/normalizeOptions';
+import OriginalEvent from 'shorter-js/src/misc/OriginalEvent';
 import addClass from 'shorter-js/src/class/addClass';
 import hasClass from 'shorter-js/src/class/hasClass';
 import removeClass from 'shorter-js/src/class/removeClass';
 import Data, { getInstance } from 'shorter-js/src/misc/data';
-import getElementStyle from 'shorter-js/src/get/getElementStyle';
 import isRTL from 'shorter-js/src/is/isRTL';
 import ObjectAssign from 'shorter-js/src/misc/ObjectAssign';
 import ArrayFrom from 'shorter-js/src/misc/ArrayFrom';
@@ -53,11 +55,10 @@ const defaultNavbarOptions = {
   delay: 500,
 };
 
-const navbarEventOptions = { cancelable: true, bubbles: true };
-const showNavbarEvent = new CustomEvent('show.navbar', navbarEventOptions);
-const shownNavbarEvent = new CustomEvent('shown.navbar', navbarEventOptions);
-const hideNavbarEvent = new CustomEvent('hide.navbar', navbarEventOptions);
-const hiddenNavbarEvent = new CustomEvent('hidden.navbar', navbarEventOptions);
+const showNavbarEvent = OriginalEvent(`show.${navbarString}`);
+const shownNavbarEvent = OriginalEvent(`shown.${navbarString}`);
+const hideNavbarEvent = OriginalEvent(`hide.${navbarString}`);
+const hiddenNavbarEvent = OriginalEvent(`hidden.${navbarString}`);
 
 /**
  * Returns a `Navbar` instance.
