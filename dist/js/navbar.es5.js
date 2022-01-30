@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.8 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.9 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -142,7 +142,7 @@
     var lookUp = parent && parentNodes.some(function (x) { return parent instanceof x; })
       ? parent : getDocument();
 
-    if (!selectorIsString && [].concat( elementNodes ).some(function (x) { return selector instanceof x; })) {
+    if (!selectorIsString && elementNodes.some(function (x) { return selector instanceof x; })) {
       return selector;
     }
     // @ts-ignore -- `ShadowRoot` is also a node
@@ -367,6 +367,13 @@
   var passiveHandler = { passive: true };
 
   /**
+   * Shortcut for `HTMLElement.getAttribute()` method.
+   * @param  {HTMLElement | Element} element target element
+   * @param  {string} attribute attribute name
+   */
+  var getAttribute = function (element, attribute) { return element.getAttribute(attribute); };
+
+  /**
    * The raw value or a given component option.
    *
    * @typedef {string | HTMLElement | Function | number | boolean | null} niceValue
@@ -407,6 +414,14 @@
   var ObjectKeys = function (obj) { return Object.keys(obj); };
 
   /**
+   * Shortcut for `String.toLowerCase()`.
+   *
+   * @param {string} source input string
+   * @returns {string} lowercase output string
+   */
+  var toLowerCase = function (source) { return source.toLowerCase(); };
+
+  /**
    * Utility to normalize component options.
    *
    * @param {HTMLElement | Element} element target
@@ -422,10 +437,11 @@
     var normalOps = {};
     /** @type {Record<string, any>} */
     var dataOps = {};
+    var title = 'title';
 
     ObjectKeys(data).forEach(function (k) {
       var key = ns && k.includes(ns)
-        ? k.replace(ns, '').replace(/[A-Z]/, function (match) { return match.toLowerCase(); })
+        ? k.replace(ns, '').replace(/[A-Z]/, function (match) { return toLowerCase(match); })
         : k;
 
       dataOps[key] = normalizeValue(data[k]);
@@ -441,7 +457,9 @@
       } else if (k in dataOps) {
         normalOps[k] = dataOps[k];
       } else {
-        normalOps[k] = defaultOps[k];
+        normalOps[k] = k === title
+          ? getAttribute(element, title)
+          : defaultOps[k];
       }
     });
 
@@ -656,7 +674,7 @@
       || closest(element.getRootNode().host, selector)) : null;
   }
 
-  var version = "3.0.8";
+  var version = "3.0.9";
 
   // @ts-ignore
 
@@ -709,15 +727,19 @@
     var action = add ? on : off;
     var menu = self.menu;
     if (!querySelector(("li." + openMobileClass), getDocument(menu))) {
+      var resizeListener = function () { return resizeNavbarHandler(self); };
       // @ts-ignore
-      action(getWindow(menu), resizeEvent, function () { return resizeNavbarHandler(self); }, passiveHandler);
+      action(getWindow(menu), resizeEvent, resizeListener, passiveHandler);
     }
   }
 
   /** @param {Navbar} self */
   function resizeNavbarHandler(self) {
-    closeNavbars(getElementsByClassName(openMobileClass));
-    toggleNavbarResizeEvent(self);
+    // don't close the navbar when scroll down triggers resize
+    if (!checkNavbarView(self)) {
+      closeNavbars(getElementsByClassName(openMobileClass));
+      toggleNavbarResizeEvent(self);
+    }
   }
 
   /**

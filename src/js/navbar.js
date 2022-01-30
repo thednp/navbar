@@ -84,15 +84,20 @@ function toggleNavbarResizeEvent(self, add) {
   const action = add ? on : off;
   const { menu } = self;
   if (!querySelector(`li.${openMobileClass}`, getDocument(menu))) {
+    const resizeListener = () => resizeNavbarHandler(self);
     // @ts-ignore
-    action(getWindow(menu), resizeEvent, () => resizeNavbarHandler(self), passiveHandler);
+    action(getWindow(menu), resizeEvent, resizeListener, passiveHandler);
   }
 }
 
 /** @param {Navbar} self */
 function resizeNavbarHandler(self) {
-  closeNavbars(getElementsByClassName(openMobileClass));
-  toggleNavbarResizeEvent(self);
+  // don't close the navbar when scroll down triggers resize
+  // on mobile devices
+  if (!checkNavbarView(self)) {
+    closeNavbars(getElementsByClassName(openMobileClass));
+    toggleNavbarResizeEvent(self);
+  }
 }
 
 /**
