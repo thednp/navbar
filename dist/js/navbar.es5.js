@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.9 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.10 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -614,14 +614,6 @@
   var isRTL = function (node) { return getDocumentElement(node).dir === 'rtl'; };
 
   /**
-   * Shortcut for `Array.from()` static method.
-   *
-   * @param  {any[] | HTMLCollection | NodeList | Map<any, any>} arr array-like iterable object
-   * @returns {Array<any>}
-   */
-  var ArrayFrom = function (arr) { return Array.from(arr); };
-
-  /**
    * Shortcut for `HTMLElement.setAttribute()` method.
    * @param  {HTMLElement | Element} element target element
    * @param  {string} attribute attribute name
@@ -674,7 +666,18 @@
       || closest(element.getRootNode().host, selector)) : null;
   }
 
-  var version = "3.0.9";
+  /**
+   * Check if element matches a CSS selector.
+   *
+   * @param {HTMLElement | Element} target
+   * @param {string} selector
+   * @returns {boolean}
+   */
+  function matches(target, selector) {
+    return target.matches(selector);
+  }
+
+  var version = "3.0.10";
 
   // @ts-ignore
 
@@ -725,21 +728,9 @@
    */
   function toggleNavbarResizeEvent(self, add) {
     var action = add ? on : off;
-    var menu = self.menu;
-    if (!querySelector(("li." + openMobileClass), getDocument(menu))) {
-      var resizeListener = function () { return resizeNavbarHandler(self); };
-      // @ts-ignore
-      action(getWindow(menu), resizeEvent, resizeListener, passiveHandler);
-    }
-  }
 
-  /** @param {Navbar} self */
-  function resizeNavbarHandler(self) {
-    // don't close the navbar when scroll down triggers resize
-    if (!checkNavbarView(self)) {
-      closeNavbars(getElementsByClassName(openMobileClass));
-      toggleNavbarResizeEvent(self);
-    }
+    // @ts-ignore
+    action(getWindow(self.menu), resizeEvent, self.listenResize, passiveHandler);
   }
 
   /**
@@ -747,14 +738,12 @@
    * @param {Navbar} self
    */
   function checkNavbarView(self) {
-    // @ts-ignore
     var options = self.options;
     var menu = self.menu;
-    // @ts-ignore
     var ref = getElementsByClassName(subnavToggleClass, menu);
     var firstToggle = ref[0];
     return (firstToggle && getElementStyle(firstToggle, 'display') !== 'none')
-      || window.innerWidth < options.breakpoint;
+      || getWindow(menu).innerWidth < options.breakpoint;
   }
 
   /**
@@ -786,10 +775,10 @@
   /**
    * @param {HTMLElement | Element} element
    * @param {string} selector
-   * @returns {HTMLElement=}
+   * @returns {(HTMLElement | Element)=}
    */
   function findChild(element, selector) {
-    return ArrayFrom(element.children).find(function (x) { return selector === x.tagName || hasClass(x, selector); });
+    return [].concat( element.children ).find(function (x) { return matches(x, selector); });
   }
 
   /** @param {HTMLElement | Element} element */
@@ -816,7 +805,7 @@
 
     // @ts-ignore
     var siblings = getElementsByTagName('LI', element.parentElement);
-    closeNavbars(ArrayFrom(siblings).filter(function (x) { return x !== element; }));
+    closeNavbars([].concat( siblings ).filter(function (x) { return x !== element; }));
 
     if (subMenu) { emulateTransitionEnd(subMenu, navOpenTransitionEnd); }
     else { navOpenTransitionEnd(); }
@@ -862,7 +851,7 @@
 
   /** @param {HTMLCollection | Element[]} collection */
   function closeNavbars(collection) {
-    ArrayFrom(collection).forEach(function (x) { return closeNavbar(x); });
+    [].concat( collection ).forEach(function (x) { return closeNavbar(x); });
   }
 
   // NAVBAR EVENT LISTENERS
@@ -874,7 +863,8 @@
   function navbarKeyHandler(e) {
     var code = e.code;
     var menu = this;
-    var activeElement = document.activeElement;
+    var ref = getDocument(menu);
+    var activeElement = ref.activeElement;
     var self = getNavbarInstance(menu);
 
     if (!self || !activeElement || !menu.contains(activeElement)) { return; }
@@ -887,8 +877,8 @@
     var nextElementSibling = element.nextElementSibling;
     var openParentElement = closest(element, ("." + openNavClass));
     var parentMenu = closest(element, 'UL');
-    var ref = getElementsByClassName(subnavClass, element);
-    var subnavMenu = ref[0];
+    var ref$1 = getElementsByClassName(subnavClass, element);
+    var subnavMenu = ref$1[0];
     var preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
     var isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
     var RTL = isRTL(element);
@@ -915,9 +905,11 @@
       elementToFocus = nextElementSibling;
     }
 
-    // @ts-ignore
-    var firstElementChild = elementToFocus.firstElementChild;
-    if (firstElementChild) { firstElementChild.focus(); }
+    if (elementToFocus) {
+      var firstElementChild = elementToFocus.firstElementChild;
+      // @ts-ignore
+      if (firstElementChild) { firstElementChild.focus(); }
+    }
 
     if (!isMobile && preventableEvents.includes(code)) {
       e.preventDefault();
@@ -954,11 +946,9 @@
         if (anchor) { anchor.dispatchEvent(showNavbarEvent); }
         if (showNavbarEvent.defaultPrevented) { return; }
 
-        if (toggleElement !== navbarToggle) {
+        if (toggleElement === navbarToggle) {
           toggleNavbarResizeEvent(self, true);
-        }
-
-        if (toggleElement !== navbarToggle) {
+        } else {
           var selection = options.toggleSiblings
             // @ts-ignore element.parentElement is an `Element`
             ? getElementsByClassName(openMobileClass, element.parentElement)
@@ -981,7 +971,9 @@
 
         if (toggleElement) {
           setAttribute(toggleElement, ariaExpanded, 'false');
-          toggleNavbarResizeEvent(self);
+          if (toggleElement === navbarToggle) {
+            toggleNavbarResizeEvent(self);
+          }
         }
         if (anchor) {
           setAttribute(anchor, ariaExpanded, 'false');
@@ -1056,6 +1048,9 @@
     self.navbarToggle = null;
     (assign = getElementsByClassName(navbarToggleClass, menu), self.navbarToggle = assign[0]);
 
+    // bind self to resize listener
+    self.listenResize = self.listenResize.bind(self);
+
     // attach events
     toggleNavbarEvents(self, true);
 
@@ -1074,8 +1069,19 @@
   prototypeAccessors.name.get = function () { return navbarComponent; };
   /* eslint-enable */
 
-  // NAVBAR PUBLIC METHOD
-  // ====================
+  // NAVBAR PUBLIC METHODS
+  // =====================
+  /**
+   * Window `resize` event listener.
+   */
+  Navbar.prototype.listenResize = function listenResize () {
+    var self = this;
+    if (!checkNavbarView(self)) {
+      closeNavbars(getElementsByClassName(openMobileClass));
+      toggleNavbarResizeEvent(self);
+    }
+  };
+
   /**
    * Destroy Navbar instance.
    * @public */
@@ -1095,19 +1101,24 @@
     getInstance: getNavbarInstance,
   });
 
+  /**
+   * An `HTMLCollection` with all document elements,
+   * which is the equivalent to `document.all`.
+   */
+  var documentAll = getElementsByTagName('*');
+
   // DATA API
   /**
    * Navbar initialization callback
    * @param {HTMLElement=} context Element
    */
   function initNavbar(context) {
-    var lookup = context instanceof Element ? context : document;
-
     var selector = Navbar.selector;
     var init = Navbar.init;
-    var navs = lookup.querySelectorAll(selector);
+    var collection = [HTMLElement, Element].some(function (x) { return context instanceof x; })
+      ? getElementsByTagName('*', context) : documentAll;
 
-    Array.from(navs).map(function (x) { return init(x); });
+    [].concat( collection ).filter(function (x) { return matches(x, selector); }).map(function (x) { return init(x); });
   }
   // initialize when loaded
   if (document.body) { initNavbar(); }

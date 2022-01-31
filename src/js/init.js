@@ -1,3 +1,6 @@
+import documentAll from 'shorter-js/src/selectors/documentAll';
+import getElementsByTagName from 'shorter-js/src/selectors/getElementsByTagName';
+import matches from 'shorter-js/src/selectors/matches';
 import Navbar from './navbar';
 
 // DATA API
@@ -6,12 +9,11 @@ import Navbar from './navbar';
  * @param {HTMLElement=} context Element
  */
 function initNavbar(context) {
-  const lookup = context instanceof Element ? context : document;
-
   const { selector, init } = Navbar;
-  const navs = lookup.querySelectorAll(selector);
+  const collection = [HTMLElement, Element].some((x) => context instanceof x)
+    ? getElementsByTagName('*', context) : documentAll;
 
-  Array.from(navs).map((x) => init(x));
+  [...collection].filter((x) => matches(x, selector)).map((x) => init(x));
 }
 // initialize when loaded
 if (document.body) initNavbar();

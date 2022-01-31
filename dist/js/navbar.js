@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.9 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.10 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -614,14 +614,6 @@
   const isRTL = (node) => getDocumentElement(node).dir === 'rtl';
 
   /**
-   * Shortcut for `Array.from()` static method.
-   *
-   * @param  {any[] | HTMLCollection | NodeList | Map<any, any>} arr array-like iterable object
-   * @returns {Array<any>}
-   */
-  const ArrayFrom = (arr) => Array.from(arr);
-
-  /**
    * Shortcut for `HTMLElement.setAttribute()` method.
    * @param  {HTMLElement | Element} element target element
    * @param  {string} attribute attribute name
@@ -674,7 +666,18 @@
       || closest(element.getRootNode().host, selector)) : null;
   }
 
-  var version = "3.0.9";
+  /**
+   * Check if element matches a CSS selector.
+   *
+   * @param {HTMLElement | Element} target
+   * @param {string} selector
+   * @returns {boolean}
+   */
+  function matches(target, selector) {
+    return target.matches(selector);
+  }
+
+  var version = "3.0.10";
 
   // @ts-ignore
 
@@ -725,21 +728,9 @@
    */
   function toggleNavbarResizeEvent(self, add) {
     const action = add ? on : off;
-    const { menu } = self;
-    if (!querySelector(`li.${openMobileClass}`, getDocument(menu))) {
-      const resizeListener = () => resizeNavbarHandler(self);
-      // @ts-ignore
-      action(getWindow(menu), resizeEvent, resizeListener, passiveHandler);
-    }
-  }
 
-  /** @param {Navbar} self */
-  function resizeNavbarHandler(self) {
-    // don't close the navbar when scroll down triggers resize
-    if (!checkNavbarView(self)) {
-      closeNavbars(getElementsByClassName(openMobileClass));
-      toggleNavbarResizeEvent(self);
-    }
+    // @ts-ignore
+    action(getWindow(self.menu), resizeEvent, self.listenResize, passiveHandler);
   }
 
   /**
@@ -747,12 +738,10 @@
    * @param {Navbar} self
    */
   function checkNavbarView(self) {
-    // @ts-ignore
     const { options, menu } = self;
-    // @ts-ignore
     const [firstToggle] = getElementsByClassName(subnavToggleClass, menu);
     return (firstToggle && getElementStyle(firstToggle, 'display') !== 'none')
-      || window.innerWidth < options.breakpoint;
+      || getWindow(menu).innerWidth < options.breakpoint;
   }
 
   /**
@@ -781,10 +770,10 @@
   /**
    * @param {HTMLElement | Element} element
    * @param {string} selector
-   * @returns {HTMLElement=}
+   * @returns {(HTMLElement | Element)=}
    */
   function findChild(element, selector) {
-    return ArrayFrom(element.children).find((x) => selector === x.tagName || hasClass(x, selector));
+    return [...element.children].find((x) => matches(x, selector));
   }
 
   /** @param {HTMLElement | Element} element */
@@ -811,7 +800,7 @@
 
     // @ts-ignore
     const siblings = getElementsByTagName('LI', element.parentElement);
-    closeNavbars(ArrayFrom(siblings).filter((x) => x !== element));
+    closeNavbars([...siblings].filter((x) => x !== element));
 
     if (subMenu) emulateTransitionEnd(subMenu, navOpenTransitionEnd);
     else navOpenTransitionEnd();
@@ -857,7 +846,7 @@
 
   /** @param {HTMLCollection | Element[]} collection */
   function closeNavbars(collection) {
-    ArrayFrom(collection).forEach((x) => closeNavbar(x));
+    [...collection].forEach((x) => closeNavbar(x));
   }
 
   // NAVBAR EVENT LISTENERS
@@ -869,7 +858,7 @@
   function navbarKeyHandler(e) {
     const { code } = e;
     const menu = this;
-    const { activeElement } = document;
+    const { activeElement } = getDocument(menu);
     const self = getNavbarInstance(menu);
 
     if (!self || !activeElement || !menu.contains(activeElement)) return;
@@ -908,9 +897,11 @@
       elementToFocus = nextElementSibling;
     }
 
-    // @ts-ignore
-    const { firstElementChild } = elementToFocus;
-    if (firstElementChild) firstElementChild.focus();
+    if (elementToFocus) {
+      const { firstElementChild } = elementToFocus;
+      // @ts-ignore
+      if (firstElementChild) firstElementChild.focus();
+    }
 
     if (!isMobile && preventableEvents.includes(code)) {
       e.preventDefault();
@@ -946,11 +937,9 @@
         if (anchor) anchor.dispatchEvent(showNavbarEvent);
         if (showNavbarEvent.defaultPrevented) return;
 
-        if (toggleElement !== navbarToggle) {
+        if (toggleElement === navbarToggle) {
           toggleNavbarResizeEvent(self, true);
-        }
-
-        if (toggleElement !== navbarToggle) {
+        } else {
           const selection = options.toggleSiblings
             // @ts-ignore element.parentElement is an `Element`
             ? getElementsByClassName(openMobileClass, element.parentElement)
@@ -973,7 +962,9 @@
 
         if (toggleElement) {
           setAttribute(toggleElement, ariaExpanded, 'false');
-          toggleNavbarResizeEvent(self);
+          if (toggleElement === navbarToggle) {
+            toggleNavbarResizeEvent(self);
+          }
         }
         if (anchor) {
           setAttribute(anchor, ariaExpanded, 'false');
@@ -1051,6 +1042,9 @@
       self.navbarToggle = null;
       [self.navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
 
+      // bind self to resize listener
+      self.listenResize = self.listenResize.bind(self);
+
       // attach events
       toggleNavbarEvents(self, true);
 
@@ -1067,8 +1061,19 @@
     get name() { return navbarComponent; }
     /* eslint-enable */
 
-    // NAVBAR PUBLIC METHOD
-    // ====================
+    // NAVBAR PUBLIC METHODS
+    // =====================
+    /**
+     * Window `resize` event listener.
+     */
+    listenResize() {
+      const self = this;
+      if (!checkNavbarView(self)) {
+        closeNavbars(getElementsByClassName(openMobileClass));
+        toggleNavbarResizeEvent(self);
+      }
+    }
+
     /**
      * Destroy Navbar instance.
      * @public */
@@ -1087,18 +1092,23 @@
     getInstance: getNavbarInstance,
   });
 
+  /**
+   * An `HTMLCollection` with all document elements,
+   * which is the equivalent to `document.all`.
+   */
+  const documentAll = getElementsByTagName('*');
+
   // DATA API
   /**
    * Navbar initialization callback
    * @param {HTMLElement=} context Element
    */
   function initNavbar(context) {
-    const lookup = context instanceof Element ? context : document;
-
     const { selector, init } = Navbar;
-    const navs = lookup.querySelectorAll(selector);
+    const collection = [HTMLElement, Element].some((x) => context instanceof x)
+      ? getElementsByTagName('*', context) : documentAll;
 
-    Array.from(navs).map((x) => init(x));
+    [...collection].filter((x) => matches(x, selector)).map((x) => init(x));
   }
   // initialize when loaded
   if (document.body) initNavbar();
