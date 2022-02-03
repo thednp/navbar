@@ -161,15 +161,16 @@
     // get listener first
     var oneEventMap = EventRegistry[eventType];
     var oneElementMap = oneEventMap && oneEventMap.get(element);
+    var savedOptions = oneElementMap && oneElementMap.get(listener);
     // also recover initial options
-    var ref = oneElementMap
-      ? oneElementMap.get(listener)
+    var ref = savedOptions !== undefined
+      ? savedOptions
       : { options: options };
     var eventOptions = ref.options;
 
     // unsubscribe second, remove from registry
     if (oneElementMap && oneElementMap.has(listener)) { oneElementMap.delete(listener); }
-    if (!oneElementMap || !oneElementMap.size) { oneEventMap.delete(element); }
+    if (oneEventMap && (!oneElementMap || !oneElementMap.size)) { oneEventMap.delete(element); }
     if (!oneEventMap || !oneEventMap.size) { delete EventRegistry[eventType]; }
 
     // remove listener last

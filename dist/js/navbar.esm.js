@@ -153,14 +153,15 @@ const removeListener = (element, eventType, listener, options) => {
   // get listener first
   const oneEventMap = EventRegistry[eventType];
   const oneElementMap = oneEventMap && oneEventMap.get(element);
+  const savedOptions = oneElementMap && oneElementMap.get(listener);
   // also recover initial options
-  const { options: eventOptions } = oneElementMap
-    ? oneElementMap.get(listener)
+  const { options: eventOptions } = savedOptions !== undefined
+    ? savedOptions
     : { options };
 
   // unsubscribe second, remove from registry
   if (oneElementMap && oneElementMap.has(listener)) oneElementMap.delete(listener);
-  if (!oneElementMap || !oneElementMap.size) oneEventMap.delete(element);
+  if (oneEventMap && (!oneElementMap || !oneElementMap.size)) oneEventMap.delete(element);
   if (!oneEventMap || !oneEventMap.size) delete EventRegistry[eventType];
 
   // remove listener last
