@@ -68,7 +68,7 @@
   "homepage": "http://thednp.github.io/navbar.js",
   "dependencies": {
     "minifill": "^0.0.17",
-    "event-listener.js": "^0.0.3",
+    "event-listener.js": "^0.0.4",
     "shorter-js": "^0.3.0alpha23"
   },
   "devDependencies": {
