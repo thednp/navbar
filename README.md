@@ -60,7 +60,7 @@ var myMenu = new Navbar('selector');
 ```
 
 To use the DATA-API, you need to provide the `data-function="navbar"` attribute to your navbar, like so:
-```markup
+```html
 <nav class="navbar" data-function="navbar">
   <a href="#" title="App Name">Brand Name</a>
   <button class="navbar-toggle">
@@ -77,7 +77,7 @@ To use the DATA-API, you need to provide the `data-function="navbar"` attribute 
 
 Alternatively you can use only the menu itself and use the specific attribute:
 
-```markup
+```html
 <div class="sidebar">
   <ul class="nav" data-function="navbar">
     <li><a href="#">Link Title</a></li>
