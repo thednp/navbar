@@ -10,8 +10,9 @@ import mouseleaveEvent from 'shorter-js/src/strings/mouseleaveEvent';
 import mouseclickEvent from 'shorter-js/src/strings/mouseclickEvent';
 import keydownEvent from 'shorter-js/src/strings/keydownEvent';
 import resizeEvent from 'shorter-js/src/strings/resizeEvent';
-import on from 'shorter-js/src/event/on';
-import off from 'shorter-js/src/event/off';
+// import on from 'shorter-js/src/event/on';
+// import off from 'shorter-js/src/event/off';
+import EventListener from 'event-listener.js';
 import Timer from 'shorter-js/src/misc/timer';
 
 import getDocument from 'shorter-js/src/get/getDocument';
@@ -36,6 +37,8 @@ import closest from 'shorter-js/src/selectors/closest';
 import matches from 'shorter-js/src/selectors/matches';
 
 import Version from './version';
+
+const { on, off } = EventListener;
 
 // NAVBAR GC
 // =========

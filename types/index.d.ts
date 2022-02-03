@@ -27,3 +27,4 @@ declare global {
 }
 
 export * as SHORTER from "shorter-js";
+export * as EventListener from "event-listener.js";
