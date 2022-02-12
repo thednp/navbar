@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.11 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.12 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -81,117 +81,6 @@
    */
   var resizeEvent = 'resize';
 
-  /** @type {Record<string, any>} */
-  var EventRegistry = {};
-
-  /**
-   * The global event listener.
-   *
-   * @this {Element | HTMLElement | Window | Document}
-   * @param {Event} e
-   * @returns {void}
-   */
-  function globalListener(e) {
-    var that = this;
-    var type = e.type;
-    var oneEvMap = EventRegistry[type] ? [].concat( EventRegistry[type] ) : [];
-
-    oneEvMap.forEach(function (elementsMap) {
-      var element = elementsMap[0];
-      var listenersMap = elementsMap[1];
-      [].concat( listenersMap ).forEach(function (listenerMap) {
-        if (element === that) {
-          var listener = listenerMap[0];
-          var options = listenerMap[1];
-          listener.apply(element, [e]);
-
-          if (options && options.once) {
-            removeListener(element, type, listener, options);
-          }
-        }
-      });
-    });
-  }
-
-  /**
-   * Register a new listener with its options and attach the `globalListener`
-   * to the target if this is the first listener.
-   *
-   * @param {Element | HTMLElement | Window | Document} element
-   * @param {string} eventType
-   * @param {EventListenerObject['handleEvent']} listener
-   * @param {AddEventListenerOptions=} options
-   */
-  var addListener = function (element, eventType, listener, options) {
-    // get element listeners first
-    if (!EventRegistry[eventType]) {
-      EventRegistry[eventType] = new Map();
-    }
-    var oneEventMap = EventRegistry[eventType];
-
-    if (!oneEventMap.has(element)) {
-      oneEventMap.set(element, new Map());
-    }
-    var oneElementMap = oneEventMap.get(element);
-
-    // get listeners size
-    var size = oneElementMap.size;
-
-    // register listener with its options
-    if (oneElementMap) {
-      oneElementMap.set(listener, options);
-    }
-
-    // add listener last
-    if (!size) {
-      element.addEventListener(eventType, globalListener, options);
-    }
-  };
-
-  /**
-   * Remove a listener from registry and detach the `globalListener`
-   * if no listeners are found in the registry.
-   *
-   * @param {Element | HTMLElement | Window | Document} element
-   * @param {string} eventType
-   * @param {EventListenerObject['handleEvent']} listener
-   * @param {AddEventListenerOptions=} options
-   */
-  var removeListener = function (element, eventType, listener, options) {
-    // get listener first
-    var oneEventMap = EventRegistry[eventType];
-    var oneElementMap = oneEventMap && oneEventMap.get(element);
-    var savedOptions = oneElementMap && oneElementMap.get(listener);
-    // also recover initial options
-    var ref = savedOptions !== undefined
-      ? savedOptions
-      : { options: options };
-    var eventOptions = ref.options;
-
-    // unsubscribe second, remove from registry
-    if (oneElementMap && oneElementMap.has(listener)) { oneElementMap.delete(listener); }
-    if (oneEventMap && (!oneElementMap || !oneElementMap.size)) { oneEventMap.delete(element); }
-    if (!oneEventMap || !oneEventMap.size) { delete EventRegistry[eventType]; }
-
-    // remove listener last
-    if (!oneElementMap || !oneElementMap.size) {
-      element.removeEventListener(eventType, globalListener, eventOptions);
-    }
-  };
-
-  /**
-   * Advanced event listener based on subscribe / publish pattern.
-   * @see https://www.patterns.dev/posts/classic-design-patterns/#observerpatternjavascript
-   * @see https://gist.github.com/shystruk/d16c0ee7ac7d194da9644e5d740c8338#file-subpub-js
-   * @see https://hackernoon.com/do-you-still-register-window-event-listeners-in-each-component-react-in-example-31a4b1f6f1c8
-   */
-  var EventListener = {
-    on: addListener,
-    off: removeListener,
-    globalListener: globalListener,
-    registry: EventRegistry,
-  };
-
   /**
    * Returns the `document` or the `#document` element.
    * @see https://github.com/floating-ui/floating-ui
@@ -207,7 +96,7 @@
   /**
    * A global array of possible `ParentNode`.
    */
-  var parentNodes = [Document, Node, Element, HTMLElement];
+  var parentNodes = [Document, Element, HTMLElement];
 
   /**
    * A global array with `Element` | `HTMLElement`.
@@ -219,19 +108,17 @@
    * or find one that matches a selector.
    *
    * @param {HTMLElement | Element | string} selector the input selector or target element
-   * @param {(HTMLElement | Element | Node | Document)=} parent optional node to look into
+   * @param {(HTMLElement | Element | Document)=} parent optional node to look into
    * @return {(HTMLElement | Element)?} the `HTMLElement` or `querySelector` result
    */
   function querySelector(selector, parent) {
-    var selectorIsString = typeof selector === 'string';
-    var lookUp = parent && parentNodes.some(function (x) { return parent instanceof x; })
+    var lookUp = parentNodes.some(function (x) { return parent instanceof x; })
       ? parent : getDocument();
 
-    if (!selectorIsString && elementNodes.some(function (x) { return selector instanceof x; })) {
-      return selector;
-    }
-    // @ts-ignore -- `ShadowRoot` is also a node
-    return selectorIsString ? lookUp.querySelector(selector) : null;
+    // @ts-ignore
+    return elementNodes.some(function (x) { return selector instanceof x; })
+      // @ts-ignore
+      ? selector : lookUp.querySelector(selector);
   }
 
   /** @type {Map<HTMLElement | Element, any>} */
@@ -412,32 +299,6 @@
   }
 
   /**
-   * Add eventListener to an `Element` | `HTMLElement` | `Document` target.
-   *
-   * @param {HTMLElement | Element | Document | Window} element event.target
-   * @param {string} eventName event.type
-   * @param {EventListenerObject['handleEvent']} handler callback
-   * @param {(EventListenerOptions | boolean)=} options other event options
-   */
-  function on(element, eventName, handler, options) {
-    var ops = options || false;
-    element.addEventListener(eventName, handler, ops);
-  }
-
-  /**
-   * Remove eventListener from an `Element` | `HTMLElement` | `Document` | `Window` target.
-   *
-   * @param {HTMLElement | Element | Document | Window} element event.target
-   * @param {string} eventName event.type
-   * @param {EventListenerObject['handleEvent']} handler callback
-   * @param {(EventListenerOptions | boolean)=} options other event options
-   */
-  function off(element, eventName, handler, options) {
-    var ops = options || false;
-    element.removeEventListener(eventName, handler, ops);
-  }
-
-  /**
    * Utility to make sure callbacks are consistently
    * called when transition ends.
    *
@@ -453,16 +314,16 @@
     if (duration) {
       /**
        * Wrap the handler in on -> off callback
-       * @param {TransitionEvent} e Event object
+       * @type {EventListenerObject['handleEvent']} e Event object
        */
       var transitionEndWrapper = function (e) {
         if (e.target === element) {
           handler.apply(element, [e]);
-          off(element, transitionEndEvent, transitionEndWrapper);
+          element.removeEventListener(transitionEndEvent, transitionEndWrapper);
           called = 1;
         }
       };
-      on(element, transitionEndEvent, transitionEndWrapper);
+      element.addEventListener(transitionEndEvent, transitionEndWrapper);
       setTimeout(function () {
         if (!called) { element.dispatchEvent(endEvent); }
       }, duration + delay + 17);
@@ -601,37 +462,6 @@
     return OriginalCustomEvent;
   }
 
-  /**
-   * Add class to `HTMLElement.classList`.
-   *
-   * @param {HTMLElement | Element} element target
-   * @param {string} classNAME to add
-   */
-  function addClass(element, classNAME) {
-    element.classList.add(classNAME);
-  }
-
-  /**
-   * Check class in `HTMLElement.classList`.
-   *
-   * @param {HTMLElement | Element} element target
-   * @param {string} classNAME to check
-   * @return {boolean}
-   */
-  function hasClass(element, classNAME) {
-    return element.classList.contains(classNAME);
-  }
-
-  /**
-   * Remove class from `HTMLElement.classList`.
-   *
-   * @param {HTMLElement | Element} element target
-   * @param {string} classNAME to remove
-   */
-  function removeClass(element, classNAME) {
-    element.classList.remove(classNAME);
-  }
-
   /** @type {Map<string, Map<HTMLElement | Element, Record<string, any>>>} */
   var componentData = new Map();
   /**
@@ -706,6 +536,37 @@
    * @type {SHORTER.getInstance<any>}
    */
   var getInstance = function (target, component) { return Data.get(target, component); };
+
+  /**
+   * Add class to `HTMLElement.classList`.
+   *
+   * @param {HTMLElement | Element} element target
+   * @param {string} classNAME to add
+   */
+  function addClass(element, classNAME) {
+    element.classList.add(classNAME);
+  }
+
+  /**
+   * Check class in `HTMLElement.classList`.
+   *
+   * @param {HTMLElement | Element} element target
+   * @param {string} classNAME to check
+   * @return {boolean}
+   */
+  function hasClass(element, classNAME) {
+    return element.classList.contains(classNAME);
+  }
+
+  /**
+   * Remove class from `HTMLElement.classList`.
+   *
+   * @param {HTMLElement | Element} element target
+   * @param {string} classNAME to remove
+   */
+  function removeClass(element, classNAME) {
+    element.classList.remove(classNAME);
+  }
 
   /**
    * Returns the `document.documentElement` or the `<html>` element.
@@ -788,14 +649,110 @@
     return target.matches(selector);
   }
 
-  var version = "3.0.11";
+  /** @type {Record<string, any>} */
+  var EventRegistry = {};
+
+  /**
+   * The global event listener.
+   *
+   * @this {Element | HTMLElement | Window | Document}
+   * @param {Event} e
+   * @returns {void}
+   */
+  function globalListener(e) {
+    var that = this;
+    var type = e.type;
+    var oneEvMap = EventRegistry[type] ? [].concat( EventRegistry[type] ) : [];
+
+    oneEvMap.forEach(function (elementsMap) {
+      var element = elementsMap[0];
+      var listenersMap = elementsMap[1];
+      [].concat( listenersMap ).forEach(function (listenerMap) {
+        if (element === that) {
+          var listener = listenerMap[0];
+          var options = listenerMap[1];
+          listener.apply(element, [e]);
+
+          if (options && options.once) {
+            removeListener(element, type, listener, options);
+          }
+        }
+      });
+    });
+  }
+
+  /**
+   * Register a new listener with its options and attach the `globalListener`
+   * to the target if this is the first listener.
+   *
+   * @param {Element | HTMLElement | Window | Document} element
+   * @param {string} eventType
+   * @param {EventListenerObject['handleEvent']} listener
+   * @param {AddEventListenerOptions=} options
+   */
+  var addListener = function (element, eventType, listener, options) {
+    // get element listeners first
+    if (!EventRegistry[eventType]) {
+      EventRegistry[eventType] = new Map();
+    }
+    var oneEventMap = EventRegistry[eventType];
+
+    if (!oneEventMap.has(element)) {
+      oneEventMap.set(element, new Map());
+    }
+    var oneElementMap = oneEventMap.get(element);
+
+    // get listeners size
+    var size = oneElementMap.size;
+
+    // register listener with its options
+    if (oneElementMap) {
+      oneElementMap.set(listener, options);
+    }
+
+    // add listener last
+    if (!size) {
+      element.addEventListener(eventType, globalListener, options);
+    }
+  };
+
+  /**
+   * Remove a listener from registry and detach the `globalListener`
+   * if no listeners are found in the registry.
+   *
+   * @param {Element | HTMLElement | Window | Document} element
+   * @param {string} eventType
+   * @param {EventListenerObject['handleEvent']} listener
+   * @param {AddEventListenerOptions=} options
+   */
+  var removeListener = function (element, eventType, listener, options) {
+    // get listener first
+    var oneEventMap = EventRegistry[eventType];
+    var oneElementMap = oneEventMap && oneEventMap.get(element);
+    var savedOptions = oneElementMap && oneElementMap.get(listener);
+
+    // also recover initial options
+    var ref = savedOptions !== undefined
+      ? savedOptions
+      : { options: options };
+    var eventOptions = ref.options;
+
+    // unsubscribe second, remove from registry
+    if (oneElementMap && oneElementMap.has(listener)) { oneElementMap.delete(listener); }
+    if (oneEventMap && (!oneElementMap || !oneElementMap.size)) { oneEventMap.delete(element); }
+    if (!oneEventMap || !oneEventMap.size) { delete EventRegistry[eventType]; }
+
+    // remove listener last
+    if (!oneElementMap || !oneElementMap.size) {
+      element.removeEventListener(eventType, globalListener, eventOptions);
+    }
+  };
+
+  var version = "3.0.12";
 
   // @ts-ignore
 
   var Version = version;
-
-  var on$1 = EventListener.on;
-  var off$1 = EventListener.off;
 
   // NAVBAR GC
   // =========
@@ -841,7 +798,7 @@
    * @param {boolean=} add
    */
   function toggleNavbarResizeEvent(self, add) {
-    var action = add ? on$1 : off$1;
+    var action = add ? addListener : removeListener;
 
     // @ts-ignore
     action(getWindow(self.menu), resizeEvent, self.listenResize, passiveHandler);
@@ -865,7 +822,7 @@
    * @param {boolean=} add
    */
   function toggleNavbarEvents(self, add) {
-    var action = add ? on$1 : off$1;
+    var action = add ? addListener : removeListener;
     var items = self.items;
     var navbarToggle = self.navbarToggle;
     var menu = self.menu;

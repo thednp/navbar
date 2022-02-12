@@ -10,35 +10,31 @@ import mouseleaveEvent from 'shorter-js/src/strings/mouseleaveEvent';
 import mouseclickEvent from 'shorter-js/src/strings/mouseclickEvent';
 import keydownEvent from 'shorter-js/src/strings/keydownEvent';
 import resizeEvent from 'shorter-js/src/strings/resizeEvent';
-// import on from 'shorter-js/src/event/on';
-// import off from 'shorter-js/src/event/off';
-import EventListener from 'event-listener.js';
 import Timer from 'shorter-js/src/misc/timer';
-
 import getDocument from 'shorter-js/src/get/getDocument';
 import getWindow from 'shorter-js/src/get/getWindow';
 import getElementStyle from 'shorter-js/src/get/getElementStyle';
 
 import emulateTransitionEnd from 'shorter-js/src/misc/emulateTransitionEnd';
 import passiveHandler from 'shorter-js/src/misc/passiveHandler';
-import querySelector from 'shorter-js/src/selectors/querySelector';
 import normalizeOptions from 'shorter-js/src/misc/normalizeOptions';
 import OriginalEvent from 'shorter-js/src/misc/OriginalEvent';
+import Data, { getInstance } from 'shorter-js/src/misc/data';
+import ObjectAssign from 'shorter-js/src/misc/ObjectAssign';
 import addClass from 'shorter-js/src/class/addClass';
 import hasClass from 'shorter-js/src/class/hasClass';
 import removeClass from 'shorter-js/src/class/removeClass';
-import Data, { getInstance } from 'shorter-js/src/misc/data';
 import isRTL from 'shorter-js/src/is/isRTL';
-import ObjectAssign from 'shorter-js/src/misc/ObjectAssign';
 import setAttribute from 'shorter-js/src/attr/setAttribute';
+import querySelector from 'shorter-js/src/selectors/querySelector';
 import getElementsByClassName from 'shorter-js/src/selectors/getElementsByClassName';
 import getElementsByTagName from 'shorter-js/src/selectors/getElementsByTagName';
 import closest from 'shorter-js/src/selectors/closest';
 import matches from 'shorter-js/src/selectors/matches';
 
-import Version from './version';
+import { addListener, removeListener } from 'event-listener.js';
 
-const { on, off } = EventListener;
+import Version from './version';
 
 // NAVBAR GC
 // =========
@@ -84,7 +80,7 @@ const initNavbarCallback = (element) => new Navbar(element);
  * @param {boolean=} add
  */
 function toggleNavbarResizeEvent(self, add) {
-  const action = add ? on : off;
+  const action = add ? addListener : removeListener;
 
   // @ts-ignore
   action(getWindow(self.menu), resizeEvent, self.listenResize, passiveHandler);
@@ -106,7 +102,7 @@ function checkNavbarView(self) {
  * @param {boolean=} add
  */
 function toggleNavbarEvents(self, add) {
-  const action = add ? on : off;
+  const action = add ? addListener : removeListener;
   const { items, navbarToggle, menu } = self;
 
   [...items].forEach((x) => {
