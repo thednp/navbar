@@ -1,6 +1,6 @@
 {
   "name": "navbar.js",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "description": "Navbar.js Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
@@ -69,7 +69,7 @@
   "dependencies": {
     "minifill": "^0.0.17",
     "event-listener.js": "^0.0.5",
-    "shorter-js": "^0.3.0alpha24"
+    "shorter-js": "^0.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",

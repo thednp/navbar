@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.12 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.13 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -133,7 +133,7 @@
      * @param {HTMLElement | Element | string} target target element
      * @param {ReturnType<TimerHandler>} callback the callback
      * @param {number} delay the execution delay
-     * @param {string=} key a unique
+     * @param {string=} key a unique key
      */
     set: (target, callback, delay, key) => {
       const element = querySelector(target);
@@ -249,9 +249,7 @@
   const transitionDelay = 'transitionDelay';
 
   /**
-   * A global namespace for:
-   * * `transitionProperty` string for Firefox,
-   * * `transition` property for all other browsers.
+   * A global namespace for `transitionProperty` string for modern browsers.
    *
    * @type {string}
    */
@@ -314,7 +312,7 @@
     if (duration) {
       /**
        * Wrap the handler in on -> off callback
-       * @type {EventListenerObject['handleEvent']} e Event object
+       * @type {EventListener} e Event object
        */
       const transitionEndWrapper = (e) => {
         if (e.target === element) {
@@ -340,8 +338,9 @@
 
   /**
    * Shortcut for `HTMLElement.getAttribute()` method.
-   * @param  {HTMLElement | Element} element target element
-   * @param  {string} attribute attribute name
+   * @param {HTMLElement | Element} element target element
+   * @param {string} attribute attribute name
+   * @returns {string?} attribute value
    */
   const getAttribute = (element, attribute) => element.getAttribute(attribute);
 
@@ -542,6 +541,7 @@
    *
    * @param {HTMLElement | Element} element target
    * @param {string} classNAME to add
+   * @returns {void}
    */
   function addClass(element, classNAME) {
     element.classList.add(classNAME);
@@ -552,7 +552,7 @@
    *
    * @param {HTMLElement | Element} element target
    * @param {string} classNAME to check
-   * @return {boolean}
+   * @returns {boolean}
    */
   function hasClass(element, classNAME) {
     return element.classList.contains(classNAME);
@@ -563,6 +563,7 @@
    *
    * @param {HTMLElement | Element} element target
    * @param {string} classNAME to remove
+   * @returns {void}
    */
   function removeClass(element, classNAME) {
     element.classList.remove(classNAME);
@@ -590,6 +591,7 @@
    * @param  {HTMLElement | Element} element target element
    * @param  {string} attribute attribute name
    * @param  {string} value attribute value
+   * @returns {void}
    */
   const setAttribute = (element, attribute, value) => element.setAttribute(attribute, value);
 
@@ -745,7 +747,7 @@
     }
   };
 
-  var version = "3.0.12";
+  var version = "3.0.13";
 
   // @ts-ignore
 

@@ -20,13 +20,13 @@ Download the package and check the demo folder, or check it online [here](http:/
 * modern browsers supported and semi-modern alike with a special polyfill for IE10+ provided
 
 # How It Works
-* On mobile
+## On mobile
   * uses the default events behavior, it requires some elements to click on
   * shows the `<button class="navbar-toggle">` element for element visibility toggle
   * menu items have a `<button class="subnav-toggle">` element that enables visibility of the submenus
   * makes use of the `open-mobile` class to toggle submenus via the `click` handler</li>
 
-* On the desktop
+## On the desktop
   * hides mobile specific elements and changes event behavior to mouse hover
   * opens submenus on `mouseenter`, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
   * hides submenus on `mouseleave`, by removing the above classes in a delayed succesion</li>
@@ -53,7 +53,7 @@ Link the required JS in your document  `<body>` tag, though it should work in th
 ```
 
 Initiate the function for your elements at the end of your `<body>` tag
-```javascript
+```html
 <script>
 var myMenu = new Navbar('selector');
 </script>
@@ -105,24 +105,6 @@ var Navbar = require("navbar.js");
 var myMenu = new Navbar('#myNav');
 ```
 
-
-# Build Tools
-You have 3 build tools for building custom builds
-
-* `$ npm run build` - to compile and minify the ES6/ES7 source **navbar.js** and **navbar.min.js**
-* `$ npm run compile` - to compile and minify the **navbar.less** and other demo related sources
-* `$ npm run bundle` - to execute both the above in paralel
-* `$ npm run polyfill` - to build the polyfill
-
-# Custom CSS Builds
-You can create your own custom styling, here's a quickie:
-* create a new file for instance `src/scss/my-navbar.scss`, 
-* include the mixins and variables' values you need (check out the demos for more)
-* run the below script
-
-```
-node compile.js INPUTFILE:src/scss/my-navbar.scss OUTPUTFILE:path-to/src/css/my-navbar.min.css MIN:true
-```
 
 # License
 [MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)
