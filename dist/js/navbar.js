@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.0.13 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.0.14 (http://thednp.github.io/navbar.js)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -235,6 +235,14 @@
     // or non-camelcase strings with `getPropertyValue`
     return property in computedStyle ? computedStyle[property] : '';
   }
+
+  /**
+   * Shortcut for the `Element.dispatchEvent(Event)` method.
+   *
+   * @param {HTMLElement | Element} element is the target
+   * @param {Event} event is the `Event` object
+   */
+  const dispatchEvent = (element, event) => element.dispatchEvent(event);
 
   /**
    * A global namespace for 'transitionend' string.
@@ -747,7 +755,7 @@
     }
   };
 
-  var version = "3.0.13";
+  var version = "3.0.14";
 
   // @ts-ignore
 
@@ -848,29 +856,31 @@
 
   /** @param {HTMLElement | Element} element */
   function openNavbar(element) {
-    const subMenu = findChild(element, subnavClass);
+    const subMenu = findChild(element, `.${subnavClass}`);
     const anchor = findChild(element, 'A');
 
     const navOpenTransitionEnd = () => {
       Timer.clear(element, 'in');
 
       if (anchor) {
-        anchor.dispatchEvent(shownNavbarEvent);
+        dispatchEvent(anchor, shownNavbarEvent);
         setAttribute(anchor, ariaExpanded, 'true');
       }
     };
 
     if (anchor) {
-      anchor.dispatchEvent(showNavbarEvent);
+      dispatchEvent(anchor, showNavbarEvent);
       if (showNavbarEvent.defaultPrevented) return;
     }
 
     addClass(element, openPositionClass);
     addClass(element, openNavClass);
 
-    // @ts-ignore
-    const siblings = getElementsByTagName('LI', element.parentElement);
-    closeNavbars([...siblings].filter((x) => x !== element));
+    const { parentElement } = element;
+    if (parentElement) {
+      const siblings = getElementsByClassName(openNavClass, parentElement);
+      closeNavbars([...siblings].filter((x) => x !== element));
+    }
 
     if (subMenu) emulateTransitionEnd(subMenu, navOpenTransitionEnd);
     else navOpenTransitionEnd();
@@ -881,21 +891,21 @@
    * @param {boolean=} leave
    */
   function closeNavbar(element, leave) {
-    const subMenu = findChild(element, subnavClass);
+    const subMenu = findChild(element, `.${subnavClass}`);
     const anchor = findChild(element, 'A');
     const toggleElement = findChild(element, subnavToggleClass);
     const navCloseTransitionEnd = () => {
       removeClass(element, openPositionClass);
       Timer.clear(element, 'out');
       if (anchor) {
-        anchor.dispatchEvent(hiddenNavbarEvent);
+        dispatchEvent(anchor, hiddenNavbarEvent);
         setAttribute(anchor, ariaExpanded, 'false');
       }
     };
 
     if (hasClass(element, openNavClass)) {
       if (anchor) {
-        anchor.dispatchEvent(hideNavbarEvent);
+        dispatchEvent(anchor, hideNavbarEvent);
         if (hideNavbarEvent.defaultPrevented) return;
       }
       removeClass(element, openNavClass);
@@ -903,14 +913,14 @@
       else navCloseTransitionEnd();
     }
     if (hasClass(element, openMobileClass)) {
-      if (anchor) anchor.dispatchEvent(hideNavbarEvent);
+      if (anchor) dispatchEvent(anchor, hideNavbarEvent);
       if (hideNavbarEvent.defaultPrevented) return;
       removeClass(element, openMobileClass);
 
       [toggleElement, anchor].forEach((x) => {
         if (x) setAttribute(x, ariaExpanded, 'false');
       });
-      if (anchor) anchor.dispatchEvent(hiddenNavbarEvent);
+      if (anchor) dispatchEvent(anchor, hiddenNavbarEvent);
     }
   }
 

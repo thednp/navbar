@@ -15,6 +15,7 @@ import getDocument from 'shorter-js/src/get/getDocument';
 import getWindow from 'shorter-js/src/get/getWindow';
 import getElementStyle from 'shorter-js/src/get/getElementStyle';
 
+import dispatchEvent from 'shorter-js/src/misc/dispatchEvent';
 import emulateTransitionEnd from 'shorter-js/src/misc/emulateTransitionEnd';
 import passiveHandler from 'shorter-js/src/misc/passiveHandler';
 import normalizeOptions from 'shorter-js/src/misc/normalizeOptions';
@@ -131,29 +132,31 @@ function findChild(element, selector) {
 
 /** @param {HTMLElement | Element} element */
 function openNavbar(element) {
-  const subMenu = findChild(element, subnavClass);
+  const subMenu = findChild(element, `.${subnavClass}`);
   const anchor = findChild(element, 'A');
 
   const navOpenTransitionEnd = () => {
     Timer.clear(element, 'in');
 
     if (anchor) {
-      anchor.dispatchEvent(shownNavbarEvent);
+      dispatchEvent(anchor, shownNavbarEvent);
       setAttribute(anchor, ariaExpanded, 'true');
     }
   };
 
   if (anchor) {
-    anchor.dispatchEvent(showNavbarEvent);
+    dispatchEvent(anchor, showNavbarEvent);
     if (showNavbarEvent.defaultPrevented) return;
   }
 
   addClass(element, openPositionClass);
   addClass(element, openNavClass);
 
-  // @ts-ignore
-  const siblings = getElementsByTagName('LI', element.parentElement);
-  closeNavbars([...siblings].filter((x) => x !== element));
+  const { parentElement } = element;
+  if (parentElement) {
+    const siblings = getElementsByClassName(openNavClass, parentElement);
+    closeNavbars([...siblings].filter((x) => x !== element));
+  }
 
   if (subMenu) emulateTransitionEnd(subMenu, navOpenTransitionEnd);
   else navOpenTransitionEnd();
@@ -164,21 +167,21 @@ function openNavbar(element) {
  * @param {boolean=} leave
  */
 function closeNavbar(element, leave) {
-  const subMenu = findChild(element, subnavClass);
+  const subMenu = findChild(element, `.${subnavClass}`);
   const anchor = findChild(element, 'A');
   const toggleElement = findChild(element, subnavToggleClass);
   const navCloseTransitionEnd = () => {
     removeClass(element, openPositionClass);
     Timer.clear(element, 'out');
     if (anchor) {
-      anchor.dispatchEvent(hiddenNavbarEvent);
+      dispatchEvent(anchor, hiddenNavbarEvent);
       setAttribute(anchor, ariaExpanded, 'false');
     }
   };
 
   if (hasClass(element, openNavClass)) {
     if (anchor) {
-      anchor.dispatchEvent(hideNavbarEvent);
+      dispatchEvent(anchor, hideNavbarEvent);
       if (hideNavbarEvent.defaultPrevented) return;
     }
     removeClass(element, openNavClass);
@@ -186,14 +189,14 @@ function closeNavbar(element, leave) {
     else navCloseTransitionEnd();
   }
   if (hasClass(element, openMobileClass)) {
-    if (anchor) anchor.dispatchEvent(hideNavbarEvent);
+    if (anchor) dispatchEvent(anchor, hideNavbarEvent);
     if (hideNavbarEvent.defaultPrevented) return;
     removeClass(element, openMobileClass);
 
     [toggleElement, anchor].forEach((x) => {
       if (x) setAttribute(x, ariaExpanded, 'false');
     });
-    if (anchor) anchor.dispatchEvent(hiddenNavbarEvent);
+    if (anchor) dispatchEvent(anchor, hiddenNavbarEvent);
   }
 }
 
