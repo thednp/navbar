@@ -1,4 +1,10 @@
-node_modules/
-demo/
-experiments/
-Navbar Artwork/
+.github
+.gitignore
+node_modules
+docs
+experiments
+coverage
+cypress/videos
+cypress/screenshots
+cypress/coverage
+cypress/instrumented

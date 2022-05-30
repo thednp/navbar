@@ -1,0 +1,7 @@
+{
+  "typeAcquisition": {
+    "include": [
+      "cypress", "@thednp/shorty", "@thednp/event-listener"
+    ]
+  }
+}

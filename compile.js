@@ -26,15 +26,12 @@ let COPY = args.COPY === 'true' || false
 
 // Helper Functions
 function compile(inputPath, writePath, compressType) {
-  let result = sass.renderSync({
-    file: inputPath,
-    // sourceMap: true,
-    outFile: writePath,
-    outputStyle: compressType,
-    includePaths: ["src/scss"]
+  const result = sass.compile(inputPath, {
+    style: compressType,
+    loadPaths: ["src/scss"]
   })
   writeFileSync(writePath, `${banner}\n` + result.css.toString())
-  console.log(`✅ Compiled ${inputPath} - ${pkg.version} to ${writePath}.`)
+  console.log(`✅ Compiled ${inputPath} to ${writePath}.`)
 }
 function copy(input,output) {
   fs.copyFile(input, output, (err) => {

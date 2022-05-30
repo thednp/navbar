@@ -1,6 +1,10 @@
-import documentAll from 'shorter-js/src/selectors/documentAll';
-import getElementsByTagName from 'shorter-js/src/selectors/getElementsByTagName';
-import matches from 'shorter-js/src/selectors/matches';
+/** @typedef {import('../../types/index')} */
+import getDocument from '@thednp/shorty/src/get/getDocument';
+import getElementsByTagName from '@thednp/shorty/src/selectors/getElementsByTagName';
+import matches from '@thednp/shorty/src/selectors/matches';
+
+import DOMContentLoadedEvent from '@thednp/shorty/src/strings/DOMContentLoadedEvent';
+
 import Navbar from './navbar';
 
 // DATA API
@@ -10,11 +14,11 @@ import Navbar from './navbar';
  */
 function initNavbar(context) {
   const { selector, init } = Navbar;
-  const collection = [HTMLElement, Element].some((x) => context instanceof x)
-    ? getElementsByTagName('*', context) : documentAll;
+  const collection = getElementsByTagName('*', getDocument(context));
 
-  [...collection].filter((x) => matches(x, selector)).map((x) => init(x));
+  [...collection].filter((x) => matches(x, selector)).forEach(init);
 }
+
 // initialize when loaded
 if (document.body) initNavbar();
-else document.addEventListener('DOMContentLoaded', initNavbar, { once: true });
+else document.addEventListener(DOMContentLoadedEvent, initNavbar, { once: true });

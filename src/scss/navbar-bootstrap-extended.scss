@@ -22,7 +22,7 @@ $subnav_item_active_background: transparent;
 $brand_link_background: transparent;
 $brand_link_background_hover: transparent;
 
-@import "variables","mixins";
+@import "variables", "mixins";
 
 @include navbar-mobile-layout;
 @include navbar-desktop-layout;

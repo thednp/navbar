@@ -1,4 +1,9 @@
-node_modules/
-Navbar Artwork/
-experiments/
-package-lock.json
+.npmignore
+node_modules
+Navbar Artwork
+experiments
+coverage
+cypress/videos
+cypress/screenshots
+cypress/coverage
+cypress/instrumented

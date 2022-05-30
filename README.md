@@ -1,12 +1,12 @@
 # Navbar.js - Modern Navigation Component
 The mobile first menu navigation for today's modern web, developed with ES6+ JavaScript, TypeScript definitions and packed with lots of features.
 
-[![NPM Version](https://img.shields.io/npm/v/navbar.js.svg?style=flat-square)](https://www.npmjs.com/package/navbar.js)
-[![NPM Downloads](https://img.shields.io/npm/dm/navbar.js.svg?style=flat-square)](http://npm-stat.com/charts.html?package=navbar.js)
-[![jsDeliver](https://data.jsdelivr.com/v1/package/npm/navbar.js/badge)](https://www.jsdelivr.com/package/npm/navbar.js)
+[![NPM Version](https://img.shields.io/npm/v/@thednp/navbar.svg)](https://www.npmjs.com/package/@thednp/navbar)
+[![NPM Downloads](https://img.shields.io/npm/dm/@thednp/navbar.svg)](http://npm-stat.com/charts.html?package=@thednp/navbar)
+[![jsDeliver](https://data.jsdelivr.com/v1/package/npm/@thednp/navbar/badge)](https://www.jsdelivr.com/package/npm/@thednp/navbar)
 
 # Demo
-Download the package and check the demo folder, or check it online [here](http://thednp.github.io/navbar.js/).
+Download the package and check the demo folder, or check it online [here](http://thednp.github.io/navbar/).
 
 # Navbar.js Highlights
 * Mobile First Design
@@ -41,7 +41,7 @@ $ npm install navbar.js
 ```
 
 # Browser Usage
-Download the [latest package](https://github.com/thednp/navbar.js/archive/master.zip). unpack and inspect the contents. You need to copy the `navbar.js` and `navbar.css` or their minified variations to your app `assets` folders as follows.
+Download the [latest package](https://github.com/thednp/navbar/archive/master.zip). unpack and inspect the contents. You need to copy the `navbar.js` and `navbar.css` or their minified variations to your app `assets` folders as follows.
 Link the required CSS in your document `<head>` tag
 ```html
 <link href="../assets/css/navbar.css" rel="stylesheet">
@@ -86,12 +86,12 @@ Alternatively you can use only the menu itself and use the specific attribute:
 </div>
 ```
 
-Other initialization and markup options apply, explained in [the demo](http://thednp.github.io/navbar.js/).
+Other initialization and markup options apply, explained in [the demo](http://thednp.github.io/navbar/).
 
 
 # ES6+
 ```javascript
-import Navbar from 'navbar.js'
+import Navbar from '@thednp/navbar.js'
 
 let myNav = new Navbar('#myNav')
 ```
@@ -99,7 +99,7 @@ let myNav = new Navbar('#myNav')
 # Node
 ```javascript
 // get and store it
-var Navbar = require("navbar.js");
+var Navbar = require("@thednp/navbar");
 
 // initialize it
 var myMenu = new Navbar('#myNav');

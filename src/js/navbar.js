@@ -1,39 +1,39 @@
-import keySpace from 'shorter-js/src/strings/keySpace';
-import keyEscape from 'shorter-js/src/strings/keyEscape';
-import keyArrowUp from 'shorter-js/src/strings/keyArrowUp';
-import keyArrowDown from 'shorter-js/src/strings/keyArrowDown';
-import keyArrowLeft from 'shorter-js/src/strings/keyArrowLeft';
-import keyArrowRight from 'shorter-js/src/strings/keyArrowRight';
-import ariaExpanded from 'shorter-js/src/strings/ariaExpanded';
-import mouseenterEvent from 'shorter-js/src/strings/mouseenterEvent';
-import mouseleaveEvent from 'shorter-js/src/strings/mouseleaveEvent';
-import mouseclickEvent from 'shorter-js/src/strings/mouseclickEvent';
-import keydownEvent from 'shorter-js/src/strings/keydownEvent';
-import resizeEvent from 'shorter-js/src/strings/resizeEvent';
-import Timer from 'shorter-js/src/misc/timer';
-import getDocument from 'shorter-js/src/get/getDocument';
-import getWindow from 'shorter-js/src/get/getWindow';
-import getElementStyle from 'shorter-js/src/get/getElementStyle';
+import keySpace from '@thednp/shorty/src/strings/keySpace';
+import keyEscape from '@thednp/shorty/src/strings/keyEscape';
+import keyArrowUp from '@thednp/shorty/src/strings/keyArrowUp';
+import keyArrowDown from '@thednp/shorty/src/strings/keyArrowDown';
+import keyArrowLeft from '@thednp/shorty/src/strings/keyArrowLeft';
+import keyArrowRight from '@thednp/shorty/src/strings/keyArrowRight';
+import ariaExpanded from '@thednp/shorty/src/strings/ariaExpanded';
+import mouseenterEvent from '@thednp/shorty/src/strings/mouseenterEvent';
+import mouseleaveEvent from '@thednp/shorty/src/strings/mouseleaveEvent';
+import mouseclickEvent from '@thednp/shorty/src/strings/mouseclickEvent';
+import keydownEvent from '@thednp/shorty/src/strings/keydownEvent';
+import resizeEvent from '@thednp/shorty/src/strings/resizeEvent';
+import Timer from '@thednp/shorty/src/misc/timer';
+import getDocument from '@thednp/shorty/src/get/getDocument';
+import getWindow from '@thednp/shorty/src/get/getWindow';
+import getElementStyle from '@thednp/shorty/src/get/getElementStyle';
 
-import dispatchEvent from 'shorter-js/src/misc/dispatchEvent';
-import emulateTransitionEnd from 'shorter-js/src/misc/emulateTransitionEnd';
-import passiveHandler from 'shorter-js/src/misc/passiveHandler';
-import normalizeOptions from 'shorter-js/src/misc/normalizeOptions';
-import OriginalEvent from 'shorter-js/src/misc/OriginalEvent';
-import Data, { getInstance } from 'shorter-js/src/misc/data';
-import ObjectAssign from 'shorter-js/src/misc/ObjectAssign';
-import addClass from 'shorter-js/src/class/addClass';
-import hasClass from 'shorter-js/src/class/hasClass';
-import removeClass from 'shorter-js/src/class/removeClass';
-import isRTL from 'shorter-js/src/is/isRTL';
-import setAttribute from 'shorter-js/src/attr/setAttribute';
-import querySelector from 'shorter-js/src/selectors/querySelector';
-import getElementsByClassName from 'shorter-js/src/selectors/getElementsByClassName';
-import getElementsByTagName from 'shorter-js/src/selectors/getElementsByTagName';
-import closest from 'shorter-js/src/selectors/closest';
-import matches from 'shorter-js/src/selectors/matches';
+import dispatchEvent from '@thednp/shorty/src/misc/dispatchEvent';
+import emulateTransitionEnd from '@thednp/shorty/src/misc/emulateTransitionEnd';
+import passiveHandler from '@thednp/shorty/src/misc/passiveHandler';
+import normalizeOptions from '@thednp/shorty/src/misc/normalizeOptions';
+import OriginalEvent from '@thednp/shorty/src/misc/OriginalEvent';
+import Data, { getInstance } from '@thednp/shorty/src/misc/data';
+import ObjectAssign from '@thednp/shorty/src/misc/ObjectAssign';
+import addClass from '@thednp/shorty/src/class/addClass';
+import hasClass from '@thednp/shorty/src/class/hasClass';
+import removeClass from '@thednp/shorty/src/class/removeClass';
+import isRTL from '@thednp/shorty/src/is/isRTL';
+import setAttribute from '@thednp/shorty/src/attr/setAttribute';
+import querySelector from '@thednp/shorty/src/selectors/querySelector';
+import getElementsByClassName from '@thednp/shorty/src/selectors/getElementsByClassName';
+import getElementsByTagName from '@thednp/shorty/src/selectors/getElementsByTagName';
+import closest from '@thednp/shorty/src/selectors/closest';
+import matches from '@thednp/shorty/src/selectors/matches';
 
-import { addListener, removeListener } from 'event-listener.js';
+import { addListener, removeListener } from '@thednp/event-listener/src/event-listener';
 
 import Version from './version';
 
@@ -62,7 +62,7 @@ const hiddenNavbarEvent = OriginalEvent(`hidden.${navbarString}`);
 
 /**
  * Returns a `Navbar` instance.
- * @param {HTMLElement | Element} element target element
+ * @param {HTMLElement} element target element
  * @returns {Navbar?}
  */
 const getNavbarInstance = (element) => getInstance(element, navbarComponent);
@@ -83,7 +83,6 @@ const initNavbarCallback = (element) => new Navbar(element);
 function toggleNavbarResizeEvent(self, add) {
   const action = add ? addListener : removeListener;
 
-  // @ts-ignore
   action(getWindow(self.menu), resizeEvent, self.listenResize, passiveHandler);
 }
 
@@ -122,15 +121,15 @@ function toggleNavbarEvents(self, add) {
 }
 
 /**
- * @param {HTMLElement | Element} element
+ * @param {HTMLElement} element
  * @param {string} selector
- * @returns {(HTMLElement | Element)=}
+ * @returns {HTMLElement=}
  */
 function findChild(element, selector) {
   return [...element.children].find((x) => matches(x, selector));
 }
 
-/** @param {HTMLElement | Element} element */
+/** @param {HTMLElement} element */
 function openNavbar(element) {
   const subMenu = findChild(element, `.${subnavClass}`);
   const anchor = findChild(element, 'A');
@@ -163,7 +162,7 @@ function openNavbar(element) {
 }
 
 /**
- * @param {HTMLElement | Element} element
+ * @param {HTMLElement} element
  * @param {boolean=} leave
  */
 function closeNavbar(element, leave) {
@@ -200,7 +199,7 @@ function closeNavbar(element, leave) {
   }
 }
 
-/** @param {HTMLCollection | Element[]} collection */
+/** @param {HTMLCollection | HTMLElement[]} collection */
 function closeNavbars(collection) {
   [...collection].forEach((x) => closeNavbar(x));
 }
@@ -208,7 +207,7 @@ function closeNavbars(collection) {
 // NAVBAR EVENT LISTENERS
 // ======================
 /**
- * @this {HTMLElement | Element}
+ * @this {HTMLElement}
  * @param {KeyboardEvent} e Event object
  */
 function navbarKeyHandler(e) {
@@ -236,7 +235,7 @@ function navbarKeyHandler(e) {
     && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
   const nextSelection = parentMenu && nextElementSibling
     && ((code === keyArrowDown && isColumn) || (code === sideNextKey && !isColumn));
-  /** @type {(HTMLElement | Element)?} */
+  /** @type {HTMLElement?} */
   let elementToFocus = null;
 
   if (code === keyEscape && openParentElement) {
@@ -255,7 +254,6 @@ function navbarKeyHandler(e) {
 
   if (elementToFocus) {
     const { firstElementChild } = elementToFocus;
-    // @ts-ignore
     if (firstElementChild) firstElementChild.focus();
   }
 
@@ -265,7 +263,7 @@ function navbarKeyHandler(e) {
 }
 
 /**
- * @this {HTMLElement | Element}
+ * @this {HTMLElement}
  * @param {MouseEvent} e Event object
  */
 function navbarClickHandler(e) {
@@ -279,7 +277,6 @@ function navbarClickHandler(e) {
 
   const { options, navbarToggle } = self;
 
-  // @ts-ignore
   if (target === that || that.contains(target)) {
     const element = closest(that, 'LI') || menu;
     const toggleElement = closest(that, `.${navbarToggleClass}`) === navbarToggle
@@ -297,7 +294,6 @@ function navbarClickHandler(e) {
         toggleNavbarResizeEvent(self, true);
       } else {
         const selection = options.toggleSiblings
-          // @ts-ignore element.parentElement is an `Element`
           ? getElementsByClassName(openMobileClass, element.parentElement)
           : openSubs;
         closeNavbars(selection);
@@ -330,7 +326,7 @@ function navbarClickHandler(e) {
   }
 }
 
-/** @this {HTMLElement | Element} */
+/** @this {HTMLElement} */
 function navbarEnterHandler() {
   const element = this;
   const menu = closest(element, `${navbarSelector},.${navbarString}`);
@@ -348,7 +344,7 @@ function navbarEnterHandler() {
   }
 }
 
-/** @this {HTMLElement | Element} */
+/** @this {HTMLElement} */
 function navbarLeaveHandler() {
   const element = this;
   const menu = closest(element, `${navbarSelector},.${navbarString}`);
@@ -369,7 +365,7 @@ function navbarLeaveHandler() {
 /** Creates a new Navbar for desktop and mobile navigation. */
 export default class Navbar {
   /**
-   * @param {string | HTMLElement | Element} target Element or selector
+   * @param {string | HTMLElement} target HTMLElement or selector
    * @param {Record<string, any>=} config instance options
    */
   constructor(target, config) {
@@ -377,8 +373,7 @@ export default class Navbar {
     const self = this;
 
     // instance targets
-    /** @type {(HTMLElement | Element)} */
-    // @ts-ignore -- we invalidate right after
+    /** @type {(HTMLElement)} */
     self.menu = querySelector(target);
     const { menu } = self;
 
@@ -392,9 +387,9 @@ export default class Navbar {
     /** @type {Record<string, any>} */
     self.options = normalizeOptions(menu, defaultNavbarOptions, config || {}, '');
 
-    /** @type {HTMLCollectionOf<Element | HTMLElement>} */
+    /** @type {HTMLCollectionOf<HTMLElement>} */
     self.items = getElementsByTagName('LI', menu);
-    /** @type {(HTMLElement | Element)?} */
+    /** @type {HTMLElement?} */
     self.navbarToggle = null;
     [self.navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
 

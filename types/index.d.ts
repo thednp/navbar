@@ -1,7 +1,6 @@
 export as namespace Navbar;
 export default Navbar;
 
-import './navbar';
 import Navbar from "navbar.js/src/js/navbar";
 
 declare enum NavbarEvents {
@@ -20,11 +19,8 @@ declare global {
   interface HTMLElement {
     addEventListener(
       type: Navbar.Event,
-      listener: (this: HTMLElement | Element, ev: Navbar.Event) => any,
+      listener: (this: HTMLElement, ev: Navbar.Event) => any,
       options?: boolean | AddEventListenerOptions,
     ): void;
   }
 }
-
-export * as SHORTER from "shorter-js";
-export * as EventListener from "event-listener.js";

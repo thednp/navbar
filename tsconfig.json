@@ -9,12 +9,13 @@
     "allowJs": true,
     "checkJs": true,
     "rootDir": "../",
-    "outFile": "types/navbar.d.ts", // comment after generate
+    // "outFile": "types/navbar.d.ts", // comment after generate
     "outDir": "types",
   },
   "types": [],
   "files": [
     "types/index.d.ts",
-    "types/source.ts",
+    "types/navbar.d.ts", // comment and delete file on generate
+    // "types/source.ts", // comment after generate
   ]
 }
