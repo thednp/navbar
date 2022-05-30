@@ -41,7 +41,7 @@ On both mobile and desktop, Navbar.js allows for full keyboard navigation via th
 You can install this through NPM:
 
 ```
-$ npm install navbar.js
+$ npm install @thednp/navbar
 ```
 
 # Browser Usage
@@ -95,7 +95,7 @@ Other initialization and markup options apply, explained in [the demo](http://th
 
 # ES6+
 ```javascript
-import Navbar from '@thednp/navbar.js'
+import Navbar from '@thednp/navbar'
 
 let myNav = new Navbar('#myNav')
 ```
