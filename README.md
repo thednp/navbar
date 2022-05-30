@@ -1,4 +1,4 @@
-# Navbar.js - Modern Navigation Component
+# Navbar.js - Modern Navigation Component ![cypress version](https://img.shields.io/badge/cypress-9.7.0-brightgreen) ![typescript version](https://img.shields.io/badge/typescript-4.5.2-brightgreen)
 The mobile first menu navigation for today's modern web, developed with ES6+ JavaScript, TypeScript definitions and packed with lots of features.
 
 [![NPM Version](https://img.shields.io/npm/v/@thednp/navbar.svg)](https://www.npmjs.com/package/@thednp/navbar)
