@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.1.0alpha1 (http://thednp.github.io/navbar.js)
+* Navbar.js v3.1.0alpha1 (http://thednp.github.io/navbar)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -1111,7 +1111,7 @@ function navbarLeaveHandler() {
 /** Creates a new Navbar for desktop and mobile navigation. */
 class Navbar {
   /**
-   * @param {string | HTMLElement} target Element or selector
+   * @param {string | HTMLElement} target HTMLElement or selector
    * @param {Record<string, any>=} config instance options
    */
   constructor(target, config) {
@@ -1213,4 +1213,4 @@ function initNavbar(context) {
 if (document.body) initNavbar();
 else document.addEventListener(DOMContentLoadedEvent, initNavbar, { once: true });
 
-export default Navbar;
+export { Navbar as default };

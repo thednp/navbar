@@ -1,7 +1,7 @@
 {
   "name": "@thednp/navbar",
   "version": "3.1.0alpha1",
-  "description": "Navbar.js Modern Navigation Component",
+  "description": "Navbar Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",
   "types": "types/index.d.ts",
@@ -22,14 +22,13 @@
     "fix:css": "stylelint --config .stylelintrc.json -s --fix scss \"src/scss/*.scss\"",
     "lint:css": "stylelint --config .stylelintrc.json -s scss \"src/scss/*.scss\"",
     "bundle": "npm-run-all --parallel build compile",
-    "build": "npm run lint:js && npm-run-all --parallel build-* && npm run copy-build && npm run copy-es5-build",
+    "build": "npm run lint:js && npm-run-all --parallel build-* && npm run copy-build",
     "build:ts": "tsc -d",
     "build-js": "rollup --environment FORMAT:umd,MIN:false -c",
     "build-minjs": "rollup --environment FORMAT:umd,MIN:true -c",
     "build-esm": "rollup --environment FORMAT:esm,MIN:false -c",
     "build-esmjs": "rollup --environment FORMAT:esm,MIN:true -c",
     "copy-build": "node compile.js INPUTFILE:dist/js/navbar.min.js OUTPUTFILE:docs/src/js/navbar.min.js COPY:true",
-    "copy-es5-build": "node compile.js INPUTFILE:dist/js/navbar.es5.min.js OUTPUTFILE:docs/src/js/navbar.es5.min.js COPY:true",
     "compile": "npm run lint:css && npm-run-all --parallel compile-* && npm run copy-compile",
     "compile-scss": "node compile.js",
     "compile-scss-min": "node compile.js MIN:true",
@@ -40,21 +39,18 @@
     "compile-left": "node compile.js INPUTFILE:src/scss/navbar-left.scss OUTPUTFILE:docs/src/css/navbar-left.min.css MIN:true",
     "compile-left-menu": "node compile.js INPUTFILE:src/scss/navbar-left-menu.scss OUTPUTFILE:docs/src/css/navbar-left-menu.min.css MIN:true",
     "compile-right": "node compile.js INPUTFILE:src/scss/navbar-right.scss OUTPUTFILE:docs/src/css/navbar-right.min.css MIN:true",
-    "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:docs/src/css/navbar.min.css COPY:true",
+    "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:docs/src/css/navbar.min.css COPY:true"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thednp/navbar.git"
   },
   "keywords": [
-    "navbar.js",
-    "site navigation",
-    "site menu",
+    "navbar",
     "navigation",
     "menu",
-    "javascript menu",
-    "javascript navigation",
-    "native javascript"
+    "javascript",
+    "bootstrap"
   ],
   "author": "thednp",
   "license": "MIT",
