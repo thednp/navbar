@@ -1,9 +1,13 @@
-# Navbar - Modern Navigation Component
-The mobile first menu navigation for today's modern web, developed with ES6+ JavaScript, TypeScript definitions and packed with lots of features.
 
+# Navbar - Modern Navigation Component
 [![NPM Version](https://img.shields.io/npm/v/@thednp/navbar.svg)](https://www.npmjs.com/package/@thednp/navbar)
 [![NPM Downloads](https://img.shields.io/npm/dm/@thednp/navbar.svg)](http://npm-stat.com/charts.html?package=@thednp/navbar)
 [![jsDeliver](https://data.jsdelivr.com/v1/package/npm/@thednp/navbar/badge)](https://www.jsdelivr.com/package/npm/@thednp/navbar)
+![cypress version](https://img.shields.io/badge/cypress-9.7.0-brightgreen)
+![typescript version](https://img.shields.io/badge/typescript-4.5.2-brightgreen)
+
+The mobile first menu navigation for today's modern web, developed with ES6+ JavaScript, TypeScript definitions and packed with lots of features.
+
 
 # Demo
 Download the package and check the demo folder, or check it online [here](http://thednp.github.io/navbar/).
