@@ -3,6 +3,10 @@ export default Navbar;
 
 import Navbar from "navbar/src/js/navbar";
 
+declare module "@thednp/navbar" {
+  export default Navbar;
+}
+
 declare enum NavbarEvents {
   show = "show.navbar",
   shown = "shown.navbar",
