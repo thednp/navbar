@@ -869,6 +869,7 @@
     });
 
     action(menu, keydownEvent, navbarKeyHandler);
+    /* istanbul ignore else */
     if (navbarToggle) action(navbarToggle, mouseclickEvent, navbarClickHandler);
   }
 
@@ -886,15 +887,7 @@
     const subMenu = findChild(element, `.${subnavClass}`);
     const anchor = findChild(element, 'A');
 
-    const navOpenTransitionEnd = () => {
-      Timer.clear(element, 'in');
-
-      if (anchor) {
-        dispatchEvent(anchor, shownNavbarEvent);
-        setAttribute(anchor, ariaExpanded, 'true');
-      }
-    };
-
+    /* istanbul ignore else */
     if (anchor) {
       dispatchEvent(anchor, showNavbarEvent);
       if (showNavbarEvent.defaultPrevented) return;
@@ -904,13 +897,24 @@
     addClass(element, openNavClass);
 
     const { parentElement } = element;
+    /* istanbul ignore else */
     if (parentElement) {
       const siblings = getElementsByClassName(openNavClass, parentElement);
       closeNavbars([...siblings].filter((x) => x !== element));
     }
 
+    const navOpenTransitionEnd = () => {
+      Timer.clear(element, 'in');
+
+      /* istanbul ignore else */
+      if (anchor) {
+        dispatchEvent(anchor, shownNavbarEvent);
+        setAttribute(anchor, ariaExpanded, 'true');
+      }
+    };
+
+    /* istanbul ignore else */
     if (subMenu) emulateTransitionEnd(subMenu, navOpenTransitionEnd);
-    else navOpenTransitionEnd();
   }
 
   /**
@@ -921,39 +925,46 @@
     const subMenu = findChild(element, `.${subnavClass}`);
     const anchor = findChild(element, 'A');
     const toggleElement = findChild(element, subnavToggleClass);
-    const navCloseTransitionEnd = () => {
-      removeClass(element, openPositionClass);
-      Timer.clear(element, 'out');
-      if (anchor) {
-        dispatchEvent(anchor, hiddenNavbarEvent);
-        setAttribute(anchor, ariaExpanded, 'false');
-      }
-    };
 
-    if (hasClass(element, openNavClass)) {
+    if ([openNavClass, openMobileClass].some((c) => hasClass(element, c))) {
+      /* istanbul ignore else */
       if (anchor) {
         dispatchEvent(anchor, hideNavbarEvent);
+        /* istanbul ignore next: some strange bug with istanbul */
         if (hideNavbarEvent.defaultPrevented) return;
       }
+    }
+
+    if (hasClass(element, openNavClass)) {
+      const navCloseTransitionEnd = () => {
+        removeClass(element, openPositionClass);
+        Timer.clear(element, 'out');
+        /* istanbul ignore else */
+        if (anchor) {
+          dispatchEvent(anchor, hiddenNavbarEvent);
+          setAttribute(anchor, ariaExpanded, 'false');
+        }
+      };
+
       removeClass(element, openNavClass);
       if (leave && subMenu) emulateTransitionEnd(subMenu, navCloseTransitionEnd);
       else navCloseTransitionEnd();
     }
+
     if (hasClass(element, openMobileClass)) {
-      if (anchor) dispatchEvent(anchor, hideNavbarEvent);
-      if (hideNavbarEvent.defaultPrevented) return;
       removeClass(element, openMobileClass);
 
       [toggleElement, anchor].forEach((x) => {
         if (x) setAttribute(x, ariaExpanded, 'false');
       });
+      /* istanbul ignore else */
       if (anchor) dispatchEvent(anchor, hiddenNavbarEvent);
     }
   }
 
-  /** @param {HTMLCollection | HTMLElement[]} collection */
+  /** @param {HTMLCollectionOf<HTMLElement> | HTMLElement[]} collection */
   function closeNavbars(collection) {
-    [...collection].forEach((x) => closeNavbar(x));
+    [...collection].forEach(closeNavbar);
   }
 
   // NAVBAR EVENT LISTENERS
@@ -968,9 +979,11 @@
     const { activeElement } = getDocument(menu);
     const self = getNavbarInstance(menu);
 
+    /* istanbul ignore next: filter is required */
     if (!self || !activeElement || !menu.contains(activeElement)) return;
 
     const element = closest(activeElement, 'LI');
+    /* istanbul ignore next: filter is required */
     if (!element) return;
 
     const isMobile = checkNavbarView(self);
@@ -981,8 +994,8 @@
     const preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
     const isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
     const RTL = isRTL(element);
-    const sidePrevKey = RTL ? keyArrowRight : keyArrowLeft;
-    const sideNextKey = RTL ? keyArrowLeft : keyArrowRight;
+    const sidePrevKey = RTL ? /* istanbul ignore next */keyArrowRight : keyArrowLeft;
+    const sideNextKey = RTL ? /* istanbul ignore next */keyArrowLeft : keyArrowRight;
     const prevSelection = parentMenu && previousElementSibling
       && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
     const nextSelection = parentMenu && nextElementSibling
@@ -1006,6 +1019,7 @@
 
     if (elementToFocus) {
       const { firstElementChild } = elementToFocus;
+      /* istanbul ignore else */
       if (firstElementChild) firstElementChild.focus();
     }
 
@@ -1025,45 +1039,56 @@
     const that = this;
     const menu = closest(that, `${navbarSelector},.${navbarString}`);
     const self = menu && getNavbarInstance(menu);
+
+    /* istanbul ignore next: filter is required */
     if (!self) return;
 
     const { options, navbarToggle } = self;
 
+    /* istanbul ignore else */
     if (target === that || that.contains(target)) {
       const element = closest(that, 'LI') || menu;
       const toggleElement = closest(that, `.${navbarToggleClass}`) === navbarToggle
         ? navbarToggle
-        : findChild(element, subnavToggleClass);
+        : findChild(element, `.${subnavToggleClass}`);
       const anchor = toggleElement === navbarToggle
         ? null : findChild(element, 'A');
       const openSubs = getElementsByClassName(openMobileClass, element);
 
       if (!hasClass(element, openMobileClass)) {
-        if (anchor) anchor.dispatchEvent(showNavbarEvent);
-        if (showNavbarEvent.defaultPrevented) return;
+        if (anchor) {
+          dispatchEvent(anchor, showNavbarEvent);
+          /* istanbul ignore next */
+          if (showNavbarEvent.defaultPrevented) return;
+        }
 
         if (toggleElement === navbarToggle) {
           toggleNavbarResizeEvent(self, true);
         } else {
           const selection = options.toggleSiblings
             ? getElementsByClassName(openMobileClass, element.parentElement)
-            : openSubs;
+            : /* istanbul ignore next */openSubs;
           closeNavbars(selection);
         }
         addClass(element, openMobileClass);
 
+        /* istanbul ignore else */
         if (toggleElement) setAttribute(toggleElement, ariaExpanded, 'true');
         if (anchor) {
           setAttribute(anchor, ariaExpanded, 'true');
-          anchor.dispatchEvent(shownNavbarEvent);
+          dispatchEvent(anchor, shownNavbarEvent);
         }
       } else {
-        if (anchor) anchor.dispatchEvent(hideNavbarEvent);
-        if (hideNavbarEvent.defaultPrevented) return;
+        if (anchor) {
+          dispatchEvent(anchor, hideNavbarEvent);
+          /* istanbul ignore next */
+          if (hideNavbarEvent.defaultPrevented) return;
+        }
 
         closeNavbars(openSubs);
         removeClass(element, openMobileClass);
 
+        /* istanbul ignore else */
         if (toggleElement) {
           setAttribute(toggleElement, ariaExpanded, 'false');
           if (toggleElement === navbarToggle) {
@@ -1072,7 +1097,7 @@
         }
         if (anchor) {
           setAttribute(anchor, ariaExpanded, 'false');
-          anchor.dispatchEvent(hiddenNavbarEvent);
+          dispatchEvent(anchor, hiddenNavbarEvent);
         }
       }
     }
@@ -1104,9 +1129,13 @@
 
     if (!self || checkNavbarView(self)) return;
 
+    /* istanbul ignore else */
     if (hasClass(element, openNavClass)) {
       Timer.clear(element, 'in');
-      const leaveCallback = () => closeNavbar(element, true);
+      const leaveCallback = () => {
+        closeNavbars(getElementsByClassName(openPositionClass, element));
+        closeNavbar(element, true);
+      };
 
       Timer.set(element, leaveCallback, self.options.delay, 'out');
     }
@@ -1171,8 +1200,9 @@
      */
     listenResize() {
       const self = this;
+      /* istanbul ignore else */
       if (!checkNavbarView(self)) {
-        closeNavbars(getElementsByClassName(openMobileClass));
+        closeNavbars(getElementsByClassName(openMobileClass, getDocument(self.menu)));
         toggleNavbarResizeEvent(self);
       }
     }
@@ -1186,6 +1216,7 @@
       toggleNavbarEvents(self);
       toggleNavbarResizeEvent(self);
       Data.remove(self.menu, navbarComponent);
+      ObjectKeys(self).forEach((key) => { self[key] = null; });
     }
   }
 

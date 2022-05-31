@@ -1,6 +1,6 @@
 .npmignore
+.nyc_output
 node_modules
-Navbar Artwork
 experiments
 coverage
 cypress/videos

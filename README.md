@@ -1,5 +1,6 @@
 
 # Navbar - Modern Navigation Component
+[![ci](https://github.com/thednp/navbar/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/navbar/actions/workflows/ci.yml)
 [![NPM Version](https://img.shields.io/npm/v/@thednp/navbar.svg)](https://www.npmjs.com/package/@thednp/navbar)
 [![NPM Downloads](https://img.shields.io/npm/dm/@thednp/navbar.svg)](http://npm-stat.com/charts.html?package=@thednp/navbar)
 [![jsDeliver](https://data.jsdelivr.com/v1/package/npm/@thednp/navbar/badge)](https://www.jsdelivr.com/package/npm/@thednp/navbar)
@@ -10,7 +11,7 @@ The mobile first menu navigation for today's modern web, developed with ES6+ Jav
 
 
 # Demo
-Download the package and check the demo folder, or check it online [here](http://thednp.github.io/navbar/).
+Download the package and check the **docs** folder, or check it online [here](http://thednp.github.io/navbar).
 
 # Navbar Highlights
 * Mobile First Design
