@@ -1,8 +1,8 @@
-declare module "navbar.js/src/js/version" {
+declare module "navbar/src/js/version" {
     export default Version;
     const Version: string;
 }
-declare module "navbar.js/src/js/navbar" {
+declare module "navbar/src/js/navbar" {
     /** Creates a new Navbar for desktop and mobile navigation. */
     export default class Navbar {
         /**
@@ -38,6 +38,6 @@ declare module "navbar.js/src/js/navbar" {
         public dispose(): void;
     }
 }
-declare module "navbar.js/types/source" {
-    export { default as Navbar } from "navbar.js/src/js/navbar";
+declare module "navbar/types/source" {
+    export { default as Navbar } from "navbar/src/js/navbar";
 }

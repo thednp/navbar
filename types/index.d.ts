@@ -1,7 +1,7 @@
 export as namespace Navbar;
 export default Navbar;
 
-import Navbar from "navbar.js/src/js/navbar";
+import Navbar from "navbar/src/js/navbar";
 
 declare enum NavbarEvents {
   show = "show.navbar",
