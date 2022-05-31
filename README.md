@@ -1,5 +1,6 @@
 
 # Navbar - Modern Navigation Component
+[![Coverage Status](https://coveralls.io/repos/github/thednp/navbar/badge.svg)](https://coveralls.io/github/thednp/navbar)
 [![ci](https://github.com/thednp/navbar/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/navbar/actions/workflows/ci.yml)
 [![NPM Version](https://img.shields.io/npm/v/@thednp/navbar.svg)](https://www.npmjs.com/package/@thednp/navbar)
 [![NPM Downloads](https://img.shields.io/npm/dm/@thednp/navbar.svg)](http://npm-stat.com/charts.html?package=@thednp/navbar)
