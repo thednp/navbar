@@ -45,6 +45,10 @@
     "type": "git",
     "url": "git+https://github.com/thednp/navbar.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "navbar",
     "navigation",
