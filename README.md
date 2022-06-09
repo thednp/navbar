@@ -18,7 +18,7 @@ Download the package and check the **docs** folder, or check it online [here](ht
 * Mobile First Design
 * Accessibility Focus
 * ES6+ sources with TypeScript definitions and powerful build tools
-* SCSS sources with powerful mixins and advanced inheritance and automation functionality
+* SCSS sources with powerful mixins and CSS variables
 * very light footprint, `5kb` in size when minified
 * 3 sets of positions top (main), left or right
 * provides a set of options for JavaScript initialization
