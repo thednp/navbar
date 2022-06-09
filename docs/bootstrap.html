@@ -15,6 +15,14 @@
   <link href="./src/css/navbar-bootstrap.min.css" rel="stylesheet">
   <link href="./assets/css/prism.css" rel="stylesheet">
 
+  <style>
+    .navbar {
+      --n-padding-x: 1rem; /* padding must have fallback */
+      --n-padding-y: .5rem;
+      --n-subnav-padding-x: .5rem;
+      --n-subnav-padding-y: .5rem;
+    }
+  </style>
 </head>
 
 <body class="bg-light">
@@ -30,7 +38,7 @@
       <div id="navbar-wrapper" class="navbar-collapse collapse">
         <ul class="navbar-nav me-auto" data-function="navbar" data-breakpoint="768" data-toggle-siblings="true" aria-label="Main Navigation">
           <li class="nav-item active">
-            <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">Explore
+            <a class="nav-link active" href="#" aria-haspopup="true" aria-expanded="false">Explore
               <svg class="parent-icon" aria-hidden="true" viewBox="0 0 1024 1024">
                 <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
               </svg>
@@ -260,7 +268,7 @@
     
 <div class="code-wrapper">
 <pre><code class="language-scss">// navbar-bootstrap.scss - mixins
-@import 'navbar-variables','navbar-mixins','navbar-mixins-bs';
+@import 'variables','mixins','mixins-bs','root';
 
 @include navbar-style-bs;
 @include nav-layout-bs;
@@ -276,32 +284,22 @@
       <li><code>main-menu-bs</code> sets the position of submenu and animations according to the layout.</li>
     </ul>
     
-    <h2>Used Variables</h2>
+    <h2>Used CSS Variables</h2>
     
 <div class="code-wrapper">
-<pre><code class="language-scss">// navbar-bootstrap.scss - custom variable input values
-$primary_color: #007bff;
-$item_line_height: 24px;
-
-$subnav_item_hover_color: #262626;
-$subnav_item_hover_background: #ddd;
-
-$subnav_item_active_color: #fff;
-$subnav_item_active_background: $primary_color;
-
-$navbar_padding: 0.5rem 1rem;
-$subnav_padding: 0.5rem;
+<pre><code class="language-scss">// bootstrap.html - custom CSS variable values
+.navbar {
+  --n-padding-x: 1rem;
+  --n-padding-y: .5rem;
+  --n-subnav-padding-x: .5rem;
+  --n-subnav-padding-y: .5rem;
+}
 </code></pre>
 </div>
     
     <ul class="attr-list">
-      <li><code>$primary_color</code> we've set the accent color as the original Bootstrap <code>$brand-primary</code>;</li>
-      <li><code>$item_line_height</code> to match Bootstrap original typography;</li>
-      <li>next we've set <code>$subnav_item_hover_color</code> and <code>$subnav_item_hover_background</code>;</li>
-      <li>then the <code>$subnav_item_active_color</code> and <code>$subnav_item_active_background</code>;</li>
-      <li><code>$navbar_padding</code> sets the navbar padding exactly as for the original navbar layout; the reason for 
-        using this variable here is because it's important to determine an offset for the level 1 submenu;</li>
-      <li>lastly, we set a <code>$subnav_padding</code> for the FIRST level submenu, just because the looks.</li>
+      <li>since the markup is the original Bootstrap Navbar markup, we only added some spacing;</li>
+      <li>everything else should match the original Bootstrap Navbar design.</li>
     </ul>
     
     <h2>More Demos</h2>
@@ -623,7 +621,7 @@ $subnav_padding: 0.5rem;
       </div>
     </nav>
 
-    <nav class="navbar navbar-dark navbar-expand-md bg-info rounded mb-3">
+    <nav class="navbar navbar-light navbar-expand-md bg-info rounded mb-3">
       <a class="navbar-brand" href="#">Navbar</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-wrapper-info"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">

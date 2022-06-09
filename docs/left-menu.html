@@ -15,34 +15,53 @@
 		<link href="./src/css/navbar-left-menu.min.css" rel="stylesheet">
 		<link href="./assets/css/prism.css" rel="stylesheet">		
 		<style>
-			.sidebar {background: #eee}
 			a.brand {
 				color: #222;
 				text-decoration: none;
 				padding: 0.5rem 1rem;
 				display: flex;
-			}
-			a.brand:hover {
-					background: #222;
-					color: #fff;
+				background: #222;
+				color: #fff;
 			}
 
 			@media (min-width: 768px) {
-					.side-nav a.brand {
-							flex-basis: 100%;
-					}
-					.column-title,
-					.special-title {
-						font-size: 120%;
-						color: #e68a00;
-					}
+				.side-nav a.brand {
+					flex-basis: 100%;
+				}
+				.column-title,
+				.special-title {
+					font-size: 120%;
+					color: #e68a00;
+				}
 			}
-		
 			.sidebar .copy {
 				background: #e0dbd2;
 			}
 			.btn-brand { background: #e68a00}
 			a {color: #e68a00}
+			.sidebar {
+				--n-primary-color: #e68a00;
+				--n-bg: transparent; /* setting $navbar_background: transparent, will force root menu items to inherit colors */
+				--n-subnav-bg: rgba(0,0,0,.85);
+				--n-subnav-padding-x: .75rem;
+				--n-subnav-padding-y: .5rem;
+				--n-subnav-link-color: transparent; /* setting $subnav_link_color: transparent; disables forces links to inherit document color */
+				--n-subnav-link-color-hover: transparent; /* setting $subnav_link_color_hover: transparent; disables forces links to inherit document color */
+				--n-item-color: #e68a00;
+				--n-item-hover-color: #eee;
+				--n-item-hover-bg: #222;
+				--n-item-active-bg: var(--n-primary-color);
+				--n-subnav-item-active-bg: var(--n-primary-color);
+				--n-subnav-item-color: rgba(255,255,255,.6); /* setting $subnav_link_color: transparent; disables forces links to inherit document color */
+				--n-subnav-item-hover-color: #fff;
+				--n-subnav-item-hover-bg: rgba(55, 55, 55, 0.95);
+				--n-subnav-text-color: rgba(255,255,255,.55);
+				--n-subnav-link-color: rgba(255,255,255,.65);
+				--n-subnav-link-color-hover: rgba(255,255,255,.85);
+				--n-expanded-bg: rgba(0, 0, 0, 0.0075);
+				--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+				background: #eee;
+			}
 		</style>
 	</head>
   <body class="overflow-x-hidden">
@@ -271,44 +290,36 @@
 					<li><code>left-side</code> sets the position of submenu and animations accordingly for the LEFT column.</li>
 				</ul>
 				
-				<h2>Used Variables</h2>
+				<h2>CSS Variables</h2>
 				
 <div class="code-wrapper">
-<pre><code class="language-scss">// navbar-left-menu.scss - custom variable input values
-$primary_color: #e68a00;
-$navbar_background: transparent;
-$subnav_background: rgba(0,0,0,0.8);
-$subnav_padding: 0.5rem;
-$root_item_hover_color: #eee;
-$root_item_hover_background: #222;
-$subnav_link_color: transparent;
-$subnav_link_color_hover: transparent;
-$subnav_item_color: transparent;
-$subnav_item_hover_color: #222;
-$subnav_item_hover_background: #fff;
-$mobile_expanded_background: rgba(0,0,0,0.075);
+<pre><code class="language-scss">// left-menu.html - custom CSS variable values
+.sidebar {
+	--n-primary-color: #e68a00;
+	--n-bg: transparent;
+	--n-subnav-bg: rgba(0,0,0,.85);
+	--n-subnav-padding-x: .75rem;
+	--n-subnav-padding-y: .5rem;
+	--n-subnav-link-color: transparent;
+	--n-subnav-link-color-hover: transparent;
+	--n-item-color: #e68a00;
+	--n-item-hover-color: #eee;
+	--n-item-hover-bg: #222;
+	--n-item-active-bg: var(--n-primary-color);
+	--n-subnav-item-active-bg: var(--n-primary-color);
+	--n-subnav-item-color: rgba(255,255,255,.6);
+	--n-subnav-item-hover-color: #fff;
+	--n-subnav-item-hover-bg: rgba(55, 55, 55, 0.95);
+	--n-subnav-text-color: rgba(255,255,255,.55);
+	--n-subnav-link-color: rgba(255,255,255,.65);
+	--n-subnav-link-color-hover: rgba(255,255,255,.85);
+	--n-expanded-bg: rgba(0, 0, 0, 0.0075);
+	--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+}
 </code></pre></div>
 
-				<ul class="attr-list">
-					<li><code>$primary_color</code> we set an accent color for the active menu items;</li>
-					<li><code>$navbar_background</code> we've removed the background color rule by using the <code>transparent</code>
-						input value;</li>
-					<li><code>$subnav_background</code> uses a nice transparent background color, one of my favorites;</li>
-					<li><code>$subnav_padding</code> sets a padding for the FIRST level submenu;</li>
-					<li>for the <code>$root_item_hover_color</code> and <code>$root_item_hover_background</code> variables we've set 
-						a strong contrast hover state highlight for root menu items;</li>
-					<li>by using the <code>transparent</code> input value for <code>$subnav_link_color</code> and 
-						<code>$subnav_link_color_hover</code> variables we removed their style rules for content anchor links forcing them
-						to inherit a parent style rule;</li>
-					<li>now for <code>$subnav_item_color</code> we've a <code>transparent</code> input value, forcing the submenu items
-						to inherit anchor link style rules from a parent; because of this, some span elements or column titles might need
-						some additional styling, as we've done in this demo;</li>
-					<li>and for the <code>$subnav_item_hover_color</code> and <code>$subnav_item_hover_background</code> variables we've 
-						also set a strong contrast hover state highlight but for submenu menu items and consistent with the chosen
-						<code>$subnav_background</code>;</li>
-					<li>the <code>$mobile_expanded_background</code> was set since the <code>$subnav_background</code> is 
-						<code>transparent</code> and we still want to highlight expanded menu items on mobile view.</li>
-				</ul>
+				<p>Similar to other demos, despite the fact we're not using the Navbar wrapper, we can still customize
+					everything our menu instance needs.</p>
 				
 				<h2>Similar Demo</h2>
 				<p>This setup is used on the <a href="combo.html">combined layouts</a> demo page, as well as the 

@@ -19,31 +19,25 @@
       a { color :#a867e6; }
       @media (min-width: 768px){
         .special-title {
-          color: rgba(255,255,255,0.8);
+          color: rgba(0,0,0,0.8);
           font-size: 120%;
         }
+        .navbar .brand { background-color: #281f30}
       }
-
-      /* Navbar Right RTL */
-      .navbar.rtl .menu-icon+span{ 
-        margin: 0 0.5rem 0
-      }
-      .navbar.rtl div.subnav ul,
-      .navbar.rtl ul.subnav {
-        padding: 0 1rem 0 0;
-      }
-      .navbar.rtl {
-        direction: rtl;
-        text-align: right
-      }
-      @media (min-width:768px){
-        .navbar.rtl div.subnav ul,
-        .navbar.rtl ul.subnav {
-          padding: 0;
-        }
-        .navbar.rtl .nav > li > .subnav {
-          padding: 0.5rem;
-        }
+      .navbar {
+        --n-primary-color: #8032cd;
+        --n-bg: #463654;
+        --n-root-item-hover-color: #fff;
+        --n-root-item-hover-bg: #251038;
+        --n-item-active-bg: var(--n-primary-color);
+        --n-subnav-bg: #eee;
+        --n-subnav-item-active-bg: var(--n-primary-color);
+        --n-subnav-item-hover-bg: #2d1344;
+        --n-subnav-item-hover-color: #eee;
+        --n-subnav-padding-x: .5rem;
+        --n-subnav-padding-y: .5rem;
+        --n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+        --n-subnav-shadow: -2px 2px 3px 2px rgba(0,0,0,.3), -1px 1px 0 0 rgba(0,0,0,.2) inset;
       }
     </style>
   </head>
@@ -97,68 +91,26 @@
         <h2>Used Variables</h2>
         
 <div class="code-wrapper">
-<pre><code class="language-scss">// navbar-right.scss - custom variable input values
-$primary_color: #8032CD;
-$navbar_background: #463654;
-$subnav_background: inherit;
-$subnav_padding: 0.5rem;
-$subnav_shadow: -2px 2px 3px 2px rgba(0,0,0,.3);
-$root_item_hover_color: #fff;
-$root_item_hover_background: #251038;
-$brand_link_background: #48444c;
-$brand_link_background_hover: #28064a;
-$subnav_item_hover_background: #2d1344;
-$subnav_item_hover_color: #eee;
-</code></pre>
-</div>
-        <ul class="attr-list">
-          <li><code>$primary_color</code> we set an accent color for the active menu items;</li>
-          <li><code>$navbar_background</code> we set a darker and desaturated accent color for the navbar background;</li>
-          <li><code>$subnav_background</code> set to inherit the background color of the navbar; notice a slight contrast
-            between the two elements;</li>
-          <li><code>$subnav_padding</code> notice a slightly different layout of the FIRST level submenu;</li>
-          <li><code>$subnav_shadow</code> sets a box-shadow for submenu that matches the right column layout;</li>
-          <li>other text color and background color for the brand link, then active and hovered menu items on both root 
-            and submenu.</li>
-        </ul>
-
-        <h2>RTL Languages</h2>
-        <p>In the intro of this page we mentioned about right-to-left languages. The Right Navbar is the closest to use 
-          for this type of content, the demo itself allows you to toggle language direction you can play with, but
-          for a quick refference, here's what you need:</p>
-
-<div class="code-wrapper">
-<pre><code class="language-scss">/* Navbar Right RTL */
-.navbar.rtl {
-  direction: rtl;
-  text-align: right
+<pre><code class="language-scss">// right.html - custom CSS variable values
+.navbar {
+  --n-primary-color: #8032cd;
+  --n-bg: #463654;
+  --n-root-item-hover-color: #fff;
+  --n-root-item-hover-bg: #251038;
+  --n-item-active-bg: var(--n-primary-color);
+  --n-subnav-bg: #eee;
+  --n-subnav-item-active-bg: var(--n-primary-color);
+  --n-subnav-item-hover-bg: #2d1344;
+  --n-subnav-item-hover-color: #eee;
+  --n-subnav-padding-x: .5rem;
+  --n-subnav-padding-y: .5rem;
+  --n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+  --n-subnav-shadow: -2px 2px 3px 2px rgba(0,0,0,.3), -1px 1px 0 0 rgba(0,0,0,.2) inset;
 }
-.navbar.rtl .menu-icon+span{
-  margin: 0 0.5rem 0
-}
-.navbar.rtl div.subnav ul,
-.navbar.rtl ul.subnav {
-  padding: 0 1rem 0 0;
-}
-@media (min-width:768px){
-  .navbar.rtl div.subnav ul,
-  .navbar.rtl ul.subnav {
-    padding: 0;
-  }
-  .navbar.rtl .nav > li > .subnav {
-    padding: 0.5rem;
-  }
-}
-</code></pre>
-</div>
+</code></pre></div>
 
-        <p>You can replace these values with some SCSS variables and you're going to the moon:</p>
-        <ul class="attr-list">
-          <li><code>0.5rem</code> is the value of the <code>$item_vertical_spacing</code> variable;</li>
-          <li><code>1rem</code> is the value of the <code>$item_horizontal_spacing</code> variable;</li>
-          <li><code>768px</code> is your <code>$responsive_breakpoint</code>.</li>
-        </ul>
-
+        <p>Again we are easily customizing the CSS variables for our RIGHT Navbar instance for active menu items,
+          background-colors, some spacing and the mega menu width.</p>
 
         <h2>More Demos</h2>
         <p>At this point you might want to see a <a href="combo.html">combined</a> use of the navbar mixins, as well as 
@@ -352,7 +304,6 @@ $subnav_item_hover_color: #eee;
           </ul>
           <div class="copy navbar-content" style="direction: ltr">
             <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2022</span>
-            <span><a class="btn btn-brand" onclick="toggleRTL.call(this)" href="#">Toggle RTL</a></span>
           </div>			
         </div>
       </nav>	
@@ -362,14 +313,5 @@ $subnav_item_hover_color: #eee;
     <script src="./src/js/polyfill.min.js"></script>
     <script src="./src/js/navbar.min.js"></script>
     <script src="./assets/js/prism.js"></script>
-    <script>
-      function toggleRTL(){
-        var nvbr = this.closest('nav');
-        if (getComputedStyle(nvbr).direction === 'rtl') { nvbr.classList.remove('rtl')}
-        else {nvbr.classList.add('rtl');}
-        return false;
-      }
-    </script>
-
   </body>
 </html>

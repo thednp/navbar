@@ -1,4 +1,4 @@
-@import "variables","mixins";
+@import "variables","mixins","root";
 
 @include navbar-mobile-layout;
 @include navbar-desktop-layout;

@@ -26,13 +26,13 @@ Download the package and check the **docs** folder, or check it online [here](ht
 * modern browsers supported and semi-modern alike with a special polyfill for IE10+ provided
 
 # How It Works
-## On mobile
-  * uses the default events behavior, it requires some elements to click on
+**On mobile**
+  * uses the native events behavior, it requires some elements to click on
   * shows the `<button class="navbar-toggle">` element for element visibility toggle
   * menu items have a `<button class="subnav-toggle">` element that enables visibility of the submenus
   * makes use of the `open-mobile` class to toggle submenus via the `click` handler</li>
 
-## On the desktop
+**On the desktop**
   * hides mobile specific elements and changes event behavior to mouse hover
   * opens submenus on `mouseenter`, by adding `open` and `open-position` classes to the menu item, in rapid succession</li>
   * hides submenus on `mouseleave`, by removing the above classes in a delayed succesion</li>

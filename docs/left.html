@@ -29,8 +29,18 @@
 					font-size: 120%;
 				}
 			}
+			.navbar {
+				--n-primary-color: #cd3232;
+				--n-bg: #544040;
+				--n-subnav-padding-x: .5rem;
+				--n-subnav-padding-y: .5rem;
+				--n-subnav-item-hover-color: #eee;
+				--n-subnav-item-hover-bg: #4b3939;
+				--n-item-active-bg: var(--n-primary-color);
+				--n-subnav-item-active-bg: var(--n-primary-color);
+				--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+			}
 		</style>
-
   </head>
   <body class="overflow-x-hidden">
   
@@ -240,22 +250,22 @@
 					<h2>Used Variables</h2>
 
 <div class="code-wrapper">
-<pre><code class="language-scss">// navbar-left.scss - custom variable input values
-$primary_color: #CD3232;
-$navbar_background: #544040;
-$subnav_padding: 0.5rem;
-$brand_link_background: #3e2e2e;
-$brand_link_background_hover: #2f1313;
-$subnav_item_hover_color: #eee;
-$subnav_item_hover_background: #4b3939;
+<pre><code class="language-scss">// left.html - custom CSS variable values
+.navbar {
+	--n-primary-color: #cd3232;
+	--n-bg: #544040;
+	--n-subnav-padding-x: .5rem;
+	--n-subnav-padding-y: .5rem;
+	--n-subnav-item-hover-color: #eee;
+	--n-subnav-item-hover-bg: #4b3939;
+	--n-item-active-bg: var(--n-primary-color);
+	--n-subnav-item-active-bg: var(--n-primary-color);
+	--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+}
 </code></pre></div>
-					<ul class="attr-list">
-						<li><code>$primary_color</code> we set an accent color for the active menu items;</li>
-						<li><code>$navbar_background</code> we set a darker and desaturated accent color for the navbar background;</li>
-						<li><code>$subnav_padding</code> notice a slightly different layout of the FIRST level submenu;</li>
-						<li>we've set some color and background color for the brand link and the hovered submenu item, everything 
-							else is set by default values or determined by the mixins.</li>
-					</ul>
+
+					<p>We've customized the active menu item colors, background-colors and added some spacing to the
+						<code>.subnav</code> elements as well as the mega menu width.</p>
 
 					<h2>Similar Demo</h2>
 					<p>Also on the left side you have the <a href="left-menu.html">Left Menu</a> were we used the menu without 

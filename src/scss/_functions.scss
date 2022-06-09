@@ -1,5 +1,5 @@
 @function real-color($color) {
-  @return type-of($color) == "color" and $color != "none" and $color != transparent and $color != currentColor;
+  @return type-of($color) == "color" and $color != "none" and $color != transparent and $color != currentColor and $color != inherit and $color != initial;
 }
 
 // 1 up to 4 decimals only
@@ -29,14 +29,19 @@
         $result: $size * 1rem;
       } @else if $unit == "px" {
         $result: decimal-round($size * .0625, 2) * 1rem; // 1/16 = 0.0625
+      } @else { // no unit
+        $result: $size * 1rem;
       }
     } @else {
       @if $unit == "rem" {
         $result: $size * 16px;
       } @else if $unit == "em" {
         $result: $size * 16px;
+      } @else { // no unit
+        $result: $size * 1px;
       }
     }
+    // @debug($result);
   }
   @return $result;
 }
@@ -57,32 +62,89 @@
   @return $result;
 }
 
+@function get-icon-height() {
+  $height: $icon_height;
+  @if $icon_height == auto or $icon_height == inherit or $icon_height == 0 or type-of($icon_height) != "number" {
+    @if type-of($root_item_line_height) == "number" and type-of($subnav_item_line_height) == "number" {
+      @if real-size($root_item_line_height) > real-size($subnav_item_line_height) {
+        $height: $subnav_item_line_height;
+      } @else {
+        $height: $root_item_line_height;
+      }
+    } @else if type-of($subnav_line_height) == "number" and type-of($navbar_line_height) == "number" {
+      @if real-size($navbar_line_height) > real-size($subnav_line_height) {
+        $height: $subnav_line_height;
+      } @else {
+        $height: $navbar_line_height;
+      }
+    } @else if type-of($subnav_line_height) == "number" {
+      $height: $subnav_line_height;
+    } @else if type-of($navbar_line_height) == "number" {
+      $height: $navbar_line_height;
+    } @else {
+      $height: 16px; // ICONS MUST HAVE A SIZE
+    }
+  }
+  @return $height;
+}
+
+@function get-color($color, $bg, $alpha: 1) {
+  $result: $color;
+  @if real-color($color) {
+    $result: $color;
+  } @else if $color == currentColor {
+    $result: currentColor;
+  } @else if $color == auto and real-color($bg) {
+    @if lightness($bg) > 60 {
+      $result: rgba(#000, $alpha);
+    } @else {
+      $result: rgba(#fff, $alpha);
+    }
+    // if transparent, cancel rule
+  } @else {
+    $result: unset;
+  }
+  @return $result;
+}
+
+/* $color: text-color, $bg: bg-color, $inherit_bg: used when $bg is undefined/transparent */
+@function get-item-color($color, $bg, $inherit_bg, $alpha: 1) {
+  $item_color: $color;
+  $item_bg: $bg;
+  @if real-color($bg) {
+    $item_bg: $bg;
+  } @else if real-color($inherit_bg) {
+    $item_bg: $inherit_bg;
+  }
+  @if lightness($item_bg) > 60 {
+    $item_color: #000;
+  } @else {
+    $item_color: #fff;
+  }
+  @if ($alpha < 1) {
+    @return rgba($item_color, $alpha);
+  } @else {
+    @return $item_color;
+  }
+
+}
+
 // STYLING UTIL MIXINS
 @mixin set-background($bg) {
   @if type-of($bg) == "list" or real-color($bg) {
     background: $bg;
   } @else if $bg == currentColor {
     background: currentColor;
-  } @else {
+    // } @else {
     // @debug "set-background(#{$bg}); value-type '#{type-of($bg)}:#{$bg}' is ignored, style rule removed.";
   }
 }
 
 @mixin set-color($color, $bg, $alpha) {
-  @if real-color($color) {
-    color: $color;
-  } @else if $color == currentColor {
-    color: currentColor;
-  } @else if $color == auto and real-color($bg) {
-    @if lightness($bg) > 60 {
-      color: rgba(#000, $alpha);
-    } @else {
-      color: rgba(#fff, $alpha);
-    }
-  } @else {
-    // @debug "set-color(#{$color},#{$bg},#{$alpha}); value-type '#{type-of($color)}:#{$color}' is ignored, style rule removed.";  // color-lightness: #{lightness($bg)}
+  $result: get-color($color, $bg, $alpha);
+  @if $result != inherit {
+    color: $result;
   }
-  // if transparent, cancel rule
 }
 
 @mixin set-metric($prop, $value, $inherited:0) {

@@ -32,7 +32,7 @@
     }
     .copy.main {padding: 0.5rem 1rem;}
 
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
       .copy.main {max-width: min-content; padding: 0.3rem 1rem;}
       .special-title {
         color: rgba(0,0,0,0.8);
@@ -41,9 +41,47 @@
       .navbar .special-title {
         color: rgba(255,255,255,0.8);
       }
+      .navbar .brand {
+        color: var(--n-brand-link-color);
+        background-color: rgba(0,0,0,0.15);
+      }
+      .navbar {position:sticky; top:0; z-index: 1;}
+      /* override basic styling */
     }
-
-    .navbar {position:sticky; top:0; z-index: 1;}
+    .navbar {
+      --n-bg: #4a5848;
+      --n-primary-color: #0e8000;
+      --n-item-active-bg: var(--n-primary-color);
+      --n-subnav-padding-x: .5rem;
+      --n-subnav-padding-y: .5rem;
+      --n-subnav-bg: var(--n-bg);
+      --n-subnav-item-color: rgba(255,255,255,.55);
+      --n-subnav-item-active-bg: var(--n-primary-color);
+      --n-subnav-text-color: rgba(255,255,255,.55);
+      --n-subnav-link-color: rgba(255,255,255,.75);
+      --n-subnav-link-color-hover: rgba(255,255,255,.95);
+      --n-subnav-shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
+      --n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+    }
+    .sidebar {
+      --n-bg: #eee;
+      --n-item-hover-color: #fff;
+      --n-item-color: rgba(0,0,0,.55);
+      --n-link-color: #4a5848;
+      --n-item-hover-bg: #333;
+      --n-subnav-item-hover-bg: #444;
+      --n-subnav-item-hover-color: #eee;
+      --n-subnav-shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
+    }
+    .right {
+      --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+    }
+    [dir=rtl] .navbar {
+      --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+    }
+    [dir=rtl] .left {
+      --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+    }
   </style>
 </head>
 
@@ -402,81 +440,96 @@
         
 <div class="code-wrapper">
 <pre><code class="language-scss">// navbar-combo.scss - navbar only
-$navbar_background: #4a5848;
-$primary_color: #0e8000;
-$subnav_padding: 0.5rem;
-$subnav_background: inherit;
-$brand_link_background: #21331f;
-$brand_link_background_hover: #1e211d;
-$subnav_link_color: auto !default;
-$subnav_link_color_hover: auto !default;
-
-@import 'variables','mixins';
+@import 'variables', 'mixins', 'root';
 
 @include navbar-mobile-layout;
 @include navbar-desktop-layout;
 @include navbar-style;
 @include nav-layout;
+@include nav-style;
+@include subnav-style;
+
 .navbar {
-  @include nav-style;
-  @include subnav-style;
   @include main-menu;
 }
 </code></pre></div>
-        
-        <ul class="attr-list">
-          <li>the first set of variables apply to all 3 menus, except those that are set below again for the side menus;</li>
-          <li>the <code>navbar-mobile-layout</code>, <code>navbar-desktop-layout</code>, <code>navbar-style</code>mixins
-            are used by the navbar only;</li>
-          <li>the <code>nav-layout</code> mixin sets the menu layout for all 3 layouts;</li>
-          <li>then we created a new <code>.navbar</code> style rule to include <code>nav-style</code>, <code>subnav-style</code>
-            and <code>main-menu</code> mixins, to make sure we only use them for the navbar and allow us to style the side menus 
-            separatelly and independently.</li>
-        </ul>
+
+            <ul class="attr-list">
+              <li>the default variables apply to all 3 menu instances, however, each instance is customized separately via CSS
+                variables and specific subnav layout as explained below;</li>
+              <li>the <code>navbar-mobile-layout</code>, <code>navbar-desktop-layout</code>, <code>navbar-style</code>,
+                <code>nav-layout</code> and <code>nav-style</code> mixins are used by all instances;</li>
+              <li>then we created a new <code>.navbar</code> style rule to only include <code>main-menu</code> mixin, to make sure
+                the subnav layout of this instance is separate and independent from the other two instances.</li>
+            </ul>
+
+            <p>The basic style of the main Navbar is customized with the following CSS variables wrapped in the <code>.navbar</code>
+              class:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// combo.html - .navbar only
+.navbar {
+  --n-bg: #4a5848;
+  --n-primary-color: #0e8000;
+  --n-item-active-bg: var(--n-primary-color);
+  --n-subnav-padding-x: .5rem;
+  --n-subnav-padding-y: .5rem;
+  --n-subnav-bg: var(--n-bg);
+  --n-subnav-item-color: rgba(255,255,255,.55);
+  --n-subnav-item-active-bg: var(--n-primary-color);
+  --n-subnav-text-color: rgba(255,255,255,.55);
+  --n-subnav-link-color: rgba(255,255,255,.75);
+  --n-subnav-link-color-hover: rgba(255,255,255,.95);
+  --n-subnav-shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
+  --n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+}
+</code></pre></div>
+
+        <p>As you can see, we've customized most colors of the main Navbar. Keep in mind that updating
+          <code>--n-primary-color</code> will not automatically update your active menu item colors,
+          you will have to re-specify a value for <code>--n-subnav-item-active-bg</code>; similarly
+          updating the <code>--n-subnav-padding-x</code> variable will require updating the 
+          <code>--n-subnav-larger-width</code> which is the default width of a tyipical mega menu.</p>
         
         <h2>Side Menus</h2>
         
 <div class="code-wrapper">
-<pre><code class="language-scss">// navbar-combo.scss - side menu
-$navbar_background: #eee; // required as a new reference for root menu items
-$root_item_hover_color: #fff;
-$root_item_hover_background: #333;
-$subnav_item_hover_background: #444;
-$subnav_item_hover_color: #eee;
-
-// shared for both left and right sides
-.sidebar {
-  @include nav-style;
-  @include subnav-style;
-}
-
-// specific to left
+<pre><code class="language-scss">// navbar-combo.scss - side menus
 .left {
   @include left-side(1);
 }
 
-// specific to right
 .right {
   @include right-side(1);
-  @media (min-width: $responsive_breakpoint) {
-    $subnav_shadow: -2px 2px 4px 2px rgba(0,0,0,.3);
-
-    &.nav li>.subnav {
-      @include set-metric('box-shadow',$subnav_shadow)
-    }
-  }
 }
-</code></pre>
-</div>
-        <ul class="attr-list">
-          <li>first we set a set of variables to be used only for side menus, the most important is the 
-            <code>$navbar_background</code> to match the parent <code>.sidebar</code> element background
-            and enable the mixins to determine the proper text colors;</li>
-          <li>then we create a new style rule <code>.left</code> for the LEFT menu to include the 
-            <code>left-side(1)</code> mixin, but notice the mixins argument of <code>1</code>, this will merge 
-            the two selectors into one: <code>.left.nav</code>;</li>
-          <li>the same apply for the RIGHT menu, and we also adjust the box shadow, for good reason.</li>
-        </ul>
+</code></pre></div>
+
+          <ul class="attr-list">
+            <li>for each instance of the side menu we've included its specific mixin which styles the basic layout
+              of their subnav, animation included;</li>
+            <li>notice the <code>left-side(1)</code> mixin, it uses an argument value of <code>1</code>, which
+              will merge the two selectors into one: <code>.left.nav</code>;</li>
+            <li>the same apply for the RIGHT menu, and we also adjust the box shadow, as shown below.</li>
+          </ul>
+
+          <p>Side menus are customized via the following CSS variables:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// navbar-combo.scss - side menu
+.sidebar {
+  --n-bg: #eee;
+  --n-item-hover-color: #fff;
+  --n-item-color: rgba(0,0,0,.55);
+  --n-link-color: var(--n-primary-color);
+  --n-item-hover-bg: #333;
+  --n-subnav-item-hover-bg: #444;
+  --n-subnav-item-hover-color: #eee;
+  --n-subnav-shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
+}
+.right {
+  --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+}
+</code></pre></div>
         
         <h2>RTL Languages</h2>
         <p class="lead">The following SCSS is all you need to generate the styling for RTL languages:</p>
@@ -487,23 +540,11 @@ $subnav_item_hover_color: #eee;
 @include navbar-desktop-layout;
 @include navbar-style;
 @include nav-layout;
+@include nav-style;
+@include subnav-style;
+
 .navbar {
-  @include nav-style;
-  @include subnav-style;
   @include main-menu-rtl;
-}
-
-// side modules
-$navbar_background: #eee; // required as a new reference for root menu items
-$root_item_hover_color: #fff;
-$root_item_hover_background: #333;
-$subnav_item_hover_background: #444;
-$subnav_item_hover_color: #eee;
-$subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
-
-.sidebar {
-  @include nav-style;
-  @include subnav-style;
 }
 
 .right {
@@ -512,20 +553,15 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
 
 .left {
   @include right-side(1);
-  @media (min-width: $responsive_breakpoint) {
-    $subnav_shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
-
-    &.nav li>.subnav {
-      @include set-metric("box-shadow",$subnav_shadow); }
-  }
 }
 </code></pre></div>
+
         <p>Note the <code>main-menu-rtl</code> mixin is used as well as the <code>left-side</code> mixin used for 
-          the right sidebar and the <code>right-side</code> mixin used for the left sidebar along with a series of
-          minor adjustments.</p>
+          the right sidebar and the <code>right-side</code> mixin used for the left sidebar.</p>
         <p>The only concern remaining is to set the menu icons for <code>&lt;i class="parent-icon"&gt;</code> /
           <code>&lt;svg class="parent-icon"&gt;</code> to match the text direction. You can of course not only
           change the icons to match the text direction but also the order of the elements.</p>
+        <p>The same CSS variables showcased above are used in RTL mode.</p>
 
         <h2>Similar Demo</h2>
         <p>Also on the left side you have the <a href="left-menu.html">Left Menu</a> were we used the menu without
@@ -682,6 +718,8 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
   </div>
 
   <script src="./src/js/navbar.min.js"></script>
+  <script src="./assets/js/prism.js"></script>
+
   <script>
     document.getElementById('direction-toggle').addEventListener('click', ({target}) => {
       const navbarCss = document.getElementById('navbar-css');
@@ -697,7 +735,6 @@ $subnav_shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) ins
       }
     });
   </script>
-  <script src="./assets/js/prism.js"></script>
 
 </body>
 </html>

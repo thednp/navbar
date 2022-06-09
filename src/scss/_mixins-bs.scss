@@ -6,53 +6,53 @@ $dark_navbar_background: #343a40;
 @mixin navbar-style-bs {
   .navbar-light {
     .subnav-toggle {
-      color: rgba(0,0,0,.55);
+      color: rgba(var(--bs-dark-rgb),.55);
     }
     .open-mobile {
       > .subnav-toggle {
-        color: rgba(0,0,0,.75);
-        background: rgba(0,0,0,.15);
+        color: rgba(var(--bs-dark-rgb),.75);
+        background: rgba(var(--bs-dark-rgb),.15);
       }
     }
   }
   .navbar:not(.navbar-light),
   .navbar-dark {
     .subnav-toggle {
-      color: rgba(255,255,255,.55);
+      color: rgba(var(--bs-light-rgb),.55);
     }
     .open-mobile {
       > .subnav-toggle {
-        color: rgba(255,255,255,.75);
-        background: rgba(255,255,255,.15);
+        color: rgba(var(--bs-light-rgb),.75);
+        background: rgba(var(--bs-light-rgb),.15);
       }
     }
   }
   @media (min-width: $responsive_breakpoint) {
     // set LVL1 subnav box-shadow
     .navbar-nav li > .subnav {
-      @include set-metric("box-shadow",$subnav_shadow); }
+      box-shadow: var(--n-subnav-shadow);
+    }
     .navbar-light {
       .subnav {
-        background: #fff;
+        background-color: #fff;
       }
       .navbar-nav li {
         li.open, li:hover { // hover
           > a.nav-link {
-            // color: $subnav_item_hover_color;
-            background: rgba(0,0,0,.15);
+            color: rgba(var(--bs-dark-rgb),.75);
           }
         }
       }
     }
+    .navbar:not(.navbar-light),
     .navbar-dark {
       .subnav {
-        background: lighten($dark_navbar_background,5%);
+        background-color: rgba(var(--bs-dark-rgb), 1);
       }
       .navbar-nav li {
         li.open, li:hover { // hover
           > a.nav-link {
-            // color: $subnav_item_hover_background;
-            background: rgba(255,255,255,.15);
+            color: rgba(var(--bs-light-rgb),.75);
           }
         }
 
@@ -62,8 +62,7 @@ $dark_navbar_background: #343a40;
     .navbar .navbar-nav li {
       li.active, li.active:hover { // active
         > a.nav-link {
-          color: $subnav_item_active_color;
-          background: $subnav_item_active_background;
+          color: var(--bs-white);
         }
       }
     }
@@ -73,7 +72,7 @@ $dark_navbar_background: #343a40;
 @mixin nav-layout-bs() {
   // set navbar padding
   .navbar {
-    @include set-metric("padding",$navbar_padding);
+    padding: var(--n-padding-y) var(--n-padding-x);
   }
 
   // mobile view visibility
@@ -91,7 +90,7 @@ $dark_navbar_background: #343a40;
   @include navbar-icon();
   .menu-icon + span {
     flex: auto;
-    margin-left: $item_vertical_spacing;
+    margin-left: var(--n-item-padding-x);
   }
   .subnav-toggle {
     background: transparent;
@@ -104,7 +103,7 @@ $dark_navbar_background: #343a40;
   div.subnav ul {
     flex-basis: 100%;
     flex-direction: column;
-    padding: 0 0 0 $item_horizontal_spacing;
+    padding: 0 0 0 var(--n-item-padding-x);
   }
   // general menu layout
   .navbar-nav {
@@ -154,7 +153,7 @@ $dark_navbar_background: #343a40;
       position: absolute;
     }
     // reset menu tree highlight padding
-    ul.subnav,
+    // ul.subnav,
     div.subnav ul {
       padding: 0;
     }
@@ -162,43 +161,20 @@ $dark_navbar_background: #343a40;
     ul.subnav {flex-direction: column;}
     div.subnav > ul {flex-direction: row;}
     // set submenu width
-    ul.subnav { width: $subnav_width; }
-    div.subnav { min-width: $subnav_larger_width; }
+    ul.subnav { width: var(--n-subnav-width); }
+    div.subnav { min-width: var(--n-subnav-larger-width); }
 
-    // determine offset
-    $offset: 0;
-    @if type-of($navbar_padding) == "number" and real-size($navbar_padding) > 0 {
-      $offset: $navbar_padding;
-    } @else if type-of($navbar_padding) == "list" and length($navbar_padding) == 2 {
-      $offset: nth($navbar_padding,1);
-    } @else if type-of($navbar_padding) == "list" and length($navbar_padding) > 2 {
-      $offset: nth($navbar_padding,3);
-    }
-    // determine margin
-    $consolidated_margin: 0;
-    @if type-of($subnav_margin) == "number" {
-      $consolidated_margin: sum-size($subnav_margin, $offset) 0 0;
-    } @else if type-of($subnav_margin) == "list" and length($subnav_margin) == 2 {
-      $mt: sum-size(nth($subnav_margin,1), $offset);
-      $mb: nth($subnav_margin,1);
-      $mh: nth($subnav_margin,2);
-      $consolidated_margin: $mt $mh $mb;
-    } @else if type-of($subnav_margin) == "list" and length($subnav_margin) == 3 {
-      $mt: sum-size(nth($subnav_margin,1), $offset);
-      $mb: nth($subnav_margin,3);
-      $mh: nth($subnav_margin,2);
-      $consolidated_margin: $mt $mh $mb;
-    } @else if type-of($subnav_margin) == "list" and length($subnav_margin) == 4 {
-      $mt: sum-size(nth($subnav_margin,1), $offset);
-      $mh: nth($subnav_margin,2);
-      $mb: nth($subnav_margin,3);
-      $ml: nth($subnav_margin,4);
-      $consolidated_margin: $mt $mh $mb $ml;
-    }
     // set margin and padding
     .navbar-nav > li > .subnav {
-      @include set-metric("margin",$consolidated_margin); // includes offset offset
-      @include set-metric("padding",$subnav_padding);
+      margin-top: var(--n-padding-y);
+    }
+    ul.subnav, div.subnav,
+    .subnav .subnav {
+      padding: var(--n-subnav-padding-y, $navbar_padding_y) var(--n-subnav-padding-x, $navbar_padding_x);
+    }
+    .subnav .subnav {
+      margin-top: calc(var(--n-subnav-padding-y) * -1);
+      margin-left: var(--n-subnav-padding-x);
     }
   }
 }
@@ -219,7 +195,7 @@ $dark_navbar_background: #343a40;
         li.open-position > .subnav { top: 0; left: 100%; }
       }
 
-      li.open-position > .subnav { top: 100%; left: 0; z-index: $subnav_zindex; }
+      li.open-position > .subnav { top: 100%; left: 0; z-index: var(--n-subnav-zindex); }
       li.open > .subnav { opacity: 1; transform: translate(0); }
     }
   }

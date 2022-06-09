@@ -310,7 +310,7 @@ $navbar_font_size: 14px !default;
           <code>transparent</code> for color variables in general, the mixins will remove the style rule.</p>
           
 <div class="code-wrapper">
-<pre><code class="language-scss">// BRAND COLOR
+<pre><code class="language-scss">// PRIMARY COLOR
 $primary_color: #006699 !default;
 </code></pre></div>
 
@@ -409,7 +409,9 @@ $subnav_item_line_height: inherit !default;
 $item_vertical_spacing: 0.5rem !default;
 $item_horizontal_spacing: 1rem !default;
 $root_item_padding: $item_vertical_spacing $item_horizontal_spacing !default;
+$root_item_margin: 0 !default;
 $subnav_item_padding: inherit !default;
+$subnav_item_margin: 0 !default;
 </code></pre></div>
 
         <ul class="attr-list">
@@ -425,9 +427,11 @@ $subnav_item_padding: inherit !default;
           <li><code>$item_horizontal_spacing</code> sets a global horizontal spacing;</li>
           <li><code>$root_item_padding</code> sets the padding for root menu items, but also applies to submenu 
             items on mobile devices;</li>
+          <li><code>$root_item_margin</code> sets the margin for root menu items, but only for desktop layout;</li>
           <li><code>$subnav_item_padding</code> sets the padding for submenu items and applies only to large screen 
             devices, your desktop computers, tablets, etc; when set to <code>inherit</code>, the value of the above
             variable will be used.</li>
+          <li><code>$subnav_item_margin</code> sets the margin for submenu items and applies only to the desktop layout.</li>
         </ul>
 
 
@@ -544,22 +548,13 @@ $subnav_item_active_background: $primary_color !default;
           <code>transparent</code>.</p>
 
 <div class="code-wrapper">
-<pre><code class="language-scss">// BRAND LINK COLORS
+<pre><code class="language-scss">// BRAND LINK COLOR
 $brand_link_color: auto !default;
-$brand_link_color_hover: auto !default;
-$brand_link_background: #2c3c44 !default;
-$brand_link_background_hover: transparent !default;
 </code></pre></code></div>
 
         <ul class="attr-list">
           <li><code>$brand_link_color</code> sets the text color for the <code>&lt;a class="brand"></code> 
-            element;</li>
-          <li><code>$brand_link_color_hover</code> sets the background color for for the 
-            <code>&lt;a class="brand"></code> element;</li>
-          <li><code>$brand_link_background</code> sets the hover state text color for for the 
-            <code>&lt;a class="brand"></code> element;</li>
-          <li><code>$brand_link_background_hover</code> sets the hover state background color for for the 
-            <code>&lt;a class="brand"></code> element.</li>
+            element.</li>
         </ul>
 
 

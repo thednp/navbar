@@ -24,7 +24,8 @@ ul { list-style: inherit; list-style-position: inside; }
 .lead { font-size: 18px; color: #777 }
 
 .install {
-	font-family: monospace; background: none; color: #fff; font-size: 20px; font-weight: bold
+	font-family: monospace; background: none; font-size: 20px; font-weight: bold;
+	color: #069;
 }
 
 /* btn */
@@ -207,35 +208,19 @@ html {
 /* HERO */
 .hero {
 	padding: 2rem 3rem;
-	background: #a3acaf
 }
+
+.hero .btn:not(.btn-brand):not(:hover) { background-color: #c5c5c5 }
 
 .rounded {
 	border-radius: 1.5rem;
 }
 
-.hero .lead {
-	color:#fff
-}
 
-@media (min-width: 768px) {
-	.hero .row {
-		margin: 0 -1rem;
-	}
-	.hero .col-2,
-	.hero .col-3,
-	.hero .col-4,
-	.hero .col-6,
-	.hero .col-8,
-	.hero .col-10,
-	.hero .col-9 {padding: 0 1rem}
-/* 
-	.hero .col-2 {max-width:calc(16.665% - 2rem); flex-basis:calc(16.665% - 2rem)}
-	.hero .col-3 {max-width:calc(25% - 2rem); flex-basis:calc(25% - 2rem)}
-	.hero .col-4 {max-width:calc(33.33% - 2rem); flex-basis:calc(33.33% - 2rem)}
-	.hero .col-6 {max-width:calc(50% - 2rem); flex-basis:calc(50% - 2rem)}
-	.hero .col-8 {max-width:calc(66.665% - 2rem); flex-basis:calc(66.665% - 2rem)}
-	.hero .col-9 {max-width:calc(75% - 2rem); flex-basis:calc(75% - 2rem)} */
+/* hr */
+hr {
+	border-top-color: rgba(125,125,125,0.25);
+	border-bottom-color: rgba(255,255,255,0.15);
 }
 
 /* img */
