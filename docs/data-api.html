@@ -20,7 +20,7 @@
 <body>
   <div class="content-wrapper">
     <div class="container">
-      <nav class="navbar" data-function="navbar" aria-label="Main">
+      <nav class="navbar" data-function="navbar" data-toggle-siblings="false" aria-label="Main">
         <a class="brand" href="https://github.com/thednp/navbar" title="Navbar on Github">Navbar</a>
         <button class="navbar-toggle" aria-label="Toogle Main Navigation" aria-haspopup="true" aria-expanded="false">
           <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
@@ -241,6 +241,9 @@
               after <code>mouseleave</code> event was fired. By default this setting is 
               <code>500</code> miliseconds.</li>
           </ul>
+
+          <p>An important note on the usage of the <code>toggleSiblings: false</code> option in combination
+            with a <code>position: sticky</code> navbar will make it difficult for users to navigate.</p>
 
           <h2>Custom Wrapper</h2>
           <p>In other cases you might want to use a different wrapper, and the DATA API attributes can

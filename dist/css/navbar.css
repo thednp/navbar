@@ -1,5 +1,5 @@
 /*!
-* Navbar.js v3.1.0alpha1 (http://thednp.github.io/navbar)
+* Navbar.js v3.1.0 (http://thednp.github.io/navbar)
 * Copyright 2016-2022 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
@@ -18,23 +18,20 @@
   --n-subnav-text-color: rgba(0, 0, 0, 0.55);
   --n-subnav-link-color: rgba(0, 0, 0, 0.75);
   --n-subnav-link-color-hover: rgba(0, 0, 0, 0.95);
-  --n-item-font-size: inherit;
-  --n-item-line-height: inherit;
+  --n-item-font-size: 14px;
+  --n-item-line-height: 1.5rem;
   --n-item-padding-y: 0.5rem;
   --n-item-padding-x: 1rem;
-  --n-item-padding: var(--n-item-padding-y) var(--n-item-padding-x);
   --n-item-margin: 0;
   --n-subnav-item-font-size: inherit;
   --n-subnav-item-line-height: inherit;
   --n-subnav-item-padding-x: var(--n-item-padding-x);
   --n-subnav-item-padding-y: var(--n-item-padding-y);
-  --n-subnav-item-padding: var(--n-subnav-item-padding-y) var(--n-subnav-item-padding-x);
   --n-subnav-item-margin: 0;
   --n-brand-font-size: 18px;
   --n-brand-line-height: inherit;
-  --n-brand-padding: 0.5rem 1rem;
-  --n-brand-link-color: rgba(255, 255, 255, 0.85);
-  --n-brand-link-color-hover: rgba(255, 255, 255, 0.95);
+  --n-brand-padding: var(--n-item-padding-y) var(--n-item-padding-x);
+  --n-brand-link-color: rgba(255, 255, 255, 0.95);
   --n-subnav-padding-x: 0rem;
   --n-subnav-padding-y: 0rem;
   --n-subnav-line-height: inherit;
@@ -127,40 +124,14 @@
   background-color: var(--n-bg);
 }
 .navbar .brand {
-  color: var(--n-link-color);
-}
-@media (min-width: 768px) {
-  .navbar .brand {
-    color: var(--n-brand-link-color);
-  }
-  .navbar .brand:hover {
-    color: var(--n-brand-link-color-hover);
-  }
-}
-
-.subnav-toggle,
-.navbar-toggle {
-  color: currentColor;
-  background: transparent;
-}
-.subnav-toggle:focus,
-.navbar-toggle:focus {
-  color: var(--n-bg);
-  background-color: var(--n-link-color);
-  outline: none;
-}
-
-.open-mobile > .subnav-toggle:not(:focus),
-.open-mobile > .navbar-toggle:not(:focus) {
-  color: currentColor;
-  border-color: currentColor;
+  color: var(--n-brand-link-color);
 }
 
 .nav li > a,
 .nav li > span,
 .navbar-content,
 .subnav-content {
-  padding: var(--n-item-padding);
+  padding: var(--n-item-padding-y) var(--n-item-padding-x);
   margin: var(--n-item-margin);
 }
 
@@ -267,40 +238,34 @@ div.subnav {
 
 .menu-icon + span {
   flex: auto;
-  margin-left: var(--n-item-padding-y);
+  margin-left: calc(var(--n-item-padding-x) / 2);
 }
 
 @media (min-width: 768px) {
   .row > li {
     align-content: flex-start;
   }
-
   nav li:not(.full-width),
 .nav li:not(.full-width) {
     position: relative;
   }
-
   .parent-icon,
 .subnav-toggle + ul,
 .subnav-toggle + div {
     display: flex;
   }
-
   ul.subnav > li,
 div.subnav > ul > li {
     display: none;
   }
-
   .open-position > ul.subnav > li,
 .open-position > div.subnav > ul > li {
     display: flex;
   }
-
   .subnav-toggle,
 .navbar-toggle {
     display: none;
   }
-
   .subnav {
     position: absolute;
     display: block;
@@ -313,25 +278,20 @@ div.subnav > ul > li {
     font-size: var(--n-subnav-item-font-size, inherit);
     line-height: var(--n-subnav-item-line-height, inherit);
   }
-
   div.subnav ul {
     padding: 0;
   }
-
   ul.subnav, div.subnav,
 .subnav .subnav {
     padding: var(--n-subnav-padding-y) var(--n-subnav-padding-x);
   }
-
   .subnav-content,
 ul.subnav {
     flex-direction: column;
   }
-
   div.subnav > ul {
     flex-direction: row;
   }
-
   li.open-mobile {
     background: none;
     transition: none;
@@ -339,37 +299,30 @@ ul.subnav {
   li.open-mobile + .open-mobile {
     margin: 0;
   }
-
   .column-title,
 div.subnav > ul > li > span {
     font-size: 120%;
   }
-
   .subnav li > a,
 .subnav li > span {
     flex-basis: 100%;
   }
-
   .subnav li > a,
 .subnav li > span,
 .subnav-content {
-    padding: var(--n-subnav-item-padding);
+    padding: var(--n-subnav-item-padding-y) var(--n-subnav-item-padding-x);
     margin: var(--n-subnav-item-margin);
   }
-
   .nav > li > .subnav {
     margin-top: var(--n-padding-y);
   }
-
   .subnav .subnav {
     margin-top: calc(var(--n-subnav-padding-y) * -1);
     margin-left: var(--n-subnav-padding-x);
   }
-
   ul.subnav {
     width: var(--n-subnav-width);
   }
-
   div.subnav {
     min-width: var(--n-subnav-larger-width);
   }
@@ -420,6 +373,24 @@ div.subnav > ul > li > span {
   }
 }
 
+.subnav-toggle,
+.navbar-toggle {
+  color: currentColor;
+  background-color: transparent;
+}
+.subnav-toggle:focus,
+.navbar-toggle:focus {
+  color: var(--n-bg);
+  background-color: var(--n-link-color);
+  outline: none;
+}
+
+.open-mobile > .subnav-toggle:not(:focus),
+.open-mobile > .navbar-toggle:not(:focus) {
+  color: var(--n-item-color);
+  border-color: var(--n-item-color);
+}
+
 @media (min-width: 768px) {
   .subnav {
     background-color: var(--n-subnav-bg);
@@ -443,12 +414,10 @@ div.subnav > ul > li > span {
     color: var(--n-subnav-item-active-color);
     background-color: var(--n-subnav-item-active-bg);
   }
-
   .column-title,
 div.subnav > ul > li > span {
     color: var(--n-subnav-item-color);
   }
-
   div.subnav li > ul > li.open > span,
 div.subnav li > ul > li:hover > span,
 ul.subnav > li.open > span,
@@ -456,11 +425,9 @@ ul.subnav > li:hover > span {
     color: var(--n-subnav-item-hover-color);
     background-color: var(--n-subnav-item-hover-bg);
   }
-
   div.subnav {
     color: var(--n-subnav-text-color);
   }
-
   .subnav-content a:not([class]), .subnav-content b {
     color: var(--n-subnav-link-color);
   }

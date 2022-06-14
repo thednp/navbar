@@ -17,22 +17,19 @@
 
   --n-item-font-size: #{$root_item_font_size};
   --n-item-line-height: #{$root_item_line_height};
-  --n-item-padding-y: #{$item_vertical_spacing};
-  --n-item-padding-x: #{$item_horizontal_spacing};
-  --n-item-padding: var(--n-item-padding-y) var(--n-item-padding-x);
+  --n-item-padding-y: #{$item_padding_y};
+  --n-item-padding-x: #{$item_padding_x};
   --n-item-margin: #{$root_item_margin};
   --n-subnav-item-font-size: #{$subnav_item_font_size};
   --n-subnav-item-line-height: #{$subnav_item_line_height};
   --n-subnav-item-padding-x: var(--n-item-padding-x);
   --n-subnav-item-padding-y: var(--n-item-padding-y);
-  --n-subnav-item-padding: var(--n-subnav-item-padding-y) var(--n-subnav-item-padding-x);
   --n-subnav-item-margin: #{$subnav_item_margin};
 
   --n-brand-font-size: #{$brand_font_size};
   --n-brand-line-height: #{$brand_line_height};
-  --n-brand-padding: #{$brand_padding};
-  --n-brand-link-color: #{get-color($brand_link_color, $navbar_background, .85)};
-  --n-brand-link-color-hover: #{get-color($brand_link_color_hover, $navbar_background, .95)};
+  --n-brand-padding: var(--n-item-padding-y) var(--n-item-padding-x);
+  --n-brand-link-color: #{get-color($brand_link_color, $navbar_background, .95)};
 
   // paddings must have a unit
   --n-subnav-padding-x: #{real-size($subnav_padding_x, 1)};

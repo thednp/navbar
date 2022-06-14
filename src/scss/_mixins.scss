@@ -98,34 +98,7 @@
     color: var(--n-text-color);
     background-color: var(--n-bg);
     .brand {
-      color: var(--n-link-color);
-    }
-    @media (min-width: $responsive_breakpoint) {
-      .brand {
-        color: var(--n-brand-link-color);
-        &:hover {
-          color: var(--n-brand-link-color-hover);
-        }
-      }
-    }
-  }
-
-  // navbar toggles
-  .subnav-toggle,
-  .navbar-toggle {
-    color: currentColor;
-    background: transparent;
-    &:focus {
-      color: var(--n-bg);
-      background-color: var(--n-link-color);
-      outline: none;
-    }
-  }
-  .open-mobile {
-    > .subnav-toggle:not(:focus),
-    > .navbar-toggle:not(:focus) {
-      color: currentColor;
-      border-color: currentColor;
+      color: var(--n-brand-link-color);
     }
   }
 }
@@ -136,7 +109,7 @@
   .nav li > span,
   .navbar-content,
   .subnav-content {
-    padding: var(--n-item-padding);
+    padding: var(--n-item-padding-y) var(--n-item-padding-x);
     margin: var(--n-item-margin);
   }
 
@@ -224,7 +197,6 @@
   // content spacing
   .subnav-content {
     p, ul {
-      // margin-bottom: $item_vertical_spacing;
       margin-bottom: var(--n-item-padding-y);
     }
   }
@@ -245,7 +217,7 @@
   @include navbar-icon();
   .menu-icon + span {
     flex: auto;
-    margin-left: var(--n-item-padding-y);
+    margin-left: calc(var(--n-item-padding-x) / 2);
   }
 
   @media (min-width: $responsive_breakpoint) {
@@ -320,7 +292,7 @@
     .subnav li > span,
     .subnav-content {
       // a value must be inherited
-      padding: var(--n-subnav-item-padding);
+      padding: var(--n-subnav-item-padding-y) var(--n-subnav-item-padding-x);
       margin: var(--n-subnav-item-margin);
     }
 
@@ -392,6 +364,24 @@
           background-color: var(--n-item-active-bg);
         }
       }
+    }
+  }
+  // navbar toggles
+  .subnav-toggle,
+  .navbar-toggle {
+    color: currentColor;
+    background-color: transparent;
+    &:focus {
+      color: var(--n-bg);
+      background-color: var(--n-link-color);
+      outline: none;
+    }
+  }
+  .open-mobile {
+    > .subnav-toggle:not(:focus),
+    > .navbar-toggle:not(:focus) {
+      color: var(--n-item-color);
+      border-color: var(--n-item-color);
     }
   }
 }
@@ -516,7 +506,7 @@
     // fix menu icon spacing
     .menu-icon + span {
       flex: auto;
-      margin-right: var(--n-item-padding-x);
+      margin-right: calc(var(--n-item-padding-x) / 2);
       margin-left: 0;
     }
   }

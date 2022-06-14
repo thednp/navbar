@@ -1,6 +1,6 @@
 {
   "name": "@thednp/navbar",
-  "version": "3.1.0alpha1",
+  "version": "3.1.0",
   "description": "Navbar Modern Navigation Component",
   "main": "dist/js/navbar.min.js",
   "module": "dist/js/navbar.esm.js",

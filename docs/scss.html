@@ -217,6 +217,8 @@
           The idea behind is to allow for flexible customization and enable seamless integration with third party applications.</p>
         <p>While the component can work out of the box with Bootstrap with minor markup adjustments, some special mixins have been 
           developed to better complement the library without overloading the render and keeping the same design concept.</p>
+        <p>Starting with version 3.1.x, Navbar supports CSS variables for setting all styling, color and layout of the navbar and
+          sub-menu, except the responsive breakpoint.</p>
           
         <h2>Main SCSS Mixins</h2>
         <p>Next up, we're going to highlight the navbar component features out of the box, with the default style applied to the 
@@ -224,7 +226,7 @@
           file sets the default style and uses the default mixins:</p>
 
 <div class="code-wrapper">
-<pre><code class="language-scss">@import 'variables','mixins';
+<pre><code class="language-scss">@import 'variables', 'mixins', 'root';
 
 @include navbar-mobile-layout;
 @include navbar-desktop-layout;
@@ -242,14 +244,14 @@
               changing the flexbox properties and elements visibility;</li>
             <li><code>navbar-style</code> sets the navbar background but also sets text color for the brand link, regular links, 
               text contents;</li>
-            <li><code>nav-layout</code> sets the layout style for the menu itself, then for root menu items and the submenu items, 
+            <li><code>nav-layout</code> sets the layout style for the menu itself, then for root menu items and the sub-menu items, 
               all in terms of spacing, typography, etc; in addition it sets the menu icons layout style;</li>
             <li><code>nav-style</code> sets the text color and background color for root menu items, for normal, active and hover 
               states;</li>
-            <li><code>subnav-style</code> sets the background color and the box-shadow for the submenu, the text color and 
-              background color for submenu items, for normal, active and hover states; if you don't use any submenus, you can 
+            <li><code>subnav-style</code> sets the background color and the box-shadow for the sub-menu, the text color and 
+              background color for sub-menu items, for normal, active and hover states; if you don't use any sub-menus, you can 
               skip this mixin all together;</li>
-            <li><code>main-menu</code> sets the position of the submenus as well as the animation for each level.</li>
+            <li><code>main-menu</code> sets the position of the sub-menus as well as the animation for each level.</li>
         </ul>
         <p>In other cases shown in the demos, some of these mixins can be skiped, others can be configured for different
           other unique purposes. For instance the <a href="left-menu.html">Left Menu</a> build only styles the menu itself, or
@@ -257,26 +259,22 @@
           design concept.</p>
 
 
-        <h2>SCSS Variables</h2>
+        <h2>CSS / SCSS Variables</h2>
         <p>The SCSS mixins are fed a series of variables you can control, anything from typography and spacing to colors and 
           animation. The input values can change how the mixins function by providing specific values:</p>
         <ul class="attr-list">
           <li>Typography variables are designed to set an overall consistent layout and some of them can be inherited in the menu 
             tree structure.</li>
-          <li>Typography in general is designed to cover various other content types, within the navbar itself or submenu items, 
+          <li>Typography in general is designed to cover various other content types, within the navbar itself or sub-menu items, 
             but you can remove parts or entire sets of style rules, just by using specific input values.</li>
           <li>Color variables can also be inherited in the menu tree, but mixins will then apply a small contrast to avoid any
             possible visual inconsistency.</li>
           <li>While accepting valid color values, variables related to text color can also use <code>auto</code> value, so you can 
             have less work to worry about.</li>
-          <li>Certain color related variable values can remove the style rules when using for instance values like <code>none</code> or
-            <code>transparent</code>.</li>
-          <li>Similarly typography related variable values can remove the style rules when using the <code>0</code> value and assumes the 
-            elements inherit a style rule from a parent element or is a part of other type of content.</li>
           <li>In other cases the style rule is automatically reduntant, for instance brand link text color and background are not 
             needed when you use an <code>&lt;img></code> element, a case where you only need to adjust some spacing.</li>
           <li>Keep in mind that the mixins use variables designated for navbar and root menu items apply to mobile devices on 
-            all menu tree structure, while variables designated for submenu apply on non-mobile devices. This is why we call our
+            all menu tree structure, while variables designated for sub-menu apply on non-mobile devices. This is why we call our
             component a mobile first design concept.</li>
           <li>Due to the nature of the automatic and/or inherit functionality, the mixins also provide a fail-safe mechanism
             for invalid input values, but mixins will provide a log of the build process.</li>
@@ -286,28 +284,39 @@
         <p>First we have the Navbar padding setting, which is ZERO by default, but when used it will make easier integration 
           with third party application, as we will see in the <a href="bootstrap.html">Bootstrap</a> demo.</p>
         <p>Then the global navbar typography variables are important for the size of menu items of the root menu, the brand link, 
-          menu icons, as well as other content items. These values are inherited by submenu items and other contents as we'll 
+          menu icons, as well as other content items. These values are inherited by sub-menu items and other contents as we'll 
           see in a minute. Valid values are expected, but when you set to ZERO, the style rules are removed, so then the navbar 
           will inherit these values from a parent element.</p>
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// NAVBAR METRIX
-$navbar_padding: 0 !default;
+$navbar_padding_x: 0 !default;
+$navbar_padding_y: 0 !default;
 $navbar_line_height: 1.5rem !default;
 $navbar_font_size: 14px !default;
 </code></pre></div>
 
         <ul class="attr-list">
-          <li><code>$navbar_padding</code> sets a padding for the navbar;</li>
+          <li><code>$navbar_padding_x</code> sets the horizontal padding for the navbar;</li>
+          <li><code>$navbar_padding_y</code> sets the vertical padding for the navbar;</li>
           <li><code>$navbar_line_height</code> sets the globally applied line-height of the navbar;</li>
           <li><code>$navbar_font_size</code> sets the globally applied font-size of the navbar.</li>
         </ul>
-        <p>In other cases we might consider adding a font-family variable into the mix, but that is totally on you.</p>
 
-        <h2>Brand Color</h2>
-        <p>The brand color is one of the options you can use to highlight active menu items. The variable expects valid
-          <code>HEX</code>, <code>RGBA</code>, <code>RGB</code> or <code>transparent</code> values. When you set 
-          <code>transparent</code> for color variables in general, the mixins will remove the style rule.</p>
+        <p>These SCSS variables are translated into the following CSS variables:</p>
+<div class="code-wrapper">
+<pre><code class="language-scss">// NAVBAR METRIX
+--n-padding-x: #{real-size($navbar_padding_x, 1)};
+--n-padding-y: #{real-size($navbar_padding_y, 1)};
+--n-line-height: #{$navbar_line_height};
+--n-font-size: #{$navbar_font_size};
+</code></pre></div>
+        <p>The padding related CSS variables are forced to use a unit via the <code>real-size()</code> function,
+          the resulting values are consistent with the CSS <code>calc()</code> function.</p>
+        
+        <h2>Primary Color</h2>
+        <p>The color you can use to highlight active menu items. The variable expects valid <code>HEX</code>,
+          <code>RGBA</code>, <code>RGB</code> or <code>transparent</code> values.</p>
           
 <div class="code-wrapper">
 <pre><code class="language-scss">// PRIMARY COLOR
@@ -319,15 +328,18 @@ $primary_color: #006699 !default;
             background color, in our case it's the second.</li>
         </ul>
 
+        <p>This value is then used by the CSS variable:</p>
+<div class="code-wrapper">
+<pre><code class="language-scss">// PRIMARY COLOR
+--n-primary-color: #{$primary_color};
+</code></pre></div>        
+
         <h2>Navbar and Submenu Background</h2>
         <p>The navbar global color variables are both totally up to your project, they expect valid values <code>HEX</code>,
-          <code>RGBA</code>, <code>RGB</code> or <code>transparent</code>. When you set <code>transparent</code> for these
-          color variables, the mixins will remove the style rule, however the <code>$navbar_background</code> is needed to
+          <code>RGBA</code>, <code>RGB</code> or <code>transparent</code>. The <code>$navbar_background</code> is required to
           determine the value of other variables set to <code>auto</code> as we'll see in a minute.</p>
-        <p>The submenu can use its own background color or inherit the value of <code>$navbar_background</code> with a light
-          contrast applied when set to <code>inherit</code>. By default we're using a grayish background color, but you can 
-          addapt to your need or remove the style rule all together by using <code>transparent</code> input value, a case
-          we're going to check later.</p>
+        <p>The sub-menu can use its own background color or inherit the value of <code>$navbar_background</code> with a light
+          contrast applied when set to <code>inherit</code>.</p>
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// NAVBAR AND SUBNAV BACKGROUND COLOR
@@ -337,14 +349,19 @@ $subnav_background: #dadee0 !default;
 
         <ul class="attr-list">
           <li><code>$navbar_background</code> sets the navbar background color.</li>
-          <li><code>$subnav_background</code> sets the background color for submenus.</li>
+          <li><code>$subnav_background</code> sets the background color for sub-menus.</li>
         </ul>
 
+        <p>These SCSS variables are then pushed into the following CSS variables:</p>
+<div class="code-wrapper">
+<pre><code class="language-scss">// NAVBAR AND SUBNAV BACKGROUND COLOR
+--n-bg: #{$navbar_background};
+--n-subnav-bg: #{$subnav_background};
+</code></pre></div>     
 
         <h2>Navbar Text Colors</h2>
         <p>The following variables set the global navbar text color and anchor link color. The expected values are <code>HEX</code>,
-          <code>RGBA</code>, <code>RGB</code>, <code>transparent</code> or <code>auto</code>. Similar to the above color related
-          variables, setting <code>transparent</code> the mixins will remove the style rule.</p> 
+          <code>RGBA</code>, <code>RGB</code>, <code>transparent</code> or <code>auto</code>.</p> 
         <p>When set to <code>auto</code> the mixins will set a color based on the lightness of the above <code>$navbar_background</code>,
           with a light contrast for text content and a stronger contrast for links. Now if the background is also <code>transparent</code>
           the style rule is again removed so you must provide a valid color value if that is required in order to keep consistency in check.</p>
@@ -362,9 +379,18 @@ $navbar_link_color_hover: auto !default;
           <li><code>$navbar_link_color_hover</code> sets a global color for anchor links in hover state.</li>
         </ul>
 
+        <p>These variables are then processed to have good contrast with the navbar background and pushed into the CSS variables:</p>
+<div class="code-wrapper">
+<pre><code class="language-scss">// NAVBAR TEXT COLORS
+--n-text-color: #{get-color($navbar_text_color, $navbar_background, .55)};
+--n-link-color: #{get-color($navbar_link_color, $navbar_background, .75)};
+--n-link-color-hover: #{get-color($navbar_link_color_hover, $navbar_background, .95)};
+</code></pre></div>
+        <p>These global color values apply mostly for the mobile layout and they are important for the <code>.navbar-toggle</code>
+          and <code>.subnav-toggle</code> elements.</p>
 
         <h2>Submenu Text Colors</h2>
-        <p>These variables override the above variables for submenu content items on non-mobile devices and work pretty much the same.
+        <p>These variables override the above variables for sub-menu content items on non-mobile devices and work pretty much the same.
           They expect the same <code>HEX</code>, <code>RGBA</code>, <code>RGB</code>, <code>transparent</code> or <code>auto</code> 
           values. When set to <code>transparent</code>, the respective style rule is ignored and when set to <code>auto</code>
           the color is determined based on the lightness of <code>$subnav_background</code> or <code>$subnav_item_background</code> 
@@ -378,11 +404,18 @@ $subnav_link_color_hover: auto !default;
 </code></pre></div>
 
         <ul class="attr-list">
-          <li><code>$subnav_text_color</code> sets a color for regular text content inside your submenu;</li>
-          <li><code>$subnav_link_color</code> sets a color for anchor links inside your submenu;</li>
-          <li><code>$subnav_link_color_hover</code> sets a color for anchor links inside your submenu in hover state.</li>
+          <li><code>$subnav_text_color</code> sets a color for regular text content inside your sub-menu;</li>
+          <li><code>$subnav_link_color</code> sets a color for anchor links inside your sub-menu;</li>
+          <li><code>$subnav_link_color_hover</code> sets a color for anchor links inside your sub-menu in hover state.</li>
         </ul>
 
+        <p>Similar with above CSS variables, same apply to sub-menus on the desktop layout:</p>
+<div class="code-wrapper">
+<pre><code class="language-scss">// SUBNAV TEXT COLORS
+--n-subnav-text-color: #{get-color($subnav_text_color, $subnav_background, .55)};
+--n-subnav-link-color: #{get-color($subnav_link_color, $subnav_background, .75)};
+--n-subnav-link-color-hover: #{get-color($subnav_link_color_hover, $subnav_background, .95)};
+</code></pre></div>        
 
         <h2>Menu Item Metrics</h2>
         <p>These variables set the global typography and spacing strictly for menu items. Accepted values are basically all
@@ -390,27 +423,24 @@ $subnav_link_color_hover: auto !default;
           <code>inherit</code>. When <code>inherit</code> is set for the first two of the below, <code>$navbar_font_size</code>
           and <code>$navbar_line_height</code> will be used respectivelly; when any of the two variables are set to ZERO, 
           their respective style rules are removed.</p>
-        <p>Now the next two variables <code>$item_vertical_spacing</code> and <code>$item_horizontal_spacing</code> are used
-          for the menu item padding, both the root menu items and submenu items, but also for other spacing related 
-          variables used for other content items or submenu.</p>
+        <p>Now the next two variables <code>$item_padding_y</code> and <code>$item_padding_x</code> are used
+          for the menu item padding, both the root menu items and sub-menu items, but also for other spacing related 
+          variables used for other content items or sub-menu.</p>
         <p>The last two variables <code>$root_item_padding</code> and <code>$subnav_item_padding</code> set the menu item 
           padding; the first is <b>important</b> for the general layout of the menu and is inherited by the second when that 
           is set to <code>inherit</code>.</p>
-        <p>For all of these variables you can set an input value of ZERO and the mixins will remove their respective style rule,
-          in which case the layout will be forced to inherit a parent value; the <code>$root_item_padding</code> is very 
-          important, it must have a valid value.</p>
+        <p>The <code>$root_item_padding_x</code> <code>$root_item_padding_y</code> are very important, they must set a
+          valid value.</p>
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// MENU ITEM METRIX
-$root_item_font_size: inherit !default;
-$root_item_line_height: inherit !default;
+$root_item_font_size: $navbar_font_size !default;
+$root_item_line_height: $navbar_line_height !default;
 $subnav_item_font_size: inherit !default;
 $subnav_item_line_height: inherit !default;
-$item_vertical_spacing: 0.5rem !default;
-$item_horizontal_spacing: 1rem !default;
-$root_item_padding: $item_vertical_spacing $item_horizontal_spacing !default;
+$item_padding_y: 0.5rem !default;
+$item_padding_x: 1rem !default;
 $root_item_margin: 0 !default;
-$subnav_item_padding: inherit !default;
 $subnav_item_margin: 0 !default;
 </code></pre></div>
 
@@ -419,21 +449,35 @@ $subnav_item_margin: 0 !default;
             <code>$navbar_font_size</code> if a valid value is set;</li>
           <li><code>$root_item_line_height</code> sets a line height for menu items, overrides the 
             <code>$navbar_line_height</code> if a valid value is set;</li>
-          <li><code>$subnav_item_font_size</code> sets a font size for submenu items and overrides the 
+          <li><code>$subnav_item_font_size</code> sets a font size for sub-menu items and overrides the 
             <code>$subnav_font_size</code> if a valid value is set;</li>
-          <li><code>$subnav_item_line_height</code> sets a line height for submenu items, overrides the 
+          <li><code>$subnav_item_line_height</code> sets a line height for sub-menu items, overrides the 
             <code>$subnav_line_height</code> if a valid value is set;</li>
-          <li><code>$item_vertical_spacing</code> sets a global vertical spacing;</li>
-          <li><code>$item_horizontal_spacing</code> sets a global horizontal spacing;</li>
-          <li><code>$root_item_padding</code> sets the padding for root menu items, but also applies to submenu 
-            items on mobile devices;</li>
+          <li><code>$item_padding_y</code> sets a global vertical spacing for menu items;</li>
+          <li><code>$item_padding_x</code> sets a global horizontal spacing for menu items;</li>
           <li><code>$root_item_margin</code> sets the margin for root menu items, but only for desktop layout;</li>
-          <li><code>$subnav_item_padding</code> sets the padding for submenu items and applies only to large screen 
-            devices, your desktop computers, tablets, etc; when set to <code>inherit</code>, the value of the above
-            variable will be used.</li>
-          <li><code>$subnav_item_margin</code> sets the margin for submenu items and applies only to the desktop layout.</li>
+          <li><code>$subnav_item_margin</code> sets the margin for sub-menu items and applies only to the desktop layout.</li>
         </ul>
 
+        <p>These variables are pushed into the following CSS variables:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// MENU ITEM METRIX
+--n-item-font-size: #{$root_item_font_size};
+--n-item-line-height: #{$root_item_line_height};
+--n-item-padding-y: #{$item_padding_y};
+--n-item-padding-x: #{$item_padding_x};
+--n-item-margin: #{$root_item_margin};
+--n-subnav-item-font-size: #{$subnav_item_font_size};
+--n-subnav-item-line-height: #{$subnav_item_line_height};
+--n-subnav-item-padding-x: var(--n-item-padding-x);
+--n-subnav-item-padding-y: var(--n-item-padding-y);
+--n-subnav-item-margin: #{$subnav_item_margin};
+</code></pre></div>
+
+        <p>Keep in mind that overriding any of the <code>--n-item-padding-x</code> and <code>--n-item-padding-y</code>
+          as well as <code>--n-subnav-item-padding-x</code> and <code>--n-subnav-item-padding-y</code> will also update
+          the spacing of all menu icons.</p>
 
         <h2>Brand Metrics</h2>
         <p>These variables are mostly optional, especially if you have your own special branding design. As with 
@@ -445,20 +489,27 @@ $subnav_item_margin: 0 !default;
 <pre><code class="language-scss">// BRAND METRIX
 $brand_font_size: 18px !default;
 $brand_line_height: inherit !default;
-$brand_padding: $item_vertical_spacing $item_horizontal_spacing !default;
 </code></pre></div>
 
         <ul class="attr-list">
           <li><code>$brand_font_size</code> sets a font size for your <code>.brand</code> element;</li>
-          <li><code>$brand_line_height</code> sets a line height for <code>.brand</code> element;</li>
-          <li><code>$brand_padding</code> sets the padding for you <code>.brand</code> element.</li>
+          <li><code>$brand_line_height</code> sets a line height for <code>.brand</code> element.</li>
         </ul>
+
+        <p>These variables are then pushed into the following CSS variables:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// BRAND METRIX
+--n-brand-font-size: #{$brand_font_size};
+--n-brand-line-height: #{$brand_line_height};
+--n-brand-padding: var(--n-item-padding-y) var(--n-item-padding-x);
+</code></pre></div>        
 
 
         <h2>Submenu Metrics</h2>
-        <p>Next we can have a look at the variables responsible for the layout of the submenu itself. These variables
-          have some special designation because they apply only to a certain level submenu. While you can remove their
-          style rule by setting a ZERO input value, <code>$subnav_width</code> is important for layout consistency.</p>
+        <p>Next we can have a look at the variables responsible for the layout of the sub-menu itself. These variables
+          have some special designation because they apply only to a certain level sub-menu. Keep in mind that the
+          <code>$subnav_width</code> is important for layout consistency.</p>
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// SUBNAV METRIX
@@ -467,13 +518,13 @@ $subnav_font_size: inherit !default;
 $subnav_margin: 0 !default;
 $subnav_padding: 0 !default;
 $subnav_width: 200px !default;
-$subnav_larger_width: 600px !default;
+$subnav_larger_width: ($subnav_width * 3) !default;
 </code></pre></div>
 
         <ul class="attr-list">
-          <li><code>$subnav_line_height</code> sets the line-height for your submenu on non-mobile devices; when set 
+          <li><code>$subnav_line_height</code> sets the line-height for your sub-menu on non-mobile devices; when set 
             to <code>inherit</code> the value from <code>$navbar_line_height</code> is used;</li>
-          <li><code>$subnav_font_size</code> sets the font-size for your submenu on non-mobile devices; when set 
+          <li><code>$subnav_font_size</code> sets the font-size for your sub-menu on non-mobile devices; when set 
             to <code>inherit</code> the value from <code>$navbar_font_size</code> is used; this and the above variable
             are very important when using menus without the navbar wrapper;</li>
           <li><code>$subnav_margin</code> sets a margin for the FIRST <code>.subnav</code> element, we'll talk more
@@ -485,6 +536,20 @@ $subnav_larger_width: 600px !default;
             element, the mega-menu wrapper.</li>
         </ul>
 
+        <p>The following CSS variables are set:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// SUBNAV METRIX
+--n-subnav-padding-x: #{real-size($subnav_padding_x, 1)};
+--n-subnav-padding-y: #{real-size($subnav_padding_y, 1)};
+--n-subnav-line-height: #{$subnav_line_height};
+--n-subnav-font-size: #{$subnav_font_size};
+--n-subnav-width: #{$subnav_width};
+--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+</code></pre></div>
+
+        <p>Now here comes the importance of the use of <code>real-size()</code> function to make sure the 
+        <code>--n-subnav-larger-width</code> is consistent with its <code>calc()</code> set value.</p>
 
         <h2>Menu Item Colors</h2>
         <p>Now we can talk about the menu item text color and background color. First we talk about the variables
@@ -516,10 +581,22 @@ $root_item_active_background: $primary_color !default;
             this is where we usually make use of the <code>$primary_color</code> value.</li>
         </ul>
 
+<div class="code-wrapper">
+<pre><code class="language-scss">// MENU ITEM COLOR STYLING
+--n-item-color: #{get-item-color($root_item_color, $root_item_background, $navbar_background, .65)};
+--n-item-bg: #{$root_item_background};
+--n-item-hover-color: #{get-item-color($root_item_hover_color, $root_item_hover_background, $navbar_background, .85)};
+--n-item-hover-bg: #{$root_item_hover_background};
+--n-item-active-color: #{get-item-color($root_item_active_color, $root_item_active_background, $navbar_background, 1)};
+--n-item-active-bg: var(--n-primary-color);
+</code></pre></div>
+
+        <p>The special <code>get-item-color()</code> function is used to set proper text colors in contrast with the
+          background, for all states of the root menu item.</p>
 
         <h2>Submenu Item Colors</h2>
-        <p>Next we have the submenu item text color and background color. The exact same principle applies as for the 
-          above, however these variables override the above for submenu items and only affect the desktop and large
+        <p>Next we have the sub-menu item text color and background color. The exact same principle applies as for the 
+          above, however these variables override the above for sub-menu items and only affect the desktop and large
           screen devices.</p>
 
 <div class="code-wrapper">
@@ -533,19 +610,29 @@ $subnav_item_active_background: $primary_color !default;
 </code></pre></div>
 
         <ul class="attr-list">
-          <li><code>$subnav_item_color</code> sets the text color for submenu items;</li>
-          <li><code>$subnav_item_background</code> sets the background color for submenu items;</li>
-          <li><code>$subnav_item_hover_color</code> sets the hover state text color for submenu items;</li>
-          <li><code>$subnav_item_hover_background</code> sets the hover state background color for submenu items;</li>
-          <li><code>$subnav_item_active_color</code> sets the active state text color for submenu items;</li>
-          <li><code>$subnav_item_active_background</code> sets the active state background color for submenu items;
+          <li><code>$subnav_item_color</code> sets the text color for sub-menu items;</li>
+          <li><code>$subnav_item_background</code> sets the background color for sub-menu items;</li>
+          <li><code>$subnav_item_hover_color</code> sets the hover state text color for sub-menu items;</li>
+          <li><code>$subnav_item_hover_background</code> sets the hover state background color for sub-menu items;</li>
+          <li><code>$subnav_item_active_color</code> sets the active state text color for sub-menu items;</li>
+          <li><code>$subnav_item_active_background</code> sets the active state background color for sub-menu items;
             again we make use of the <code>$primary_color</code> value.</li>
         </ul>
 
-        <h2>Brand Link Colors</h2>
-        <p>Another set of optional variables for the brand link, the text colors. If you like to use an 
-          <code>&lt;img></code> instead of a text, you can disable all these by setting a value of
-          <code>transparent</code>.</p>
+<div class="code-wrapper">
+<pre><code class="language-scss">// SUBNAV MENU ITEM COLOR
+--n-subnav-item-color: #{get-item-color($subnav_item_color, $subnav_item_background, $subnav_background, .65)};
+--n-subnav-item-bg: #{$subnav_item_background};
+--n-subnav-item-hover-color: #{get-item-color($subnav_item_hover_color, $subnav_item_hover_background, $subnav_background, .85)};
+--n-subnav-item-hover-bg: #{$subnav_item_hover_background};
+--n-subnav-item-active-color: #{get-item-color($subnav_item_active_color, $subnav_item_active_background, $subnav_background, 1)};
+--n-subnav-item-active-bg: var(--n-primary-color);
+</code></pre></div>
+
+        <p>Similar to root menu items, the <code>get-item-color()</code> function will do the same for sub-menu items.</p>
+
+        <h2>Brand Link Color</h2>
+        <p>If you're not using a media element for your brand, you can easily set a brand link text color:</p>
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// BRAND LINK COLOR
@@ -556,6 +643,12 @@ $brand_link_color: auto !default;
           <li><code>$brand_link_color</code> sets the text color for the <code>&lt;a class="brand"></code> 
             element.</li>
         </ul>
+        <p>The corresponding CSS variable is:</p>
+
+<div class="code-wrapper">
+<pre><code class="language-scss">// BRAND LINK COLOR
+--n-brand-link-color: #{get-color($brand_link_color, $navbar_background, .95)};
+</code></pre></code></div>
 
 
         <h2>Miscellaneous</h2>
@@ -579,21 +672,32 @@ $base_radius: 0.25rem !default;
             <li><code>$responsive_breakpoint</code> sets the width of the viewport to which the Navbar component switches
               its behaviour, above this value the menu is expected to work with non-mobile devices, and with mobile devices 
               when the viewport width is below this value;</li>
-            <li><code>$subnav_zindex</code> sets the z-index for the submenus;</li>
+            <li><code>$subnav_zindex</code> sets the z-index for the sub-menus;</li>
             <li><code>$icon_height</code> sets the height of all the menu icons, by default we're using one of the 
-              above line-height metrics, which is probably most accurate; if your menu has submenus and you are using
+              above line-height metrics, which is probably most accurate; if your menu has sub-menus and you are using
               any menu icons, this value or the line-height variables must be a valid <code>em</code>, <code>px</code>, 
               <code>rem</code> based value; the style rule associated to this variable is never removed, the default value 
               is <code>16px</code>;</li>
-            <li><code>$navbar_toggle_padding</code> sets the padding for your toggle button visible on mobile devices;
-              here you can also remove the style rule with a ZERO value, but that won't look so good;)</li>
+            <li><code>$navbar_toggle_padding</code> sets the padding for your toggle button visible on mobile devices;</li>
             <li><code>$mobile_expanded_background</code> sets a background color for expanded menu items on mobile devices; 
               you can set the <code>transparent</code> value if you want to disable this feature.</li>
-            <li><code>$subnav_shadow</code> sets a box shadow for all <code>.subnav</code> elements, all your submenus;
+            <li><code>$subnav_shadow</code> sets a box shadow for all <code>.subnav</code> elements, all your sub-menus;
               you can set a ZERO value here and the mixins will remove this style rule;</li>
             <li><code>$base_radius</code> sets a global border-radius needed for various elements of the navbar, currently
               used by the toggle button and icons specific to parent menu items.</li>
           </ul>
+
+          <p>With the exception of the responsive breakpoint, because the <code>@media</code> query doesn't yet support
+            CSS variables, the corresponding CSS variables here will be:</p>
+<div class="code-wrapper">
+<pre><code class="language-scss">// MISC
+--n-subnav-zindex: #{$subnav_zindex};
+--n-icon-height: #{get-icon-height()};
+--n-toggle-padding: #{$navbar_toggle_padding};
+--n-base-radius: #{$base_radius};
+--n-expanded-bg: #{$mobile_expanded_background};
+--n-subnav-shadow: #{$subnav_shadow};
+</code></pre></div>
 
         </div>
         <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2022</span> <a href="#">Go back to top</a></div>

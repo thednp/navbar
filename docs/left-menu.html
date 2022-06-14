@@ -42,6 +42,9 @@
 			.sidebar {
 				--n-primary-color: #e68a00;
 				--n-bg: transparent; /* setting $navbar_background: transparent, will force root menu items to inherit colors */
+				--n-bg: rgba(255,255,255,.75);
+				--n-text-color: rgba(0,0,0,.55);
+				--n-link-color: rgba(0,0,0,.75);
 				--n-subnav-bg: rgba(0,0,0,.85);
 				--n-subnav-padding-x: .75rem;
 				--n-subnav-padding-y: .5rem;
@@ -58,7 +61,7 @@
 				--n-subnav-text-color: rgba(255,255,255,.55);
 				--n-subnav-link-color: rgba(255,255,255,.65);
 				--n-subnav-link-color-hover: rgba(255,255,255,.85);
-				--n-expanded-bg: rgba(0, 0, 0, 0.0075);
+				--n-expanded-bg: rgba(0, 0, 0, 0.05);
 				--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
 				background: #eee;
 			}
@@ -296,7 +299,9 @@
 <pre><code class="language-scss">// left-menu.html - custom CSS variable values
 .sidebar {
 	--n-primary-color: #e68a00;
-	--n-bg: transparent;
+	--n-bg: rgba(255,255,255,.75);
+	--n-text-color: rgba(0,0,0,.55);
+	--n-link-color: rgba(0,0,0,.75);
 	--n-subnav-bg: rgba(0,0,0,.85);
 	--n-subnav-padding-x: .75rem;
 	--n-subnav-padding-y: .5rem;
@@ -313,14 +318,15 @@
 	--n-subnav-text-color: rgba(255,255,255,.55);
 	--n-subnav-link-color: rgba(255,255,255,.65);
 	--n-subnav-link-color-hover: rgba(255,255,255,.85);
-	--n-expanded-bg: rgba(0, 0, 0, 0.0075);
+	--n-expanded-bg: rgba(0, 0, 0, 0.05);
 	--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
 }
 </code></pre></div>
 
 				<p>Similar to other demos, despite the fact we're not using the Navbar wrapper, we can still customize
 					everything our menu instance needs.</p>
-				
+				<p>However the <code>--n-bg</code>, <code>--n-text-color</code> and <code>--n-link-color</code> must be
+					set for the <code>.navbar-toggle</code> and <code>.subnav-toggle</code> buttons.</p>
 				<h2>Similar Demo</h2>
 				<p>This setup is used on the <a href="combo.html">combined layouts</a> demo page, as well as the 
 					<a href="bootstrap.html">Bootstrap</a> demo, go ahead and check them out.</p>

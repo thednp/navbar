@@ -5,8 +5,8 @@ $navbar_padding_x: 0 !default;
 $navbar_padding_y: 0 !default;
 // $navbar_line_height must be numeric,
 // sets the global line-height and is REQUIRED for icon-size
-$navbar_line_height: 1.5rem !default;
 $navbar_font_size: 14px !default;
+$navbar_line_height: 1.5rem !default;
 
 // BRAND COLOR
 $primary_color: #069 !default; // sets the active colors
@@ -32,23 +32,24 @@ $subnav_link_color: auto !default; // [HEX|RGBA|RGB|auto|transparent] auto sets 
 $subnav_link_color_hover: auto !default; // [HEX|RGBA|RGB|auto|transparent] auto sets a color based on $subnav_background/$subnav_item_background
 
 // MENU ITEM METRIX
-$root_item_font_size: inherit !default; // inherit $navbar_font_size
-$root_item_line_height: inherit !default; // inherit $navbar_line_height
+$root_item_font_size: $navbar_font_size !default; // inherit $navbar_font_size
+$root_item_line_height: $navbar_line_height !default; // inherit $navbar_line_height
 $subnav_item_font_size: inherit !default; // inherit $root_item_font_size
 $subnav_item_line_height: inherit !default; // inherit $root_item_line_height
-$item_vertical_spacing: .5rem !default; // used for $root_item_padding and $root_item_padding
-$item_horizontal_spacing: 1rem !default; // used for $root_item_padding and $root_item_padding
 // item spacing
-// $root_item_padding applies globally to mobiles and can be inherited & overruled for .subnav items
-$root_item_padding: $item_vertical_spacing $item_horizontal_spacing !default; // $root_item_padding must be set
+$item_padding_y: .5rem !default; // used for $root_item_padding and $root_item_padding
+$item_padding_x: 1rem !default; // used for $root_item_padding and $root_item_padding
+// $root_item_padding is DEPRECATED
+// $root_item_margin applies only to root menu items
 $root_item_margin: 0 !default; // $root_item_margin mostly for special design
-$subnav_item_padding: inherit !default; // [inherit|valid value|0] inherit value will inherit the above $root_item_padding, 0 value will disable the style rule
+// $subnav_item_padding is DEPRECATED
 $subnav_item_margin: 0 !default; // [inherit|valid value|0] inherit value will inherit the above $root_item_padding, 0 value will disable the style rule
 
 // BRAND METRIX
 $brand_font_size: 18px !default; // [valid value|0] can be either a valid value or 0 which removes the style rule
 $brand_line_height: inherit !default; // [valid value|0] can be either a valid value or 0 which removes the style rule
-$brand_padding: $item_vertical_spacing $item_horizontal_spacing !default; // [valid value|0] 0 value will disable style rule, applies to [a.brand] selector
+// $brand_padding is DEPRECATED
+// $brand_padding: $item_padding_y $item_padding_x !default; // [valid value|0] 0 value will disable style rule, applies to [a.brand] selector
 
 // SUBNAV METRIX
 $subnav_padding_x: 0 !default; // [valid value|0] sets a padding for the LVL1 Element.subnav
@@ -80,9 +81,6 @@ $subnav_item_active_background: $primary_color !default;
 
 // BRAND LINK COLORS
 $brand_link_color: auto !default;
-$brand_link_color_hover: auto !default;
-$brand_link_background: #2c3c44 !default;
-$brand_link_background_hover: transparent !default;
 
 // Bootstrap Grid Breakpoints
 $xs: 320px;
