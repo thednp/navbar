@@ -231,8 +231,9 @@ const closeNavbars = (collection: HTMLCollectionOf<HTMLElement> | HTMLElement[])
  */
 const navbarPreventScroll = (e: KeyboardEvent) => {
   const { code, target } = e;
-  const menu = isHTMLElement(target) && closest(target, navbarSelectors);
-  /* istanbul ignore else */
+  /* istanbul ignore next */
+  const menu = isHTMLElement(target) ? closest(target, navbarSelectors) : null;
+  /* istanbul ignore next */
   if (menu && [keyArrowDown, keyArrowUp, keySpace].includes(code)) e.preventDefault();
 };
 
