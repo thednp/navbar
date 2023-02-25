@@ -97,22 +97,13 @@ Alternatively you can use only the menu itself and use the specific attribute:
 Other initialization and markup options apply, explained in [the demo](http://thednp.github.io/navbar/).
 
 
-# ES6+
+# Typescript / ES
 ```javascript
 import Navbar from '@thednp/navbar'
 
-let myNav = new Navbar('#myNav')
-```
-
-# Node
-```javascript
-// get and store it
-var Navbar = require("@thednp/navbar");
-
-// initialize it
-var myMenu = new Navbar('#myNav');
+const myNav = new Navbar('#myNav')
 ```
 
 
 # License
-[MIT License](https://github.com/thednp/navbar.js/blob/master/LICENSE)
+[MIT License](https://github.com/thednp/navbar/blob/master/LICENSE)
