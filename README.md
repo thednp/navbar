@@ -8,7 +8,7 @@
 ![cypress version](https://img.shields.io/badge/cypress-9.7.0-brightgreen)
 ![typescript version](https://img.shields.io/badge/typescript-4.5.2-brightgreen)
 
-The mobile first menu navigation for today's modern web, developed with ES6+ JavaScript, TypeScript definitions and packed with lots of features.
+The mobile first menu navigation for today's modern web, sourced with Typescript and packed with lots of features.
 
 
 # Demo
@@ -17,7 +17,7 @@ Download the package and check the **docs** folder, or check it online [here](ht
 # Navbar Highlights
 * Mobile First Design
 * Accessibility Focus
-* ES6+ sources with TypeScript definitions and powerful build tools
+* TypeScript sourced and powerful build tools
 * SCSS sources with powerful mixins and CSS variables
 * very light footprint, `5kb` in size when minified
 * 3 sets of positions top (main), left or right

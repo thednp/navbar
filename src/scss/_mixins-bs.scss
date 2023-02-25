@@ -1,63 +1,72 @@
 // BOOTSTRAP MIXINS
 
-$dark_navbar_background: #343a40;
+$dark-navbar-bg: #343a40;
 
 // bootstrap navbar style
 @mixin navbar-style-bs {
   .navbar-light {
     .subnav-toggle {
-      color: rgba(var(--bs-dark-rgb),.55);
+      color: rgba(var(--bs-dark-rgb), .55);
     }
+
     .open-mobile {
       > .subnav-toggle {
-        color: rgba(var(--bs-dark-rgb),.75);
-        background: rgba(var(--bs-dark-rgb),.15);
+        color: rgba(var(--bs-dark-rgb), .75);
+        background: rgba(var(--bs-dark-rgb), .15);
       }
     }
   }
-  .navbar:not(.navbar-light),
-  .navbar-dark {
+
+  .navbar-dark,
+  .navbar:not(.navbar-light) {
     .subnav-toggle {
-      color: rgba(var(--bs-light-rgb),.55);
+      color: rgba(var(--bs-light-rgb), .55);
     }
+
     .open-mobile {
       > .subnav-toggle {
-        color: rgba(var(--bs-light-rgb),.75);
-        background: rgba(var(--bs-light-rgb),.15);
+        color: rgba(var(--bs-light-rgb), .75);
+        background: rgba(var(--bs-light-rgb), .15);
       }
     }
   }
+
   @media (min-width: $responsive_breakpoint) {
     // set LVL1 subnav box-shadow
     .navbar-nav li > .subnav {
       box-shadow: var(--n-subnav-shadow);
     }
+
     .navbar-light {
       .subnav {
         background-color: #fff;
       }
+
       .navbar-nav li {
         li.open, li:hover { // hover
           > a.nav-link {
-            color: rgba(var(--bs-dark-rgb),.75);
+            color: rgba(var(--bs-dark-rgb), .75);
           }
         }
       }
     }
+
     .navbar:not(.navbar-light),
     .navbar-dark {
       .subnav {
         background-color: rgba(var(--bs-dark-rgb), 1);
       }
+
       .navbar-nav li {
         li.open, li:hover { // hover
           > a.nav-link {
-            color: rgba(var(--bs-light-rgb),.75);
+            color: rgba(var(--bs-light-rgb), .75);
           }
         }
 
       }
     }
+
     // lvl 2 active
     .navbar .navbar-nav li {
       li.active, li.active:hover { // active
@@ -80,6 +89,7 @@ $dark_navbar_background: #343a40;
   .subnav-toggle + ul,
   .subnav-toggle + div,
   .parent-icon {display: none;}
+
   li.open-mobile {
     > .subnav-toggle + div,
     > .subnav-toggle + ul,
@@ -87,11 +97,13 @@ $dark_navbar_background: #343a40;
   }
 
   // menu icons
-  @include navbar-icon();
+  @include navbar-icon;
+
   .menu-icon + span {
     flex: auto;
     margin-left: var(--n-item-padding-x);
   }
+
   .subnav-toggle {
     background: transparent;
     border: 0;
@@ -105,17 +117,18 @@ $dark_navbar_background: #343a40;
     flex-direction: column;
     padding: 0 0 0 var(--n-item-padding-x);
   }
+
   // general menu layout
   .navbar-nav {
     li {
       position: relative;
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+      flex-flow: row wrap;
       align-items: center;
       justify-content: space-between;
       list-style: none;
     }
+
     // general item styling
     .nav-link {
       display: flex;
@@ -123,6 +136,7 @@ $dark_navbar_background: #343a40;
       align-items: center;
       justify-content: space-between;
       text-decoration: none;
+
       span {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -130,36 +144,45 @@ $dark_navbar_background: #343a40;
       }
     }
   }
+
   @media (min-width: $responsive_breakpoint) {
     // desktop view visibility
     .subnav-toggle { display: none; }
+
     .parent-icon,
     .subnav-toggle + div,
     .subnav-toggle + ul {
       display: flex;
     }
+
     // disable focus on hidden menu items
     ul.subnav > li,
     div.subnav > ul > li { display: none; }
+
     .open-position {
       > ul.subnav > li,
       > div.subnav > ul > li { display: flex; }
     }
+
     .nav-link {
       flex-basis: 100%;
     }
+
     // set subnav position
     .subnav {
       position: absolute;
     }
+
     // reset menu tree highlight padding
     // ul.subnav,
     div.subnav ul {
       padding: 0;
     }
+
     .navbar-text,
     ul.subnav {flex-direction: column;}
     div.subnav > ul {flex-direction: row;}
+
     // set submenu width
     ul.subnav { width: var(--n-subnav-width); }
     div.subnav { min-width: var(--n-subnav-larger-width); }
@@ -168,10 +191,12 @@ $dark_navbar_background: #343a40;
     .navbar-nav > li > .subnav {
       margin-top: var(--n-padding-y);
     }
+
     ul.subnav, div.subnav,
     .subnav .subnav {
       padding: var(--n-subnav-padding-y, $navbar_padding_y) var(--n-subnav-padding-x, $navbar_padding_x);
     }
+
     .subnav .subnav {
       margin-top: calc(var(--n-subnav-padding-y) * -1);
       margin-left: var(--n-subnav-padding-x);

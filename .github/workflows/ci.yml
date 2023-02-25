@@ -12,11 +12,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: bahmutov/npm-install@v1
-      - run: npm run lint:js
-      - run: npm run lint:css
-      - run: npm run build-esm
-      - run: npm run compile-scss
+      # - uses: bahmutov/npm-install@v1
+      - run: npm run install
+      - run: npm run build
+      - run: npm run compile
       - run: npm run test
 
       - name: Upload coverage report on Node 16 to coveralls.io...

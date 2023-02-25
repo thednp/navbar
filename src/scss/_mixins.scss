@@ -4,8 +4,7 @@
 @mixin navbar-mobile-layout($include:0) {
   #{if($include != 0, '&.navbar', '.navbar')} {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     justify-content: space-between;
     padding: var(--n-padding-y) var(--n-padding-x);
     font-size: var(--n-font-size);
@@ -19,12 +18,15 @@
       flex-direction: column;
       flex-grow: 1;
     }
+
     &.open-mobile > div {
       display: flex;
     }
+
     .nav {
       flex-direction: column;
     }
+
     .brand {
       display: flex;
       align-items: center;
@@ -41,8 +43,7 @@
   @media (min-width: $responsive_breakpoint) {
     #{if($include != 0, '&.navbar', '.navbar')} {
       position: relative;
-      flex-direction: row;
-      flex-wrap: nowrap;
+      flex-flow: row nowrap;
       align-items: center;
       justify-content: flex-start;
 
@@ -53,6 +54,7 @@
         align-items: center;
         justify-content: space-between;
       }
+
       .nav {
         flex-direction: row;
       }
@@ -66,10 +68,12 @@
       flex-flow: column nowrap;
       justify-content: flex-start;
       height: 100%;
+
       > div {
         display: flex;
         flex-direction: column;
       }
+
       .nav {
         flex-direction: column;
       }
@@ -85,6 +89,7 @@
       color: var(--n-link-color);
     }
   }
+
   @media (min-width: $responsive_breakpoint) {
     .navbar-content {
       a:not([class]):hover {
@@ -97,6 +102,7 @@
   #{if($include != 0, '&.navbar', '.navbar')} {
     color: var(--n-text-color);
     background-color: var(--n-bg);
+
     .brand {
       color: var(--n-brand-link-color);
     }
@@ -121,14 +127,14 @@
   .subnav-toggle + div > li,
   .nav li > span, .nav li > a {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     align-items: center;
     justify-content: space-between;
   }
-  .nav li > span, .nav li > a {
-    flex-wrap: nowrap;
-  }
+
+  // .nav li > span, .nav li > a {
+  //   flex-wrap: nowrap;
+  // }
 
   .nav {
     // set flex
@@ -146,16 +152,16 @@
       margin: 0;
       list-style: none;
     }
-
+    
     li {
       transition: margin .3s ease 0s;
-    }
 
-    li > span,
-    li > a {
-      overflow: hidden;
-      font-size: var(--n-item-font-size);
-      line-height: var(--n-item-line-height);
+      > span, > a {
+        flex-wrap: nowrap;
+        overflow: hidden;
+        font-size: var(--n-item-font-size);
+        line-height: var(--n-item-line-height);
+      }
     }
 
     li > a { text-decoration: none; }
@@ -168,6 +174,7 @@
       white-space: nowrap;
     }
   }
+
   // toggles
   .subnav-toggle,
   .navbar-toggle {
@@ -179,15 +186,18 @@
     border: 1px solid transparent;
     border-radius: var(--n-base-radius);
   }
+
   // .open-mobile
   li.open-mobile > .subnav-toggle + ul,
   li.open-mobile > .subnav-toggle + div,
   li.open-mobile > .subnav {
     display: block;
   }
+
   .open-mobile + .open-mobile {
     margin-top: var(--n-item-padding-y);
   }
+
   // mobile view content closed state
   .parent-icon,
   .subnav-toggle + ul,
@@ -209,12 +219,14 @@
     flex-grow: 1;
     padding: 0 0 0 var(--n-item-padding-x);
   }
+
   div.subnav {
     flex-basis: 100%;
   }
 
   // menu icons
-  @include navbar-icon();
+  @include navbar-icon;
+
   .menu-icon + span {
     flex: auto;
     margin-left: calc(var(--n-item-padding-x) / 2);
@@ -224,26 +236,32 @@
     .row > li {
       align-content: flex-start;
     }
+
     nav li:not(.full-width),
     .nav li:not(.full-width) {
       position: relative;
     }
+
     // show icons and megamenu columns
     .parent-icon,
     .subnav-toggle + ul,
     .subnav-toggle + div {
       display: flex;
     }
+
     // disable focus on hidden menu items
     ul.subnav > li,
     div.subnav > ul > li { display: none; }
+
     .open-position {
       > ul.subnav > li,
       > div.subnav > ul > li { display: flex; }
     }
+
     // toggles are hidden
     .subnav-toggle,
     .navbar-toggle { display: none; }
+
     // set submenu desktop view
     .subnav {
       // set base typo
@@ -252,12 +270,16 @@
       font-size: var(--n-subnav-font-size, $navbar_font_size);
       line-height: var(--n-subnav-line-height, $navbar_line_height);
       opacity: 0;
+
       li > span,
       li > a {
+        // override flex-basis
+        flex-basis: 100%;
         font-size: var(--n-subnav-item-font-size, $subnav_font_size);
         line-height: var(--n-subnav-item-line-height, $subnav_line_height);
       }
     }
+
     // reset menu tree highlight padding
     div.subnav ul {
       padding: 0;
@@ -270,23 +292,29 @@
 
     .subnav-content,
     ul.subnav { flex-direction: column; }
-    div.subnav > ul { flex-direction: row; }
+
+    // div.subnav > ul { flex-direction: row; }
+
     // reset open-mobile
     li.open-mobile {
       background: none;
       transition: none;
       + .open-mobile {margin: 0;}
     }
+
     // adjust column title
     .column-title,
     div.subnav > ul > li > span {
       font-size: 120%;
     }
+
     // override flex-basis
-    .subnav li > a,
-    .subnav li > span {
-      flex-basis: 100%;
-    }
+    // .subnav li {
+    //   > a, > span {
+    //     flex-basis: 100%;
+    //   }
+    // }
+
     // override content padding
     .subnav li > a,
     .subnav li > span,
@@ -300,6 +328,7 @@
     .nav > li > .subnav {
       margin-top: var(--n-padding-y);
     }
+
     // set subnav spacing
     .subnav .subnav {
       margin-top: calc(var(--n-subnav-padding-y) * -1);
@@ -310,8 +339,10 @@
     ul.subnav { // regular submenu
       width: var(--n-subnav-width);
     }
+
     div.subnav { // mega submenu
-      > ul {padding: 0; margin: 0;}
+      > ul { flex-direction: row;padding: 0; margin: 0;}
+
       // determine larger width with padding in mind
       min-width: var(--n-subnav-larger-width);
       &.m1 { min-width: calc(var(--n-subnav-width) + var(--n-subnav-padding-x) * 2); }
@@ -331,6 +362,7 @@
     li > span {
       color: var(--n-item-color);
     }
+
     // background only apply to LI.open-mobile view
     li.open-mobile {
       background-color: var(--n-expanded-bg);
@@ -344,6 +376,7 @@
           background-color: var(--n-item-bg);
         }
       }
+
       // menu item colors
       // root hover
       > li.open,
@@ -354,6 +387,7 @@
           background-color: var(--n-item-hover-bg);
         }
       }
+
       // root active
       > li.active,
       > li.active.open,
@@ -366,17 +400,20 @@
       }
     }
   }
+
   // navbar toggles
   .subnav-toggle,
   .navbar-toggle {
-    color: currentColor;
+    color: currentcolor;
     background-color: transparent;
+
     &:focus {
       color: var(--n-bg);
       background-color: var(--n-link-color);
       outline: none;
     }
   }
+
   .open-mobile {
     > .subnav-toggle:not(:focus),
     > .navbar-toggle:not(:focus) {
@@ -393,6 +430,7 @@
     .subnav {
       // background
       background-color: var(--n-subnav-bg);
+
       // box-shadow
       box-shadow: var(--n-subnav-shadow);
 
@@ -403,6 +441,7 @@
           color: var(--n-subnav-item-color);
           background-color: var(--n-subnav-item-bg);
         }
+
         > div {
           background-color: var(--n-subnav-item-bg);
         }
@@ -415,6 +454,7 @@
             background-color: var(--n-subnav-item-hover-bg);
           }
         }
+
         // active
         &.active,
         &.active:hover {
@@ -432,6 +472,7 @@
     div.subnav > ul > li > span {
       color: var(--n-subnav-item-color);
     }
+
     // a special case for span menu item text
     // div.subnav > ul > li > ul, // more than 5 compound selectors won't validate
     div.subnav li > ul,
@@ -444,14 +485,17 @@
         }
       }
     }
+
     // submenu text colors
     div.subnav {
       color: var(--n-subnav-text-color);
     }
+
     .subnav-content {
       a:not([class]), b {
         color: var(--n-subnav-link-color);
       }
+
       a:not([class]):hover {
         color: var(--n-subnav-link-color-hover);
       }
@@ -498,11 +542,13 @@
 
       li.open-position > .subnav { top: 100%; right: 0; left: auto; z-index: var(--n-subnav-zindex); }
       li.open > .subnav { opacity: 1; transform: translate(0); }
+
       .subnav .subnav {
         margin-right: var(--n-subnav-padding-x);
         margin-left: 0;
       }
     }
+
     // fix menu icon spacing
     .menu-icon + span {
       flex: auto;
@@ -516,6 +562,7 @@
 @mixin left-side($include:0) {
   #{if($include != 0, '&.nav', '.nav')} {
     flex-direction: column;
+
     @media (min-width: $responsive_breakpoint) {
       li {
         > .subnav {
@@ -524,12 +571,14 @@
           transition: transform .5s ease, opacity .4s linear;
           transform: translate(-10px);
         }
+
         > a {
           flex-basis: 100%;
         }
       }
       li.open-position > .subnav { top: 0; left: 100%; z-index: var(--n-subnav-zindex); }
       li.open > .subnav { opacity: 1; transform: translate(0); }
+
       > li > .subnav {
         margin-top: 0;
         margin-left: var(--n-padding-x);
@@ -542,6 +591,7 @@
 @mixin right-side($include:0) {
   #{if($include != 0, '&.nav', '.nav')} {
     flex-direction: column;
+
     @media (min-width: $responsive_breakpoint) {
       li {
         > .subnav {
@@ -551,16 +601,19 @@
           transition: transform .5s ease, opacity .4s linear;
           transform: translate(10px);
         }
+
         > a {
           flex-basis: 100%;
         }
       }
       li.open-position > .subnav { top: 0; right: 100%; z-index: var(--n-subnav-zindex);}
       li.open > .subnav { opacity: 1; transform: translate(0); }
+
       > li > .subnav {
         margin-top: 0;
         margin-right: var(--n-padding-x);
       }
+
       .subnav .subnav {
         margin-right: var(--n-subnav-padding-x);
         margin-left: 0;
@@ -577,8 +630,9 @@
     height: var(--n-icon-height);
     line-height: var(--n-icon-height);
     text-align: center;
-    fill: currentColor;
+    fill: currentcolor;
   }
+
   .menu-icon {
     font-size: calc(var(--n-icon-height) * .94); // 94% = 0.94
   }

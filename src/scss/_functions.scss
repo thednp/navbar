@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @function real-color($color) {
   @return type-of($color) == "color" and $color != "none" and $color != transparent and $color != currentColor and $color != inherit and $color != initial;
 }
@@ -21,7 +23,8 @@
   $result: 0;
 
   @if type-of($size) == "number" {
-    $unit: unit($size);
+    $unit: math.unit($size);
+
     @if $rem != 0 {
       @if $unit == "rem" {
         $result: $size;
@@ -41,13 +44,16 @@
         $result: $size * 1px;
       }
     }
+
     // @debug($result);
   }
+
   @return $result;
 }
 
 @function sum-size($a:0, $b:0) {
   $result: 0;
+
   @if type-of($a) == "number" and type-of($b) == "number" {
     @if unit($a) != unit($b) {
       @if unit($a) == "rem" or unit($b) == "rem" {
@@ -59,11 +65,13 @@
       $result: $a + $b;
     }
   }
+
   @return $result;
 }
 
 @function get-icon-height() {
   $height: $icon_height;
+
   @if $icon_height == auto or $icon_height == inherit or $icon_height == 0 or type-of($icon_height) != "number" {
     @if type-of($root_item_line_height) == "number" and type-of($subnav_item_line_height) == "number" {
       @if real-size($root_item_line_height) > real-size($subnav_item_line_height) {
@@ -85,46 +93,53 @@
       $height: 16px; // ICONS MUST HAVE A SIZE
     }
   }
+
   @return $height;
 }
 
 @function get-color($color, $bg, $alpha: 1) {
   $result: $color;
+
   @if real-color($color) {
     $result: $color;
   } @else if $color == currentColor {
-    $result: currentColor;
+    $result: currentcolor;
   } @else if $color == auto and real-color($bg) {
     @if lightness($bg) > 60 {
       $result: rgba(#000, $alpha);
     } @else {
       $result: rgba(#fff, $alpha);
     }
+
     // if transparent, cancel rule
   } @else {
     $result: unset;
   }
+
   @return $result;
 }
 
-/* $color: text-color, $bg: bg-color, $inherit_bg: used when $bg is undefined/transparent */
-@function get-item-color($color, $bg, $inherit_bg, $alpha: 1) {
-  $item_color: $color;
-  $item_bg: $bg;
+/* $color: text-color, $bg: bg-color, $inherit-bg: used when $bg is undefined/transparent */
+@function get-item-color($color, $bg, $inherit-bg, $alpha: 1) {
+  $item-color: $color;
+  $item-bg: $bg;
+
   @if real-color($bg) {
-    $item_bg: $bg;
-  } @else if real-color($inherit_bg) {
-    $item_bg: $inherit_bg;
+    $item-bg: $bg;
+  } @else if real-color($inherit-bg) {
+    $item-bg: $inherit-bg;
   }
-  @if lightness($item_bg) > 60 {
-    $item_color: #000;
+
+  @if lightness($item-bg) > 60 {
+    $item-color: #000;
   } @else {
-    $item_color: #fff;
+    $item-color: #fff;
   }
-  @if ($alpha < 1) {
-    @return rgba($item_color, $alpha);
+
+  @if $alpha < 1 {
+    @return rgba($item-color, $alpha);
   } @else {
-    @return $item_color;
+    @return $item-color;
   }
 
 }
@@ -134,7 +149,8 @@
   @if type-of($bg) == "list" or real-color($bg) {
     background: $bg;
   } @else if $bg == currentColor {
-    background: currentColor;
+    background: currentcolor;
+
     // } @else {
     // @debug "set-background(#{$bg}); value-type '#{type-of($bg)}:#{$bg}' is ignored, style rule removed.";
   }
@@ -142,6 +158,7 @@
 
 @mixin set-color($color, $bg, $alpha) {
   $result: get-color($color, $bg, $alpha);
+
   @if $result != inherit {
     color: $result;
   }
@@ -151,21 +168,25 @@
   @if $value == inherit and (type-of($inherited) == "list" or type-of($inherited) == "number" and $inherited != 0) {
     #{$prop}: $inherited;
   } @else if type-of($value) == "list" {
-    $totalSize: 0;
+    $total-size: 0;
+
     @each $one in $value {
       @if real-size($one) {
-        $totalSize: sum-size($one,$totalSize);
+        $total-size: sum-size($one,$total-size);
       } @else if type-of($one) == "color" {
-        $totalSize: sum-size(1,$totalSize);
+        $total-size: sum-size(1,$total-size);
       }
     }
-    @if $totalSize > 0 or $value {
+
+    @if $total-size > 0 or $value {
       #{$prop}: $value;
     }
 
   } @else if type-of($value) == "number" and $value != 0 {
     #{$prop}: $value;
+
     // } @else {
   }
+
   // @debug "set-metric(#{$prop},#{$value},#{$inherited});  value-type '#{type-of($value)}:#{$value}' is ignored, style rule removed.";
 }
