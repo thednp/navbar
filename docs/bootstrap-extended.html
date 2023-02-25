@@ -19,12 +19,12 @@
       --n-font-size: inherit;
       --n-bg: var(--bs-gray-dark);
       --n-subnav-bg: var(--bs-gray-200);
-      --n-padding-x: 1rem;
-      --n-padding-y: .5rem;
+      --n-padding-x: 0.5rem;
+      --n-padding-y: 0.5rem;
       --n-subnav-padding-x: .5rem;
       --n-subnav-padding-y: .5rem;
       --n-item-padding-y: .5rem;
-      --n-item-padding-x: .5rem;
+      --n-item-padding-x: 1rem;
       --n-item-padding: var(--n-item-padding-y) var(--n-item-padding-x);
       --n-item-hover-bg: rgba(255,255,255,.15);
       --n-item-hover-color: rgba(255,255,255,.65);
@@ -35,6 +35,13 @@
       --n-subnav-item-active-color: var(--bs-white);
       --n-subnav-item-active-bg: var(--bs-primary);
       --n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+    }
+    @media (min-width: 768px) {
+      .navbar {
+        --n-padding-y: 0;
+        --n-item-padding-y: 1rem;
+        --n-item-padding-x: 1rem;
+      }
     }
   </style>
 </head>
