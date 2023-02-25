@@ -5,7 +5,7 @@
   "author": "thednp",
   "license": "MIT",
   "homepage": "http://thednp.github.io/navbar",
-  "main": "dist/js/navbar.min.js",
+  "main": "dist/js/navbar.js",
   "module": "dist/js/navbar.cjs",
   "esnext": "dist/js/navbar.mjs",
   "types": "dist/js/navbar.d.ts",
