@@ -8,7 +8,7 @@
 [![cypress version](https://img.shields.io/badge/cypress-12.6.0-brightgreen)](https://www.cypress.io/)
 [![eslint version](https://img.shields.io/badge/eslint-8.30.0-brightgreen)](https://github.com/eslint)
 [![vite version](https://img.shields.io/badge/vite-4.1.4-brightgreen)](https://vitejs.dev/)
-[![prettier version](https://img.shields.io/badge/prettier-2.8.1-brightgreen)](https://prettier.io/)
+[![prettier version](https://img.shields.io/badge/prettier-2.8.3-brightgreen)](https://prettier.io/)
 
 The mobile first menu navigation for today's modern web, sourced with Typescript and packed with lots of features.
 
