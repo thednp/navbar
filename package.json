@@ -1,16 +1,21 @@
 {
   "name": "@thednp/navbar",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Navbar Modern Navigation Component",
   "author": "thednp",
   "license": "MIT",
   "homepage": "http://thednp.github.io/navbar",
-  "main": "dist/js/navbar.js",
-  "module": "dist/js/navbar.cjs",
-  "esnext": "dist/js/navbar.mjs",
-  "types": "dist/js/navbar.d.ts",
-  "style": "dist/css/navbar.min.css",
-  "sass": "src/css/navbar.scss",
+  "main": "./dist/js/navbar.js",
+  "module": "./dist/js/navbar.mjs",
+  "types": "./dist/js/navbar.d.ts",
+  "style": "./dist/css/navbar.min.css",
+  "sass": "./src/css/navbar.scss",
+  "exports": {
+    ".": {
+      "require": "./dist/navbar.cjs",
+      "import": "./dist/navbar.mjs"
+    }
+  },
   "scripts": {
     "pre-test": "npm run clean-coverage",
     "test": "npm run pre-test && cypress run",
@@ -58,18 +63,18 @@
   ],
   "dependencies": {
     "@thednp/event-listener": "^2.0.0-alpha8",
-    "@thednp/shorty": "^2.0.0-alpha12"
+    "@thednp/shorty": "^2.0.0-alpha14"
   },
   "devDependencies": {
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@cypress/code-coverage": "^3.10.0",
     "@types/istanbul-lib-instrument": "^1.7.4",
-    "@typescript-eslint/eslint-plugin": "^5.47.0",
-    "@typescript-eslint/parser": "^5.47.0",
-    "cypress": "^12.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "cypress": "^12.8.1",
     "dts-bundle-generator": "^7.2.0",
-    "eslint": "^8.30.0",
-    "eslint-plugin-jsdoc": "^39.6.4",
+    "eslint": "^8.36.0",
+    "eslint-plugin-jsdoc": "^40.0.3",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.2.1",
     "istanbul-lib-coverage": "^3.2.0",
@@ -77,15 +82,15 @@
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
-    "prettier": "^2.8.3",
-    "rimraf": "^3.0.2",
+    "prettier": "^2.8.4",
+    "rimraf": "^4.4.0",
     "sass": "^1.58.3",
-    "stylelint": "^15.1.0",
-    "stylelint-config-standard": "^30.0.1",
+    "stylelint": "^15.3.0",
+    "stylelint-config-standard": "^31.0.0",
     "stylelint-config-standard-scss": "^7.0.1",
-    "stylelint-order": "^6.0.2",
-    "stylelint-scss": "^4.4.0",
-    "typescript": "^4.9.4",
-    "vite": "^4.1.4"
+    "stylelint-order": "^6.0.3",
+    "stylelint-scss": "^4.5.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.2.0"
   }
 }

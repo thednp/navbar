@@ -1,12 +1,7 @@
-/** @typedef {import('../../types/index')} */
-import getDocument from '@thednp/shorty/src/get/getDocument';
-import getElementsByTagName from '@thednp/shorty/src/selectors/getElementsByTagName';
-import matches from '@thednp/shorty/src/selectors/matches';
-
-import DOMContentLoadedEvent from '@thednp/shorty/src/strings/DOMContentLoadedEvent';
+import { getDocument, getElementsByTagName, matches, DOMContentLoadedEvent } from '@thednp/shorty';
+import { addListener } from '@thednp/event-listener';
 
 import Navbar from './navbar';
-import { addListener } from '@thednp/event-listener';
 
 // DATA API
 /**
