@@ -4,11 +4,11 @@
 [![NPM Version](https://img.shields.io/npm/v/@thednp/navbar.svg)](https://www.npmjs.com/package/@thednp/navbar)
 [![NPM Downloads](https://img.shields.io/npm/dm/@thednp/navbar.svg)](http://npm-stat.com/charts.html?package=@thednp/navbar)
 [![jsDeliver](https://data.jsdelivr.com/v1/package/npm/@thednp/navbar/badge)](https://www.jsdelivr.com/package/npm/@thednp/navbar)
-[![typescript version](https://img.shields.io/badge/typescript-4.9.4-brightgreen)](https://www.typescriptlang.org/)
-[![cypress version](https://img.shields.io/badge/cypress-12.6.0-brightgreen)](https://www.cypress.io/)
-[![eslint version](https://img.shields.io/badge/eslint-8.30.0-brightgreen)](https://github.com/eslint)
-[![vite version](https://img.shields.io/badge/vite-4.1.4-brightgreen)](https://vitejs.dev/)
-[![prettier version](https://img.shields.io/badge/prettier-2.8.3-brightgreen)](https://prettier.io/)
+[![typescript version](https://img.shields.io/badge/typescript-5.0.2-brightgreen)](https://www.typescriptlang.org/)
+[![cypress version](https://img.shields.io/badge/cypress-12.8.1-brightgreen)](https://www.cypress.io/)
+[![eslint version](https://img.shields.io/badge/eslint-8.36.0-brightgreen)](https://github.com/eslint)
+[![vite version](https://img.shields.io/badge/vite-4.2.0-brightgreen)](https://vitejs.dev/)
+[![prettier version](https://img.shields.io/badge/prettier-2.8.4-brightgreen)](https://prettier.io/)
 
 The mobile first menu navigation for today's modern web, sourced with Typescript and packed with lots of features.
 
