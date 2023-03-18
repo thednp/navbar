@@ -1,6 +1,6 @@
 {
   "name": "@thednp/navbar",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Navbar Modern Navigation Component",
   "author": "thednp",
   "license": "MIT",
@@ -62,7 +62,7 @@
     "bootstrap"
   ],
   "dependencies": {
-    "@thednp/event-listener": "^2.0.0-alpha8",
+    "@thednp/event-listener": "^2.0.0",
     "@thednp/shorty": "^2.0.0-alpha14"
   },
   "devDependencies": {
