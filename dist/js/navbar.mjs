@@ -199,7 +199,7 @@ const tt = (e, t) => e.getAttribute(t), T = (e, t, n) => e.setAttribute(t, n), i
 }, gt = (e) => ft(e).dir === "rtl", d = (e, t) => e ? e.closest(t) || // break out of `ShadowRoot`
 d(e.getRootNode().host, t) : null, vt = (e, t) => E(e) ? e : ($(t) ? t : w()).querySelector(e), Ae = (e, t) => ($(t) ? t : w()).getElementsByTagName(e), p = (e, t) => (t && $(t) ? t : w()).getElementsByClassName(
   e
-), Pe = (e, t) => e.matches(t), pt = "3.2.2", b = "navbar", R = "Navbar", G = `[data-function="${b}"]`, Me = `${G},.${b}`, v = "open", ue = "open-position", g = "open-mobile", j = "subnav", U = `${j}-toggle`, Se = `${b}-toggle`, he = {
+), Pe = (e, t) => e.matches(t), pt = "3.2.3", b = "navbar", R = "Navbar", G = `[data-function="${b}"]`, Me = `${G},.${b}`, v = "open", ue = "open-position", g = "open-mobile", j = "subnav", U = `${j}-toggle`, Se = `${b}-toggle`, he = {
   breakpoint: 768,
   toggleSiblings: !0,
   delay: 500

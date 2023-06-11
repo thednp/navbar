@@ -217,11 +217,23 @@ $dark-navbar-bg: #343a40;
         }
 
         li > .subnav { transform: translate(-10px); }
-        li.open-position > .subnav { top: 0; left: 100%; }
+
+        li.open-position > .subnav {
+          top: 0;
+          left: 100%;
+        }
       }
 
-      li.open-position > .subnav { top: 100%; left: 0; z-index: var(--n-subnav-zindex); }
-      li.open > .subnav { opacity: 1; transform: translate(0); }
+      li.open-position > .subnav {
+        top: 100%;
+        left: 0;
+        z-index: var(--n-subnav-zindex);
+      }
+
+      li.open > .subnav {
+        opacity: 1;
+        transform: translate(0);
+      }
     }
   }
 }
