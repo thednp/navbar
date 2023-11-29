@@ -1,6 +1,6 @@
 {
   "name": "@thednp/navbar",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "Navbar Modern Navigation Component",
   "author": "thednp",
   "license": "MIT",
@@ -34,6 +34,7 @@
   },
   "scripts": {
     "pre-test": "npm run clean-coverage",
+    "dev": "vite --open ./docs/index-dev.html --port 8577",
     "test": "npm run pre-test && cypress run",
     "cypress": "npm run pre-test && npx cypress open",
     "clean-coverage": "rimraf coverage .nyc_output",
@@ -78,35 +79,40 @@
     "bootstrap"
   ],
   "dependencies": {
-    "@thednp/event-listener": "^2.0.1",
-    "@thednp/shorty": "^2.0.0-alpha15"
+    "@thednp/event-listener": "^2.0.4",
+    "@thednp/shorty": "^2.0.0"
   },
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
-    "@cypress/code-coverage": "^3.10.8",
-    "@types/istanbul-lib-instrument": "^1.7.4",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
-    "cypress": "^12.16.0",
-    "dts-bundle-generator": "^8.0.1",
-    "eslint": "^8.44.0",
-    "eslint-plugin-jsdoc": "^46.4.3",
+    "@cypress/code-coverage": "^3.12.12",
+    "@types/istanbul-lib-instrument": "^1.7.7",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "cypress": "^12.17.4",
+    "dts-bundle-generator": "^8.1.2",
+    "eslint": "^8.54.0",
+    "eslint-plugin-jsdoc": "^46.9.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.2.1",
-    "istanbul-lib-coverage": "^3.2.0",
+    "istanbul-lib-coverage": "^3.2.2",
     "istanbul-lib-instrument": "^5.2.1",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
     "prettier": "^2.8.8",
-    "rimraf": "^5.0.1",
-    "sass": "^1.63.6",
-    "stylelint": "^15.9.0",
+    "rimraf": "^5.0.5",
+    "sass": "^1.69.5",
+    "stylelint": "^15.11.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-config-standard-scss": "^10.0.0",
     "stylelint-order": "^6.0.3",
-    "stylelint-scss": "^5.0.1",
-    "typescript": "^5.1.6",
-    "vite": "^4.3.9"
+    "stylelint-scss": "^5.3.1",
+    "typescript": "^5.3.2",
+    "vite": "^4.5.0"
+  },
+  "packageManager": "pnpm@8.6.12",
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8.6.0"
   }
 }

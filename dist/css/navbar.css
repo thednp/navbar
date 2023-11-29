@@ -1,10 +1,10 @@
 /*!
-* Navbar.js v3.2.4 (http://thednp.github.io/navbar)
+* Navbar.js v3.2.5 (http://thednp.github.io/navbar)
 * Copyright 2016-2023 © thednp
 * Licensed under MIT (https://github.com/thednp/navbar.js/blob/master/LICENSE)
 */
 /* $color: text-color, $bg: bg-color, $inherit-bg: used when $bg is undefined/transparent */
-:root {
+.navbar {
   --n-padding-x: 0rem;
   --n-padding-y: 0rem;
   --n-line-height: 1.5rem;

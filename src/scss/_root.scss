@@ -1,4 +1,4 @@
-:root {
+.navbar {
   // paddings must have a unit
   --n-padding-x: #{real-size($navbar_padding_x, 1)};
   --n-padding-y: #{real-size($navbar_padding_y, 1)};

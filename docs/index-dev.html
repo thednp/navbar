@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Navbar is a modern, mobile first navigation component for the modern web.">
+  <meta name="author" content="thednp">
+  <link rel="shortcut icon" href="./assets/img/favicon.ico">
+  <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
+  
+  <title>Navbar Main Demo</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">
+  <link href="./assets/css/style.css" rel="stylesheet">
+  <link href="./assets/css/prism.css" rel="stylesheet">
+  <link href="../src/scss/navbar.scss" rel="stylesheet">
+  <style>
+    @media (min-width: 768px) {
+      .navbar .brand { background-color: #2c3c44 ;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content-wrapper">
+    <div class="container">
+      <nav class="navbar" data-function="navbar" aria-label="Main">
+        <a class="brand" href="https://github.com/thednp/navbar" title="Navbar on Github">Navbar</a>
+        <button class="navbar-toggle" aria-label="Toogle Main Navigation" aria-haspopup="true" aria-expanded="false">
+          <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+            <path d="M896.876 319.65h-768.751c-14.152 0-25.625-11.473-25.625-25.625s11.473-25.625 25.625-25.625h768.751c14.153 0 25.625 11.473 25.625 25.625s-11.472 25.625-25.625 25.625z m0 256.25h-768.751c-14.152 0-25.625-11.472-25.625-25.625s11.473-25.625 25.625-25.625h768.751c14.153 0 25.625 11.472 25.625 25.625s-11.472 25.625-25.625 25.625z m0 256.25h-768.751c-14.152 0-25.625-11.472-25.625-25.625s11.473-25.625 25.625-25.625h768.751c14.153 0 25.625 11.472 25.625 25.625s-11.472 25.625-25.625 25.625z" />
+          </svg>
+        </button>
+        <div>
+          <ul class="nav">
+            <li class="active">
+              <a href="#" aria-haspopup="true" aria-expanded="false">Explore
+                <svg class="parent-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </a>
+              <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </button>
+              <ul class="subnav">
+                <li class="active">
+                  <a href="#">Demos
+                    <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                      <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
+                    </svg>
+                  </a>
+                  <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                    <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                  </button>                  
+                  <ul class="subnav">
+                    <li class="active"><a href="index.html" aria-current="page">Main Demo</a></li>
+                    <li><a href="left.html">Left Side</a></li>
+                    <li><a href="left-menu.html">Left Menu</a></li>
+                    <li><a href="right.html">Right Side</a></li>
+                    <li><a href="combo.html">Combo</a></li>
+                    <li><a href="bootstrap.html">Bootstrap</a></li>
+                    <li><a href="bootstrap-extended.html">Bootstrap XT</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Documentation
+                    <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                      <path d="M366 698l196-196-196-196 60-60 256 256-256 256z"></path>
+                    </svg>
+                  </a>
+                  <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                    <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                      <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                    </svg>
+                  </button>                  
+                  <ul class="subnav">
+                    <li><a href="markup.html">Markup</a></li>
+                    <li><a href="data-api.html">DATA API</a></li>
+                    <li><a href="js-api.html">JavaScript API</a></li>
+                    <li><a href="megamenu.html">Mega Menu</a></li>
+                    <li><a href="scss.html">SCSS Source</a></li>
+                    <li><a href="rtl.html">RTL Languages</a></li>
+                    <li><a href="accessibility.html">Accessibility</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" aria-haspopup="true" aria-expanded="false">Mega
+                <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </a>
+              <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </button>
+              <div class="subnav">
+                <ul class="row nomargin">
+                  <li class='col-4'>
+                    <span class="column-title">Locations</span>
+                    <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                      <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                        <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                      </svg>
+                    </button>
+                    <ul>
+                      <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Rentals
+                          <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                            <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+                          </svg>
+                        </a>
+                        <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                          <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                            <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                          </svg>
+                        </button>
+                        <ul class="subnav">
+                          <li>
+                            <a href="#" aria-haspopup="true" aria-expanded="false">Housing
+                              <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                                <path d="M366 698l196-196-196-196 60-60 256 256-256 256z" />
+                              </svg>
+                            </a>
+                            <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                              <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                                <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                              </svg>
+                            </button>
+                            <ul class="subnav">
+                              <li><a href="#">Entry</a></li>
+                              <li><a href="#">Popular</a></li>
+                              <li><a href="#">Premium</a></li>
+                              <li><a href="#">Seniors</a></li>
+                            </ul>
+                          </li>
+
+                          <li><a href="#">Corporate</a></li>
+                          <li><a href="#">Industrial</a></li>
+                          <li><a href="#">Government</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Integrate</a></li>
+                      <li><a href="#">Options</a></li>
+                      <li><a href="#">Account</a></li>
+                    </ul>
+                  </li>
+                  <li class='col-4'>
+                    <span class="column-title">
+                      Hidden Text Box
+                    </span>
+                    <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                      <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                        <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                      </svg>
+                    </button>
+                    <div class="subnav-content">
+                      <p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
+                      <p>Features a nice <a href="#">link anchor</a> affected by navbar styling.</p>
+                    </div>
+                  </li>
+                  <li class="col-4">
+                    <div class="subnav-content">
+                      <span class="column-title" style="display: flex; margin-bottom: 1rem">Visible Text Box</span>
+                      <p>This text box is fully visible on all views and is featuring a custom button unaffected by navbar styling.</p>
+                      <p><a class="btn btn-brand" href="#">Read More</a></p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li>
+              <a href="#" aria-haspopup="true" aria-expanded="false" id="shareBTN">Share
+                <svg aria-hidden="true" class="parent-icon" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </a>
+              <button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+                <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                  <path d="M316 334l196 196 196-196 60 60-256 256-256-256z" />
+                </svg>
+              </button>
+              <ul class="subnav">
+                <li>
+                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar/index.html" title="Share Navbar on Facebook">
+                    <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                      <path d="M713.143 73.143c90.857 0 164.571 73.714 164.571 164.571v548.571c0 90.857-73.714 164.571-164.571 164.571h-107.429v-340h113.714l17.143-132.571h-130.857v-84.571c0-38.286 10.286-64 65.714-64l69.714-0.571v-118.286c-12-1.714-53.714-5.143-101.714-5.143-101.143 0-170.857 61.714-170.857 174.857v97.714h-114.286v132.571h114.286v340h-304c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571z" />
+                    </svg>
+                    <span>Facebook</span>
+                  </a>
+                </li>
+                <li>
+                  <a target="_blank" href="https://twitter.com/intent/tweet?text=Spread the word about %23NAVBARjs by @dnp_theme and download here http://thednp.github.io/navbar/index.html" title="Share Navbar on Twitter">
+                    <svg class="menu-icon" aria-hidden="true" viewBox="0 0 1024 1024">
+                      <path d="M731.429 348.571c-21.714 9.714-44.571 16-69.143 19.429 25.143-14.857 44-38.857 53.143-66.857-23.429 13.714-49.143 24-76.571 29.143-21.714-23.429-53.143-37.714-87.429-37.714-66.286 0-120 53.714-120 120 0 9.143 0.571 18.857 2.857 27.429-100-5.143-188.571-52.571-248-125.714-10.286 17.714-16.571 38.857-16.571 60.571 0 41.714 19.429 78.286 52 100-20-0.571-38.857-6.286-57.143-14.857v1.143c0 58.286 44 106.857 98.857 117.714-10.286 2.857-18.286 4.571-29.143 4.571-7.429 0-14.857-1.143-22.286-2.286 15.429 47.429 59.429 82.286 112 83.429-41.143 32-92.571 51.429-149.143 51.429-9.714 0-19.429-0.571-28.571-1.714 53.143 33.714 116 53.714 184 53.714 220.571 0 341.714-182.857 341.714-341.714 0-5.143 0-10.286-0.571-15.429 23.429-16.571 44-37.714 60-62.286zM877.714 237.714v548.571c0 90.857-73.714 164.571-164.571 164.571h-548.571c-90.857 0-164.571-73.714-164.571-164.571v-548.571c0-90.857 73.714-164.571 164.571-164.571h548.571c90.857 0 164.571 73.714 164.571 164.571z" />
+                    </svg>
+                    <span>Twitter</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div class="copy navbar-content">
+            <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="content">
+        <div class="hero gray-0">
+          <h1>Navbar <small>Modern Navigation Component</small></h1>
+          <hr>
+          <div class="install">npm install @thednp/navbar</div>
+          <p class="lead">The mobile first menu navigation for today's modern web, developed
+            with next generation JavaScript and packed with lots of features.</p>
+          <p>
+            <a class="btn btn-brand" href="https://github.com/thednp/navbar/archive/master.zip">Download</a>
+            <a class="btn" href="https://github.com/thednp/navbar">Fork</a>
+          </p>
+        </div>
+        <div class="content-inner main">
+          <div class="row boxes">
+            <div class="col-6">
+              <div class="box">
+                <p><b>Typescript Source</b><hr>
+                  The component was redesigned for the latest tools and modern applications and comes
+                  packed fully featured. In addition, build tools and sources are provided so you can 
+                  get started working on your application right away.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box">
+                <p><b>Simple &amp; Light Scripting</b><hr>
+                  Navbar is meant to be simple, fast, reliable and easy to implement, all in a very
+                  light footprint.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box">
+                <p><b>DATA API</b><hr>
+                  Initialize automatically and set options for your target elements via DATA API.</p>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="box gray-0">
+                <p><b>SCSS Sources with CSS Variables</b><hr>
+                  Customize the SCSS variables and make it your way, then change the CSS variables
+                  dynamically for every page and / or instance for an advanced design language.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>Mobile First Design</b><hr>
+                  The navbar component was redesigned to be a viable mobile first solution.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>Accessibility</b><hr>
+                  Since our Navbar 3.0 version release, we've moved the focus on accessibility.</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="box gray-0">
+                <p><b>Modern Browsers Love It</b><hr>
+                  In the redesign process we've put everything modern to the table for the best script
+                  execution performance and the optimal rendering load.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>Well Documented</b><hr>
+                  As always well documented and filled with tips and cookies.</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="box gray-0">
+                <p><b>MIT Licensed</b><hr>
+                  The component is released under the 
+                  <a href="https://github.com/thednp/navbar/blob/master/LICENSE">MIT License</a>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <h2>Documentation</h2>
+              <p class="lead">Get started with Navbar:</p>
+              <ul class="attr-list">
+                <li><a href="markup.html">Markup</a> - breaks down the markup and Navbar components;</li>
+                <li><a href="data-api.html">DATA API</a> - explains how to initialize or set options via data attributes;</li>
+                <li><a href="js-api.html">JavaScript API</a> - explains how to initialize, set options, attach event handles
+                  or dispose Navbar instances;</li>
+                <li><a href="megamenu.html">Mega Menu</a> - explains the markup required in order to enable Mega Menu layout;</li>
+                <li><a href="scss.html">SCSS Sources</a> - breaks down the mixins and variables used with the default demo;</li>
+                <li><a href="rtl.html">RTL Languages</a> - explains how to enable Navbar for RTL Languages.</li>
+                <li><a href="accessibility.html">Accessibility</a> - explains all about WAI-ARIA compliance.</li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <h2>More Demos</h2>
+              <p class="lead">Explore more Navbar demos:</p>
+              <ul class="attr-list">
+                <li><a href="left.html">Left Navbar</a> - showcases the LEFT SIDE column view of the Navbar layout;</li>
+                <li><a href="right.html">Right Navbar</a> - showcases the RIGHT SIDE column view of the Navbar layout;</li>
+                <li><a href="left-menu.html">Left Menu</a> - showcases the LEFT SIDE column view of only the menu layout, without the 
+                  Navbar wrapper;</li>
+                <li><a href="combo.html">Combined Layout</a> - showcases the combination of SCSS mixins to create styling to support 
+                  both TOP default view and SIDE column view of the Navbar layout and menus;</li>
+                <li><a href="bootstrap.html">Bootstrap</a> - showcases the dedicated SCSS mixins to create a seamless integration
+                  of the Navbar menu with the original Bootstrap Navbar wrapper and markup;</li>
+                <li><a href="bootstrap-extended.html">Bootstrap Extended</a> - showcases the full Navbar layout design and markup
+                  in a Bootstrap styled page.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span> <a href="#">Go back to top</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="../dist/js/navbar.js"></script> -->
+  <script type="module" src="../src/ts/index.ts"></script>
+  <script>
+    // events demo
+    var shareBtn = document.getElementById('shareBTN');
+    shareBtn.addEventListener('show.navbar', function(e){
+      var err = 'Navbar triggered \'show.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
+      console.log(err);
+    });
+    shareBtn.addEventListener('shown.navbar', function(e){
+      var err = 'Navbar triggered \'shown.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
+      console.log(err);
+    });
+    shareBtn.addEventListener('hide.navbar', function(e){
+      var err = 'Navbar triggered \'hide.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
+      console.log(err);
+    });
+    shareBtn.addEventListener('hidden.navbar', function(e){
+      var err = 'Navbar triggered \'hidden.navbar\' for target: ' + e.target.tagName + '.' + e.target.className;
+      console.log(err);
+    });
+  </script>
+  <script src="./assets/js/prism.js"></script>
+
+</body>
+</html>
