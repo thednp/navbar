@@ -12,7 +12,7 @@ jobs:
         uses: pnpm/action-setup@v3
 
       - name: Install Cypress
-        uses: npx cypress install
+        run: npx cypress install
 
       - name: Setup Node
         uses: actions/setup-node@v4
