@@ -8,6 +8,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
