@@ -8,8 +8,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
+      # - name: Install pnpm
+      #   uses: pnpm/action-setup@v3
 
       - name: Install Cypress
         run: npx cypress install
@@ -18,12 +18,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          # cache: pnpm
 
-      - run: pnpm install --no-frozen-lockfile
-      - run: pnpm build
-      # - run: pnpm compile
-      - run: pnpm test
+      - run: npm install
+      - run: npm run check:ts
+      - run: npm run lint:ts
+      - run: npm run lint:css
+      - run: npm run build-vite
+      - run: pnp run compile-scss
+      - run: npm run clean-coverage
+      - run: npx cypress run
 
       - name: Upload coverage report on Node 20 to coveralls.io...
         uses: coverallsapp/github-action@master

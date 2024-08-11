@@ -3,7 +3,7 @@ const config = {
     {
       filePath: "./src/ts/index.ts",
       outFile: "./dist/js/navbar.d.ts",
-      noCheck: false,
+      noCheck: true,
       output: {
         umdModuleName: 'Navbar',
         noBanner: true,
