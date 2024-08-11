@@ -20,8 +20,6 @@ jobs:
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm build
       - run: pnpm compile
-      - run: pnpm docs
-      - run: pnpm copy-compile
       - run: pnpm test
 
       - name: Upload coverage report on Node 20 to coveralls.io...
