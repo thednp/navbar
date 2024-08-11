@@ -25,7 +25,7 @@ jobs:
       - run: npm run lint:ts
       - run: npm run lint:css
       - run: npm run build-vite
-      - run: pnp run compile-scss
+      - run: npm run compile-scss
       - run: npm run clean-coverage
       - run: npx cypress run
 
