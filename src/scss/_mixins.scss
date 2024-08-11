@@ -341,12 +341,14 @@
     }
 
     div.subnav { // mega submenu
+
+      // determine larger width with padding in mind
+      min-width: var(--n-subnav-larger-width);
+
       > ul {
         flex-direction: row;padding: 0; margin: 0;
       }
 
-      // determine larger width with padding in mind
-      min-width: var(--n-subnav-larger-width);
       &.m1 { min-width: calc(var(--n-subnav-width) + var(--n-subnav-padding-x) * 2); }
       &.m2 { min-width: calc(var(--n-subnav-width) * 2 + var(--n-subnav-padding-x) * 2); }
       &.m3 { min-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2); }

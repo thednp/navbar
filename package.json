@@ -1,6 +1,6 @@
 {
   "name": "@thednp/navbar",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "Navbar Modern Navigation Component",
   "author": "thednp",
   "license": "MIT",
@@ -38,8 +38,9 @@
     "dev": "vite --open ./docs/index-dev.html --port 8577",
     "test": "pnpm pre-test && cypress run",
     "cypress": "pnpm pre-test && npx cypress open",
-    "clean-coverage": "rimraf coverage .nyc_output",
+    "clean-coverage": "rm -rf coverage .nyc_output",
     "coverage:report": "nyc report --reporter=lcov --reporter=json --reporter=text --reporter=json-summary",
+    "badges": "npx -p dependency-version-badge update-badge eslint typescript cypress eslint prettier vite",
     "format": "prettier --write \"src/**/*.ts\"",
     "fix:ts": "eslint src --config .eslintrc.cjs --fix",
     "lint:ts": "eslint src --config .eslintrc.cjs",
@@ -60,7 +61,8 @@
     "compile-left": "node compile.js INPUTFILE:src/scss/navbar-left.scss OUTPUTFILE:docs/src/css/navbar-left.min.css MIN:true",
     "compile-left-menu": "node compile.js INPUTFILE:src/scss/navbar-left-menu.scss OUTPUTFILE:docs/src/css/navbar-left-menu.min.css MIN:true",
     "compile-right": "node compile.js INPUTFILE:src/scss/navbar-right.scss OUTPUTFILE:docs/src/css/navbar-right.min.css MIN:true",
-    "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:docs/src/css/navbar.min.css COPY:true"
+    "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:docs/src/css/navbar.min.css COPY:true",
+    "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint:ts && pnpm build && pnpm compile && pnpm badges"
   },
   "bugs": {
     "url": "https://github.com/thednp/navbar/issues"
@@ -81,36 +83,35 @@
     "bootstrap"
   ],
   "dependencies": {
-    "@thednp/event-listener": "^2.0.4",
-    "@thednp/shorty": "^2.0.0"
+    "@thednp/event-listener": "^2.0.5",
+    "@thednp/shorty": "^2.0.3"
   },
   "devDependencies": {
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
-    "@cypress/code-coverage": "^3.12.12",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.2",
+    "@cypress/code-coverage": "^3.12.44",
     "@types/istanbul-lib-instrument": "^1.7.7",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "cypress": "^12.17.4",
-    "dts-bundle-generator": "^8.1.2",
-    "eslint": "^8.54.0",
-    "eslint-plugin-jsdoc": "^46.9.0",
+    "cypress": "^13.13.2",
+    "dts-bundle-generator": "^9.5.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-jsdoc": "^46.10.1",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.2.1",
     "istanbul-lib-coverage": "^3.2.2",
-    "istanbul-lib-instrument": "^5.2.1",
+    "istanbul-lib-instrument": "^6.0.3",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
-    "nyc": "^15.1.0",
+    "nyc": "^17.0.0",
     "prettier": "^2.8.8",
-    "rimraf": "^5.0.5",
-    "sass": "^1.69.5",
+    "sass": "^1.77.8",
     "stylelint": "^15.11.0",
-    "stylelint-config-standard": "^33.0.0",
-    "stylelint-config-standard-scss": "^10.0.0",
-    "stylelint-order": "^6.0.3",
-    "stylelint-scss": "^5.3.1",
-    "typescript": "^5.3.2",
-    "vite": "^4.5.0"
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^5.3.2",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0"
   },
   "packageManager": "pnpm@8.6.12",
   "engines": {

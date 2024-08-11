@@ -3,22 +3,25 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-20.04
-    name: Test on Node 16
+    name: Test on Node 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
-      # - uses: bahmutov/npm-install@v1
-      - run: npm install
-      - run: npm run build
-      - run: npm run compile
-      - run: npm run test
+          node-version: 20
+          cache: pnpm
 
-      - name: Upload coverage report on Node 16 to coveralls.io...
-        uses: coverallsapp/github-action@v1.1.2
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm build
+      - run: pnpm compile
+      - run: pnpm docs
+      - run: pnpm copy-compile
+      - run: pnpm test
+
+      - name: Upload coverage report on Node 20 to coveralls.io...
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

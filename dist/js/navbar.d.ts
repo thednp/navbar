@@ -3,9 +3,10 @@ declare const defaultNavbarOptions: {
 	toggleSiblings: boolean;
 	delay: number;
 };
+/** Creates a new Navbar for desktop and mobile navigation. */
 declare class Navbar {
 	static selector: string;
-	static init: (element: string | HTMLElement) => Navbar;
+	static init: (element: HTMLElement | string) => Navbar;
 	static getInstance: (element: HTMLElement) => Navbar | null;
 	static version: string;
 	menu: HTMLElement;
