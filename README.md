@@ -11,21 +11,22 @@
 The mobile first menu navigation for today's modern web, sourced with Typescript and packed with lots of features.
 
 
-# Demo
+## Demo
 Download the package and check the **docs** folder, or check it online [here](http://thednp.github.io/navbar).
 
 # Navbar Highlights
 * Mobile First Design
 * Accessibility Focus
 * TypeScript sourced and powerful build tools
-* SCSS sources with powerful mixins and CSS variables
+* SCSS sources with flexible mixins and CSS variables
 * very light footprint, `5kb` in size when minified
 * 3 sets of positions top (main), left or right
 * provides a set of options for JavaScript initialization
 * DATA API allows you to automatically initiate without JS invocation
-* modern browsers supported and semi-modern alike with a special polyfill for IE10+ provided
+* modern browsers supported
 
-# How It Works
+
+## How It Works
 **On mobile**
   * uses the native events behavior, it requires some elements to click on
   * shows the `<button class="navbar-toggle">` element for element visibility toggle
@@ -39,14 +40,25 @@ Download the package and check the **docs** folder, or check it online [here](ht
 
 On both mobile and desktop, Navbar.js allows for full keyboard navigation via the **TAB** and **SPACE** keys. In addition, directional arrows provide navigation on desktop with RTL support.
 
-# NPM
-You can install this through NPM:
-
-```
-$ npm install @thednp/navbar
+## Install
+```bash
+pnpm install -D @thednp/navbar
 ```
 
-# Browser Usage
+```bash
+yarn add -D @thednp/navbar
+```
+
+```bash
+npm install -D @thednp/navbar
+```
+
+```bash
+deno add -D npm:@thednp/navbar@latest
+```
+
+
+## Browser Usage
 Download the [latest package](https://github.com/thednp/navbar/archive/master.zip). unpack and inspect the contents. You need to copy the `navbar.js` and `navbar.css` or their minified variations to your app `assets` folders as follows.
 Link the required CSS in your document `<head>` tag
 ```html
@@ -95,13 +107,13 @@ Alternatively you can use only the menu itself and use the specific attribute:
 Other initialization and markup options apply, explained in [the demo](http://thednp.github.io/navbar/).
 
 
-# Typescript / ES
-```javascript
+## Typescript / ES
+```ts
 import Navbar from '@thednp/navbar'
 
 const myNav = new Navbar('#myNav')
 ```
 
 
-# License
-[MIT License](https://github.com/thednp/navbar/blob/master/LICENSE)
+## License
+Navbar is released under [MIT License](https://github.com/thednp/navbar/blob/master/LICENSE).
