@@ -1,4 +1,7 @@
 // BOOTSTRAP MIXINS
+@use "functions";
+@use "variables";
+@use "mixins";
 
 $dark-navbar-bg: #343a40;
 
@@ -31,10 +34,10 @@ $dark-navbar-bg: #343a40;
     }
   }
 
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     // set LVL1 subnav box-shadow
     .navbar-nav li > .subnav {
-      box-shadow: var(--n-subnav-shadow);
+      box-shadow: var(--nv-subnav-shadow);
     }
 
     .navbar-light {
@@ -81,7 +84,7 @@ $dark-navbar-bg: #343a40;
 @mixin nav-layout-bs() {
   // set navbar padding
   .navbar {
-    padding: var(--n-padding-y) var(--n-padding-x);
+    padding: var(--nv-padding-y) var(--nv-padding-x);
   }
 
   // mobile view visibility
@@ -97,17 +100,17 @@ $dark-navbar-bg: #343a40;
   }
 
   // menu icons
-  @include navbar-icon;
+  @include mixins.navbar-icon;
 
   .menu-icon + span {
     flex: auto;
-    margin-left: var(--n-item-padding-x);
+    margin-left: var(--nv-item-padding-x);
   }
 
   .subnav-toggle {
     background: transparent;
     border: 0;
-    border-radius: $base_radius;
+    border-radius: variables.$base_radius;
   }
 
   // mobile view menu tree highlight padding
@@ -115,7 +118,7 @@ $dark-navbar-bg: #343a40;
   div.subnav ul {
     flex-basis: 100%;
     flex-direction: column;
-    padding: 0 0 0 var(--n-item-padding-x);
+    padding: 0 0 0 var(--nv-item-padding-x);
   }
 
   // general menu layout
@@ -145,7 +148,7 @@ $dark-navbar-bg: #343a40;
     }
   }
 
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     // desktop view visibility
     .subnav-toggle { display: none; }
 
@@ -184,28 +187,28 @@ $dark-navbar-bg: #343a40;
     div.subnav > ul {flex-direction: row;}
 
     // set submenu width
-    ul.subnav { width: var(--n-subnav-width); }
-    div.subnav { min-width: var(--n-subnav-larger-width); }
+    ul.subnav { width: var(--nv-subnav-width); }
+    div.subnav { min-width: var(--nv-subnav-larger-width); }
 
     // set margin and padding
     .navbar-nav > li > .subnav {
-      margin-top: var(--n-padding-y);
+      margin-top: var(--nv-padding-y);
     }
 
     ul.subnav, div.subnav,
     .subnav .subnav {
-      padding: var(--n-subnav-padding-y, $navbar_padding_y) var(--n-subnav-padding-x, $navbar_padding_x);
+      padding: var(--nv-subnav-padding-y, variables.$navbar_padding_y) var(--nv-subnav-padding-x, variables.$navbar_padding_x);
     }
 
     .subnav .subnav {
-      margin-top: calc(var(--n-subnav-padding-y) * -1);
-      margin-left: var(--n-subnav-padding-x);
+      margin-top: calc(var(--nv-subnav-padding-y) * -1);
+      margin-left: var(--nv-subnav-padding-x);
     }
   }
 }
 
 @mixin main-menu-bs() {
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     .navbar-nav {
       li {
         > .subnav {
@@ -227,7 +230,7 @@ $dark-navbar-bg: #343a40;
       li.open-position > .subnav {
         top: 100%;
         left: 0;
-        z-index: var(--n-subnav-zindex);
+        z-index: var(--nv-subnav-zindex);
       }
 
       li.open > .subnav {

@@ -40,29 +40,28 @@
 			.btn-brand { background: #e68a00}
 			a {color: #e68a00}
 			.sidebar {
-				--n-primary-color: #e68a00;
-				--n-bg: transparent; /* setting $navbar_background: transparent, will force root menu items to inherit colors */
-				--n-bg: rgba(255,255,255,.75);
-				--n-text-color: rgba(0,0,0,.55);
-				--n-link-color: rgba(0,0,0,.75);
-				--n-subnav-bg: rgba(0,0,0,.85);
-				--n-subnav-padding-x: .75rem;
-				--n-subnav-padding-y: .5rem;
-				--n-subnav-link-color: transparent; /* setting $subnav_link_color: transparent; disables forces links to inherit document color */
-				--n-subnav-link-color-hover: transparent; /* setting $subnav_link_color_hover: transparent; disables forces links to inherit document color */
-				--n-item-color: #e68a00;
-				--n-item-hover-color: #eee;
-				--n-item-hover-bg: #222;
-				--n-item-active-bg: var(--n-primary-color);
-				--n-subnav-item-active-bg: var(--n-primary-color);
-				--n-subnav-item-color: rgba(255,255,255,.6); /* setting $subnav_link_color: transparent; disables forces links to inherit document color */
-				--n-subnav-item-hover-color: #fff;
-				--n-subnav-item-hover-bg: rgba(55, 55, 55, 0.95);
-				--n-subnav-text-color: rgba(255,255,255,.55);
-				--n-subnav-link-color: rgba(255,255,255,.65);
-				--n-subnav-link-color-hover: rgba(255,255,255,.85);
-				--n-expanded-bg: rgba(0, 0, 0, 0.05);
-				--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+				--nv-primary-color: #e68a00;
+				--nv-bg: transparent; /* setting $navbar_background: transparent, will force root menu items to inherit colors */
+				--nv-bg: rgba(255,255,255,.75);
+				--nv-text-color: rgba(0,0,0,.55);
+				--nv-link-color: rgba(0,0,0,.75);
+				--nv-subnav-bg: rgba(0,0,0,.85);
+				--nv-subnav-padding-x: .75rem;
+				--nv-subnav-padding-y: .5rem;
+				--nv-subnav-link-color: transparent; /* setting $subnav_link_color: transparent; disables forces links to inherit document color */
+				--nv-item-color: #e68a00;
+				--nv-item-hover-color: #eee;
+				--nv-item-hover-bg: #222;
+				--nv-item-active-bg: var(--nv-primary-color);
+				--nv-subnav-item-active-bg: var(--nv-primary-color);
+				--nv-subnav-item-color: rgba(255,255,255,.6); /* setting $subnav_link_color: transparent; disables forces links to inherit document color */
+				--nv-subnav-item-hover-color: #fff;
+				--nv-subnav-item-hover-bg: rgba(55, 55, 55, 0.95);
+				--nv-subnav-text-color: rgba(255,255,255,.55);
+				--nv-subnav-link-color: rgba(255,255,255,.65);
+				--nv-subnav-link-color-hover: rgba(255,255,255,.85);
+				--nv-expanded-bg: rgba(0, 0, 0, 0.05);
+				--nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2);
 				background: #eee;
 			}
 		</style>
@@ -245,7 +244,7 @@
 				</li>
 			</ul>
 			<div class="copy">
-				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span>
+				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span>
 			</div>
 		</div>
 		<div class="col-9" style="background: #fff">
@@ -298,34 +297,34 @@
 <div class="code-wrapper">
 <pre><code class="language-scss">// left-menu.html - custom CSS variable values
 .sidebar {
-	--n-primary-color: #e68a00;
-	--n-bg: rgba(255,255,255,.75);
-	--n-text-color: rgba(0,0,0,.55);
-	--n-link-color: rgba(0,0,0,.75);
-	--n-subnav-bg: rgba(0,0,0,.85);
-	--n-subnav-padding-x: .75rem;
-	--n-subnav-padding-y: .5rem;
-	--n-subnav-link-color: transparent;
-	--n-subnav-link-color-hover: transparent;
-	--n-item-color: #e68a00;
-	--n-item-hover-color: #eee;
-	--n-item-hover-bg: #222;
-	--n-item-active-bg: var(--n-primary-color);
-	--n-subnav-item-active-bg: var(--n-primary-color);
-	--n-subnav-item-color: rgba(255,255,255,.6);
-	--n-subnav-item-hover-color: #fff;
-	--n-subnav-item-hover-bg: rgba(55, 55, 55, 0.95);
-	--n-subnav-text-color: rgba(255,255,255,.55);
-	--n-subnav-link-color: rgba(255,255,255,.65);
-	--n-subnav-link-color-hover: rgba(255,255,255,.85);
-	--n-expanded-bg: rgba(0, 0, 0, 0.05);
-	--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+	--nv-primary-color: #e68a00;
+	--nv-bg: rgba(255,255,255,.75);
+	--nv-text-color: rgba(0,0,0,.55);
+	--nv-link-color: rgba(0,0,0,.75);
+	--nv-subnav-bg: rgba(0,0,0,.85);
+	--nv-subnav-padding-x: .75rem;
+	--nv-subnav-padding-y: .5rem;
+	--nv-subnav-link-color: transparent;
+	--nv-subnav-link-color-hover: transparent;
+	--nv-item-color: #e68a00;
+	--nv-item-hover-color: #eee;
+	--nv-item-hover-bg: #222;
+	--nv-item-active-bg: var(--nv-primary-color);
+	--nv-subnav-item-active-bg: var(--nv-primary-color);
+	--nv-subnav-item-color: rgba(255,255,255,.6);
+	--nv-subnav-item-hover-color: #fff;
+	--nv-subnav-item-hover-bg: rgba(55, 55, 55, 0.95);
+	--nv-subnav-text-color: rgba(255,255,255,.55);
+	--nv-subnav-link-color: rgba(255,255,255,.65);
+	--nv-subnav-link-color-hover: rgba(255,255,255,.85);
+	--nv-expanded-bg: rgba(0, 0, 0, 0.05);
+	--nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2);
 }
 </code></pre></div>
 
 				<p>Similar to other demos, despite the fact we're not using the Navbar wrapper, we can still customize
 					everything our menu instance needs.</p>
-				<p>However the <code>--n-bg</code>, <code>--n-text-color</code> and <code>--n-link-color</code> must be
+				<p>However the <code>--nv-bg</code>, <code>--nv-text-color</code> and <code>--nv-link-color</code> must be
 					set for the <code>.navbar-toggle</code> and <code>.subnav-toggle</code> buttons.</p>
 				<h2>Similar Demo</h2>
 				<p>This setup is used on the <a href="combo.html">combined layouts</a> demo page, as well as the 
@@ -333,7 +332,7 @@
 
 			</div>
 			<div class="copy">
-				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span>
+				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span>
 				<a href="#">Go back to top</a>
 			</div>
 		</div>

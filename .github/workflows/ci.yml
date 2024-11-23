@@ -1,5 +1,13 @@
 name: ci
-on: push
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src
+      - test
+      - package.json
+      - .github/workflows/ci.yml
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -8,26 +16,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v3
-
-      - name: Install Cypress
-        run: npx cypress install
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # cache: pnpm
+          cache: pnpm
 
-      - run: npm install
-      - run: npm run check:ts
-      - run: npm run lint:ts
-      - run: npm run lint:css
-      - run: npm run build-vite
-      - run: npm run compile-scss
-      - run: npm run clean-coverage
-      - run: npx cypress run
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+ 
+      - name: Install Playwright
+        run: pnpm exec playwright install
+
+      - name: Lint TS & CSS
+        run: pnpm lint
+
+      - name: Build JS
+        run: pnpm build
+
+      - name: Build CSS
+        run: pnpm compile
+
+      - name: Run tests
+        run: pnpm test
+
 
       - name: Upload coverage report on Node 20 to coveralls.io...
         uses: coverallsapp/github-action@master

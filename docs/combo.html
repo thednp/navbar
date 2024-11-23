@@ -42,46 +42,46 @@
         color: rgba(255,255,255,0.8);
       }
       .navbar .brand {
-        color: var(--n-brand-link-color);
+        color: var(--nv-brand-link-color);
         background-color: rgba(0,0,0,0.15);
       }
       .navbar {position:sticky; top:0; z-index: 1;}
       /* override basic styling */
     }
     .navbar {
-      --n-bg: #4a5848;
-      --n-primary-color: #0e8000;
-      --n-item-active-bg: var(--n-primary-color);
-      --n-subnav-padding-x: .5rem;
-      --n-subnav-padding-y: .5rem;
-      --n-subnav-bg: var(--n-bg);
-      --n-subnav-item-color: rgba(255,255,255,.55);
-      --n-subnav-item-active-bg: var(--n-primary-color);
-      --n-subnav-text-color: rgba(255,255,255,.55);
-      --n-subnav-link-color: rgba(255,255,255,.75);
-      --n-subnav-link-color-hover: rgba(255,255,255,.95);
-      --n-subnav-shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
-      --n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+      --nv-bg: #4a5848;
+      --nv-primary-color: #0e8000;
+      --nv-item-active-bg: var(--nv-primary-color);
+      --nv-subnav-padding-x: .5rem;
+      --nv-subnav-padding-y: .5rem;
+      --nv-subnav-bg: var(--nv-bg);
+      --nv-subnav-item-color: rgba(255,255,255,.55);
+      --nv-subnav-item-active-bg: var(--nv-primary-color);
+      --nv-subnav-text-color: rgba(255,255,255,.55);
+      --nv-subnav-link-color: rgba(255,255,255,.75);
+      --nv-subnav-link-color-hover: rgba(255,255,255,.95);
+      --nv-subnav-shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
+      --nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2);
     }
-    .sidebar {
-      --n-bg: #eee;
-      --n-item-hover-color: #fff;
-      --n-item-color: rgba(0,0,0,.55);
-      --n-link-color: #4a5848;
-      --n-item-hover-bg: #333;
-      --n-subnav-item-hover-bg: #444;
-      --n-subnav-item-hover-color: #eee;
-      --n-expanded-bg: rgba(0, 0, 0, 0.075);
-      --n-subnav-shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
+    .sidebar {      
+      --nv-bg: #eee;
+      --nv-item-hover-color: #fff;
+      --nv-item-color: rgba(0,0,0,.55);
+      --nv-link-color: #4a5848;
+      --nv-item-hover-bg: #333;
+      --nv-subnav-item-hover-bg: #444;
+      --nv-subnav-item-hover-color: #eee;
+      --nv-expanded-bg: rgba(0, 0, 0, 0.075);
+      --nv-subnav-shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
     }
     .right {
-      --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+      --nv-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
     }
     [dir=rtl] .navbar {
-      --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+      --nv-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
     }
     [dir=rtl] .left {
-      --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+      --nv-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
     }
   </style>
 </head>
@@ -90,7 +90,7 @@
   <nav class="navbar" data-function="navbar" data-toggle-siblings="true" aria-label="Main">
     <div>
       <div class="copy navbar-content" style="min-width:20%">
-        <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span>
+        <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span>
       </div>
       <ul class="nav" style="flex:auto">
         <li class="active">
@@ -470,27 +470,27 @@
 <div class="code-wrapper">
 <pre><code class="language-scss">// combo.html - .navbar only
 .navbar {
-  --n-bg: #4a5848;
-  --n-primary-color: #0e8000;
-  --n-item-active-bg: var(--n-primary-color);
-  --n-subnav-padding-x: .5rem;
-  --n-subnav-padding-y: .5rem;
-  --n-subnav-bg: var(--n-bg);
-  --n-subnav-item-color: rgba(255,255,255,.55);
-  --n-subnav-item-active-bg: var(--n-primary-color);
-  --n-subnav-text-color: rgba(255,255,255,.55);
-  --n-subnav-link-color: rgba(255,255,255,.75);
-  --n-subnav-link-color-hover: rgba(255,255,255,.95);
-  --n-subnav-shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
-  --n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+  --nv-bg: #4a5848;
+  --nv-primary-color: #0e8000;
+  --nv-item-active-bg: var(--nv-primary-color);
+  --nv-subnav-padding-x: .5rem;
+  --nv-subnav-padding-y: .5rem;
+  --nv-subnav-bg: var(--nv-bg);
+  --nv-subnav-item-color: rgba(255,255,255,.55);
+  --nv-subnav-item-active-bg: var(--nv-primary-color);
+  --nv-subnav-text-color: rgba(255,255,255,.55);
+  --nv-subnav-link-color: rgba(255,255,255,.75);
+  --nv-subnav-link-color-hover: rgba(255,255,255,.95);
+  --nv-subnav-shadow: 2px 2px 4px 2px rgba(0,0,0,.35), 1px 1px 0 0 rgba(255,255,255,.15) inset;
+  --nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2);
 }
 </code></pre></div>
 
         <p>As you can see, we've customized most colors of the main Navbar. Keep in mind that updating
-          <code>--n-primary-color</code> will not automatically update your active menu item colors,
-          you will have to re-specify a value for <code>--n-subnav-item-active-bg</code>; similarly
-          updating the <code>--n-subnav-padding-x</code> variable will require updating the 
-          <code>--n-subnav-larger-width</code> which is the default width of a tyipical mega menu.</p>
+          <code>--nv-primary-color</code> will not automatically update your active menu item colors,
+          you will have to re-specify a value for <code>--nv-subnav-item-active-bg</code>; similarly
+          updating the <code>--nv-subnav-padding-x</code> variable will require updating the 
+          <code>--nv-subnav-larger-width</code> which is the default width of a tyipical mega menu.</p>
         
         <h2>Side Menus</h2>
         
@@ -518,18 +518,18 @@
 <div class="code-wrapper">
 <pre><code class="language-scss">// navbar-combo.scss - side menu
 .sidebar {
-  --n-bg: #eee;
-  --n-item-hover-color: #fff;
-  --n-item-color: rgba(0,0,0,.55);
-  --n-link-color: var(--n-primary-color);
-  --n-item-hover-bg: #333;
-  --n-subnav-item-hover-bg: #444;
-  --n-subnav-item-hover-color: #eee;
-  --n-expanded-bg: rgba(0, 0, 0, 0.075);
-  --n-subnav-shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
+  --nv-bg: #eee;
+  --nv-item-hover-color: #fff;
+  --nv-item-color: rgba(0,0,0,.55);
+  --nv-link-color: var(--nv-primary-color);
+  --nv-item-hover-bg: #333;
+  --nv-subnav-item-hover-bg: #444;
+  --nv-subnav-item-hover-color: #eee;
+  --nv-expanded-bg: rgba(0, 0, 0, 0.075);
+  --nv-subnav-shadow: 1px 1px 4px 1px rgba(0,0,0,.25), 1px 1px 0 0 rgba(0,0,0,.15) inset;
 }
 .right {
-  --n-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
+  --nv-subnav-shadow: -1px 1px 4px 1px rgba(0,0,0,.25), -1px 1px 0 0 rgba(0,0,0,.15) inset;
 }
 </code></pre></div>
         
@@ -572,7 +572,7 @@
 
       </div>
       <div class="copy" style="background: #fff; border-top: 1px solid #ddd;">
-        <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span>
+        <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span>
         <a href="#">Go back to top</a>
       </div>
     </div>

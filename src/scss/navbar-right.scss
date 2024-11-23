@@ -10,11 +10,13 @@
 // $subnav_item_hover_background: #2d1344;
 // $subnav_item_hover_color: #eee;
 
-@import "variables", "mixins", "root";
-@include navbar-mobile-layout;
-@include navbar-desktop-side-layout;
-@include navbar-style;
-@include nav-layout;
-@include nav-style;
-@include subnav-style;
-@include right-side;
+@use "variables";
+@use "mixins";
+@use "root";
+@include mixins.navbar-mobile-layout;
+@include mixins.navbar-desktop-side-layout;
+@include mixins.navbar-style;
+@include mixins.nav-layout;
+@include mixins.nav-style;
+@include mixins.subnav-style;
+@include mixins.right-side;

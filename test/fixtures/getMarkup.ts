@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Navbar Testing Page</title>
-  <link href="../docs/assets/css/style.css" rel="stylesheet">
-  <link href="../docs/src/css/navbar.min.css" rel="stylesheet">
-  <style>
-@media (min-width: 768px) {
-  .nav li>.subnav { transition-duration: 0.1s; }
-}
-  </style>
-</head>
-<body class="container" style="padding: 3rem">
+export default function getMarkup() {
+  const markup = `
+<header class="container" style="padding: 3rem">
   <nav class="navbar" data-function="navbar" aria-label="Main">
     <a class="brand" href="https://github.com/thednp/navbar" title="Navbar on Github">Navbar</a>
     <button class="navbar-toggle" aria-label="Toogle Main Navigation" aria-haspopup="true" aria-expanded="false">
@@ -86,5 +75,11 @@
       </div>
     </div>
   </nav>
-</body>
-</html>
+</header>  
+  `;
+
+  const container = document.createElement('div');
+  container.innerHTML = markup;
+
+  return container;
+}

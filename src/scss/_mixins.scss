@@ -1,16 +1,17 @@
 // MIXINS - DEFAULT STYLING, LAYOUT & ANIMATION
-@import "functions";
+@use "functions";
+@use "variables";
 
 @mixin navbar-mobile-layout($include:0) {
   #{if($include != 0, '&.navbar', '.navbar')} {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    padding: var(--n-padding-y) var(--n-padding-x);
-    font-size: var(--n-font-size);
+    padding: var(--nv-padding-y) var(--nv-padding-x);
+    font-size: var(--nv-font-size);
 
     // global line-height, this stays here as authored
-    line-height: var(--n-line-height);
+    line-height: var(--nv-line-height);
 
     > div {
       display: none;
@@ -30,9 +31,9 @@
     .brand {
       display: flex;
       align-items: center;
-      padding: var(--n-brand-padding);
-      font-size: var(--n-brand-font-size);
-      line-height: var(--n-brand-line-height);
+      padding: var(--nv-brand-padding);
+      font-size: var(--nv-brand-font-size);
+      line-height: var(--nv-brand-line-height);
       text-decoration: none;
       white-space: nowrap;
     }
@@ -40,7 +41,7 @@
 }
 
 @mixin navbar-desktop-layout($include:0) {
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     #{if($include != 0, '&.navbar', '.navbar')} {
       position: relative;
       flex-flow: row nowrap;
@@ -63,7 +64,7 @@
 }
 
 @mixin navbar-desktop-side-layout($include:0) {
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     #{if($include != 0, '&.navbar', '.navbar')} {
       flex-flow: column nowrap;
       justify-content: flex-start;
@@ -86,25 +87,25 @@
   .navbar-content,
   .subnav-content {
     a:not([class]), b {
-      color: var(--n-link-color);
+      color: var(--nv-link-color);
     }
   }
 
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     .navbar-content {
       a:not([class]):hover {
-        color: var(--n-link-color-hover);
+        color: var(--nv-link-color-hover);
       }
     }
   }
 
   // navbar colors
   #{if($include != 0, '&.navbar', '.navbar')} {
-    color: var(--n-text-color);
-    background-color: var(--n-bg);
+    color: var(--nv-text-color);
+    background-color: var(--nv-bg);
 
     .brand {
-      color: var(--n-brand-link-color);
+      color: var(--nv-brand-link-color);
     }
   }
 }
@@ -115,8 +116,8 @@
   .nav li > span,
   .navbar-content,
   .subnav-content {
-    padding: var(--n-item-padding-y) var(--n-item-padding-x);
-    margin: var(--n-item-margin);
+    padding: var(--nv-item-padding-y) var(--nv-item-padding-x);
+    margin: var(--nv-item-margin);
   }
 
   // general item layout
@@ -142,8 +143,8 @@
 
     // set base typo
     @if $noWrapper != 0 {
-      font-size: var(--n-font-size);
-      line-height: var(--n-line-height);
+      font-size: var(--nv-font-size);
+      line-height: var(--nv-line-height);
     }
 
     // reset any spacing or LI styling
@@ -159,8 +160,8 @@
       > span, > a {
         flex-wrap: nowrap;
         overflow: hidden;
-        font-size: var(--n-item-font-size);
-        line-height: var(--n-item-line-height);
+        font-size: var(--nv-item-font-size);
+        line-height: var(--nv-item-line-height);
       }
     }
 
@@ -181,10 +182,10 @@
     display: flex;
     align-items: center;
     align-self: center;
-    padding: var(--n-toggle-padding);
-    margin: auto var(--n-item-padding-x);
+    padding: var(--nv-toggle-padding);
+    margin: auto var(--nv-item-padding-x);
     border: 1px solid transparent;
-    border-radius: var(--n-base-radius);
+    border-radius: var(--nv-base-radius);
   }
 
   // .open-mobile
@@ -195,7 +196,7 @@
   }
 
   .open-mobile + .open-mobile {
-    margin-top: var(--n-item-padding-y);
+    margin-top: var(--nv-item-padding-y);
   }
 
   // mobile view content closed state
@@ -207,7 +208,7 @@
   // content spacing
   .subnav-content {
     p, ul {
-      margin-bottom: var(--n-item-padding-y);
+      margin-bottom: var(--nv-item-padding-y);
     }
   }
 
@@ -217,7 +218,7 @@
     flex-basis: 100%;
     flex-direction: column;
     flex-grow: 1;
-    padding: 0 0 0 var(--n-item-padding-x);
+    padding: 0 0 0 var(--nv-item-padding-x);
   }
 
   div.subnav {
@@ -229,10 +230,10 @@
 
   .menu-icon + span {
     flex: auto;
-    margin-left: calc(var(--n-item-padding-x) / 2);
+    margin-left: calc(var(--nv-item-padding-x) / 2);
   }
 
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     .row > li {
       align-content: flex-start;
     }
@@ -267,16 +268,16 @@
       // set base typo
       position: absolute;
       display: block;
-      font-size: var(--n-subnav-font-size, $navbar_font_size);
-      line-height: var(--n-subnav-line-height, $navbar_line_height);
+      font-size: var(--nv-subnav-font-size, variables.$navbar_font_size);
+      line-height: var(--nv-subnav-line-height, variables.$navbar_line_height);
       opacity: 0;
 
       li > span,
       li > a {
         // override flex-basis
         flex-basis: 100%;
-        font-size: var(--n-subnav-item-font-size, $subnav_font_size);
-        line-height: var(--n-subnav-item-line-height, $subnav_line_height);
+        font-size: var(--nv-subnav-item-font-size, variables.$subnav_font_size);
+        line-height: var(--nv-subnav-item-line-height, variables.$subnav_line_height);
       }
     }
 
@@ -287,7 +288,7 @@
 
     ul.subnav, div.subnav,
     .subnav .subnav {
-      padding: var(--n-subnav-padding-y) var(--n-subnav-padding-x);
+      padding: var(--nv-subnav-padding-y) var(--nv-subnav-padding-x);
     }
 
     .subnav-content,
@@ -320,39 +321,39 @@
     .subnav li > span,
     .subnav-content {
       // a value must be inherited
-      padding: var(--n-subnav-item-padding-y) var(--n-subnav-item-padding-x);
-      margin: var(--n-subnav-item-margin);
+      padding: var(--nv-subnav-item-padding-y) var(--nv-subnav-item-padding-x);
+      margin: var(--nv-subnav-item-margin);
     }
 
     // set LVL1 subnav spacing
     .nav > li > .subnav {
-      margin-top: var(--n-padding-y);
+      margin-top: var(--nv-padding-y);
     }
 
     // set subnav spacing
     .subnav .subnav {
-      margin-top: calc(var(--n-subnav-padding-y) * -1);
-      margin-left: var(--n-subnav-padding-x);
+      margin-top: calc(var(--nv-subnav-padding-y) * -1);
+      margin-left: var(--nv-subnav-padding-x);
     }
 
     // set width
     ul.subnav { // regular submenu
-      width: var(--n-subnav-width);
+      width: var(--nv-subnav-width);
     }
 
     div.subnav { // mega submenu
 
       // determine larger width with padding in mind
-      min-width: var(--n-subnav-larger-width);
+      min-width: var(--nv-subnav-larger-width);
 
       > ul {
         flex-direction: row;padding: 0; margin: 0;
       }
 
-      &.m1 { min-width: calc(var(--n-subnav-width) + var(--n-subnav-padding-x) * 2); }
-      &.m2 { min-width: calc(var(--n-subnav-width) * 2 + var(--n-subnav-padding-x) * 2); }
-      &.m3 { min-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2); }
-      &.m4 { min-width: calc(var(--n-subnav-width) * 4 + var(--n-subnav-padding-x) * 2); }
+      &.m1 { min-width: calc(var(--nv-subnav-width) + var(--nv-subnav-padding-x) * 2); }
+      &.m2 { min-width: calc(var(--nv-subnav-width) * 2 + var(--nv-subnav-padding-x) * 2); }
+      &.m3 { min-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2); }
+      &.m4 { min-width: calc(var(--nv-subnav-width) * 4 + var(--nv-subnav-padding-x) * 2); }
     }
   }
 }
@@ -364,20 +365,20 @@
     // responsive view color
     li > a,
     li > span {
-      color: var(--n-item-color);
+      color: var(--nv-item-color);
     }
 
     // background only apply to LI.open-mobile view
     li.open-mobile {
-      background-color: var(--n-expanded-bg);
+      background-color: var(--nv-expanded-bg);
     }
 
-    @media (min-width: $responsive_breakpoint) {
+    @media (min-width: variables.$responsive_breakpoint) {
       // root menu item background
       > li {
         > span,
         > a {
-          background-color: var(--n-item-bg);
+          background-color: var(--nv-item-bg);
         }
       }
 
@@ -387,8 +388,8 @@
       > li:hover {
         > span,
         > a {
-          color: var(--n-item-hover-color);
-          background-color: var(--n-item-hover-bg);
+          color: var(--nv-item-hover-color);
+          background-color: var(--nv-item-hover-bg);
         }
       }
 
@@ -398,8 +399,8 @@
       > li.active:hover {
         > span,
         > a {
-          color: var(--n-item-active-color);
-          background-color: var(--n-item-active-bg);
+          color: var(--nv-item-active-color);
+          background-color: var(--nv-item-active-bg);
         }
       }
     }
@@ -412,8 +413,8 @@
     background-color: transparent;
 
     &:focus {
-      color: var(--n-bg);
-      background-color: var(--n-link-color);
+      color: var(--nv-bg);
+      background-color: var(--nv-link-color);
       outline: none;
     }
   }
@@ -421,8 +422,8 @@
   .open-mobile {
     > .subnav-toggle:not(:focus),
     > .navbar-toggle:not(:focus) {
-      color: var(--n-item-color);
-      border-color: var(--n-item-color);
+      color: var(--nv-item-color);
+      border-color: var(--nv-item-color);
     }
   }
 }
@@ -430,32 +431,32 @@
 // SUBNAV STYLE
 @mixin subnav-style() {
   // set subnav background
-  @media (min-width: $responsive_breakpoint) {
+  @media (min-width: variables.$responsive_breakpoint) {
     .subnav {
       // background
-      background-color: var(--n-subnav-bg);
+      background-color: var(--nv-subnav-bg);
 
       // box-shadow
-      box-shadow: var(--n-subnav-shadow);
+      box-shadow: var(--nv-subnav-shadow);
 
       // submenu item
       li {
         > span,
         > a {
-          color: var(--n-subnav-item-color);
-          background-color: var(--n-subnav-item-bg);
+          color: var(--nv-subnav-item-color);
+          background-color: var(--nv-subnav-item-bg);
         }
 
         > div {
-          background-color: var(--n-subnav-item-bg);
+          background-color: var(--nv-subnav-item-bg);
         }
 
         // hover
         &.open,
         &:hover {
           > a {
-            color: var(--n-subnav-item-hover-color);
-            background-color: var(--n-subnav-item-hover-bg);
+            color: var(--nv-subnav-item-hover-color);
+            background-color: var(--nv-subnav-item-hover-bg);
           }
         }
 
@@ -464,8 +465,8 @@
         &.active:hover {
           > span,
           > a {
-            color: var(--n-subnav-item-active-color);
-            background-color: var(--n-subnav-item-active-bg);
+            color: var(--nv-subnav-item-active-color);
+            background-color: var(--nv-subnav-item-active-bg);
           }
         }
       }
@@ -474,7 +475,7 @@
     // column title
     .column-title,
     div.subnav > ul > li > span {
-      color: var(--n-subnav-item-color);
+      color: var(--nv-subnav-item-color);
     }
 
     // a special case for span menu item text
@@ -484,24 +485,24 @@
       > li.open,
       > li:hover {
         > span {
-          color: var(--n-subnav-item-hover-color);
-          background-color: var(--n-subnav-item-hover-bg);
+          color: var(--nv-subnav-item-hover-color);
+          background-color: var(--nv-subnav-item-hover-bg);
         }
       }
     }
 
     // submenu text colors
     div.subnav {
-      color: var(--n-subnav-text-color);
+      color: var(--nv-subnav-text-color);
     }
 
     .subnav-content {
       a:not([class]), b {
-        color: var(--n-subnav-link-color);
+        color: var(--nv-subnav-link-color);
       }
 
       a:not([class]):hover {
-        color: var(--n-subnav-link-color-hover);
+        color: var(--nv-subnav-link-color-hover);
       }
     }
   }
@@ -510,7 +511,7 @@
 // horizontal menu animation
 @mixin main-menu($include:0) {
   #{if($include != 0, '&.nav', '.nav')} {
-    @media (min-width: $responsive_breakpoint) {
+    @media (min-width: variables.$responsive_breakpoint) {
       // animation
       li {
         > .subnav {
@@ -527,7 +528,7 @@
       }
 
       li.open-position > .subnav {
-        top: 100%; left: 0; z-index: var(--n-subnav-zindex);
+        top: 100%; left: 0; z-index: var(--nv-subnav-zindex);
       }
 
       li.open > .subnav {
@@ -539,7 +540,7 @@
 
 @mixin main-menu-rtl($include:0) {
   #{if($include != 0, '&.nav', '.nav')} {
-    @media (min-width: $responsive_breakpoint) {
+    @media (min-width: variables.$responsive_breakpoint) {
       // animation
       li {
         > .subnav {
@@ -556,7 +557,7 @@
       }
 
       li.open-position > .subnav {
-        top: 100%; right: 0; left: auto; z-index: var(--n-subnav-zindex);
+        top: 100%; right: 0; left: auto; z-index: var(--nv-subnav-zindex);
       }
 
       li.open > .subnav {
@@ -564,7 +565,7 @@
       }
 
       .subnav .subnav {
-        margin-right: var(--n-subnav-padding-x);
+        margin-right: var(--nv-subnav-padding-x);
         margin-left: 0;
       }
     }
@@ -572,7 +573,7 @@
     // fix menu icon spacing
     .menu-icon + span {
       flex: auto;
-      margin-right: calc(var(--n-item-padding-x) / 2);
+      margin-right: calc(var(--nv-item-padding-x) / 2);
       margin-left: 0;
     }
   }
@@ -583,7 +584,7 @@
   #{if($include != 0, '&.nav', '.nav')} {
     flex-direction: column;
 
-    @media (min-width: $responsive_breakpoint) {
+    @media (min-width: variables.$responsive_breakpoint) {
       li {
         > .subnav {
           top: -99999em;
@@ -599,7 +600,7 @@
       }
 
       li.open-position > .subnav {
-        top: 0; left: 100%; z-index: var(--n-subnav-zindex);
+        top: 0; left: 100%; z-index: var(--nv-subnav-zindex);
       }
 
       li.open > .subnav {
@@ -608,7 +609,7 @@
 
       > li > .subnav {
         margin-top: 0;
-        margin-left: var(--n-padding-x);
+        margin-left: var(--nv-padding-x);
       }
     }
   }
@@ -619,7 +620,7 @@
   #{if($include != 0, '&.nav', '.nav')} {
     flex-direction: column;
 
-    @media (min-width: $responsive_breakpoint) {
+    @media (min-width: variables.$responsive_breakpoint) {
       li {
         > .subnav {
           top: -99999em;
@@ -635,7 +636,7 @@
       }
 
       li.open-position > .subnav {
-        top: 0; right: 100%; z-index: var(--n-subnav-zindex);
+        top: 0; right: 100%; z-index: var(--nv-subnav-zindex);
       }
 
       li.open > .subnav {
@@ -644,11 +645,11 @@
 
       > li > .subnav {
         margin-top: 0;
-        margin-right: var(--n-padding-x);
+        margin-right: var(--nv-padding-x);
       }
 
       .subnav .subnav {
-        margin-right: var(--n-subnav-padding-x);
+        margin-right: var(--nv-subnav-padding-x);
         margin-left: 0;
       }
     }
@@ -659,14 +660,14 @@
 @mixin navbar-icon() {
   .menu-icon,
   .parent-icon {
-    width: var(--n-icon-height);
-    height: var(--n-icon-height);
-    line-height: var(--n-icon-height);
+    width: var(--nv-icon-height);
+    height: var(--nv-icon-height);
+    line-height: var(--nv-icon-height);
     text-align: center;
     fill: currentcolor;
   }
 
   .menu-icon {
-    font-size: calc(var(--n-icon-height) * .94); // 94% = 0.94
+    font-size: calc(var(--nv-icon-height) * .94); // 94% = 0.94
   }
 }

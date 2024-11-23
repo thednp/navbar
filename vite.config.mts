@@ -1,5 +1,7 @@
 import {resolve} from 'path';
 import { defineConfig } from 'vite';
+import dts from "vite-plugin-dts";
+import strip from "vite-plugin-strip-comments";
 import { name } from './package.json';
 
 const getPackageName = () => {
@@ -16,6 +18,19 @@ const fileName = {
 
 export default defineConfig({
   base: './',
+  resolve: {
+    alias: {
+      "~": resolve(__dirname, "src"),
+    },
+  },
+  plugins: [
+    dts({
+      outDir: 'dist/js',
+      copyDtsFiles: true,
+      rollupTypes: true,
+    }),
+    strip(),
+  ],
   build: {
     emptyOutDir: true,
     outDir: 'dist/js',

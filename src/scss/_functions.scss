@@ -1,28 +1,31 @@
+@use "sass:color";
+@use "sass:meta";
 @use "sass:math";
+@use 'variables';
 
 @function real-color($color) {
-  @return type-of($color) == "color" and $color != "none" and $color != transparent and $color != currentColor and $color != inherit and $color != initial;
+  @return meta.type-of($color) == "color" and $color != "none" and $color != transparent and $color != currentColor and $color != inherit and $color != initial;
 }
 
 // 1 up to 4 decimals only
 @function decimal-round($number:0, $decimals:0) {
   @if $decimals == 1 {
-    @return round($number * 10) * .1;
+    @return math.round($number * 10) * .1;
   } @else if $decimals == 2 {
-    @return round($number * 100) * .01;
+    @return math.round($number * 100) * .01;
   } @else if $decimals == 3 {
-    @return round($number * 1000) * .001;
+    @return math.round($number * 1000) * .001;
   } @else if $decimals == 4 {
-    @return round($number * 10000) * .0001;
+    @return math.round($number * 10000) * .0001;
   } @else {
-    @return round($number);
+    @return math.round($number);
   }
 }
 
 @function real-size($size, $rem:0) { // all unit sizes, except %
   $result: 0;
 
-  @if type-of($size) == "number" {
+  @if meta.type-of($size) == "number" {
     $unit: math.unit($size);
 
     @if $rem != 0 {
@@ -54,9 +57,9 @@
 @function sum-size($a:0, $b:0) {
   $result: 0;
 
-  @if type-of($a) == "number" and type-of($b) == "number" {
-    @if unit($a) != unit($b) {
-      @if unit($a) == "rem" or unit($b) == "rem" {
+  @if meta.type-of($a) == "number" and meta.type-of($b) == "number" {
+    @if math.unit($a) != math.unit($b) {
+      @if math.unit($a) == "rem" or math.unit($b) == "rem" {
         $result: real-size($a,1) + real-size($b,1);
       } @else {
         $result: real-size($a) + real-size($b);
@@ -70,25 +73,25 @@
 }
 
 @function get-icon-height() {
-  $height: $icon_height;
+  $height: variables.$icon_height;
 
-  @if $icon_height == auto or $icon_height == inherit or $icon_height == 0 or type-of($icon_height) != "number" {
-    @if type-of($root_item_line_height) == "number" and type-of($subnav_item_line_height) == "number" {
+  @if variables.$icon_height == auto or variables.$icon_height == inherit or variables.$icon_height == 0 or meta.type-of(variables.$icon_height) != "number" {
+    @if meta.type-of(variables.$root_item_line_height) == "number" and meta.type-of(variables.$subnav_item_line_height) == "number" {
       @if real-size($root_item_line_height) > real-size($subnav_item_line_height) {
         $height: $subnav_item_line_height;
       } @else {
         $height: $root_item_line_height;
       }
-    } @else if type-of($subnav_line_height) == "number" and type-of($navbar_line_height) == "number" {
-      @if real-size($navbar_line_height) > real-size($subnav_line_height) {
-        $height: $subnav_line_height;
+    } @else if meta.type-of(variables.$subnav_line_height) == "number" and meta.type-of(variables.$navbar_line_height) == "number" {
+      @if real-size(variables.$navbar_line_height) > real-size(variables.$subnav_line_height) {
+        $height: variables.$subnav_line_height;
       } @else {
-        $height: $navbar_line_height;
+        $height: variables.$navbar_line_height;
       }
-    } @else if type-of($subnav_line_height) == "number" {
-      $height: $subnav_line_height;
-    } @else if type-of($navbar_line_height) == "number" {
-      $height: $navbar_line_height;
+    } @else if meta.type-of(variables.$subnav_line_height) == "number" {
+      $height: variables.$subnav_line_height;
+    } @else if meta.type-of(variables.$navbar_line_height) == "number" {
+      $height: variables.$navbar_line_height;
     } @else {
       $height: 16px; // ICONS MUST HAVE A SIZE
     }
@@ -105,7 +108,8 @@
   } @else if $color == currentColor {
     $result: currentcolor;
   } @else if $color == auto and real-color($bg) {
-    @if lightness($bg) > 60 {
+    // @if color.lightness($bg) > 60 {
+    @if color.channel($bg, "lightness", $space: hsl) > 60 {
       $result: rgba(#000, $alpha);
     } @else {
       $result: rgba(#fff, $alpha);
@@ -119,7 +123,7 @@
   @return $result;
 }
 
-/* $color: text-color, $bg: bg-color, $inherit-bg: used when $bg is undefined/transparent */
+// $color: text-color, $bg: bg-color, $inherit-bg: used when $bg is undefined/transparent
 @function get-item-color($color, $bg, $inherit-bg, $alpha: 1) {
   $item-color: $color;
   $item-bg: $bg;
@@ -130,7 +134,8 @@
     $item-bg: $inherit-bg;
   }
 
-  @if lightness($item-bg) > 60 {
+  // @if color.lightness($item-bg) > 60 {
+  @if color.channel($item-bg, "lightness", $space: hsl) > 60 {
     $item-color: #000;
   } @else {
     $item-color: #fff;
@@ -146,7 +151,7 @@
 
 // STYLING UTIL MIXINS
 @mixin set-background($bg) {
-  @if type-of($bg) == "list" or real-color($bg) {
+  @if meta.type-of($bg) == "list" or real-color($bg) {
     background: $bg;
   } @else if $bg == currentColor {
     background: currentcolor;
@@ -165,15 +170,15 @@
 }
 
 @mixin set-metric($prop, $value, $inherited:0) {
-  @if $value == inherit and (type-of($inherited) == "list" or type-of($inherited) == "number" and $inherited != 0) {
+  @if $value == inherit and (meta.type-of($inherited) == "list" or meta.type-of($inherited) == "number" and $inherited != 0) {
     #{$prop}: $inherited;
-  } @else if type-of($value) == "list" {
+  } @else if meta.type-of($value) == "list" {
     $total-size: 0;
 
     @each $one in $value {
       @if real-size($one) {
         $total-size: sum-size($one,$total-size);
-      } @else if type-of($one) == "color" {
+      } @else if meta.type-of($one) == "color" {
         $total-size: sum-size(1,$total-size);
       }
     }
@@ -182,7 +187,7 @@
       #{$prop}: $value;
     }
 
-  } @else if type-of($value) == "number" and $value != 0 {
+  } @else if meta.type-of($value) == "number" and $value != 0 {
     #{$prop}: $value;
 
     // } @else {

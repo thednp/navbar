@@ -1,0 +1,6 @@
+@import "../../docs/assets/css/style.css";
+@import "../../dist/css/navbar.css";
+
+@media (min-width: 768px) {
+    .nav li > .subnav { transition-duration: 0.1s; }
+}

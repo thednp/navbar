@@ -204,7 +204,7 @@
             </li>
           </ul>
           <div class="copy navbar-content">
-            <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span>
+            <span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span>
           </div>
         </div>
       </nav>
@@ -306,10 +306,10 @@ $navbar-font-size: 14px !default;
         <p>These SCSS variables are translated into the following CSS variables:</p>
 <div class="code-wrapper">
 <pre><code class="language-scss">// NAVBAR METRIX
---n-padding-x: #{real-size($navbar-padding-x, 1)};
---n-padding-y: #{real-size($navbar-padding-y, 1)};
---n-line-height: #{$navbar-line-height};
---n-font-size: #{$navbar-font-size};
+--nv-padding-x: #{real-size($navbar-padding-x, 1)};
+--nv-padding-y: #{real-size($navbar-padding-y, 1)};
+--nv-line-height: #{$navbar-line-height};
+--nv-font-size: #{$navbar-font-size};
 </code></pre></div>
         <p>The padding related CSS variables are forced to use a unit via the <code>real-size()</code> function,
           the resulting values are consistent with the CSS <code>calc()</code> function.</p>
@@ -331,7 +331,7 @@ $primary-color: #006699 !default;
         <p>This value is then used by the CSS variable:</p>
 <div class="code-wrapper">
 <pre><code class="language-scss">// PRIMARY COLOR
---n-primary-color: #{$primary-color};
+--nv-primary-color: #{$primary-color};
 </code></pre></div>        
 
         <h2>Navbar and Submenu Background</h2>
@@ -355,8 +355,8 @@ $subnav-background: #dadee0 !default;
         <p>These SCSS variables are then pushed into the following CSS variables:</p>
 <div class="code-wrapper">
 <pre><code class="language-scss">// NAVBAR AND SUBNAV BACKGROUND COLOR
---n-bg: #{$navbar-background};
---n-subnav-bg: #{$subnav-background};
+--nv-bg: #{$navbar-background};
+--nv-subnav-bg: #{$subnav-background};
 </code></pre></div>     
 
         <h2>Navbar Text Colors</h2>
@@ -382,9 +382,9 @@ $navbar-link-color-hover: auto !default;
         <p>These variables are then processed to have good contrast with the navbar background and pushed into the CSS variables:</p>
 <div class="code-wrapper">
 <pre><code class="language-scss">// NAVBAR TEXT COLORS
---n-text-color: #{get-color($navbar-text-color, $navbar-background, .55)};
---n-link-color: #{get-color($navbar-link-color, $navbar-background, .75)};
---n-link-color-hover: #{get-color($navbar-link-color-hover, $navbar-background, .95)};
+--nv-text-color: #{get-color($navbar-text-color, $navbar-background, .55)};
+--nv-link-color: #{get-color($navbar-link-color, $navbar-background, .75)};
+--nv-link-color-hover: #{get-color($navbar-link-color-hover, $navbar-background, .95)};
 </code></pre></div>
         <p>These global color values apply mostly for the mobile layout and they are important for the <code>.navbar-toggle</code>
           and <code>.subnav-toggle</code> elements.</p>
@@ -412,9 +412,9 @@ $subnav-link-color-hover: auto !default;
         <p>Similar with above CSS variables, same apply to sub-menus on the desktop layout:</p>
 <div class="code-wrapper">
 <pre><code class="language-scss">// SUBNAV TEXT COLORS
---n-subnav-text-color: #{get-color($subnav-text-color, $subnav-background, .55)};
---n-subnav-link-color: #{get-color($subnav-link-color, $subnav-background, .75)};
---n-subnav-link-color-hover: #{get-color($subnav-link-color-hover, $subnav-background, .95)};
+--nv-subnav-text-color: #{get-color($subnav-text-color, $subnav-background, .55)};
+--nv-subnav-link-color: #{get-color($subnav-link-color, $subnav-background, .75)};
+--nv-subnav-link-color-hover: #{get-color($subnav-link-color-hover, $subnav-background, .95)};
 </code></pre></div>        
 
         <h2>Menu Item Metrics</h2>
@@ -463,20 +463,20 @@ $subnav-item-margin: 0 !default;
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// MENU ITEM METRIX
---n-item-font-size: #{$root-item-font-size};
---n-item-line-height: #{$root-item-line-height};
---n-item-padding-y: #{$item-padding-y};
---n-item-padding-x: #{$item-padding-x};
---n-item-margin: #{$root-item-margin};
---n-subnav-item-font-size: #{$subnav-item-font-size};
---n-subnav-item-line-height: #{$subnav-item-line-height};
---n-subnav-item-padding-x: var(--n-item-padding-x);
---n-subnav-item-padding-y: var(--n-item-padding-y);
---n-subnav-item-margin: #{$subnav-item-margin};
+--nv-item-font-size: #{$root-item-font-size};
+--nv-item-line-height: #{$root-item-line-height};
+--nv-item-padding-y: #{$item-padding-y};
+--nv-item-padding-x: #{$item-padding-x};
+--nv-item-margin: #{$root-item-margin};
+--nv-subnav-item-font-size: #{$subnav-item-font-size};
+--nv-subnav-item-line-height: #{$subnav-item-line-height};
+--nv-subnav-item-padding-x: var(--nv-item-padding-x);
+--nv-subnav-item-padding-y: var(--nv-item-padding-y);
+--nv-subnav-item-margin: #{$subnav-item-margin};
 </code></pre></div>
 
-        <p>Keep in mind that overriding any of the <code>--n-item-padding-x</code> and <code>--n-item-padding-y</code>
-          as well as <code>--n-subnav-item-padding-x</code> and <code>--n-subnav-item-padding-y</code> will also update
+        <p>Keep in mind that overriding any of the <code>--nv-item-padding-x</code> and <code>--nv-item-padding-y</code>
+          as well as <code>--nv-subnav-item-padding-x</code> and <code>--nv-subnav-item-padding-y</code> will also update
           the spacing of all menu icons.</p>
 
         <h2>Brand Metrics</h2>
@@ -500,9 +500,9 @@ $brand-line-height: inherit !default;
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// BRAND METRIX
---n-brand-font-size: #{$brand-font-size};
---n-brand-line-height: #{$brand-line-height};
---n-brand-padding: var(--n-item-padding-y) var(--n-item-padding-x);
+--nv-brand-font-size: #{$brand-font-size};
+--nv-brand-line-height: #{$brand-line-height};
+--nv-brand-padding: var(--nv-item-padding-y) var(--nv-item-padding-x);
 </code></pre></div>        
 
 
@@ -540,16 +540,16 @@ $subnav-larger-width: ($subnav-width * 3) !default;
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// SUBNAV METRIX
---n-subnav-padding-x: #{real-size($subnav-padding-x, 1)};
---n-subnav-padding-y: #{real-size($subnav-padding-y, 1)};
---n-subnav-line-height: #{$subnav-line-height};
---n-subnav-font-size: #{$subnav-font-size};
---n-subnav-width: #{$subnav-width};
---n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
+--nv-subnav-padding-x: #{real-size($subnav-padding-x, 1)};
+--nv-subnav-padding-y: #{real-size($subnav-padding-y, 1)};
+--nv-subnav-line-height: #{$subnav-line-height};
+--nv-subnav-font-size: #{$subnav-font-size};
+--nv-subnav-width: #{$subnav-width};
+--nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2);
 </code></pre></div>
 
         <p>Now here comes the importance of the use of <code>real-size()</code> function to make sure the 
-        <code>--n-subnav-larger-width</code> is consistent with its <code>calc()</code> set value.</p>
+        <code>--nv-subnav-larger-width</code> is consistent with its <code>calc()</code> set value.</p>
 
         <h2>Menu Item Colors</h2>
         <p>Now we can talk about the menu item text color and background color. First we talk about the variables
@@ -583,12 +583,12 @@ $root-item-active-background: $primary-color !default;
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// MENU ITEM COLOR STYLING
---n-item-color: #{get-item-color($root-item-color, $root-item-background, $navbar-background, .65)};
---n-item-bg: #{$root-item-background};
---n-item-hover-color: #{get-item-color($root-item-hover-color, $root-item-hover-background, $navbar-background, .85)};
---n-item-hover-bg: #{$root-item-hover-background};
---n-item-active-color: #{get-item-color($root-item-active-color, $root-item-active-background, $navbar-background, 1)};
---n-item-active-bg: var(--n-primary-color);
+--nv-item-color: #{get-item-color($root-item-color, $root-item-background, $navbar-background, .65)};
+--nv-item-bg: #{$root-item-background};
+--nv-item-hover-color: #{get-item-color($root-item-hover-color, $root-item-hover-background, $navbar-background, .85)};
+--nv-item-hover-bg: #{$root-item-hover-background};
+--nv-item-active-color: #{get-item-color($root-item-active-color, $root-item-active-background, $navbar-background, 1)};
+--nv-item-active-bg: var(--nv-primary-color);
 </code></pre></div>
 
         <p>The special <code>get-item-color()</code> function is used to set proper text colors in contrast with the
@@ -621,12 +621,12 @@ $subnav-item-active-background: $primary-color !default;
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// SUBNAV MENU ITEM COLOR
---n-subnav-item-color: #{get-item-color($subnav-item-color, $subnav-item-background, $subnav-background, .65)};
---n-subnav-item-bg: #{$subnav-item-background};
---n-subnav-item-hover-color: #{get-item-color($subnav-item-hover-color, $subnav-item-hover-background, $subnav-background, .85)};
---n-subnav-item-hover-bg: #{$subnav-item-hover-background};
---n-subnav-item-active-color: #{get-item-color($subnav-item-active-color, $subnav-item-active-background, $subnav-background, 1)};
---n-subnav-item-active-bg: var(--n-primary-color);
+--nv-subnav-item-color: #{get-item-color($subnav-item-color, $subnav-item-background, $subnav-background, .65)};
+--nv-subnav-item-bg: #{$subnav-item-background};
+--nv-subnav-item-hover-color: #{get-item-color($subnav-item-hover-color, $subnav-item-hover-background, $subnav-background, .85)};
+--nv-subnav-item-hover-bg: #{$subnav-item-hover-background};
+--nv-subnav-item-active-color: #{get-item-color($subnav-item-active-color, $subnav-item-active-background, $subnav-background, 1)};
+--nv-subnav-item-active-bg: var(--nv-primary-color);
 </code></pre></div>
 
         <p>Similar to root menu items, the <code>get-item-color()</code> function will do the same for sub-menu items.</p>
@@ -647,7 +647,7 @@ $brand-link-color: auto !default;
 
 <div class="code-wrapper">
 <pre><code class="language-scss">// BRAND LINK COLOR
---n-brand-link-color: #{get-color($brand-link-color, $navbar-background, .95)};
+--nv-brand-link-color: #{get-color($brand-link-color, $navbar-background, .95)};
 </code></pre></code></div>
 
 
@@ -691,16 +691,16 @@ $base-radius: 0.25rem !default;
             CSS variables, the corresponding CSS variables here will be:</p>
 <div class="code-wrapper">
 <pre><code class="language-scss">// MISC
---n-subnav-zindex: #{$subnav-zindex};
---n-icon-height: #{get-icon-height()};
---n-toggle-padding: #{$navbar-toggle-padding};
---n-base-radius: #{$base-radius};
---n-expanded-bg: #{$mobile-expanded-background};
---n-subnav-shadow: #{$subnav-shadow};
+--nv-subnav-zindex: #{$subnav-zindex};
+--nv-icon-height: #{get-icon-height()};
+--nv-toggle-padding: #{$navbar-toggle-padding};
+--nv-base-radius: #{$base-radius};
+--nv-expanded-bg: #{$mobile-expanded-background};
+--nv-subnav-shadow: #{$subnav-shadow};
 </code></pre></div>
 
         </div>
-        <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span> <a href="#">Go back to top</a></div>
+        <div class="copy"><span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span> <a href="#">Go back to top</a></div>
       </div>
     </div>
   </div>

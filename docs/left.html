@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Navbar is a modern, mobile first navigation component for the modern web.">
-		<meta name="author" content="thednp">
-    <link rel="shortcut icon" href="./assets/img/favicon.ico">
-    <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">		
 
-		<title>Navbar | Left Navbar Demo</title>
-		<link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">		
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">		
-		<link href="assets/css/style.css" rel="stylesheet">
-    <link href="./assets/css/prism.css" rel="stylesheet">
-		<link href="./src/css/navbar-left.min.css" rel="stylesheet">		
-		<style>
-			.btn-brand { background: #ea5b5b; }
-			a { color :#ea5b5b; }
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Navbar is a modern, mobile first navigation component for the modern web.">
+	<meta name="author" content="thednp">
+	<link rel="shortcut icon" href="./assets/img/favicon.ico">
+	<link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
 
-			.navbar .parent-icon {
-				width: auto;
-				height: auto;
+	<title>Navbar | Left Navbar Demo</title>
+	<link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,800" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="./assets/css/prism.css" rel="stylesheet">
+	<link href="./src/css/navbar-left.min.css" rel="stylesheet">
+	<style>
+		.btn-brand {
+			background: #ea5b5b;
+		}
+
+		a {
+			color: #ea5b5b;
+		}
+
+		.navbar .parent-icon {
+			width: auto;
+			height: auto;
+		}
+
+		@media (min-width: 768px) {
+			.special-title {
+				color: rgba(0, 0, 0, 0.8);
+				font-size: 120%;
 			}
-			@media (min-width: 768px){
-				.special-title {
-					color: rgba(0,0,0,0.8);
-					font-size: 120%;
-				}
-			}
-			.navbar {
-				--n-primary-color: #cd3232;
-				--n-bg: #544040;
-				--n-subnav-padding-x: .5rem;
-				--n-subnav-padding-y: .5rem;
-				--n-subnav-item-hover-color: #eee;
-				--n-subnav-item-hover-bg: #4b3939;
-				--n-item-active-bg: var(--n-primary-color);
-				--n-subnav-item-active-bg: var(--n-primary-color);
-				--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
-			}
-		</style>
-  </head>
-  <body class="overflow-x-hidden">
-  
+		}
+
+		.navbar {
+			--nv-primary-color: #cd3232;
+			--nv-bg: #544040;
+			--nv-subnav-padding-x: .5rem;
+			--nv-subnav-padding-y: .5rem;
+			--nv-subnav-item-hover-color: #eee;
+			--nv-subnav-item-hover-bg: #4b3939;
+			--nv-item-active-bg: var(--nv-primary-color);
+			--nv-subnav-item-active-bg: var(--nv-primary-color);
+			--nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2);
+		}
+	</style>
+</head>
+
+<body class="overflow-x-hidden">
+
 	<div class="row nomargin" style="max-width: 1200px;">
 		<div class="col-3">
 			<nav class="navbar" data-function="navbar" data-toggle-siblings="true" aria-label="Main">
@@ -57,7 +66,8 @@
 							<a href="#" aria-haspopup="true" aria-expanded="false">Explore
 								<i class="parent-icon fas fa-caret-right"></i>
 							</a>
-							<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+							<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true"
+								aria-expanded="false">
 								<i class="menu-icon fas fa-caret-down"></i>
 							</button>
 							<ul class="subnav">
@@ -65,9 +75,10 @@
 									<a href="#">Demos
 										<i class="parent-icon fas fa-caret-right"></i>
 									</a>
-									<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+									<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true"
+										aria-expanded="false">
 										<i class="menu-icon fas fa-caret-down"></i>
-									</button>                  
+									</button>
 									<ul class="subnav">
 										<li><a href="index.html">Main Demo</a></li>
 										<li class="active"><a href="left.html" aria-current="page">Left Side</a></li>
@@ -82,9 +93,10 @@
 									<a href="#">Documentation
 										<i class="parent-icon fas fa-caret-right"></i>
 									</a>
-									<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true" aria-expanded="false">
+									<button class="subnav-toggle" aria-label="Toogle Submenu" aria-haspopup="true"
+										aria-expanded="false">
 										<i class="menu-icon fas fa-caret-down"></i>
-									</button>                  
+									</button>
 									<ul class="subnav">
 										<li><a href="markup.html">Markup</a></li>
 										<li><a href="data-api.html">DATA API</a></li>
@@ -142,12 +154,12 @@
 													<li><a href="#">Corporate</a></li>
 													<li><a href="#">Industrial</a></li>
 													<li><a href="#">Government</a></li>
-												</ul>                                            
+												</ul>
 											</li>
 											<li><a href="#">Integrate</a></li>
 											<li><a href="#">Options</a></li>
 											<li><a href="#">Account</a></li>
-										</ul>	
+										</ul>
 									</li>
 									<li class='col-4'>
 										<span class="column-title">
@@ -158,8 +170,10 @@
 											<i class="menu-icon fas fa-caret-down"></i>
 										</button>
 										<div class="subnav-content">
-											<p>The content of this demo text box is hidden on mobile view, but can be toggled visible.</p>
-											<p>Features a nice <a href="#">link anchor</a> affected by navbar styling.</p>
+											<p>The content of this demo text box is hidden on mobile view, but can be
+												toggled visible.</p>
+											<p>Features a nice <a href="#">link anchor</a> affected by navbar styling.
+											</p>
 										</div>
 									</li>
 									<li class="col-4">
@@ -168,7 +182,8 @@
 												<i class="menu-icon fas fa-address-card"></i>
 												<span>Visible Text Box</span>
 											</span>
-											<p>This text box is fully visible on all views and is featuring a custom button unaffected by navbar styling.</p>
+											<p>This text box is fully visible on all views and is featuring a custom
+												button unaffected by navbar styling.</p>
 											<p><a class="btn btn-brand" href="#">Read More</a></p>
 										</div>
 									</li>
@@ -185,13 +200,17 @@
 							</button>
 							<ul class="subnav">
 								<li>
-									<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar/index.html" title="Share Navbar on Facebook">
+									<a target="_blank"
+										href="https://www.facebook.com/sharer/sharer.php?u=http://thednp.github.io/navbar/index.html"
+										title="Share Navbar on Facebook">
 										<i class="menu-icon fab fa-facebook"></i>
 										<span>Facebook</span>
 									</a>
 								</li>
 								<li>
-                  <a target="_blank" href="https://twitter.com/intent/tweet?text=Spread the word about %23NAVBARjs by @dnp_theme and download here http://thednp.github.io/navbar/index.html" title="Share Navbar on Twitter">
+									<a target="_blank"
+										href="https://twitter.com/intent/tweet?text=Spread the word about %23NAVBARjs by @dnp_theme and download here http://thednp.github.io/navbar/index.html"
+										title="Share Navbar on Twitter">
 										<i class="menu-icon fab fa-twitter"></i>
 										<span>Twitter</span>
 									</a>
@@ -200,7 +219,7 @@
 						</li>
 					</ul>
 					<div class="copy navbar-content">
-						<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span>
+						<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span>
 					</div>
 				</div>
 			</nav>
@@ -208,24 +227,30 @@
 		<div class="col-9" style="background: #fff">
 			<div class="content-inner">
 				<h1>Left Navbar</h1>
-				<p class="lead">The markup of this demo is nearly identical with the <a href="index.html">default</a> markup, except 
-					for this demo we're using the <a href="https://fontawesome.com">FontAwesome</a> library for menu icons. There are 
+				<p class="lead">The markup of this demo is nearly identical with the <a href="index.html">default</a>
+					markup, except
+					for this demo we're using the <a href="https://fontawesome.com">FontAwesome</a> library for menu
+					icons. There are
 					however a series of customizations and tweaks we would like to talk about.</p>
-				
+
 				<h2>Demo Highlights</h2>
 				<ul class="attr-list">
-					<li>Along a couple of custom variable input values, the major difference here is the composition of the SCSS mixins
+					<li>Along a couple of custom variable input values, the major difference here is the composition of
+						the SCSS mixins
 						used, and the design has changed for the entire navbar from a row to a column.</li>
-					<li>This demo showcases the use of the <code>toggleSiblings: true</code> option. When expanding a new parent menu
+					<li>This demo showcases the use of the <code>toggleSiblings: true</code> option. When expanding a
+						new parent menu
 						item, the component will collapse any sibling menu item and all its child submenus.</li>
-					<li>To complement the style of the font-icon, we've used some "user defined" style rules to override the 
-						<code>i.parent-icon</code> elements width and height.</li>
+					<li>To complement the style of the font-icon, we've used some "user defined" style rules to override
+						the
+						<code>i.parent-icon</code> elements width and height.
+					</li>
 				</ul>
 
 				<h2>Left Navbar Mixins</h2>
-					
-<div class="code-wrapper">
-<pre><code class="language-scss">// navbar-left.scss - mixins
+
+				<div class="code-wrapper">
+					<pre><code class="language-scss">// navbar-left.scss - mixins
 @include navbar-mobile-layout;
 @include navbar-desktop-side-layout; // special column navbar layout mixin
 @include navbar-style;
@@ -234,54 +259,63 @@
 @include subnav-style;
 @include left-side; // special position and animation mixin
 </code></pre>
-</div>
-					
-					<ul class="attr-list">
-						<li><code>navbar-mobile-layout</code> sets the mobile view of the navbar, just like for the default layout;</li>
-						<li><code class="gray-9">navbar-desktop-side-layout</code> sets the special column layout of the navbar for desktop view;</li>
-						<li><code>navbar-style</code> applies colors and background colors for the navbar and various;</li>
-						<li><code>nav-layout</code> sets the menu layout for all menu tree, no difference here;</li>
-						<li><code>nav-style</code> applies the root menu item colors and background colors;</li>
-						<li><code>subnav-style</code> applies the submenu background, box-shadow and submenu item colors and background
-							colors;</li>
-						<li><code class="gray-9">left-side</code> this sets the position of submenu and animations accordingly for the LEFT column.</li>
-					</ul>
-
-					<h2>Used Variables</h2>
-
-<div class="code-wrapper">
-<pre><code class="language-scss">// left.html - custom CSS variable values
-.navbar {
-	--n-primary-color: #cd3232;
-	--n-bg: #544040;
-	--n-subnav-padding-x: .5rem;
-	--n-subnav-padding-y: .5rem;
-	--n-subnav-item-hover-color: #eee;
-	--n-subnav-item-hover-bg: #4b3939;
-	--n-item-active-bg: var(--n-primary-color);
-	--n-subnav-item-active-bg: var(--n-primary-color);
-	--n-subnav-larger-width: calc(var(--n-subnav-width) * 3 + var(--n-subnav-padding-x) * 2);
-}
-</code></pre></div>
-
-					<p>We've customized the active menu item colors, background-colors and added some spacing to the
-						<code>.subnav</code> elements as well as the mega menu width.</p>
-
-					<h2>Similar Demo</h2>
-					<p>Also on the left side you have the <a href="left-menu.html">Left Menu</a> were we used the menu without 
-						the wrapper. Another cool demo is of course the full <a href="right.html">right navbar</a>, similar to this
-						very page, go ahead and check it out.</p>
-
 				</div>
+
+				<ul class="attr-list">
+					<li><code>navbar-mobile-layout</code> sets the mobile view of the navbar, just like for the default
+						layout;</li>
+					<li><code class="gray-9">navbar-desktop-side-layout</code> sets the special column layout of the
+						navbar for desktop view;</li>
+					<li><code>navbar-style</code> applies colors and background colors for the navbar and various;</li>
+					<li><code>nav-layout</code> sets the menu layout for all menu tree, no difference here;</li>
+					<li><code>nav-style</code> applies the root menu item colors and background colors;</li>
+					<li><code>subnav-style</code> applies the submenu background, box-shadow and submenu item colors and
+						background
+						colors;</li>
+					<li><code class="gray-9">left-side</code> this sets the position of submenu and animations
+						accordingly for the LEFT column.</li>
+				</ul>
+
+				<h2>Used Variables</h2>
+
+				<div class="code-wrapper">
+					<pre><code class="language-scss">// left.html - custom CSS variable values
+.navbar {
+	--nv-primary-color: #cd3232;
+	--nv-bg: #544040;
+	--nv-subnav-padding-x: .5rem;
+	--nv-subnav-padding-y: .5rem;
+	--nv-subnav-item-hover-color: #eee;
+	--nv-subnav-item-hover-bg: #4b3939;
+	--nv-item-active-bg: var(--nv-primary-color);
+	--nv-subnav-item-active-bg: var(--nv-primary-color);
+	--nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3 + var(--nv-subnav-padding-x) * 2);
+}
+</code></pre>
+				</div>
+
+				<p>We've customized the active menu item colors, background-colors and added some spacing to the
+					<code>.subnav</code> elements as well as the mega menu width.
+				</p>
+
+				<h2>Similar Demo</h2>
+				<p>Also on the left side you have the <a href="left-menu.html">Left Menu</a> were we used the menu
+					without
+					the wrapper. Another cool demo is of course the full <a href="right.html">right navbar</a>, similar
+					to this
+					very page, go ahead and check it out.</p>
+
+			</div>
 			<div class="copy">
-				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2023</span> 
+				<span><a target="_blank" href="https://github.com/thednp">thednp</a> &copy; 2024</span>
 				<a href="#">Go back to top</a>
 			</div>
 
 		</div>
 	</div>
-  <script src="./src/js/navbar.js"></script>
+	<script src="./src/js/navbar.js"></script>
 	<script src="./assets/js/prism.js"></script>
 
-  </body>
+</body>
+
 </html>

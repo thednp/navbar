@@ -1,21 +1,23 @@
-@import "variables", "mixins", "root";
-@include navbar-mobile-layout;
-@include navbar-desktop-layout;
-@include navbar-style;
-@include nav-layout;
-@include nav-style;
-@include subnav-style;
+@use "variables";
+@use "mixins";
+@use "root";
+@include mixins.navbar-mobile-layout;
+@include mixins.navbar-desktop-layout;
+@include mixins.navbar-style;
+@include mixins.nav-layout;
+@include mixins.nav-style;
+@include mixins.subnav-style;
 
 // main menu
 .navbar {
-  @include main-menu;
+  @include mixins.main-menu;
 }
 
 // side modules
 .left {
-  @include left-side(1);
+  @include mixins.left-side(1);
 }
 
 .right {
-  @include right-side(1);
+  @include mixins.right-side(1);
 }

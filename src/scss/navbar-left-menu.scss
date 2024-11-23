@@ -1,23 +1,25 @@
-@import "variables", "mixins", "root";
+@use "variables";
+@use "mixins";
+@use "root";
 
 // special design
 // .sidebar .nav {
-//   --n-item-margin: 0 0 2px 0;
-//   --n-subnav-item-margin: 0 0 2px 2px;
-//   --n-bg: transparent;
-//   --n-subnav-bg: transparent;
-//   --n-subnav-padding-x: #{real-size(0, 1)};
-//   --n-subnav-padding-y: #{real-size(0, 1)};
-//   --n-item-hover-color: #eee;
-//   --n-item-hover-bg: #222;
-//   --n-subnav-item-bg: rgba(0,0,0,.8);
-//   --n-subnav-item-hover-color: #fff;
-//   --n-subnav-item-hover-bg: rgba(50,50,50,.95);
-//   --n-subnav-shadow: none;
-//   --n-subnav-larger-width: calc(var(--n-subnav-width) * 3);
+//   --nv-item-margin: 0 0 2px 0;
+//   --nv-subnav-item-margin: 0 0 2px 2px;
+//   --nv-bg: transparent;
+//   --nv-subnav-bg: transparent;
+//   --nv-subnav-padding-x: #{functions.real-size(0, 1)};
+//   --nv-subnav-padding-y: #{functions.real-size(0, 1)};
+//   --nv-item-hover-color: #eee;
+//   --nv-item-hover-bg: #222;
+//   --nv-subnav-item-bg: rgba(0,0,0,.8);
+//   --nv-subnav-item-hover-color: #fff;
+//   --nv-subnav-item-hover-bg: rgba(50,50,50,.95);
+//   --nv-subnav-shadow: none;
+//   --nv-subnav-larger-width: calc(var(--nv-subnav-width) * 3);
 // }
 
-@include nav-layout(1);
-@include nav-style;
-@include subnav-style;
-@include left-side;
+@include mixins.nav-layout(1);
+@include mixins.nav-style;
+@include mixins.subnav-style;
+@include mixins.left-side;

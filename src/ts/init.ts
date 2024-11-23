@@ -1,7 +1,12 @@
-import { getDocument, getElementsByTagName, matches, DOMContentLoadedEvent } from '@thednp/shorty';
-import { addListener } from '@thednp/event-listener';
+import {
+  DOMContentLoadedEvent,
+  getDocument,
+  getElementsByTagName,
+  matches,
+} from "@thednp/shorty";
+import { addListener } from "@thednp/event-listener";
 
-import Navbar from './navbar';
+import Navbar from "./navbar";
 
 // DATA API
 /**
@@ -11,11 +16,13 @@ import Navbar from './navbar';
  */
 const initNavbar = (context?: ParentNode) => {
   const { selector, init } = Navbar;
-  const collection = getElementsByTagName('*', getDocument(context));
+  const collection = getElementsByTagName("*", getDocument(context));
 
-  [...collection].filter(x => matches(x, selector)).forEach(init);
+  [...collection].filter((x) => matches(x, selector)).forEach(init);
 };
 
 // initialize when loaded
 if (document.body) initNavbar();
-else addListener(document, DOMContentLoadedEvent, () => initNavbar(), { once: true });
+else {addListener(document, DOMContentLoadedEvent, () => initNavbar(), {
+    once: true,
+  });}

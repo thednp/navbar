@@ -1,358 +1,272 @@
-var xe = Object.defineProperty;
-var He = (e, t, n) => t in e ? xe(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
-var L = (e, t, n) => He(e, typeof t != "symbol" ? t + "" : t, n);
-const k = {}, we = (e) => {
-  const { type: t, currentTarget: n } = e;
-  [...k[t]].forEach(([s, i]) => {
-    n === s && [...i].forEach(([o, r]) => {
-      o.apply(s, [e]), typeof r == "object" && r.once && ce(s, t, o, r);
+var Pe = Object.defineProperty;
+var De = (e, n, t) => n in e ? Pe(e, n, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[n] = t;
+var $ = (e, n, t) => De(e, typeof n != "symbol" ? n + "" : n, t);
+const S = {}, ve = (e) => {
+  const { type: n, currentTarget: t } = e;
+  S[n].forEach((s, i) => {
+    t === i && s.forEach((o, a) => {
+      a.apply(i, [e]), typeof o == "object" && o.once && pe(i, n, a, o);
     });
   });
-}, ae = (e, t, n, s) => {
-  k[t] || (k[t] = /* @__PURE__ */ new Map());
-  const i = k[t];
+}, he = (e, n, t, s) => {
+  S[n] || (S[n] = /* @__PURE__ */ new Map());
+  const i = S[n];
   i.has(e) || i.set(e, /* @__PURE__ */ new Map());
-  const o = i.get(e), { size: r } = o;
-  o.set(n, s), r || e.addEventListener(t, we, s);
-}, ce = (e, t, n, s) => {
-  const i = k[t], o = i && i.get(e), r = o && o.get(n), c = r !== void 0 ? r : s;
-  o && o.has(n) && o.delete(n), i && (!o || !o.size) && i.delete(e), (!i || !i.size) && delete k[t], (!o || !o.size) && e.removeEventListener(
-    t,
-    we,
+  const o = i.get(
+    e
+  ), { size: a } = o;
+  o.set(t, s), a || e.addEventListener(
+    n,
+    ve,
+    s
+  );
+}, pe = (e, n, t, s) => {
+  const i = S[n], o = i && i.get(e), a = o && o.get(t), c = a !== void 0 ? a : s;
+  o && o.has(t) && o.delete(t), i && (!o || !o.size) && i.delete(e), (!i || !i.size) && delete S[n], (!o || !o.size) && e.removeEventListener(
+    n,
+    ve,
     c
   );
-}, w = "aria-expanded", Te = "DOMContentLoaded", Ve = "keydown", Ke = "keyup", fe = "click", Ue = "mouseenter", We = "mouseleave", qe = "resize", te = "ArrowDown", ne = "ArrowUp", J = "ArrowLeft", Z = "ArrowRight", Qe = "Escape", se = "Space", Be = "transitionDuration", Ge = "transitionDelay", _ = "transitionend", Ne = "transitionProperty", Xe = navigator.userAgentData, H = Xe, { userAgent: Ye } = navigator, V = Ye, ge = /iPhone|iPad|iPod|Android/i;
-H ? H.brands.some((e) => ge.test(e.brand)) : ge.test(V);
-const ve = /(iPhone|iPod|iPad)/;
-H ? H.brands.some((e) => ve.test(e.brand)) : (
-  /* istanbul ignore next */
-  ve.test(V)
-);
-V && V.includes("Firefox");
-const { head: q } = document;
-["webkitPerspective", "perspective"].some((e) => e in q.style);
-const Je = (e, t, n, s) => {
-  const i = s || !1;
-  e.addEventListener(t, n, i);
-}, Ze = (e, t, n, s) => {
-  const i = s || !1;
-  e.removeEventListener(t, n, i);
-}, _e = (e, t, n, s) => {
-  const i = (o) => {
-    (o.target === e || o.currentTarget === e) && (n.apply(e, [o]), Ze(e, t, i, s));
-  };
-  Je(e, t, i, s);
-}, et = () => {
-};
-(() => {
-  let e = !1;
-  try {
-    const t = Object.defineProperty({}, "passive", {
-      get: () => (e = !0, e)
-    });
-    _e(document, Te, et, t);
-  } catch {
-  }
-  return e;
-})();
-["webkitTransform", "transform"].some((e) => e in q.style);
-["webkitAnimation", "animation"].some((e) => e in q.style);
-["webkitTransition", "transition"].some((e) => e in q.style);
-const tt = (e, t) => e.getAttribute(t), T = (e, t, n) => e.setAttribute(t, n), oe = (e, ...t) => {
-  e.classList.add(...t);
-}, x = (e, ...t) => {
-  e.classList.remove(...t);
-}, m = (e, t) => e.classList.contains(t), Q = (e) => e != null && typeof e == "object" || !1, $ = (e) => Q(e) && typeof e.nodeType == "number" && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].some((t) => e.nodeType === t) || !1, E = (e) => $(e) && e.nodeType === 1 || !1, P = /* @__PURE__ */ new Map(), R = {
-  data: P,
-  /**
-   * Sets web components data.
-   *
-   * @param element target element
-   * @param component the component's name or a unique key
-   * @param instance the component instance
-   */
-  set: (e, t, n) => {
-    E(e) && (P.has(t) || P.set(t, /* @__PURE__ */ new Map()), P.get(t).set(e, n));
+}, y = "aria-expanded", Oe = "DOMContentLoaded", Re = "keydown", je = "keyup", ae = "click", Fe = "mouseenter", He = "mouseleave", Q = "ArrowDown", Y = "ArrowUp", Z = "ArrowLeft", X = "ArrowRight", Ie = "Escape", ee = "Space", We = "transitionDuration", Ke = "transitionDelay", _ = "transitionend", be = "transitionProperty", Ve = (e, n) => e.getAttribute(n), C = (e, n, t) => e.setAttribute(n, t), ne = (e, ...n) => {
+  e.classList.add(...n);
+}, I = (e, ...n) => {
+  e.classList.remove(...n);
+}, E = (e, n) => e.classList.contains(n), q = (e) => e != null && typeof e == "object" || !1, P = (e) => q(e) && typeof e.nodeType == "number" && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].some(
+  (n) => e.nodeType === n
+) || !1, g = (e) => P(e) && e.nodeType === 1 || !1, A = /* @__PURE__ */ new Map(), j = {
+  data: A,
+  set: (e, n, t) => {
+    g(e) && (A.has(n) || A.set(n, /* @__PURE__ */ new Map()), A.get(n).set(e, t));
   },
-  /**
-   * Returns all instances for specified component.
-   *
-   * @param component the component's name or a unique key
-   * @returns all the component instances
-   */
-  getAllFor: (e) => P.get(e) || null,
-  /**
-   * Returns the instance associated with the target.
-   *
-   * @param element target element
-   * @param component the component's name or a unique key
-   * @returns the instance
-   */
-  get: (e, t) => {
-    if (!E(e) || !t) return null;
-    const n = R.getAllFor(t);
-    return e && n && n.get(e) || null;
+  getAllFor: (e) => A.get(e) || null,
+  get: (e, n) => {
+    if (!g(e) || !n) return null;
+    const t = j.getAllFor(n);
+    return e && t && t.get(e) || null;
   },
-  /**
-   * Removes web components data.
-   *
-   * @param element target element
-   * @param component the component's name or a unique key
-   */
-  remove: (e, t) => {
-    const n = R.getAllFor(t);
-    !n || !E(e) || (n.delete(e), n.size === 0 && P.delete(t));
+  remove: (e, n) => {
+    const t = j.getAllFor(n);
+    !t || !g(e) || (t.delete(e), t.size === 0 && A.delete(n));
   }
-}, nt = (e, t) => R.get(e, t), st = (e) => Q(e) && e.constructor.name === "Window" || !1, Ce = (e) => $(e) && e.nodeType === 9 || !1, y = (e) => st(e) ? e.document : Ce(e) ? e : $(e) ? e.ownerDocument : window.document, ot = (e, ...t) => Object.assign(e, ...t), f = (e, t) => e.dispatchEvent(t), S = (e, t) => {
-  const n = getComputedStyle(e), s = t.replace("webkit", "Webkit").replace(/([A-Z])/g, "-$1").toLowerCase();
-  return n.getPropertyValue(s);
-}, it = (e) => {
-  const t = S(e, Ne), n = S(e, Ge), s = n.includes("ms") ? (
-    /* istanbul ignore next */
-    1
-  ) : 1e3, i = t && t !== "none" ? parseFloat(n) * s : (
-    /* istanbul ignore next */
-    0
-  );
-  return Number.isNaN(i) ? (
-    /* istanbul ignore next */
-    0
-  ) : i;
-}, rt = (e) => {
-  const t = S(e, Ne), n = S(e, Be), s = n.includes("ms") ? (
-    /* istanbul ignore next */
-    1
-  ) : 1e3, i = t && t !== "none" ? parseFloat(n) * s : (
-    /* istanbul ignore next */
-    0
-  );
-  return Number.isNaN(i) ? (
-    /* istanbul ignore next */
-    0
-  ) : i;
-}, $e = (e, t) => {
-  let n = 0;
-  const s = new Event(_), i = rt(e), o = it(e);
+}, qe = (e, n) => j.get(e, n), xe = (e) => e == null ? void 0 : e.trim().replace(
+  /(?:^\w|[A-Z]|\b\w)/g,
+  (n, t) => t === 0 ? n.toLowerCase() : n.toUpperCase()
+).replace(/\s+/g, ""), Be = (e) => q(e) && e.constructor.name === "Window" || !1, me = (e) => P(e) && e.nodeType === 9 || !1, w = (e) => me(e) ? e : P(e) ? e.ownerDocument : Be(e) ? e.document : globalThis.document, Ue = (e, ...n) => Object.assign(e, ...n), d = (e, n) => e.dispatchEvent(n), M = (e, n, t) => {
+  const s = getComputedStyle(e, t), i = n.replace("webkit", "Webkit").replace(/([A-Z])/g, "-$1").toLowerCase();
+  return s.getPropertyValue(i);
+}, Ge = (e) => {
+  const n = M(e, be), t = M(e, Ke), s = t.includes("ms") ? 1 : 1e3, i = n && n !== "none" ? parseFloat(t) * s : 0;
+  return Number.isNaN(i) ? 0 : i;
+}, Ze = (e) => {
+  const n = M(e, be), t = M(e, We), s = t.includes("ms") ? 1 : 1e3, i = n && n !== "none" ? parseFloat(t) * s : 0;
+  return Number.isNaN(i) ? 0 : i;
+}, Ee = (e, n) => {
+  let t = 0;
+  const s = new Event(_), i = Ze(e), o = Ge(e);
   if (i) {
-    const r = (c) => {
-      c.target === e && (t.apply(e, [c]), e.removeEventListener(_, r), n = 1);
+    const a = (c) => {
+      c.target === e && (n.apply(e, [c]), e.removeEventListener(_, a), t = 1);
     };
-    e.addEventListener(_, r), setTimeout(() => {
-      n || f(e, s);
+    e.addEventListener(_, a), setTimeout(() => {
+      t || d(e, s);
     }, i + o + 17);
   } else
-    t.apply(e, [s]);
-}, pe = (e) => ["true", !0].includes(e) ? !0 : ["false", !1].includes(e) ? !1 : ["null", "", null, void 0].includes(e) ? null : e !== "" && !Number.isNaN(+e) ? +e : e, ee = (e) => Object.entries(e), at = (e, t, n, s) => {
-  const i = { ...n }, o = { ...e.dataset }, r = { ...t }, c = {}, l = "title";
-  return ee(o).forEach(([a, u]) => {
-    const D = a;
-    c[D] = pe(u);
-  }), ee(i).forEach(([a, u]) => {
-    i[a] = pe(u);
-  }), ee(t).forEach(([a, u]) => {
-    a in i ? r[a] = i[a] : a in c ? r[a] = c[a] : r[a] = a === l ? tt(e, l) : u;
-  }), r;
-}, ct = (e) => Object.keys(e), B = (e, t) => {
-  const n = new CustomEvent(e, {
+    n.apply(e, [s]);
+}, ce = (e) => ["true", !0].includes(e) ? !0 : ["false", !1].includes(e) ? !1 : ["null", "", null, void 0].includes(e) ? null : e !== "" && !Number.isNaN(+e) ? +e : e, J = (e) => Object.entries(e), Xe = (e, n, t, s) => {
+  if (!g(e)) return n;
+  const i = { ...t }, o = { ...e.dataset }, a = { ...n }, c = {}, l = "title";
+  return J(o).forEach(([r, u]) => {
+    const D = xe(r);
+    c[D] = ce(u);
+  }), J(i).forEach(([r, u]) => {
+    i[r] = ce(u);
+  }), J(n).forEach(([r, u]) => {
+    r in i ? a[r] = i[r] : r in c ? a[r] = c[r] : a[r] = r === l ? Ve(e, l) : u;
+  }), a;
+}, _e = (e) => Object.keys(e), x = (e, n) => {
+  const t = new CustomEvent(e, {
     cancelable: !0,
     bubbles: !0
   });
-  return Q(t) && ot(n, t), n;
-}, lt = { passive: !0 }, be = (e) => Q(e) && e.constructor.name === "Map" || !1, ut = (e) => typeof e == "number" || !1, h = /* @__PURE__ */ new Map(), N = {
-  /**
-   * Sets a new timeout timer for an element, or element -> key association.
-   *
-   * @param element target element
-   * @param callback the callback
-   * @param delay the execution delay
-   * @param key a unique key
-   */
-  set: (e, t, n, s) => {
-    E(e) && (s && s.length ? (h.has(e) || h.set(e, /* @__PURE__ */ new Map()), h.get(e).set(s, setTimeout(t, n))) : h.set(e, setTimeout(t, n)));
+  return q(n) && Ue(t, n), t;
+}, le = (e) => q(e) && e.constructor.name === "Map" || !1, Je = (e) => typeof e == "number" || !1, m = /* @__PURE__ */ new Map(), N = {
+  set: (e, n, t, s) => {
+    g(e) && (s && s.length ? (m.has(e) || m.set(e, /* @__PURE__ */ new Map()), m.get(e).set(s, setTimeout(n, t))) : m.set(e, setTimeout(n, t)));
   },
-  /**
-   * Returns the timer associated with the target.
-   *
-   * @param element target element
-   * @param key a unique
-   * @returns the timer
-   */
-  get: (e, t) => {
-    if (!E(e)) return null;
-    const n = h.get(e);
-    return t && n && be(n) ? n.get(t) || /* istanbul ignore next */
-    null : ut(n) ? n : null;
+  get: (e, n) => {
+    if (!g(e)) return null;
+    const t = m.get(e);
+    return n && t && le(t) ? t.get(n) || null : Je(t) ? t : null;
   },
-  /**
-   * Clears the element's timer.
-   *
-   * @param element target element
-   * @param key a unique key
-   */
-  clear: (e, t) => {
-    if (!E(e)) return;
-    const n = h.get(e);
-    t && t.length && be(n) ? (clearTimeout(n.get(t)), n.delete(t), n.size === 0 && h.delete(e)) : (clearTimeout(n), h.delete(e));
+  clear: (e, n) => {
+    if (!g(e)) return;
+    const t = m.get(e);
+    n && n.length && le(t) ? (clearTimeout(t.get(n)), t.delete(n), t.size === 0 && m.delete(e)) : (clearTimeout(t), m.delete(e));
   }
-}, dt = (e) => y(e).documentElement, Le = (e) => {
-  var t;
-  return e ? Ce(e) ? e.defaultView : $(e) ? (t = e == null ? void 0 : e.ownerDocument) == null ? void 0 : t.defaultView : e : window;
-}, ft = (e) => dt(e).dir === "rtl", d = (e, t) => e ? e.closest(t) || // break out of `ShadowRoot`
-d(e.getRootNode().host, t) : null, gt = (e, t) => E(e) ? e : ($(t) ? t : y()).querySelector(e), Pe = (e, t) => ($(t) ? t : y()).getElementsByTagName(e), p = (e, t) => (t && $(t) ? t : y()).getElementsByClassName(
+}, Qe = (e) => g(e) && "offsetWidth" in e || !1, Ye = (e) => w(e).documentElement, en = (e) => {
+  var n;
+  return e ? me(e) ? e.defaultView : P(e) ? (n = e == null ? void 0 : e.ownerDocument) == null ? void 0 : n.defaultView : e : window;
+}, we = (e, n) => e.matches(n), nn = (e) => Ye(e).dir === "rtl", f = (e, n) => !e || !n ? null : e.closest(n) || f(e.getRootNode().host, n) || null, tn = (e, n) => g(e) ? e : (g(n) ? n : w()).querySelector(e), ye = (e, n) => (P(n) ? n : w()).getElementsByTagName(
   e
-), Ae = (e, t) => e.matches(t), vt = "3.2.6", b = "navbar", O = "Navbar", G = `[data-function="${b}"]`, ke = `${G},.${b}`, v = "open", le = "open-position", g = "open-mobile", F = "subnav", X = `${F}-toggle`, Se = `${b}-toggle`, he = {
+), p = (e, n) => (n && P(n) ? n : w()).getElementsByClassName(
+  e
+), sn = "3.3.0", b = "navbar", R = "Navbar", B = `[data-function="${b}"]`, Ce = `${B},.${b}`, h = "open", oe = "open-position", v = "open-mobile", F = "subnav", U = `${F}-toggle`, Ne = `${b}-toggle`, ue = {
   breakpoint: 768,
   toggleSiblings: !0,
   delay: 500
-}, K = B(`show.${b}`), Me = B(`shown.${b}`), U = B(`hide.${b}`), ie = B(`hidden.${b}`), M = (e) => nt(e, O), pt = (e) => new A(e), W = (e, t) => {
-  (t ? ae : ce)(Le(e.menu), qe, e.listenResize, lt);
-}, Y = (e) => {
-  const { options: t, menu: n } = e, [s] = p(X, n);
-  return s && S(s, "display") !== "none" || Le(n).innerWidth < t.breakpoint;
-}, me = (e, t) => {
-  const n = t ? ae : ce, { items: s, navbarToggle: i, menu: o } = e, r = y(o);
-  [...s].forEach((c) => {
+}, W = x(`show.${b}`), Te = x(`shown.${b}`), K = x(`hide.${b}`), te = x(`hidden.${b}`), k = (e) => qe(e, R), on = (e) => new L(e), V = ({ menu: e, _observer: n }, t) => {
+  t ? n.observe(e) : n.disconnect();
+}, G = (e) => {
+  const { options: n, menu: t } = e, [s] = p(U, t);
+  return s && M(s, "display") !== "none" || en(t).innerWidth < n.breakpoint;
+}, fe = (e, n) => {
+  const t = n ? he : pe, { items: s, navbarToggle: i, menu: o } = e, a = w(o);
+  Array.from(s).forEach((c) => {
     const { lastElementChild: l } = c;
-    l && m(l, F) && (n(c, Ue, De), n(c, We, re));
-    const [a] = p(X, c);
-    a && n(a, fe, Ee);
-  }), n(r, Ve, ht), n(r, Ke, mt), i && n(i, fe, Ee);
-}, C = (e, t) => [...e.children].find((n) => Ae(n, t)), bt = (e) => {
-  const t = C(e, `.${F}`), n = C(e, "A");
-  if (n && (f(n, K), K.defaultPrevented))
+    l && E(l, F) && (t(c, Fe, Ae), t(c, He, se));
+    const [r] = p(U, c);
+    r && t(
+      r,
+      ae,
+      de
+    );
+  }), t(a, Re, an), t(a, je, cn), i && t(i, ae, de);
+}, T = (e, n) => Array.from(e.children).find(
+  (t) => we(t, n)
+), rn = (e) => {
+  const n = T(e, `.${F}`), t = T(e, "A");
+  if (t && (d(t, W), W.defaultPrevented))
     return;
-  oe(e, le), oe(e, v);
+  ne(e, oe), ne(e, h);
   const { parentElement: s } = e;
   if (s) {
-    const o = p(v, s);
-    z([...o].filter((r) => r !== e));
+    const o = p(h, s);
+    z(Array.from(o).filter((a) => a !== e));
   }
-  t && $e(t, () => {
-    N.clear(e, "in"), n && (f(n, Me), T(n, w, "true"));
+  n && Ee(n, () => {
+    N.clear(e, "in"), t && (d(t, Te), C(t, y, "true"));
   });
-}, ze = (e, t) => {
-  const n = C(e, `.${F}`), s = C(e, "A"), i = C(e, X);
-  if (!([v, g].some((o) => m(e, o)) && s && (f(s, U), U.defaultPrevented))) {
-    if (m(e, v)) {
+}, $e = (e, n) => {
+  const t = T(e, `.${F}`), s = T(e, "A"), i = T(e, U);
+  if (!([h, v].some((o) => E(e, o)) && s && (d(s, K), K.defaultPrevented))) {
+    if (E(e, h)) {
       const o = () => {
-        x(e, le), N.clear(e, "out"), s && (f(s, ie), T(s, w, "false"));
+        I(e, oe), N.clear(e, "out"), s && (d(s, te), C(s, y, "false"));
       };
-      x(e, v), t && n ? $e(n, o) : o();
+      I(e, h), n && t ? Ee(t, o) : o();
     }
-    m(e, g) && (x(e, g), [i, s].forEach((o) => {
-      o && T(o, w, "false");
-    }), s && f(s, ie));
+    E(e, v) && (I(e, v), [i, s].forEach((o) => {
+      o && C(o, y, "false");
+    }), s && d(s, te));
   }
 }, z = (e) => {
-  [...e].forEach((t) => ze(t));
-}, ht = (e) => {
-  const { code: t, target: n } = e;
-  (E(n) ? d(n, ke) : null) && [te, ne, se].includes(t) && e.preventDefault();
+  Array.from(e).forEach((n) => $e(n));
+}, an = (e) => {
+  const { code: n, target: t } = e;
+  (Qe(t) ? f(t, Ce) : null) && [Q, Y, ee].includes(n) && e.preventDefault();
 };
-function mt(e) {
-  const { code: t } = e, { activeElement: n } = y(this), s = n && d(n, "nav"), i = s && M(s);
-  if (!i || !n || this && !this.contains(n)) return;
-  const o = d(n, "LI");
+function cn(e) {
+  const { code: n } = e, { activeElement: t } = w(this), s = t && f(t, "nav"), i = s && k(s);
+  if (!i || !t || this && !this.contains(t))
+    return;
+  const o = f(t, "LI");
   if (!o) return;
-  const r = Y(i), { previousElementSibling: c, nextElementSibling: l } = o, a = d(o, `.${v}`), u = d(o, "UL"), [D] = p(F, o), je = [se, te, J, Z, ne], I = u && S(u, "flex-direction") === "column", ue = ft(o), Oe = ue ? (
-    /* istanbul ignore next */
-    Z
-  ) : J, Re = ue ? (
-    /* istanbul ignore next */
-    J
-  ) : Z, Fe = u && c && (t === ne && I || t === Oe && !I), Ie = u && l && (t === te && I || t === Re && !I);
-  let j = null;
-  if (t === Qe && a ? (re.call(a), j = a) : !r && D && t === se && (m(o, v) ? re.call(o) : De.call(o)), Fe && o !== u.firstElementChild ? j = c : Ie && o !== u.lastElementChild && (j = l), j) {
-    const { firstElementChild: de } = j;
-    de && de.focus();
+  const a = G(i), { previousElementSibling: c, nextElementSibling: l } = o, r = f(o, `.${h}`), u = f(o, "UL"), [D] = p(F, o), Le = [
+    ee,
+    Q,
+    Z,
+    X,
+    Y
+  ], H = u && M(u, "flex-direction") === "column", ie = nn(o), Se = ie ? X : Z, Me = ie ? Z : X, ke = u && c && (n === Y && H || n === Se && !H), ze = u && l && (n === Q && H || n === Me && !H);
+  let O = null;
+  if (n === Ie && r ? (se.call(r), O = r) : !a && D && n === ee && (E(o, h) ? se.call(o) : Ae.call(o)), ke && o !== u.firstElementChild ? O = c : ze && o !== u.lastElementChild && (O = l), O) {
+    const { firstElementChild: re } = O;
+    re && re.focus();
   }
-  !r && je.includes(t) && e.preventDefault();
+  !a && Le.includes(n) && e.preventDefault();
 }
-const Ee = (e) => {
+const de = (e) => {
   e.preventDefault();
-  const { currentTarget: t, target: n } = e, s = d(t, ke), i = s && M(s);
+  const { currentTarget: n, target: t } = e, s = f(n, Ce), i = s && k(s);
   if (!i) return;
-  const { options: o, navbarToggle: r } = i;
-  if (n === t || t.contains(n)) {
-    const c = d(t, "LI") || s, l = d(t, `.${Se}`) === r ? r : C(c, `.${X}`), a = l === r ? null : C(c, "A"), u = p(g, c);
-    if (m(c, g)) {
-      if (a && (f(a, U), U.defaultPrevented))
-        return;
-      z(u), x(c, g), l && (T(l, w, "false"), l === r && W(i)), a && (T(a, w, "false"), f(a, ie));
-    } else {
-      if (a && (f(a, K), K.defaultPrevented))
-        return;
-      if (l === r)
-        W(i, !0);
-      else {
-        const D = o.toggleSiblings ? p(g, c.parentElement) : (
-          /* istanbul ignore next */
-          u
-        );
-        z(D);
-      }
-      oe(c, g), l && T(l, w, "true"), a && (T(a, w, "true"), f(a, Me));
+  const { options: o, navbarToggle: a } = i;
+  if (t !== n && !(n != null && n.contains(t))) return;
+  const c = f(n, "LI") || s, l = f(n, `.${Ne}`) === a ? a : T(c, `.${U}`), r = l === a ? null : T(c, "A"), u = p(v, c);
+  if (E(c, v)) {
+    if (r && (d(r, K), K.defaultPrevented))
+      return;
+    z(u), I(c, v), l && (C(l, y, "false"), l === a && V(i)), r && (C(r, y, "false"), d(r, te));
+  } else {
+    if (r && (d(r, W), W.defaultPrevented))
+      return;
+    if (l === a)
+      V(i, !0);
+    else {
+      const D = o.toggleSiblings ? p(
+        v,
+        c.parentElement
+      ) : u;
+      z(D);
     }
+    ne(c, v), l && C(l, y, "true"), r && (C(r, y, "true"), d(r, Te));
   }
 };
-function De() {
-  const e = d(this, `${G},.${b}`), t = e && M(e), n = N.get(this, "out");
-  if (!(!t || Y(t)) && (N.clear(this, "out"), !m(this, v) && !n)) {
-    const s = () => bt(this);
+function Ae() {
+  const e = f(this, `${B},.${b}`), n = e && k(e), t = N.get(this, "out");
+  if (!(!n || G(n)) && (N.clear(this, "out"), !E(this, h) && !t)) {
+    const s = () => rn(this);
     N.set(this, s, 17, "in");
   }
 }
-function re() {
-  const e = d(this, `${G},.${b}`), t = e && M(e);
-  if (!(!t || Y(t)) && m(this, v)) {
+function se() {
+  const e = f(this, `${B},.${b}`), n = e && k(e);
+  if (!(!n || G(n)) && E(this, h)) {
     N.clear(this, "in");
-    const n = () => {
-      z(p(le, this)), ze(this, !0);
+    const t = () => {
+      z(p(oe, this)), $e(this, !0);
     };
-    N.set(this, n, t.options.delay, "out");
+    N.set(this, t, n.options.delay, "out");
   }
 }
-class A {
-  /**
-   * @param target HTMLElement or selector
-   * @param config instance options
-   */
-  constructor(t, n) {
-    // NAVBAR PUBLIC METHODS
-    // =====================
-    /**
-     * Window `resize` event listener.
-     */
-    L(this, "listenResize", () => {
-      Y(this) || (z(p(g, y(this.menu))), W(this));
+class L {
+  constructor(n, t) {
+    $(this, "listenResize", () => {
+      G(this) || (z(
+        p(v, w(this.menu))
+      ), V(this));
     });
-    const s = gt(t);
-    if (!s) throw new TypeError(`${O} cannot initialize the specified target.`);
-    const [i] = p(Se, s), o = M(s);
-    o && o.dispose(), this.menu = s, this.options = at(s, he, n || {}), this.items = Pe("LI", s), this.navbarToggle = i, me(this, !0), R.set(s, O, this);
+    const s = tn(n);
+    if (!s)
+      throw new TypeError(
+        `${R} cannot initialize the specified target.`
+      );
+    const [i] = p(
+      Ne,
+      s
+    ), o = k(s);
+    o && o.dispose(), this.menu = s, this.options = Xe(s, ue, t || {}), this.items = ye("LI", s), this.navbarToggle = i, this._observer = new ResizeObserver(this.listenResize), fe(this, !0), j.set(s, R, this);
   }
   get defaults() {
-    return he;
+    return ue;
   }
   get name() {
-    return O;
+    return R;
   }
-  /**
-   * Destroy Navbar instance.
-   */
   dispose() {
-    z(this.items), me(this), W(this), R.remove(this.menu, O), ct(this).forEach((t) => {
-      delete this[t];
+    z(this.items), fe(this), V(this), j.remove(this.menu, R), _e(this).forEach((n) => {
+      delete this[n];
     });
   }
 }
-L(A, "selector", G), L(A, "init", pt), L(A, "getInstance", M), L(A, "version", vt);
-const ye = (e) => {
-  const { selector: t, init: n } = A;
-  [...Pe("*", y(e))].filter((i) => Ae(i, t)).forEach(n);
+$(L, "selector", B), $(L, "init", on), $(L, "getInstance", k), $(L, "version", sn);
+const ge = (e) => {
+  const { selector: n, init: t } = L;
+  [...ye("*", w(e))].filter((i) => we(i, n)).forEach(t);
 };
-document.body ? ye() : ae(document, Te, () => ye(), { once: !0 });
+document.body ? ge() : he(document, Oe, () => ge(), {
+  once: !0
+});
 export {
-  A as default
+  L as default
 };
 //# sourceMappingURL=navbar.mjs.map

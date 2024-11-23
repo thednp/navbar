@@ -1,4 +1,7 @@
-@import "variables", "mixins", "mixins-bs", "root";
-@include navbar-style-bs;
-@include nav-layout-bs;
-@include main-menu-bs;
+@use "variables";
+@use "mixins";
+@use "mixins-bs";
+@use "root";
+@include mixins-bs.navbar-style-bs;
+@include mixins-bs.nav-layout-bs;
+@include mixins-bs.main-menu-bs;

@@ -5,7 +5,11 @@ node_modules
 docs
 experiments
 coverage
-cypress/videos
-cypress/screenshots
-cypress/coverage
-cypress/instrumented
+test
+src
+compile.cjs
+tsconfig.json
+.stylelintrc.json
+vite.config.mts
+vitest.config.mts
+vitest.config-ui.mts

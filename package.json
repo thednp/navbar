@@ -1,7 +1,7 @@
 {
   "name": "@thednp/navbar",
-  "version": "3.2.6",
-  "description": "Navbar Modern Navigation Component",
+  "version": "3.3.0",
+  "description": "🧭 Navbar Modern Navigation Component",
   "author": "thednp",
   "license": "MIT",
   "homepage": "https://thednp.github.io/navbar",
@@ -16,19 +16,19 @@
       "require": "./dist/js/navbar.cjs",
       "import": "./dist/js/navbar.mjs"
     },
-    "./dist/css/navbar.css": {
+    "./navbar.css": {
       "require": "./dist/css/navbar.css",
       "import": "./dist/css/navbar.css"
     },
-    "./src/scss/navbar.scss": {
+    "./navbar.scss": {
       "require": "./src/scss/navbar.scss",
       "import": "./src/scss/navbar.scss"
     },
-    "./src/scss/navbar-bootstrap.scss": {
+    "./navbar-bootstrap.scss": {
       "require": "./src/scss/navbar-bootstrap.scss",
       "import": "./src/scss/navbar-bootstrap.scss"
     },
-    "./src/scss/navbar-bootstrap-extended.scss": {
+    "./navbar-bootstrap-extended.scss": {
       "require": "./src/scss/navbar-bootstrap-extended.scss",
       "import": "./src/scss/navbar-bootstrap-extended.scss"
     }
@@ -36,33 +36,32 @@
   "scripts": {
     "pre-test": "pnpm clean-coverage",
     "dev": "vite --open ./docs/index-dev.html --port 8577",
-    "test": "pnpm pre-test && cypress run",
-    "cypress": "pnpm pre-test && npx cypress open",
+    "test": "pnpm pre-test && vitest --config vitest.config.mts",
+    "test-ui": "pnpm pre-test && vitest --config vitest.config-ui.mts --browser=chrome",
     "clean-coverage": "rm -rf coverage .nyc_output",
-    "coverage:report": "nyc report --reporter=lcov --reporter=json --reporter=text --reporter=json-summary",
-    "badges": "npx -p dependency-version-badge update-badge eslint typescript cypress eslint prettier vite",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "fix:ts": "eslint src --config .eslintrc.cjs --fix",
-    "lint:ts": "eslint src --config .eslintrc.cjs",
+    "badges": "npx -p dependency-version-badge update-badge typescript vite vitest",
+    "format": "deno fmt src/ts",
+    "lint": "pnpm lint:ts && pnpm check:ts && pnpm lint:css",
+    "fix:ts": "deno lint src/ts --fix",
+    "lint:ts": "deno lint src/ts",
     "check:ts": "tsc --noEmit",
     "fix:css": "stylelint --config .stylelintrc.json --fix scss \"src/scss/*.scss\"",
     "lint:css": "stylelint --config .stylelintrc.json scss \"src/scss/*.scss\"",
-    "build": "pnpm check:ts && pnpm lint:ts && pnpm build-vite && pnpm dts && pnpm docs",
+    "build": "pnpm build-vite && pnpm copy-js",
     "build-vite": "vite build",
-    "dts": "dts-bundle-generator --config ./dts.config.ts",
-    "docs": "ncp dist/js/navbar.js docs/src/js/navbar.js && ncp dist/js/navbar.js.map docs/src/js/navbar.js.map",
-    "compile": "pnpm lint:css && npm-run-all --parallel compile-* && pnpm copy-compile",
-    "compile-scss": "node compile.js",
-    "compile-scss-min": "node compile.js MIN:true",
-    "compile-bs": "node compile.js INPUTFILE:src/scss/navbar-bootstrap.scss OUTPUTFILE:docs/src/css/navbar-bootstrap.min.css MIN:true",
-    "compile-bs-ext": "node compile.js INPUTFILE:src/scss/navbar-bootstrap-extended.scss OUTPUTFILE:docs/src/css/navbar-bootstrap-extended.min.css MIN:true",
-    "compile-combo": "node compile.js INPUTFILE:src/scss/navbar-combo.scss OUTPUTFILE:docs/src/css/navbar-combo.min.css MIN:true",
-    "compile-combo-rtl": "node compile.js INPUTFILE:src/scss/navbar-combo-rtl.scss OUTPUTFILE:docs/src/css/navbar-combo-rtl.min.css MIN:true",
-    "compile-left": "node compile.js INPUTFILE:src/scss/navbar-left.scss OUTPUTFILE:docs/src/css/navbar-left.min.css MIN:true",
-    "compile-left-menu": "node compile.js INPUTFILE:src/scss/navbar-left-menu.scss OUTPUTFILE:docs/src/css/navbar-left-menu.min.css MIN:true",
-    "compile-right": "node compile.js INPUTFILE:src/scss/navbar-right.scss OUTPUTFILE:docs/src/css/navbar-right.min.css MIN:true",
-    "copy-compile": "node compile.js INPUTFILE:dist/css/navbar.min.css OUTPUTFILE:docs/src/css/navbar.min.css COPY:true",
-    "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint:ts && pnpm build && pnpm compile && pnpm badges"
+    "copy-js": "cp dist/js/navbar.js docs/src/js/navbar.js && cp dist/js/navbar.js.map docs/src/js/navbar.js.map",
+    "compile": "pnpm run --parallel /^compile-/ && pnpm copy-css",
+    "compile-css": "pnpm sass src/scss/navbar.scss dist/css/navbar.css --pkg-importer=node --style=expanded --load-path=src/scss",
+    "compile-css-min": "pnpm sass src/scss/navbar.scss dist/css/navbar.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "compile-bs": "pnpm sass src/scss/navbar-bootstrap.scss docs/src/css/navbar-bootstrap.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "compile-bs-ext": "pnpm sass src/scss/navbar-bootstrap-extended.scss docs/src/css/navbar-bootstrap-extended.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "compile-combo": "pnpm sass src/scss/navbar-combo.scss docs/src/css/navbar-combo.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "compile-combo-rtl": "pnpm sass src/scss/navbar-combo-rtl.scss docs/src/css/navbar-combo-rtl.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "compile-left": "pnpm sass src/scss/navbar-left.scss docs/src/css/navbar-left.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "compile-left-m-menu": "pnpm sass src/scss/navbar-left-menu.scss docs/src/css/navbar-left-menu.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "compile-right": "pnpm sass src/scss/navbar-right.scss docs/src/css/navbar-right.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
+    "copy-css": "cp dist/css/navbar.min.css docs/src/css/navbar.min.css",
+    "prepublishOnly": "pnpm up && pnpm format && pnpm lint && pnpm build && pnpm compile && pnpm badges"
   },
   "bugs": {
     "url": "https://github.com/thednp/navbar/issues"
@@ -83,35 +82,26 @@
     "bootstrap"
   ],
   "dependencies": {
-    "@thednp/event-listener": "^2.0.5",
-    "@thednp/shorty": "^2.0.3"
+    "@thednp/event-listener": "^2.0.8",
+    "@thednp/shorty": "^2.0.9"
   },
   "devDependencies": {
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.2",
-    "@cypress/code-coverage": "^3.12.44",
-    "@types/istanbul-lib-instrument": "^1.7.7",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "cypress": "^13.13.2",
-    "dts-bundle-generator": "^9.5.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-jsdoc": "^46.10.1",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-prettier": "^4.2.1",
-    "istanbul-lib-coverage": "^3.2.2",
-    "istanbul-lib-instrument": "^6.0.3",
-    "ncp": "^2.0.0",
-    "npm-run-all": "^4.1.5",
-    "nyc": "^17.0.0",
-    "prettier": "^2.8.8",
-    "sass": "^1.77.8",
-    "stylelint": "^15.11.0",
-    "stylelint-config-standard": "^34.0.0",
-    "stylelint-config-standard-scss": "^11.1.0",
+    "@types/node": "^22.9.3",
+    "@vitest/browser": "^2.1.5",
+    "@vitest/coverage-istanbul": "^2.1.5",
+    "@vitest/ui": "^2.1.5",
+    "playwright": "^1.49.0",
+    "sass": "^1.81.0",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
-    "stylelint-scss": "^5.3.2",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.0"
+    "stylelint-scss": "^6.10.0",
+    "typescript": "5.6.3",
+    "vite": "^5.4.11",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-strip-comments": "^0.0.4",
+    "vitest": "^2.1.5"
   },
   "packageManager": "pnpm@8.6.12",
   "engines": {

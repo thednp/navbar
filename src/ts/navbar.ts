@@ -1,59 +1,65 @@
-import { addListener, removeListener } from '@thednp/event-listener';
+import { addListener, removeListener } from "@thednp/event-listener";
 import {
-  keySpace,
-  keyEscape,
-  ariaExpanded,
-  keyArrowRight,
-  keyArrowLeft,
-  keyArrowDown,
-  keyArrowUp,
-  getElementStyle,
-  getWindow,
-  getDocument,
-  Timer,
-  resizeEvent,
-  keyupEvent,
-  keydownEvent,
-  mouseclickEvent,
-  mouseleaveEvent,
-  mouseenterEvent,
-  getInstance,
-  Data,
-  ObjectKeys,
-  normalizeOptions,
-  passiveHandler,
-  emulateTransitionEnd,
-  dispatchEvent,
   addClass,
-  hasClass,
-  removeClass,
-  isRTL,
-  setAttribute,
-  querySelector,
-  matches,
+  ariaExpanded,
   closest,
-  getElementsByTagName,
-  getElementsByClassName,
   createCustomEvent,
+  Data,
+  dispatchEvent,
+  emulateTransitionEnd,
+  getDocument,
+  getElementsByClassName,
+  getElementsByTagName,
+  getElementStyle,
+  getInstance,
+  getWindow,
+  hasClass,
   isHTMLElement,
-} from '@thednp/shorty';
+  isRTL,
+  keyArrowDown,
+  keyArrowLeft,
+  keyArrowRight,
+  keyArrowUp,
+  KeyboardEvent,
+  keydownEvent,
+  keyEscape,
+  keySpace,
+  keyupEvent,
+  matches,
+  mouseclickEvent,
+  mouseenterEvent,
+  MouseEvent,
+  mouseleaveEvent,
+  normalizeOptions,
+  ObjectKeys,
+  querySelector,
+  removeClass,
+  setAttribute,
+  Timer,
+} from "@thednp/shorty";
 
-import { version } from '../../package.json';
+import { version } from "../../package.json";
 
 // NAVBAR GC
 // =========
-const navbarString = 'navbar';
-const navbarComponent = 'Navbar';
+const navbarString = "navbar";
+const navbarComponent = "Navbar";
 const navbarSelector = `[data-function="${navbarString}"]`;
 const navbarSelectors = `${navbarSelector},.${navbarString}`;
-const openNavClass = 'open';
-const openPositionClass = 'open-position';
-const openMobileClass = 'open-mobile';
-const subnavClass = 'subnav';
+const openNavClass = "open";
+const openPositionClass = "open-position";
+const openMobileClass = "open-mobile";
+const subnavClass = "subnav";
 const subnavToggleClass = `${subnavClass}-toggle`;
 const navbarToggleClass = `${navbarString}-toggle`;
 
-const defaultNavbarOptions = {
+export type NavbarOptions = {
+  breakpoint: number;
+  toggleSiblings: boolean;
+  delay: number;
+};
+
+const defaultNavbarOptions: NavbarOptions = {
   breakpoint: 768,
   toggleSiblings: true,
   delay: 500,
@@ -69,14 +75,15 @@ const hiddenNavbarEvent = createCustomEvent(`hidden.${navbarString}`);
  *
  * @param element target element
  */
-const getNavbarInstance = (element: HTMLElement) => getInstance<Navbar>(element, navbarComponent);
+const getNavbarInstance = (element: Element) =>
+  getInstance<Navbar>(element, navbarComponent);
 
 /**
  * Returns a `Navbar` instance.
  *
  * @param element target element
  */
-const initNavbarCallback = (element: HTMLElement | string) => new Navbar(element);
+const initNavbarCallback = (element: Element | string) => new Navbar(element);
 
 // NAVBAR PRIVATE METHODS
 // ======================
@@ -84,10 +91,12 @@ const initNavbarCallback = (element: HTMLElement | string) => new Navbar(element
  * @param self
  * @param add
  */
-const toggleNavbarResizeEvent = (self: Navbar, add?: boolean) => {
-  const action = add ? addListener : removeListener;
-
-  action(getWindow(self.menu), resizeEvent, self.listenResize, passiveHandler);
+const toggleNavbarResizeEvent = (
+  { menu, _observer }: Navbar,
+  add?: boolean,
+) => {
+  if (add) _observer.observe(menu);
+  else _observer.disconnect();
 };
 
 /**
@@ -99,7 +108,7 @@ const checkNavbarView = (self: Navbar): boolean => {
   const { options, menu } = self;
   const [firstToggle] = getElementsByClassName(subnavToggleClass, menu);
   return (
-    (firstToggle && getElementStyle(firstToggle, 'display') !== 'none') ||
+    (firstToggle && getElementStyle(firstToggle, "display") !== "none") ||
     getWindow(menu).innerWidth < options.breakpoint
   );
 };
@@ -113,39 +122,51 @@ const toggleNavbarEvents = (self: Navbar, add?: boolean) => {
   const { items, navbarToggle, menu } = self;
   const doc = getDocument(menu);
 
-  [...items].forEach(x => {
+  Array.from(items).forEach((x) => {
     const { lastElementChild } = x;
-    if (lastElementChild && hasClass(lastElementChild as HTMLElement, subnavClass)) {
+    if (lastElementChild && hasClass(lastElementChild, subnavClass)) {
       action(x, mouseenterEvent, navbarEnterHandler);
       action(x, mouseleaveEvent, navbarLeaveHandler);
     }
 
     const [toggleElement] = getElementsByClassName(subnavToggleClass, x);
-    if (toggleElement) action(toggleElement, mouseclickEvent, navbarClickHandler as EventListener);
+    /* istanbul ignore else @preserve */
+    if (toggleElement) {
+      action(
+        toggleElement,
+        mouseclickEvent,
+        navbarClickHandler,
+      );
+    }
   });
 
-  action(doc, keydownEvent, navbarPreventScroll as EventListener);
-  action(doc, keyupEvent, navbarKeyHandler as EventListener);
-  /* istanbul ignore else */
-  if (navbarToggle) action(navbarToggle, mouseclickEvent, navbarClickHandler as EventListener);
+  action(doc, keydownEvent, navbarPreventScroll);
+  action(doc, keyupEvent, navbarKeyHandler);
+  /* istanbul ignore else @preserve */
+  if (navbarToggle) {
+    action(navbarToggle, mouseclickEvent, navbarClickHandler);
+  }
 };
 
 /**
  * @param element
  * @param selector
  */
-const findChild = (element: HTMLElement, selector: string): HTMLElement => {
-  return [...element.children].find(x => matches(x, selector)) as HTMLElement;
+const findChild = (element: Element, selector: string): Element => {
+  return Array.from(element.children).find((x) =>
+    matches(x, selector)
+  ) as Element;
 };
 
 /** @param element */
 const openNavbar = (element: HTMLElement) => {
   const subMenu = findChild(element, `.${subnavClass}`);
-  const anchor = findChild(element, 'A');
+  const anchor = findChild(element, "A");
 
-  /* istanbul ignore else */
+  /* istanbul ignore else @preserve */
   if (anchor) {
     dispatchEvent(anchor, showNavbarEvent);
+    /* istanbul ignore if @preserve */
     if (showNavbarEvent.defaultPrevented) return;
   }
 
@@ -153,23 +174,23 @@ const openNavbar = (element: HTMLElement) => {
   addClass(element, openNavClass);
 
   const { parentElement } = element;
-  /* istanbul ignore else */
+  /* istanbul ignore else @preserve */
   if (parentElement) {
     const siblings = getElementsByClassName(openNavClass, parentElement);
-    closeNavbars([...siblings].filter(x => x !== element));
+    closeNavbars(Array.from(siblings).filter((x) => x !== element));
   }
 
   const navOpenTransitionEnd = () => {
-    Timer.clear(element, 'in');
+    Timer.clear(element, "in");
 
-    /* istanbul ignore else */
+    /* istanbul ignore else @preserve */
     if (anchor) {
       dispatchEvent(anchor, shownNavbarEvent);
-      setAttribute(anchor, ariaExpanded, 'true');
+      setAttribute(anchor, ariaExpanded, "true");
     }
   };
 
-  /* istanbul ignore else */
+  /* istanbul ignore else @preserve */
   if (subMenu) emulateTransitionEnd(subMenu, navOpenTransitionEnd);
 };
 
@@ -177,16 +198,16 @@ const openNavbar = (element: HTMLElement) => {
  * @param  element
  * @param  leave
  */
-const closeNavbar = (element: HTMLElement, leave?: boolean) => {
+const closeNavbar = (element: Element, leave?: boolean) => {
   const subMenu = findChild(element, `.${subnavClass}`);
-  const anchor = findChild(element, 'A');
+  const anchor = findChild(element, "A");
   const toggleElement = findChild(element, subnavToggleClass);
 
-  if ([openNavClass, openMobileClass].some(c => hasClass(element, c))) {
-    /* istanbul ignore else */
+  if ([openNavClass, openMobileClass].some((c) => hasClass(element, c))) {
+    /* istanbul ignore else @preserve */
     if (anchor) {
       dispatchEvent(anchor, hideNavbarEvent);
-      /* istanbul ignore next: some strange bug with istanbul */
+      /* istanbul ignore next @preserve - some strange bug with istanbul */
       if (hideNavbarEvent.defaultPrevented) return;
     }
   }
@@ -194,11 +215,11 @@ const closeNavbar = (element: HTMLElement, leave?: boolean) => {
   if (hasClass(element, openNavClass)) {
     const navCloseTransitionEnd = () => {
       removeClass(element, openPositionClass);
-      Timer.clear(element, 'out');
-      /* istanbul ignore else */
+      Timer.clear(element, "out");
+      /* istanbul ignore else @preserve */
       if (anchor) {
         dispatchEvent(anchor, hiddenNavbarEvent);
-        setAttribute(anchor, ariaExpanded, 'false');
+        setAttribute(anchor, ariaExpanded, "false");
       }
     };
 
@@ -210,17 +231,17 @@ const closeNavbar = (element: HTMLElement, leave?: boolean) => {
   if (hasClass(element, openMobileClass)) {
     removeClass(element, openMobileClass);
 
-    [toggleElement, anchor].forEach(x => {
-      if (x) setAttribute(x, ariaExpanded, 'false');
+    [toggleElement, anchor].forEach((x) => {
+      if (x) setAttribute(x, ariaExpanded, "false");
     });
-    /* istanbul ignore else */
+    /* istanbul ignore else @preserve */
     if (anchor) dispatchEvent(anchor, hiddenNavbarEvent);
   }
 };
 
 /** @param collection */
-const closeNavbars = (collection: HTMLCollectionOf<HTMLElement> | HTMLElement[]) => {
-  ([...collection] as HTMLElement[]).forEach(x => closeNavbar(x));
+const closeNavbars = (collection: HTMLCollectionOf<Element> | Element[]) => {
+  Array.from(collection).forEach((x) => closeNavbar(x));
 };
 
 // NAVBAR EVENT LISTENERS
@@ -229,44 +250,59 @@ const closeNavbars = (collection: HTMLCollectionOf<HTMLElement> | HTMLElement[])
 /**
  * @param e event object
  */
-const navbarPreventScroll = (e: KeyboardEvent) => {
+/* istanbul ignore next @preserve */
+const navbarPreventScroll = (e: KeyboardEvent<HTMLElement>) => {
   const { code, target } = e;
-  /* istanbul ignore next */
   const menu = isHTMLElement(target) ? closest(target, navbarSelectors) : null;
-  /* istanbul ignore next */
-  if (menu && [keyArrowDown, keyArrowUp, keySpace].includes(code)) e.preventDefault();
+  if (menu && [keyArrowDown, keyArrowUp, keySpace].includes(code)) {
+    e.preventDefault();
+  }
 };
 
 /**
  * @param e Event object
  */
-function navbarKeyHandler(this: HTMLElement, e: KeyboardEvent) {
+function navbarKeyHandler(this: HTMLElement, e: KeyboardEvent<HTMLElement>) {
   const { code } = e;
   const { activeElement } = getDocument(this);
-  const menu = activeElement && closest(activeElement as HTMLElement, 'nav');
+  const menu = activeElement && closest(activeElement, "nav");
   const self = menu && getNavbarInstance(menu);
 
-  /* istanbul ignore next: filter is required */
-  if (!self || !activeElement || (this && !this.contains(activeElement))) return;
+  /* istanbul ignore next @preserve - filter is required */
+  if (!self || !activeElement || (this && !this.contains(activeElement))) {
+    return;
+  }
 
-  const element = closest(activeElement as HTMLElement, 'LI');
-  /* istanbul ignore next: filter is required */
+  const element = closest(activeElement as HTMLElement, "LI");
+  /* istanbul ignore next @preserve - filter is required */
   if (!element) return;
 
   const isMobile = checkNavbarView(self);
   const { previousElementSibling, nextElementSibling } = element;
   const openParentElement = closest(element, `.${openNavClass}`);
-  const parentMenu = closest(element, 'UL');
+  const parentMenu = closest(element, "UL");
   const [subnavMenu] = getElementsByClassName(subnavClass, element);
-  const preventableEvents = [keySpace, keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp];
-  const isColumn = parentMenu && getElementStyle(parentMenu, 'flex-direction') === 'column';
+  const preventableEvents = [
+    keySpace,
+    keyArrowDown,
+    keyArrowLeft,
+    keyArrowRight,
+    keyArrowUp,
+  ];
+  const isColumn = parentMenu &&
+    getElementStyle(parentMenu, "flex-direction") === "column";
   const RTL = isRTL(element);
-  const sidePrevKey = RTL ? /* istanbul ignore next */ keyArrowRight : keyArrowLeft;
-  const sideNextKey = RTL ? /* istanbul ignore next */ keyArrowLeft : keyArrowRight;
-  const prevSelection =
-    parentMenu && previousElementSibling && ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
-  const nextSelection =
-    parentMenu && nextElementSibling && ((code === keyArrowDown && isColumn) || (code === sideNextKey && !isColumn));
+  const sidePrevKey = RTL
+    ? /* istanbul ignore next @preserve */ keyArrowRight
+    : keyArrowLeft;
+  const sideNextKey = RTL
+    ? /* istanbul ignore next @preserve */ keyArrowLeft
+    : keyArrowRight;
+  const prevSelection = parentMenu && previousElementSibling &&
+    ((code === keyArrowUp && isColumn) || (code === sidePrevKey && !isColumn));
+  const nextSelection = parentMenu && nextElementSibling &&
+    ((code === keyArrowDown && isColumn) ||
+      (code === sideNextKey && !isColumn));
   let elementToFocus: HTMLElement | null = null;
 
   if (code === keyEscape && openParentElement) {
@@ -285,7 +321,7 @@ function navbarKeyHandler(this: HTMLElement, e: KeyboardEvent) {
 
   if (elementToFocus) {
     const { firstElementChild } = elementToFocus;
-    /* istanbul ignore else */
+    /* istanbul ignore else @preserve */
     if (firstElementChild) (firstElementChild as HTMLElement).focus();
   }
 
@@ -297,73 +333,86 @@ function navbarKeyHandler(this: HTMLElement, e: KeyboardEvent) {
 /**
  * @param e Event object
  */
-const navbarClickHandler = (e: MouseEvent) => {
+const navbarClickHandler = (
+  e: MouseEvent<HTMLElement> & { currentTarget: HTMLElement },
+) => {
   e.preventDefault();
 
   const { currentTarget, target } = e;
-  const menu = closest(currentTarget as HTMLElement, navbarSelectors);
+  const menu = closest(currentTarget, navbarSelectors);
   const self = menu && getNavbarInstance(menu);
-  // console.log(currentTarget, e.target, self);
 
-  /* istanbul ignore next: filter is required */
+  /* istanbul ignore next @preserve - filter is required */
   if (!self) return;
 
   const { options, navbarToggle } = self;
 
-  /* istanbul ignore else */
-  if (target === currentTarget || (currentTarget as HTMLElement).contains(target as Node)) {
-    const element = closest(currentTarget as HTMLElement, 'LI') || menu;
-    const toggleElement =
-      closest(currentTarget as HTMLElement, `.${navbarToggleClass}`) === navbarToggle
-        ? navbarToggle
-        : findChild(element, `.${subnavToggleClass}`);
-    const anchor = toggleElement === navbarToggle ? null : findChild(element, 'A');
-    const openSubs = getElementsByClassName(openMobileClass, element);
+  /* istanbul ignore if @preserve */
+  if (target !== currentTarget && !currentTarget?.contains(target)) return;
 
-    if (!hasClass(element, openMobileClass)) {
-      if (anchor) {
-        dispatchEvent(anchor, showNavbarEvent);
-        /* istanbul ignore next */
-        if (showNavbarEvent.defaultPrevented) return;
-      }
+  const element = closest(currentTarget, "LI") || menu;
+  const toggleElement = closest(currentTarget, `.${navbarToggleClass}`) ===
+      navbarToggle
+    ? navbarToggle
+    : findChild(element, `.${subnavToggleClass}`);
+  const anchor = toggleElement === navbarToggle
+    ? null
+    : findChild(element, "A");
+  const openSubs = getElementsByClassName(openMobileClass, element);
 
-      if (toggleElement === navbarToggle) {
-        toggleNavbarResizeEvent(self, true);
-      } else {
-        const selection = options.toggleSiblings
-          ? getElementsByClassName(openMobileClass, element.parentElement as ParentNode)
-          : /* istanbul ignore next */ openSubs;
-        closeNavbars(selection);
-      }
-      addClass(element, openMobileClass);
+  if (!hasClass(element, openMobileClass)) {
+    if (anchor) {
+      /* istanbul ignore next @preserve */
+      dispatchEvent(anchor, showNavbarEvent);
+      /* istanbul ignore next @preserve */
+      if (showNavbarEvent.defaultPrevented) return;
+    }
 
-      /* istanbul ignore else */
-      if (toggleElement) setAttribute(toggleElement, ariaExpanded, 'true');
-      if (anchor) {
-        setAttribute(anchor, ariaExpanded, 'true');
-        dispatchEvent(anchor, shownNavbarEvent);
-      }
+    if (toggleElement === navbarToggle) {
+      toggleNavbarResizeEvent(self, true);
     } else {
-      if (anchor) {
-        dispatchEvent(anchor, hideNavbarEvent);
-        /* istanbul ignore next */
-        if (hideNavbarEvent.defaultPrevented) return;
-      }
+      const selection = options.toggleSiblings
+        ? getElementsByClassName(
+          openMobileClass,
+          element.parentElement as ParentNode,
+        )
+        : /* istanbul ignore next @preserve */ openSubs;
+      closeNavbars(selection);
+    }
+    addClass(element, openMobileClass);
 
-      closeNavbars(openSubs);
-      removeClass(element, openMobileClass);
+    /* istanbul ignore else @preserve */
+    if (toggleElement) setAttribute(toggleElement, ariaExpanded, "true");
+    if (anchor) {
+      /* istanbul ignore next @preserve */
+      setAttribute(anchor, ariaExpanded, "true");
+      /* istanbul ignore next @preserve */
+      dispatchEvent(anchor, shownNavbarEvent);
+    }
+  } else {
+    /* istanbul ignore next @preserve */
+    if (anchor) {
+      dispatchEvent(anchor, hideNavbarEvent);
+      if (hideNavbarEvent.defaultPrevented) return;
+    }
 
-      /* istanbul ignore else */
-      if (toggleElement) {
-        setAttribute(toggleElement, ariaExpanded, 'false');
-        if (toggleElement === navbarToggle) {
-          toggleNavbarResizeEvent(self);
-        }
+    closeNavbars(openSubs);
+    removeClass(element, openMobileClass);
+
+    /* istanbul ignore else @preserve */
+    if (toggleElement) {
+      setAttribute(toggleElement, ariaExpanded, "false");
+      /* istanbul ignore else @preserve */
+      if (toggleElement === navbarToggle) {
+        toggleNavbarResizeEvent(self);
       }
-      if (anchor) {
-        setAttribute(anchor, ariaExpanded, 'false');
-        dispatchEvent(anchor, hiddenNavbarEvent);
-      }
+    }
+    /* istanbul ignore next @preserve */
+    if (anchor) {
+      /* istanbul ignore next @preserve */
+      setAttribute(anchor, ariaExpanded, "false");
+      /* istanbul ignore next @preserve */
+      dispatchEvent(anchor, hiddenNavbarEvent);
     }
   }
 };
@@ -371,16 +420,17 @@ const navbarClickHandler = (e: MouseEvent) => {
 function navbarEnterHandler(this: HTMLElement) {
   const menu = closest(this, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
-  const timerOut = Timer.get(this, 'out');
+  const timerOut = Timer.get(this, "out");
 
+  /* istanbul ignore if @preserve */
   if (!self || checkNavbarView(self)) return;
 
-  Timer.clear(this, 'out');
+  Timer.clear(this, "out");
 
   if (!hasClass(this, openNavClass) && !timerOut) {
     const enterCallback = () => openNavbar(this);
 
-    Timer.set(this, enterCallback, 17, 'in');
+    Timer.set(this, enterCallback, 17, "in");
   }
 }
 
@@ -388,17 +438,18 @@ function navbarLeaveHandler(this: HTMLElement) {
   const menu = closest(this, `${navbarSelector},.${navbarString}`);
   const self = menu && getNavbarInstance(menu);
 
+  /* istanbul ignore if @preserve */
   if (!self || checkNavbarView(self)) return;
 
-  /* istanbul ignore else */
+  /* istanbul ignore else @preserve */
   if (hasClass(this, openNavClass)) {
-    Timer.clear(this, 'in');
+    Timer.clear(this, "in");
     const leaveCallback = () => {
       closeNavbars(getElementsByClassName(openPositionClass, this));
       closeNavbar(this, true);
     };
 
-    Timer.set(this, leaveCallback, self.options.delay, 'out');
+    Timer.set(this, leaveCallback, self.options.delay, "out");
   }
 }
 
@@ -410,20 +461,28 @@ export default class Navbar {
   static init = initNavbarCallback;
   static getInstance = getNavbarInstance;
   static version = version;
-  public declare menu: HTMLElement;
-  public declare navbarToggle: HTMLElement | null;
-  public declare items: HTMLCollectionOf<HTMLElement>;
-  public declare options: typeof defaultNavbarOptions;
+  declare public menu: HTMLElement;
+  declare public navbarToggle: HTMLElement | null;
+  declare public items: HTMLCollectionOf<HTMLElement>;
+  declare public options: NavbarOptions;
+  declare _observer: ResizeObserver;
   /**
    * @param target HTMLElement or selector
    * @param config instance options
    */
-  constructor(target: string | HTMLElement, config?: Partial<typeof defaultNavbarOptions>) {
-    const menu = querySelector(target);
+  constructor(target: string | Element, config?: Partial<NavbarOptions>) {
+    const menu = querySelector<HTMLElement>(target as HTMLElement | string);
 
     // invalidate
-    if (!menu) throw new TypeError(`${navbarComponent} cannot initialize the specified target.`);
-    const [navbarToggle] = getElementsByClassName(navbarToggleClass, menu);
+    if (!menu) {
+      throw new TypeError(
+        `${navbarComponent} cannot initialize the specified target.`,
+      );
+    }
+    const [navbarToggle] = getElementsByClassName<HTMLElement>(
+      navbarToggleClass,
+      menu,
+    );
 
     // reset on re-init
     const existing = getNavbarInstance(menu);
@@ -432,10 +491,10 @@ export default class Navbar {
     // instance targets
     this.menu = menu;
     this.options = normalizeOptions(menu, defaultNavbarOptions, config || {});
-    this.items = getElementsByTagName('LI', menu);
+    this.items = getElementsByTagName("LI", menu);
 
-    // this.navbarToggle = null;
     this.navbarToggle = navbarToggle;
+    this._observer = new ResizeObserver(this.listenResize);
 
     // attach events
     toggleNavbarEvents(this, true);
@@ -457,11 +516,12 @@ export default class Navbar {
    * Window `resize` event listener.
    */
   listenResize = () => {
-    /* istanbul ignore else */
-    if (!checkNavbarView(this)) {
-      closeNavbars(getElementsByClassName(openMobileClass, getDocument(this.menu)));
-      toggleNavbarResizeEvent(this);
-    }
+    /* istanbul ignore if @preserve */
+    if (checkNavbarView(this)) return;
+    closeNavbars(
+      getElementsByClassName(openMobileClass, getDocument(this.menu)),
+    );
+    toggleNavbarResizeEvent(this);
   };
 
   /**
@@ -472,7 +532,7 @@ export default class Navbar {
     toggleNavbarEvents(this);
     toggleNavbarResizeEvent(this);
     Data.remove(this.menu, navbarComponent);
-    ObjectKeys(this).forEach(key => {
+    ObjectKeys(this).forEach((key) => {
       delete this[key];
     });
   }
