@@ -19,6 +19,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
 
+      - name: Deno Setup
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
