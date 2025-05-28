@@ -8,10 +8,18 @@ on:
       - test
       - package.json
       - .github/workflows/ci.yml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - src
+      - test
+      - package.json
+      - .github/workflows/ci.yml
 jobs:
   test:
     runs-on: ubuntu-24.04
-    name: Test on Node 22
+    name: Test on Node
     steps:
       - name: Checkout
         uses: actions/checkout@v4

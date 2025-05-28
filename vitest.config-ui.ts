@@ -22,10 +22,14 @@ export default defineConfig({
       include: ["src/ts/navbar.ts"],
     },
     browser: {
-      provider: 'playwright', // or 'webdriverio'
+      // provider: 'webdriverio', // or 'webdriverio'
       enabled: true,
-      headless: true,
-      name: 'chromium', // browser name is required
+      headless: false,
+      instances: [
+        {
+          browser: 'chromium', // browser name is required
+        }
+      ]
     },
   },
 });

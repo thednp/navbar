@@ -9,13 +9,13 @@ $dark-navbar-bg: #343a40;
 @mixin navbar-style-bs {
   .navbar-light {
     .subnav-toggle {
-      color: rgba(var(--bs-dark-rgb), .55);
+      color: rgb(var(--bs-dark-rgb), .55);
     }
 
     .open-mobile {
       > .subnav-toggle {
-        color: rgba(var(--bs-dark-rgb), .75);
-        background: rgba(var(--bs-dark-rgb), .15);
+        color: rgb(var(--bs-dark-rgb) / 75%);
+        background: rgb(var(--bs-dark-rgb) / 15%);
       }
     }
   }
@@ -23,13 +23,13 @@ $dark-navbar-bg: #343a40;
   .navbar-dark,
   .navbar:not(.navbar-light) {
     .subnav-toggle {
-      color: rgba(var(--bs-light-rgb), .55);
+      color: rgb(var(--bs-light-rgb) / 55%);
     }
 
     .open-mobile {
       > .subnav-toggle {
-        color: rgba(var(--bs-light-rgb), .75);
-        background: rgba(var(--bs-light-rgb), .15);
+        color: rgb(var(--bs-light-rgb) / 75%);
+        background: rgb(var(--bs-light-rgb) / 15%);
       }
     }
   }
@@ -48,7 +48,7 @@ $dark-navbar-bg: #343a40;
       .navbar-nav li {
         li.open, li:hover { // hover
           > a.nav-link {
-            color: rgba(var(--bs-dark-rgb), .75);
+            color: rgb(var(--bs-dark-rgb), .75);
           }
         }
       }
@@ -57,13 +57,13 @@ $dark-navbar-bg: #343a40;
     .navbar:not(.navbar-light),
     .navbar-dark {
       .subnav {
-        background-color: rgba(var(--bs-dark-rgb), 1);
+        background-color: rgb(var(--bs-dark-rgb), 1);
       }
 
       .navbar-nav li {
         li.open, li:hover { // hover
           > a.nav-link {
-            color: rgba(var(--bs-light-rgb), .75);
+            color: rgb(var(--bs-light-rgb), .75);
           }
         }
 

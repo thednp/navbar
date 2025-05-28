@@ -1,6 +1,6 @@
 {
   "name": "@thednp/navbar",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "🧭 Navbar Modern Navigation Component",
   "author": "thednp",
   "license": "MIT",
@@ -36,8 +36,8 @@
   "scripts": {
     "pre-test": "pnpm clean-coverage",
     "dev": "vite --open ./docs/index-dev.html --port 8577",
-    "test": "pnpm pre-test && vitest --config vitest.config.mts",
-    "test-ui": "pnpm pre-test && vitest --config vitest.config-ui.mts --browser=chrome",
+    "test": "pnpm pre-test && vitest --config vitest.config.ts",
+    "test-ui": "pnpm pre-test && vitest --config vitest.config-ui.ts",
     "clean-coverage": "rm -rf coverage .nyc_output",
     "badges": "npx -p dependency-version-badge update-badge typescript vite vitest",
     "format": "deno fmt src/ts",
@@ -61,7 +61,7 @@
     "compile-left-m-menu": "pnpm sass src/scss/navbar-left-menu.scss docs/src/css/navbar-left-menu.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
     "compile-right": "pnpm sass src/scss/navbar-right.scss docs/src/css/navbar-right.min.css --pkg-importer=node --style=compressed --load-path=src/scss",
     "copy-css": "cp dist/css/navbar.min.css docs/src/css/navbar.min.css",
-    "prepublishOnly": "pnpm up && pnpm format && pnpm lint && pnpm build && pnpm compile && pnpm badges"
+    "prepublishOnly": "pnpm up --latest && pnpm format && pnpm lint && pnpm build && pnpm compile && pnpm badges"
   },
   "bugs": {
     "url": "https://github.com/thednp/navbar/issues"
@@ -82,26 +82,26 @@
     "bootstrap"
   ],
   "dependencies": {
-    "@thednp/event-listener": "^2.0.8",
-    "@thednp/shorty": "^2.0.9"
+    "@thednp/event-listener": "^2.0.10",
+    "@thednp/shorty": "^2.0.11"
   },
   "devDependencies": {
-    "@types/node": "^22.9.3",
-    "@vitest/browser": "^2.1.5",
-    "@vitest/coverage-istanbul": "^2.1.5",
-    "@vitest/ui": "^2.1.5",
-    "playwright": "^1.49.0",
-    "sass": "^1.81.0",
-    "stylelint": "^16.10.0",
-    "stylelint-config-standard": "^36.0.1",
-    "stylelint-config-standard-scss": "^13.1.0",
-    "stylelint-order": "^6.0.4",
-    "stylelint-scss": "^6.10.0",
-    "typescript": "5.6.3",
-    "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.3.0",
-    "vite-plugin-strip-comments": "^0.0.4",
-    "vitest": "^2.1.5"
+    "@types/node": "^22.15.23",
+    "@vitest/browser": "^3.1.4",
+    "@vitest/coverage-istanbul": "^3.1.4",
+    "@vitest/ui": "^3.1.4",
+    "playwright": "^1.52.0",
+    "sass": "^1.89.0",
+    "stylelint": "^16.19.1",
+    "stylelint-config-standard": "^38.0.0",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-order": "^7.0.0",
+    "stylelint-scss": "^6.12.0",
+    "typescript": "5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-strip-comments": "^0.0.5",
+    "vitest": "^3.1.4"
   },
   "packageManager": "pnpm@8.6.12",
   "engines": {
